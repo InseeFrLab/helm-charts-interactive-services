@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled }}
+- You can connect to this jupyter with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- end }}
+{{- if .Values.spark.sparkui }}
+- When the spark driver is running, you can connect to the spark-ui with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.sparkHostname }})
+{{- end }}
+- Your access token is **{{ .Values.security.password }}**
+
+{{- if .Values.ingress.enabled }}
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
+
+*NOTES about deletion :*
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+- The volume associated with the following path **{{ .Values.persistence.mountPath }}** will be deleted
+- So, you should save your code to an external git repository
+- So, You should save your data to an external data repository like S3
+- You can easily create a new {{ .Chart.Name }} service, clone your code and install again some librairies you need
+{{- end }}

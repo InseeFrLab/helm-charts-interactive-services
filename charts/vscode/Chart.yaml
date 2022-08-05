@@ -1,0 +1,37 @@
+apiVersion: v2
+name: vscode
+description: A Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+keywords:
+  - VSCode
+  - Python
+  - Julia
+home: https://code.visualstudio.com/
+sources:
+  - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
+  - https://github.com/InseeFrLab/images-datascience/tree/main/python
+  - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode-python
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 1.0.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 4.5.0
+
+dependencies:
+  - name: library-chart
+    version: 1.0.0
+    repository: https://inseefrlab.github.io/helm-charts-datascience-internal
