@@ -3,6 +3,31 @@ entries:
   jupyter:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-08-05T14:35:30.908546535Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: A JupyterLab service with Python, Julia, and a collection of standard
+      data science packages.
+    digest: 157fe44598c79a1b66adbe72b761c05ddf247107ad19bdc9b0c6f668148d523b
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    name: jupyter
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-1.0.1/jupyter-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-08-05T14:29:14.485854579Z"
     dependencies:
     - name: library-chart
@@ -27,6 +52,32 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-1.0.0/jupyter-1.0.0.tgz
     version: 1.0.0
   jupyter-gpu:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2022-08-05T14:35:31.056791936Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: A JupyterLab service with Python, Julia, and a collection of standard
+      data science packages, with GPU support.
+    digest: a4192a38e4366bfe965b8afdc7e7eb964805ae0934462c80a112e02459fda596
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    - GPU
+    name: jupyter-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-gpu-1.0.1/jupyter-gpu-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     appVersion: latest
     created: "2022-08-05T14:29:14.625993252Z"
@@ -54,6 +105,34 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-gpu-1.0.0/jupyter-gpu-1.0.0.tgz
     version: 1.0.0
   jupyter-pyspark:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2022-08-05T14:35:31.178330945Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: A JupyterLab service with Python, Julia, and a collection of standard
+      data science packages. It includes PySpark, an interface for Apache Spark in
+      Python.
+    digest: dcdd67e963783468017253a8f4015e301820854318b09fbae69ecc5d72190413
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    - Spark
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-pyspark
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-pyspark-1.0.1/jupyter-pyspark-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     appVersion: latest
     created: "2022-08-05T14:29:14.757973476Z"
@@ -169,6 +248,31 @@ entries:
   vscode:
   - apiVersion: v2
     appVersion: 4.5.0
+    created: "2022-08-05T14:35:31.322207936Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: A Visual Studio Code IDE with Python, Julia, and a collection of
+      standard data science packages.
+    digest: 5762913987503ad260e38bb4fc8c4f246aadb9d255675f8b1586072ccb6557ed
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Julia
+    name: vscode
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-1.0.1/vscode-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.5.0
     created: "2022-08-05T14:29:15.300709042Z"
     dependencies:
     - name: library-chart
@@ -195,6 +299,32 @@ entries:
   vscode-gpu:
   - apiVersion: v2
     appVersion: 4.5.0
+    created: "2022-08-05T14:35:31.46274608Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: A Visual Studio Code IDE with Python, Julia, and a collection of
+      standard data science packages, with GPU support.
+    digest: 3e4216e6ffaeac907e7c711e8acead1e72df2793f1b2686138184b5ff16378de
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Julia
+    - GPU
+    name: vscode-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-gpu-1.0.1/vscode-gpu-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.5.0
     created: "2022-08-05T14:29:15.426203146Z"
     dependencies:
     - name: library-chart
@@ -219,4 +349,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-gpu-1.0.0/vscode-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-05T14:29:15.426210846Z"
+generated: "2022-08-05T14:35:31.462774282Z"
