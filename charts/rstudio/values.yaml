@@ -28,7 +28,6 @@ init:
   personalInitArgs: ""
 
 environment:
-  root: true
   user: onyxia
   group: users
 
