@@ -9,6 +9,7 @@ spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
+  serviceName: {{ include "library-chart.fullname" . }}
   selector:
     matchLabels:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
