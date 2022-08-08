@@ -53,7 +53,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["{{ tpl .Values.arg . }}"]
+          args: ["/data/{{ .Values.init.filename}} /init -w /home/onyxia/work"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME

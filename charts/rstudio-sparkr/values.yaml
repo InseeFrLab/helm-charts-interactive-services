@@ -8,8 +8,6 @@ service:
       enabled: false
       version: "inseefrlab/onyxia-rstudio-sparkr:latest"
 
-arg: "/data/{{ .Values.init.filename}} /init"
-
 spark:
   sparkui: false
   configMapName: ""

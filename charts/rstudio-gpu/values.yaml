@@ -8,8 +8,6 @@ service:
       enabled: false
       version: "inseefrlab/onyxia-rstudio:latest-gpu"
 
-arg: "/data/{{ .Values.init.filename}} /init"
-
 security:
   password: "changeme"
   networkPolicy: 
