@@ -1,8 +1,6 @@
 {{- $fullName := include "library-chart.fullname" . -}}
-{{- $volumeName := printf "%s-%s" $fullName "data" | trunc 63 | trimSuffix "-" -}}
-{{- $initContainerName := printf "%s-%s" $fullName "init-data" | trunc 63 | trimSuffix "-" -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "library-chart.fullname" . }}
   labels:
@@ -50,11 +48,9 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }} 
           command: ["/bin/sh","-c"]
-          args: ["/data/{{ .Values.init.filename}} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
+          args: ["/scripts/{{ .Values.init.filename}} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
-            - name: SHELL
-              value: /bin/bash
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
               value: {{ .Values.init.personalInit }}
@@ -99,19 +95,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /data
-              name: {{$volumeName}}
             - mountPath: /home/{{ .Values.environment.user}}/work
               name: home
-      initContainers:
-        - name: standard-init
-          image: "busybox"
-          imagePullPolicy: "IfNotPresent"
-          command: ["/bin/sh","-c"]
-          args: ["wget -O /data/{{ .Values.init.filename}} {{ .Values.init.standardInit}} && chmod +x /data/{{ .Values.init.filename}}"]
-          volumeMounts:
-          - mountPath: /data
-            name: {{$volumeName}}          
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

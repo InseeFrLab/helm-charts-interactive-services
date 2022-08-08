@@ -1,6 +1,4 @@
 {{- $fullName := include "library-chart.fullname" . -}}
-{{- $volumeName := printf "%s-%s" $fullName "data" | trunc 63 | trimSuffix "-" -}}
-{{- $initContainerName := printf "%s-%s" $fullName "init-data" | trunc 63 | trimSuffix "-" -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -32,8 +30,6 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        - name: {{$volumeName}}
-          emptyDir: {}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -53,7 +49,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["/data/{{ .Values.init.filename}} /init"]
+          args: ["/scripts/{{ .Values.init.filename}} /init"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME
@@ -68,11 +64,15 @@ spec:
               {{- end }}
             - name: PASSWORD
               value: {{ .Values.security.password }}
-            {{- if .Values.environment }}
-            - name: DEFAULT_USER
+            {{- if .Values.environment.root }}
+            - name: ROOT
+              value: "TRUE"
+            - name: PROJECT_USER
               value: {{ .Values.environment.user }}
-            - name: EDITOR_FOCUS_DIR
-              value: /home/{{ .Values.environment.user }}/work
+            - name: PROJECT_GROUP
+              value: {{ .Values.environment.group }}
+            - name: ROOT_PROJECT_DIRECTORY
+              value: /home/{{ .Values.environment.user }}
             {{- end }}
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
@@ -105,19 +105,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /data
-              name: {{$volumeName}}
-            - mountPath: /home/{{ .Values.environment.user }}
-              name: home
-      initContainers:
-        - name: standard-init
-          image: "busybox"
-          imagePullPolicy: "IfNotPresent"
-          command: ["/bin/sh","-c"]
-          args: ["wget -O /data/{{ .Values.init.filename}} {{ .Values.init.standardInit}} && chmod +x /data/{{ .Values.init.filename}}"]
-          volumeMounts:
-          - mountPath: /data
-            name: {{$volumeName}}          
+            - mountPath: /home/{{ .Values.environment.user }}/work
+              name: home        
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

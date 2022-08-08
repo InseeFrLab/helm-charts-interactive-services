@@ -1,6 +1,4 @@
 {{- $fullName := include "library-chart.fullname" . -}}
-{{- $volumeName := printf "%s-%s" $fullName "data" | trunc 63 | trimSuffix "-" -}}
-{{- $initContainerName := printf "%s-%s" $fullName "init-data" | trunc 63 | trimSuffix "-" -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -32,8 +30,6 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        - name: {{$volumeName}}
-          emptyDir: {}
         - name: config-coresite
           configMap:
             name: {{ include "library-chart.configMapNameCoreSite" . }}
@@ -64,7 +60,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["/data/{{ .Values.init.filename}} /init"]
+          args: ["/scripts/{{ .Values.init.filename}} /init"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME
@@ -120,9 +116,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /data
-              name: {{$volumeName}}
-            - mountPath: /home/rstudio
+            - mountPath: /home/{{ .Values.environment.user }}/work
               name: home
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
               subPath: core-site.xml
@@ -136,16 +130,7 @@ spec:
             - name: hive-config
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
-            {{- end }}
-      initContainers:
-        - name: standard-init
-          image: "busybox"
-          imagePullPolicy: "IfNotPresent"
-          command: ["/bin/sh","-c"]
-          args: ["wget -O /data/{{ .Values.init.filename}} {{ .Values.init.standardInit}} && chmod +x /data/{{ .Values.init.filename}}"]
-          volumeMounts:
-          - mountPath: /data
-            name: {{$volumeName}}          
+            {{- end }}         
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
