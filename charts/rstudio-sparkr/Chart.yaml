@@ -1,6 +1,6 @@
 apiVersion: v2
 name: rstudio-sparkr
-description: A RStudio service with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
+description: The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
 keywords:
   - RStudio
@@ -25,7 +25,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.0
+version: 1.0.1
 
 dependencies:
   - name: library-chart
