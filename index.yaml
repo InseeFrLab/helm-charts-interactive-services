@@ -251,6 +251,28 @@ entries:
     version: 1.0.0
   rstudio:
   - apiVersion: v2
+    created: "2022-08-08T13:08:24.114389337Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages.
+    digest: 59a0303fdbab3be935b1e7434e1244a139ffd98e6323facfa6e32bfe716d539e
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-1.0.2/rstudio-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-08-08T11:43:50.412179936Z"
     dependencies:
     - name: library-chart
@@ -295,6 +317,30 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-1.0.0/rstudio-1.0.0.tgz
     version: 1.0.0
   rstudio-gpu:
+  - apiVersion: v2
+    created: "2022-08-08T13:08:24.235168175Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages,
+      and GPU support.
+    digest: bd5cb11fdaf0ebb340a43c27d689c4c5575b3a9d3221162aa821b42e7942c957
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - GPU
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-gpu-1.0.2/rstudio-gpu-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-08-08T11:43:50.571525197Z"
     dependencies:
@@ -344,6 +390,32 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-gpu-1.0.0/rstudio-gpu-1.0.0.tgz
     version: 1.0.0
   rstudio-sparkr:
+  - apiVersion: v2
+    created: "2022-08-08T13:08:24.35204656Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: b4075883a06477e174a0c0b284518ba0acaf275588d479407822c99f6bcdc569
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-sparkr
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-sparkr-1.0.2/rstudio-sparkr-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-08-08T11:43:50.713555743Z"
     dependencies:
@@ -551,4 +623,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-gpu-1.0.0/vscode-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-08T11:43:50.97125306Z"
+generated: "2022-08-08T13:08:24.352344064Z"
