@@ -17,13 +17,20 @@ spark:
     spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'                
     spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
     spark.kubernetes.namespace: '{{ .Release.Namespace }}'
+    spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
+    spark.driver.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
+    spark.executor.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
+  userConfig:
     spark.dynamicAllocation.enabled: "true"
     spark.dynamicAllocation.initialExecutors: "1"
     spark.dynamicAllocation.minExecutors: "1"
     spark.dynamicAllocation.maxExecutors: "10"
+    spark.executor.memory: "2g"
+    spark.driver.memory: "2g"
     spark.dynamicAllocation.executorAllocationRatio: "1"
     spark.dynamicAllocation.shuffleTracking.enabled: "true"
-    spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
+    spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled: "true"
+
 
 security:
   password: "changeme"
