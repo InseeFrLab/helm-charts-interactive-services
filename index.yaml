@@ -698,6 +698,31 @@ entries:
   vscode:
   - apiVersion: v2
     appVersion: 4.5.0
+    created: "2022-08-31T11:30:39.102127468Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The Visual Studio Code IDE with Python, Julia, and a collection of
+      standard data science packages.
+    digest: dc8fdc5d65c12ff41d360900f8ace2396490e5a75bd170c096140d9f9c166f02
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Julia
+    name: vscode
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-1.2.0/vscode-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 4.5.0
     created: "2022-08-08T16:04:13.834830454Z"
     dependencies:
     - name: library-chart
@@ -952,4 +977,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-gpu-1.0.0/vscode-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-16T21:16:50.359720667Z"
+generated: "2022-08-31T11:30:39.102212973Z"
