@@ -46,8 +46,7 @@ security:
     ip: "0.0.0.0/0"  
 
 init:
-  standardInit: "{{k8s.initScriptUrl}}"
-  filename: "onyxia-init.sh"
+  standardInitPath: "/opt/onyxia-init.sh"
   personalInit: ""
   personalInitArgs: ""
 

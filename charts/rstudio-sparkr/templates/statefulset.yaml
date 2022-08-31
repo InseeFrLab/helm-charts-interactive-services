@@ -60,7 +60,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["/scripts/{{ .Values.init.filename}} /init"]
+          args: ["{{ .Values.init.standardInitPath }} /init"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME

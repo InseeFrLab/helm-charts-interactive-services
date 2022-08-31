@@ -577,19 +577,6 @@
             "description": "Init parameters",
             "type": "object",
             "properties": {
-                "standardInit": {
-                    "type": "string",
-                    "description": "initialization script",
-                    "default": "",
-                    "x-form": {
-                        "hidden": true,
-                        "value": "{{k8s.initScriptUrl}}"
-                    },
-                    "x-onyxia": {
-                        "hidden": true,
-                        "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
-                    }
-                },
                 "personalInit": {
                     "type": "string",
                     "description": "initialization script",
