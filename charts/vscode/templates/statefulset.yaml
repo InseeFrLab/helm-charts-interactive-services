@@ -47,7 +47,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }} 
           command: ["/bin/sh","-c"]
-          args: ["/scripts/{{ .Values.init.filename}} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
+          args: ["{{ .Values.init.standardInitPath}} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             {{- if .Values.init.personalInit }}
