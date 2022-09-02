@@ -437,6 +437,28 @@ entries:
     version: 1.0.0
   rstudio:
   - apiVersion: v2
+    created: "2022-09-02T15:34:13.41867487Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages.
+    digest: 73dbc853669470f90082ac0f79cf48520deb57747018d41f8c2f7bcf26f53ef0
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-1.2.1/rstudio-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     created: "2022-08-31T12:17:48.547826608Z"
     dependencies:
     - name: library-chart
@@ -570,6 +592,30 @@ entries:
     version: 1.0.0
   rstudio-gpu:
   - apiVersion: v2
+    created: "2022-09-02T15:34:13.720340223Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages,
+      and GPU support.
+    digest: 1081be988f8a42dc1a188883bab8348ef50a7331e9739624eb0b09bc46edee3f
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - GPU
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-gpu-1.2.1/rstudio-gpu-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     created: "2022-08-31T12:17:48.71473666Z"
     dependencies:
     - name: library-chart
@@ -690,6 +736,32 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-gpu-1.0.0/rstudio-gpu-1.0.0.tgz
     version: 1.0.0
   rstudio-sparkr:
+  - apiVersion: v2
+    created: "2022-09-02T15:34:14.022544975Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.0
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: ec11874f2cbd87f902a07ceba44382bae6618778bfd6156390011016a429ad4e
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-sparkr
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-sparkr-1.2.1/rstudio-sparkr-1.2.1.tgz
+    version: 1.2.1
   - apiVersion: v2
     created: "2022-08-31T12:17:48.883503959Z"
     dependencies:
@@ -1179,4 +1251,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-gpu-1.0.0/vscode-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-31T12:17:49.188299442Z"
+generated: "2022-09-02T15:34:14.022814974Z"
