@@ -1,7 +1,7 @@
 {{- if .Values.ingress.enabled }}
 - You can connect to this rstudio with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- end }}
-- The login is **rstudio**
+- The login is **{{ .Values.environment.user }}**
 - The password is **{{ .Values.security.password }}**
 
 {{- if .Values.ingress.enabled }}

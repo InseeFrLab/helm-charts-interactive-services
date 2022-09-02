@@ -4,7 +4,7 @@
 {{- if .Values.spark.sparkui }}
 - When the spark driver is running, you can connect to the spark-ui with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.sparkHostname }})
 {{- end }}
-- The login is **rstudio**
+- The login is **{{ .Values.environment.user }}**
 - The password is **{{ .Values.security.password }}**
 
 {{- if .Values.ingress.enabled }}
