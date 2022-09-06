@@ -30,8 +30,6 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        - name: {{$volumeName}}
-          emptyDir: {}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
