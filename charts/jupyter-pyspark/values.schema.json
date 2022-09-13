@@ -20,7 +20,8 @@
                         "description": "supported versions",
                         "type": "string",
                         "enum": [
-                            "inseefrlab/onyxia-jupyter-pyspark:latest"
+                            "inseefrlab/onyxia-jupyter-pyspark:latest",
+                            "inseefrlab/trevas-jupyter:0.1.3"
                                 ],
                         "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                         "hidden": {
