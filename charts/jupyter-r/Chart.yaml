@@ -1,17 +1,15 @@
 apiVersion: v2
-name: vscode-gpu
-description: The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
-icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+name: jupyter-r
+description: The JupyterLab IDE with an R kernel, and a collection of standard data science packages.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
 keywords:
-  - VSCode
-  - Python
-  - Julia
-  - GPU
-home: https://code.visualstudio.com/
+  - Jupyter
+  - R
+home: https://jupyter.org/
 sources:
-  - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
-  - https://github.com/InseeFrLab/images-datascience/tree/main/python
-  - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode-gpu
+  - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter-r
+  - https://github.com/InseeFrLab/images-datascience/tree/main/r-datascience
+  - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-r
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -25,12 +23,12 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.3.0
+version: 1.0.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 4.6.0
+appVersion: latest
 
 dependencies:
   - name: library-chart

@@ -39,6 +39,11 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        {{- if .Values.discovery.hive }}
+        - name: hive-config
+          configMap:
+            name: {{ include "library-chart.configMapNameHive" . }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -46,6 +51,8 @@ spec:
       serviceAccountName: {{ include "library-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      subdomain: {{ include "library-chart.fullname" . }}
+      hostname: jupyter
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -54,11 +61,31 @@ spec:
           image: "{{ .Values.service.image.custom.version }}"
           {{- else }}
           image: "{{ .Values.service.image.version }}"
-          {{- end }} 
+          {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
+          args: ["{{ .Values.init.standardInitPath }} jupyter lab --no-browser --ip '0.0.0.0' --LabApp.token='$(PASSWORD)'"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
+            - name: KUBERNETES_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: IMAGE_NAME
+              {{- if .Values.service.image.custom.enabled }}
+              value: "{{ .Values.service.image.custom.version }}"
+              {{- else }}
+              value: "{{ .Values.service.image.version }}"
+              {{- end }}
+            - name: NB_USER
+              value: {{ .Values.environment.user }}
+            - name: PASSWORD
+              value: {{ .Values.security.password }}
+            - name: PROJECT_USER
+              value: {{ .Values.environment.user }}
+            - name: PROJECT_GROUP
+              value: {{ .Values.environment.group }}
+            - name: ROOT_PROJECT_DIRECTORY
+              value: /home/{{ .Values.environment.user }}/work
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
               value: {{ .Values.init.personalInit }}
@@ -67,14 +94,10 @@ spec:
             - name: PERSONAL_INIT_ARGS
               value: {{ .Values.init.personalInitArgs }}
             {{- end }}
-            - name: PASSWORD
-              value: {{ .Values.security.password }}  
-            - name: PROJECT_USER
-              value: {{ .Values.environment.user }}
-            - name: PROJECT_GROUP
-              value: {{ .Values.environment.group }}
-            - name: ROOT_PROJECT_DIRECTORY
-              value: /home/{{ .Values.environment.user }}/work       
+            {{- if .Values.environment.root }}
+            - name: GRANT_SUDO
+              value: "yes"
+            {{- end }}          
           envFrom: 
             {{- if .Values.s3.enabled }}
             - configMapRef:
@@ -88,9 +111,13 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameGit" . }}
             {{- end }}
+            {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
+            - configMapRef:
+                name: {{ include "library-chart.configMapNameMLFlow" . }}
+            {{- end }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8888
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -100,11 +127,21 @@ spec:
             httpGet:
               path: /
               port: http
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            {{- toYaml .Values.startupProbe | nindent 12 }}     
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user}}/work
-              name: home         
+              name: home
+            {{- if .Values.discovery.hive }}
+            - name: hive-config
+              mountPath: /opt/hive/conf/hive-site.xml
+              subPath: hive-site.xml
+            {{- end }}      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
