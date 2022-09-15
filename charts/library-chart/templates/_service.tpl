@@ -24,6 +24,14 @@ spec:
       protocol: TCP
       name: user
     {{- end }}
+    {{ if .Values.spark }}
+    {{ if .Values.spark.sparkui }}
+    - port: {{ .Values.networking.sparkui.port }}
+      targetPort: {{ .Values.networking.sparkui.port }}
+      protocol: TCP
+      name: sparkui
+    {{- end }}
+    {{- end }}
   selector:
     {{- include "library-chart.selectorLabels" . | nindent 4 }}
 {{- end }}
