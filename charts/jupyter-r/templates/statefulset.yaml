@@ -106,10 +106,6 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameGit" . }}
             {{- end }}
-            {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameMLFlow" . }}
-            {{- end }}
           ports:
             - name: http
               containerPort: 8888
