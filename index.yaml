@@ -3,6 +3,34 @@ entries:
   jupyter-pyspark:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-09-15T14:20:43.401667246Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.1
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard
+      data science packages. It includes PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 8d96eb3d96ba535a163691614acb41a5dd07dbafde92f7a69cf155370c95e37a
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    - Spark
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-pyspark
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-pyspark-1.3.1/jupyter-pyspark-1.3.1.tgz
+    version: 1.3.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-09-13T09:10:42.770387263Z"
     dependencies:
     - name: library-chart
@@ -710,6 +738,32 @@ entries:
     version: 1.0.0
   rstudio-sparkr:
   - apiVersion: v2
+    created: "2022-09-15T14:20:43.54302189Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.1
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: b455e8524ed43afd6b64aa3e0249cb020902705d35df78908e48a822019598af
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-sparkr
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-sparkr-1.2.2/rstudio-sparkr-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v2
     created: "2022-09-02T15:34:14.022544975Z"
     dependencies:
     - name: library-chart
@@ -944,4 +998,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-15T14:18:53.697310322Z"
+generated: "2022-09-15T14:20:43.543249691Z"
