@@ -68,21 +68,6 @@ git:
   repository: ""
   branch: ""
   
-#active ou non la recherche d'un hiveMetastore dans le namespace
-# see configmap-hive.yaml et helpers template
-discovery:
-  hive: true
-  mlflow: true
-
-hive:
-  configMapName: ""
-
-mlflow:
-  configMapName: ""
-
-coresite:
-  configMapName: ""
-  
   # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1

@@ -55,24 +55,6 @@
                 }
             }
         },
-        "discovery": {
-            "description": "configure your service to autodetect some ressources.",
-            "type": "object",
-            "properties": {
-              "hive": {
-                "type": "boolean",
-                "title": "Enable hive metastore discovery",
-                "description": "discover your hive metastore service",
-                "default": true
-              },
-              "mlflow": {
-                "type": "boolean",
-                "title": "Enable mlflow discovery",
-                "description": "discover your mlflow service",
-                "default": true
-              }
-            }
-          },
           "resources": {
             "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
             "type": "object",

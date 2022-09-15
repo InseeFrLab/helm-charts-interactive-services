@@ -39,11 +39,6 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        {{- if .Values.discovery.hive }}
-        - name: hive-config
-          configMap:
-            name: {{ include "library-chart.configMapNameHive" . }}
-        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -136,12 +131,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user}}/work
-              name: home
-            {{- if .Values.discovery.hive }}
-            - name: hive-config
-              mountPath: /opt/hive/conf/hive-site.xml
-              subPath: hive-site.xml
-            {{- end }}      
+              name: home   
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
