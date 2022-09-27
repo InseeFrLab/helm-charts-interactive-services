@@ -3,6 +3,34 @@ entries:
   jupyter-pyspark:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-09-27T07:49:57.208409158Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.1
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard
+      data science packages. It includes PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 83c99ef2b931f7ad11cd52448544e85bf5fff14109b3b42a1371eb8c24f64a2a
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    - Spark
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-pyspark
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-pyspark-1.4.1/jupyter-pyspark-1.4.1.tgz
+    version: 1.4.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-09-15T14:20:43.401667246Z"
     dependencies:
     - name: library-chart
@@ -998,4 +1026,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-15T14:20:43.543249691Z"
+generated: "2022-09-27T07:49:57.208500758Z"
