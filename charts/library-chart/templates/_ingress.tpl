@@ -1,5 +1,18 @@
 {{/* vim: set filetype=mustache: */}}
 
+{{/*
+Returns true if the ingressClassname field is supported
+Usage:
+{{ include "common.ingress.supportsIngressClassname" . }}
+*/}}
+{{- define "library-chart.ingress.supportsIngressClassname" -}}
+{{- if semverCompare "<1.18-0" (include "common.capabilities.kubeVersion" .) -}}
+{{- print "false" -}}
+{{- else -}}
+{{- print "true" -}}
+{{- end -}}
+{{- end -}}
+
 {{/* Ingress annotations */}}
 {{- define "library-chart.ingress.annotations" -}}
 {{- with .Values.ingress.annotations }}
@@ -33,6 +46,9 @@ metadata:
   annotations:
     {{- include "library-chart.ingress.annotations" . | nindent 4 }}
 spec:
+  {{- if and .Values.ingress.ingressClassName (eq "true" (include "library-chart.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  {{- end }}
 {{- if .Values.ingress.tls }}
   tls:
     - hosts:
@@ -67,6 +83,9 @@ metadata:
   annotations:
     {{- include "library-chart.ingress.annotations" . | nindent 4 }}
 spec:
+  {{- if and .Values.ingress.ingressClassName (eq "true" (include "library-chart.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  {{- end }}
 {{- if .Values.ingress.tls }}
   tls:
     - hosts:
@@ -102,6 +121,9 @@ metadata:
   annotations:
     {{- include "library-chart.ingress.annotations" . | nindent 4 }}
 spec:
+  {{- if and .Values.ingress.ingressClassName (eq "true" (include "library-chart.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  {{- end }}
 {{- if .Values.ingress.tls }}
   tls:
     - hosts:
