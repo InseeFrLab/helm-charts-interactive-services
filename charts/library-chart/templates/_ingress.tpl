@@ -6,7 +6,7 @@ Usage:
 {{ include "common.ingress.supportsIngressClassname" . }}
 */}}
 {{- define "library-chart.ingress.supportsIngressClassname" -}}
-{{- if semverCompare "<1.18-0" (include "common.capabilities.kubeVersion" .) -}}
+{{- if semverCompare "<1.18-0" (include "library-chart.capabilities.kubeVersion" .) -}}
 {{- print "false" -}}
 {{- else -}}
 {{- print "true" -}}
