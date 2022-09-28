@@ -381,6 +381,14 @@ entries:
     version: 1.0.0
   library-chart:
   - apiVersion: v2
+    created: "2022-09-28T13:49:06.894717931Z"
+    digest: 91591a81af6d64df709fe35fa7678f83645b6a135d4ee663a142bedb39e7b272
+    name: library-chart
+    type: library
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/library-chart-1.0.2/library-chart-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-09-15T14:18:53.69714462Z"
     digest: df415ba24de4cae23910d6e32df0d87660fa9457c576294ed1b6f58e8b8b73b7
     name: library-chart
@@ -1026,4 +1034,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-27T07:49:57.208500758Z"
+generated: "2022-09-28T13:49:06.894797031Z"
