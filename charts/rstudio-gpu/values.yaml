@@ -118,6 +118,7 @@ networking:
 ingress:
   enabled: true
   tls: true
+  ingressClassName: ""
   annotations:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
