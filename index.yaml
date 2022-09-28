@@ -613,6 +613,30 @@ entries:
     version: 1.0.0
   rstudio-gpu:
   - apiVersion: v2
+    created: "2022-09-28T14:25:40.940715657Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.3
+    description: The RStudio IDE with a collection of standard data science packages,
+      and GPU support.
+    digest: e6bc5932033beb3d18adc8d2bf7e1a117fa7924b655219a11d195b9f2b3ae606
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - GPU
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-gpu-1.3.2/rstudio-gpu-1.3.2.tgz
+    version: 1.3.2
+  - apiVersion: v2
     created: "2022-09-28T13:55:44.056587408Z"
     dependencies:
     - name: library-chart
@@ -1066,4 +1090,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-28T14:21:34.284281745Z"
+generated: "2022-09-28T14:25:40.940821958Z"
