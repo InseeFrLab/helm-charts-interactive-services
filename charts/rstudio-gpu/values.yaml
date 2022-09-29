@@ -119,8 +119,7 @@ ingress:
   enabled: true
   tls: true
   ingressClassName: ""
-  annotations:
-    kubernetes.io/ingress.class: nginx
+  annotations: []
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local
   userHostname: chart-example-user.local
