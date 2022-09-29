@@ -1237,6 +1237,32 @@ entries:
   vscode-python-gpu:
   - apiVersion: v2
     appVersion: 4.6.0
+    created: "2022-09-29T10:00:10.671797366Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.3
+    description: The Visual Studio Code IDE with Python, Julia, and a collection of
+      standard data science packages, with GPU support.
+    digest: d603a7756bab71aa4c0acf68c0c71081829645a1811d08768a1b84d5d6565495
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Julia
+    - GPU
+    name: vscode-python-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/vscode
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/vscode-gpu
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.1/vscode-python-gpu-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.6.0
     created: "2022-09-14T13:39:33.326693042Z"
     dependencies:
     - name: library-chart
@@ -1261,4 +1287,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-29T09:53:13.218811124Z"
+generated: "2022-09-29T10:00:10.672091969Z"
