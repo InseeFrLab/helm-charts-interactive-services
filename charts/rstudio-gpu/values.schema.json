@@ -229,20 +229,20 @@
                         "x-onyxia": {
                             "overwriteDefaultWith": "region.defaultNetworkPolicy"
                         }
+                      },
+                      "from": {
+                        "type": "array",
+                        "description": "Array of source allowed to have network access to your service",
+                        "default" : [], 
+                        "x-form": {
+                          "hidden": true,
+                          "value": "{{region.from}}"
+                        },
+                        "x-onyxia": {
+                            "hidden": true,
+                            "overwriteDefaultWith": "region.from"
+                        }
                       }
-                    }
-                },
-                "from": {
-                    "type": "array",
-                    "description": "Array of source allowed to have network access to your service",
-                    "default" : [], 
-                    "x-form": {
-                      "hidden": true,
-                      "value": "{{region.from}}"
-                    },
-                    "x-onyxia": {
-                        "hidden": true,
-                        "overwriteDefaultWith": "region.from"
                     }
                 }
             }
