@@ -12,11 +12,7 @@ security:
   password: "changeme"
   networkPolicy:
     enabled: false
-    from:
-      - ipBlock:
-          cidr: 10.233.103.0/32
-      - ipBlock:
-          cidr: 10.233.111.0/32
+    from: []
   allowlist:
     enabled: true
     ip: "0.0.0.0/0"
@@ -112,8 +108,8 @@ networking:
 ingress:
   enabled: true
   tls: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
+  ingressClassName: ""
+  annotations: []
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local
   userHostname: chart-example-user.local
