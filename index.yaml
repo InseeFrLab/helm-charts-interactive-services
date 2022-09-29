@@ -902,6 +902,32 @@ entries:
     version: 1.0.0
   rstudio-sparkr:
   - apiVersion: v2
+    created: "2022-09-29T09:19:16.074088739Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.3
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: 6c2a1920e1a7e6bb61e084e19bc9c6af3ee19b59834cb7b12c25f1b7098ac4f8
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+    - https://github.com/InseeFrLab/images-datascience/tree/main/spark
+    - https://github.com/InseeFrLab/images-datascience/tree/main/r
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-sparkr
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-sparkr-1.2.3/rstudio-sparkr-1.2.3.tgz
+    version: 1.2.3
+  - apiVersion: v2
     created: "2022-09-15T14:20:43.54302189Z"
     dependencies:
     - name: library-chart
@@ -1162,4 +1188,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-29T08:52:42.827316844Z"
+generated: "2022-09-29T09:19:16.074187839Z"
