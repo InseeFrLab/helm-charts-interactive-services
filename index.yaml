@@ -256,6 +256,31 @@ entries:
   jupyter-python:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-09-29T10:26:51.366992766Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+      version: 1.0.3
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard
+      data science packages.
+    digest: 6e55d8381353a4a07d2ca95aed9ad1b085c00e3a905e25201efae417bcfe4cad
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Julia
+    name: jupyter-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience/tree/main/jupyter-python
+    - https://github.com/InseeFrLab/images-datascience/tree/main/python-datascience
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/jupyter-python
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-python-1.0.1/jupyter-python-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-09-14T13:02:38.856192315Z"
     dependencies:
     - name: library-chart
@@ -1337,4 +1362,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/vscode-python-gpu-1.0.0/vscode-python-gpu-1.0.0.tgz
     version: 1.0.0
-generated: "2022-09-29T10:23:05.219336239Z"
+generated: "2022-09-29T10:26:51.367130364Z"
