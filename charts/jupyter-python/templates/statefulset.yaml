@@ -92,6 +92,10 @@ spec:
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
+            {{- if .Values.init.regionInit }}
+            - name: REGION_INIT_SCRIPT
+              value: {{ .Values.init.regionInit }}
+            {{- end }}
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
               value: {{ .Values.init.personalInit }}

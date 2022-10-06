@@ -634,21 +634,34 @@
               }
             }
           },
-        "init": {
+          "init": {
             "description": "Init parameters",
             "type": "object",
             "properties": {
-                "personalInit": {
-                    "type": "string",
-                    "description": "initialization script",
-                    "default": ""
+              "regionInit": {
+                "type": "string",
+                "description": "region initialization script",
+                "default": "",
+                "x-form": {
+                  "hidden": true,
+                  "value": "{{k8s.initScriptUrl}}"
                 },
-                "personalInitArgs": {
-                    "type": "string",
-                    "description": "args for initialization script",
-                    "default": ""
+                "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
                 }
+              },
+              "personalInit": {
+                "type": "string",
+                "description": "user initialization script",
+                "default": ""
+              },
+              "personalInitArgs": {
+                "type": "string",
+                "description": "args for user initialization script",
+                "default": ""
+              }
             }
-        }
+          }
     }
 }
