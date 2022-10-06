@@ -602,6 +602,19 @@
             "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
           }
         },
+        "regionInitCheckSum": {
+          "type": "string",
+          "description": "region initialization script",
+          "default": "",
+          "x-form": {
+            "hidden": true,
+            "value": "{{k8s.initScriptCheckSum}}"
+          },
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptCheckSum}}"
+          }
+        },
         "personalInit": {
           "type": "string",
           "description": "user initialization script",
