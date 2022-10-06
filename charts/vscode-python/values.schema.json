@@ -589,14 +589,27 @@
       "description": "Init parameters",
       "type": "object",
       "properties": {
+        "regionInit": {
+          "type": "string",
+          "description": "region initialization script",
+          "default": "",
+          "x-form": {
+            "hidden": true,
+            "value": "{{k8s.initScriptUrl}}"
+          },
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
+          }
+        },
         "personalInit": {
           "type": "string",
-          "description": "initialization script",
+          "description": "user initialization script",
           "default": ""
         },
         "personalInitArgs": {
           "type": "string",
-          "description": "args for initialization script",
+          "description": "args for user initialization script",
           "default": ""
         }
       }

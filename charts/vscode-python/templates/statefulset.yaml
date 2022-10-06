@@ -59,6 +59,10 @@ spec:
           args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
+            {{- if .Values.init.regionInit }}
+            - name: REGION_INIT_SCRIPT
+              value: {{ .Values.init.regionInit }}
+            {{- end }}
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
               value: {{ .Values.init.personalInit }}
