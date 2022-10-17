@@ -69,7 +69,7 @@ spec:
           image: "{{ .Values.service.image.version }}"
           {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["{{ .Values.init.standardInitPath }} jupyter lab --no-browser --ip '0.0.0.0' --LabApp.token='$(PASSWORD)'"]
+          args: ["{{ .Values.init.standardInitPath }} jupyter lab --no-browser --ip '0.0.0.0' --LabApp.token='$(PASSWORD)' --ContentsManager.allow_hidden=True"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME
