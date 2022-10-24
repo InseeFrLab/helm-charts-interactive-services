@@ -1,0 +1,60 @@
+jupyter-python:
+  jupyter-python-gpu:
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
+    images:
+      - inseefrlab/onyxia-jupyter-python:py3.10.4-gpu
+      - inseefrlab/onyxia-jupyter-python:py3.9.13-gpu
+  jupyter-pytorch:
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
+    images:
+      - inseefrlab/onyxia-jupyter-pytorch:py3.10.4
+      - inseefrlab/onyxia-jupyter-pytorch:py3.9.13
+  jupyter-pytorch-gpu:
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
+    images:
+      - inseefrlab/onyxia-jupyter-pytorch:py3.10.4-gpu
+      - inseefrlab/onyxia-jupyter-pytorch:py3.9.13-gpu
+  jupyter-tensorflow:
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
+    images:
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.10.4
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.9.13
+  jupyter-tensorflow-gpu:
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+    images:
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.9.13-gpu
+
+rstudio:
+  rstudio-gpu:
+    description: The RStudio IDE with a collection of standard data science packages, with GPU support.
+    images:
+      - inseefrlab/onyxia-rstudio:ds-r4.2.3-gpu
+      - inseefrlab/onyxia-rstudio:ds-r4.1.2-gpu
+
+vscode-python:
+  vscode-python-gpu:
+    description: The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
+    images:
+      - inseefrlab/onyxia-vscode-python:py3.10.4-gpu
+      - inseefrlab/onyxia-vscode-python:py3.9.13-gpu
+  vscode-pytorch:
+    description: The VSCode IDE with Python and the deep-learning framework PyTorch.
+    images:
+      - inseefrlab/onyxia-vscode-pytorch:py3.10.4
+      - inseefrlab/onyxia-vscode-pytorch:py3.9.13
+  vscode-pytorch-gpu:
+    description: The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU support.
+    images:
+      - inseefrlab/onyxia-vscode-pytorch:py3.10.4-gpu
+      - inseefrlab/onyxia-vscode-pytorch:py3.9.13-gpu
+  vscode-tensorflow:
+    description: The VSCode IDE with Python and the deep-learning framework TensorFlow.
+    images:
+      - inseefrlab/onyxia-vscode-tensorflow:py3.10.4
+      - inseefrlab/onyxia-vscode-tensorflow:py3.9.13
+  vscode-tensorflow-gpu:
+    description: The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+    images:
+      - inseefrlab/onyxia-vscode-tensorflow:py3.10.4-gpu
+      - inseefrlab/onyxia-vscode-tensorflow:py3.9.13-gpu
