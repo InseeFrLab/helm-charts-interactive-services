@@ -1,0 +1,19 @@
+apiVersion: v2
+name: jupyter-pytorch
+description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+keywords:
+- Jupyter
+- Python
+- Julia
+home: https://jupyter.org/
+sources:
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
+type: application
+version: 1.3.0
+appVersion: latest
+dependencies:
+- name: library-chart
+  version: 1.0.3
+  repository: https://inseefrlab.github.io/helm-charts-datascience-internal

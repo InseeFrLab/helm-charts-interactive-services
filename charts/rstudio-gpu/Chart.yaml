@@ -1,0 +1,19 @@
+apiVersion: v2
+name: rstudio-gpu
+description: The RStudio IDE with a collection of standard data science packages,
+  with GPU support.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+keywords:
+- RStudio
+- R
+home: https://www.rstudio.com/
+sources:
+- https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
+- https://github.com/InseeFrLab/images-datascience/tree/main/r
+- https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio
+type: application
+version: 1.4.0
+dependencies:
+- name: library-chart
+  version: 1.0.3
+  repository: https://inseefrlab.github.io/helm-charts-datascience-internal

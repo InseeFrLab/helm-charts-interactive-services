@@ -1,0 +1,11 @@
+{{- if .Values.ingress.enabled }}
+- You can connect to this vscode with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- end }}
+- Your access token is **{{ .Values.security.password }}**
+
+{{- if .Values.ingress.enabled }}
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
