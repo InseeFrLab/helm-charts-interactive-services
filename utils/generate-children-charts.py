@@ -1,7 +1,8 @@
 """Generate children charts from parent template."""
-import yaml
 import json
 import shutil
+
+import yaml
 
 
 with open("charts/children.yaml", "r") as file_in:

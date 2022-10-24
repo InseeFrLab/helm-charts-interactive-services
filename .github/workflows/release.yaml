@@ -28,5 +28,6 @@ jobs:
 
       - name: Generate children charts
         run: |
+          pip install pyyaml
           python3 utils/generate-children-charts.py
           git status
