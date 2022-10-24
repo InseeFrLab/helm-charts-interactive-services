@@ -2,6 +2,8 @@ name: Release Charts
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   release:
@@ -34,12 +36,12 @@ jobs:
           git commit -m "Automated changes"
           git push
 
-      # - name: Install Helm
-      #   uses: azure/setup-helm@v3
-      #   with:
-      #     version: v3.8.1
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.8.1
 
-      # - name: Run chart-releaser
-      #   uses: helm/chart-releaser-action@v1.4.1
-      #   env:
-      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.4.1
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
