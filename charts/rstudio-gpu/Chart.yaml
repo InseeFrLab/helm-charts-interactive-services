@@ -8,11 +8,10 @@ keywords:
 - R
 home: https://www.rstudio.com/
 sources:
-- https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
-- https://github.com/InseeFrLab/images-datascience/tree/main/r
-- https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
-version: 1.4.0
+version: 1.4.1
 dependencies:
 - name: library-chart
   version: 1.0.3
