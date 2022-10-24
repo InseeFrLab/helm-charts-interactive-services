@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-pyspark:latest"
+    version: "inseefrlab/onyxia-jupyter-pyspark"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-pyspark:latest"
+      version: "inseefrlab/onyxia-jupyter-pyspark"
 
 spark:
   sparkui: false
