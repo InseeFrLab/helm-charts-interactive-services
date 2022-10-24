@@ -30,4 +30,6 @@ jobs:
         run: |
           pip install pyyaml
           python3 utils/generate-children-charts.py
-          git status
+          git add -A
+          git commit -m "Automated changes"
+          git push
