@@ -28,7 +28,17 @@ jobs:
         with:
           version: v3.8.1
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.1
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
+      - name: Generate children charts
+        run: |
+          python3 utils/generate-children-charts.py
+          git status
+
+      # - name: Run chart-releaser
+      #   uses: helm/chart-releaser-action@v1.4.1
+      #   env:
+      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
