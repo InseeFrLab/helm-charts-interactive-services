@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-python:latest"
+    version: "inseefrlab/onyxia-jupyter-python"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-python:latest"
+      version: "inseefrlab/onyxia-jupyter-python"
 
 security:
   password: "changeme"
