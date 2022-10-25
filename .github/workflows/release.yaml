@@ -36,7 +36,6 @@ jobs:
             git add -A
             git commit -m "Automated changes"
             git push
-            git pull
           fi
 
       - name: Install Helm

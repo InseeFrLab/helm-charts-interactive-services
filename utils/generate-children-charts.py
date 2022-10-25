@@ -37,7 +37,7 @@ for parent in parameters:
         child_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["default"] = images_child[0]
         child_schema["properties"]["service"]["properties"]["image"]["properties"]["custom"]["properties"]["version"]["default"] = images_child[0]
 
-        # Add gpu config to child schema
+        # Add gpu config to child schema of gpu images
         if child.endswith("-gpu"):
             gpu_limits = {
                 "description": "GPU to allocate to this instance. This is also requested",
