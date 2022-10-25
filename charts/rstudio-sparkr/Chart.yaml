@@ -8,10 +8,8 @@ keywords:
   - Spark
 home: https://www.rstudio.com/
 sources:
-  - https://github.com/InseeFrLab/images-datascience/tree/main/rstudio
-  - https://github.com/InseeFrLab/images-datascience/tree/main/spark
-  - https://github.com/InseeFrLab/images-datascience/tree/main/r
-  - https://github.com/InseeFrLab/helm-charts-datascience-internal/tree/main/charts/rstudio-sparkr
+  - https://github.com/InseeFrLab/images-datascience
+  - https://github.com/InseeFrLab/helm-charts-interactive-services
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -25,9 +23,9 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.3.2
+version: 1.3.3
 
 dependencies:
   - name: library-chart
     version: 1.0.3
-    repository: https://inseefrlab.github.io/helm-charts-datascience-internal
+    repository: https://inseefrlab.github.io/helm-charts-interactive-services
