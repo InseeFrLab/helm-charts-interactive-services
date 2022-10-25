@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-rstudio-sparkr:latest"
+    version: ""
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio-sparkr:latest"
+      version: ""
 
 spark:
   sparkui: false
