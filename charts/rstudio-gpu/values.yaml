@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-rstudio:latest-gpu"
+    version: "inseefrlab/onyxia-rstudio:latest"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio:latest-gpu"
+      version: "inseefrlab/onyxia-rstudio:latest"
 
 security:
   password: "changeme"
@@ -24,7 +24,6 @@ init:
   personalInitArgs: ""
 
 environment:
-  root: true
   user: onyxia
   group: users
 
@@ -85,7 +84,7 @@ serviceAccount:
   name: ""
 
 kubernetes:
-  enable: true
+  enabled: true
   role: "view"
 
 podAnnotations: {}
@@ -115,7 +114,6 @@ networking:
 ingress:
   enabled: true
   tls: true
-  ingressClassName: ""
   annotations: []
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local

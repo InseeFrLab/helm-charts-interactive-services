@@ -1,0 +1,20 @@
+apiVersion: v2
+name: vscode-tensorflow-gpu
+description: The VSCode IDE with Python and the deep-learning framework TensorFlow,
+  with GPU support.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+keywords:
+- VSCode
+- Python
+- Julia
+home: https://code.visualstudio.com/
+sources:
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
+type: application
+version: 1.1.2
+appVersion: 4.7.1
+dependencies:
+- name: library-chart
+  version: 1.0.3
+  repository: https://inseefrlab.github.io/helm-charts-datascience-internal

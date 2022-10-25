@@ -23,6 +23,19 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+
+      - name: Generate children charts
+        run: |
+          pip install pyyaml
+          python3 utils/generate-children-charts.py
+          git add -A
+          git commit -m "Automated changes"
+          git push
+
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
