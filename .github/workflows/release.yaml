@@ -32,9 +32,11 @@ jobs:
         run: |
           pip install pyyaml
           python3 utils/generate-children-charts.py
-          git add -A
-          git commit -m "Automated changes"
-          git push
+          if [[ `git status --porcelain` ]]; then
+            git add -A
+            git commit -m "Automated changes"
+            git push
+          fi
 
       - name: Install Helm
         uses: azure/setup-helm@v3
