@@ -6,14 +6,12 @@ icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
 keywords:
 - Jupyter
 - Python
-- Julia
 home: https://jupyter.org/
 sources:
 - https://github.com/InseeFrLab/images-datascience
 - https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
-version: 1.3.0
-appVersion: latest
+version: 1.3.2
 dependencies:
 - name: library-chart
   version: 1.0.3
