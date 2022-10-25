@@ -20,14 +20,15 @@
                         "description": "supported versions",
                         "type": "string",
                         "enum": [
-                            "inseefrlab/onyxia-jupyter-r:latest"
-                                ],
+                            "inseefrlab/onyxia-jupyter-r:r4.2.3",
+                            "inseefrlab/onyxia-jupyter-r:r4.1.2"
+                          ],
                         "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                         "hidden": {
                             "value": true,
                             "path": "service/image/custom/enabled"
                         },
-                        "default": "inseefrlab/onyxia-jupyter-r:latest"
+                        "default": "inseefrlab/onyxia-jupyter-r:r4.2.3"
                       },
                       "custom" : {
                         "description": "use a custom jupyter docker image",
@@ -42,7 +43,7 @@
                           "version": {
                             "description": "jupyter unsupported version",
                             "type": "string",
-                            "default": "inseefrlab/onyxia-jupyter-r:latest",
+                            "default": "inseefrlab/onyxia-jupyter-r:r4.2.3",
                             "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                             "hidden": {
                                 "value": false,
