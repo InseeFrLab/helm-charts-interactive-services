@@ -1,0 +1,19 @@
+apiVersion: v2
+name: jupyter-pyspark-gpu
+description: The JupyterLab IDE with PySpark, an interface to use Apache Spark from
+  Python, with GPU support.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+keywords:
+- Jupyter
+- Python
+- Spark
+home: https://jupyter.org/
+sources:
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
+type: application
+version: 1.7.2
+dependencies:
+- name: library-chart
+  version: 1.0.3
+  repository: https://inseefrlab.github.io/helm-charts-interactive-services

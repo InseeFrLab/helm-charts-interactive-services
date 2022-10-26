@@ -1,0 +1,209 @@
+# Default values for jupyter.
+
+service:
+  image:
+    version: ""
+    pullPolicy: IfNotPresent
+    custom:
+      enabled: false
+      version: ""
+
+spark:
+  sparkui: false
+  configMapName: ""
+  default: true
+  disabledCertChecking: false
+  config:
+    spark.master: k8s://https://kubernetes.default.svc:443
+    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'                
+    spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
+    spark.kubernetes.namespace: '{{ .Release.Namespace }}'
+    spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
+    spark.driver.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
+    spark.executor.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
+  userConfig:
+    spark.dynamicAllocation.enabled: "true"
+    spark.dynamicAllocation.initialExecutors: "1"
+    spark.dynamicAllocation.minExecutors: "1"
+    spark.dynamicAllocation.maxExecutors: "10"
+    spark.executor.memory: "2g"
+    spark.driver.memory: "2g"
+    spark.dynamicAllocation.executorAllocationRatio: "1"
+    spark.dynamicAllocation.shuffleTracking.enabled: "true"
+    spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled: "true"
+
+security:
+  password: "changeme"
+  networkPolicy: 
+    enabled: false
+    from: []
+  allowlist:
+    enabled: true
+    ip: "0.0.0.0/0"
+
+init:
+  standardInitPath: "/opt/onyxia-init.sh"
+  regionInit: ""
+  personalInit: ""
+  personalInitArgs: ""
+
+environment:
+  user: onyxia
+  group: users
+
+s3:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ""
+  accessKeyId: ""
+  endpoint: ""
+  defaultRegion: ""
+  secretAccessKey: ""
+  sessionToken: ""
+
+
+vault:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ""
+  token: ""
+  url: ""
+  mount: ""
+  secret: ""
+  directory: ""  
+
+git:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ""
+  name: ""
+  email: ""
+  cache: ""
+  token: ""
+  repository: ""
+  branch: ""
+  
+#active ou non la recherche d'un hiveMetastore dans le namespace
+# see configmap-hive.yaml et helpers template
+discovery:
+  hive: true
+  mlflow: true
+
+hive:
+  configMapName: ""
+
+mlflow:
+  configMapName: ""
+
+coresite:
+  configMapName: ""
+  
+  # This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+kubernetes:
+  enabled: false
+  role: "view"
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 100
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+networking:
+  type: ClusterIP
+  clusterIP: None
+  user: 
+    enabled: false
+    port: 5000
+  service:
+    port: 8888
+  sparkui:
+    port: 4040
+
+ingress:
+  enabled: true
+  tls: true
+  ingressClassName: ""   
+  annotations: []
+    # kubernetes.io/tls-acme: "true"
+  hostname: chart-example.local
+  userHostname: chart-example-user.local
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+persistence:
+  enabled: true
+  ## database data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessMode: ReadWriteOnce
+  size: 10Gi
+  # existingClaim: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+startupProbe:
+  failureThreshold: 60
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
