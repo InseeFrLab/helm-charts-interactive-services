@@ -25,6 +25,12 @@ jupyter-python:
       - inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu
       - inseefrlab/onyxia-jupyter-tensorflow:py3.9.13-gpu
 
+jupyter-pyspark:
+  jupyter-pyspark-gpu:
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python, with GPU support.
+    images:
+      - inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0-gpu
+
 rstudio:
   rstudio-gpu:
     description: The RStudio IDE with a collection of standard data science packages, with GPU support.
