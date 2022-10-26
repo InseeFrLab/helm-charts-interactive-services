@@ -360,6 +360,30 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-pyspark-1.0.0/jupyter-pyspark-1.0.0.tgz
     version: 1.0.0
+  jupyter-pyspark-gpu:
+  - apiVersion: v2
+    created: "2022-10-26T15:35:12.144485075Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.0.3
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python, with GPU support.
+    digest: d46836908594cde0b9bc05151352b6a847be5bfaf7ef02dae54b1d35ef1a7547
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    name: jupyter-pyspark-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-gpu-1.7.2/jupyter-pyspark-gpu-1.7.2.tgz
+    version: 1.7.2
   jupyter-python:
   - apiVersion: v2
     created: "2022-10-25T12:57:24.306942574Z"
@@ -2124,4 +2148,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.1.6/vscode-tensorflow-gpu-1.1.6.tgz
     version: 1.1.6
-generated: "2022-10-25T12:57:28.112221526Z"
+generated: "2022-10-26T15:35:12.144731277Z"
