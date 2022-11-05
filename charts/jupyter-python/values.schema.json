@@ -183,6 +183,7 @@
                     "type": "string",
                     "description": "Password",
                     "default": "changeme",
+                    "render": "password",                    
                     "x-form": {
                         "value": "{{project.password}}"
                     },
@@ -339,6 +340,7 @@
                     "type": "string",
                     "description": "personal access token",
                     "default": "",
+                    "render": "password",
                     "x-form": {
                         "value": "{{git.token}}"
                     },
@@ -388,6 +390,7 @@
                 "token": {
                     "description": "token vault",
                     "type": "string",
+                    "render": "password",
                     "x-form": {
                         "value": "{{vault.VAULT_TOKEN}}"
                     },
@@ -506,6 +509,7 @@
                 "secretAccessKey": {
                     "description": "AWS S3 secret access key",
                     "type": "string",
+                    "render": "password",
                     "x-form": {
                         "value": "{{s3.AWS_SECRET_ACCESS_KEY}}"
                     },
@@ -520,6 +524,7 @@
                 "sessionToken": {
                     "description": "AWS S3 session Token",
                     "type": "string",
+                    "render": "password",
                     "x-form": {
                         "value": "{{s3.AWS_SESSION_TOKEN}}"
                     },
