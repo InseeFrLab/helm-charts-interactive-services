@@ -2,7 +2,7 @@ apiVersion: v2
 name: jupyter-python-gpu
 description: The JupyterLab IDE with Python, Julia, and a collection of standard data
   science packages, with GPU support.
-icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+icon: https://etalab.github.io/helm-charts-sill/icons/jupyter.png
 keywords:
 - Jupyter
 - Python
@@ -11,7 +11,7 @@ sources:
 - https://github.com/InseeFrLab/images-datascience
 - https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
-version: 1.4.0
+version: 1.4.1
 dependencies:
 - name: library-chart
   version: 1.0.3
