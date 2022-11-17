@@ -2,6 +2,29 @@ apiVersion: v1
 entries:
   jupyter-pyspark:
   - apiVersion: v2
+    created: "2022-11-17T08:33:37.313390801Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.0.3
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python.
+    digest: a90ee4d306773391a0594ca451bf756479ad0727d090a755aa9a45b17fd67327
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-1.10.0/jupyter-pyspark-1.10.0.tgz
+    version: 1.10.0
+  - apiVersion: v2
     created: "2022-11-08T09:22:31.981324448Z"
     dependencies:
     - name: library-chart
@@ -407,6 +430,29 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/jupyter-pyspark-1.0.0/jupyter-pyspark-1.0.0.tgz
     version: 1.0.0
   jupyter-pyspark-gpu:
+  - apiVersion: v2
+    created: "2022-11-17T08:33:37.447996462Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.0.3
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python, with GPU support.
+    digest: 30323d3726866a050ee078ae59566ce844f60f996d6a6cb9f81362707e6e4927
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    name: jupyter-pyspark-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-gpu-1.10.0/jupyter-pyspark-gpu-1.10.0.tgz
+    version: 1.10.0
   - apiVersion: v2
     created: "2022-11-08T09:22:32.148992467Z"
     dependencies:
@@ -2589,4 +2635,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.1.6/vscode-tensorflow-gpu-1.1.6.tgz
     version: 1.1.6
-generated: "2022-11-08T09:22:32.149212066Z"
+generated: "2022-11-17T08:33:37.448267563Z"
