@@ -17,6 +17,15 @@ security:
     enabled: true
     ip: "0.0.0.0/0"
 
+proxyRepository:
+  enabled: true
+  configMapName: ""
+  # TODO : vérifier si on peut utiliser une seule URL pour global.index et global.index-url
+  pipRepository: "https://nexus.insee.fr/repository/pypi-public/simple"
+  condaRepository: "https://nexus.insee.fr/repository/conda-proxy/main"
+  # TODO : vérifier valeur pour proxy R, peut-être limité à nexus.insee.fr/
+  rRepository: "https://nexus.insee.fr/repository/r_public/main"
+
 init:
   standardInitPath: "/opt/onyxia-init.sh"
   regionInit: ""
@@ -151,7 +160,7 @@ resources: {}
   #   memory: 128Mi
 
 persistence:
-  enabled: true
+  enabled: false
   ## database data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning

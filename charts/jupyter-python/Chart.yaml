@@ -27,4 +27,7 @@ version: 1.4.0
 dependencies:
   - name: library-chart
     version: 1.0.3
-    repository: https://inseefrlab.github.io/helm-charts-interactive-services
+    # repository: https://inseefrlab.github.io/helm-charts-interactive-services
+    # Pour dev en local (requiert helm dependency update)
+    # repository: "file://../library_chart/"
+    repository: "file:///Users/ozp6kz/pl/git/_datascience/lskube/helm-charts-interactive-services/charts/library-chart/"
