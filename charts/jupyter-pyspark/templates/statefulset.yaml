@@ -15,10 +15,13 @@ spec:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
       annotations:
+        {{- if .Values.proxyRepository.enabled }}
+        checksum/proxyRepository: {{ include (print $.Template.BasePath "/configmap-proxy-repository.yaml") . | sha256sum }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+        {{- end }}
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
@@ -113,6 +116,10 @@ spec:
             {{- if .Values.git.enabled }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameGit" . }}
+            {{- end }}
+            {{- if .Values.proxyRepository.enabled }}
+            - configMapRef:
+                name: {{ include "library-chart.configMapNameProxyRepository" . }}
             {{- end }}
             {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
             - configMapRef:
