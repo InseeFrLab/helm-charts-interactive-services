@@ -292,8 +292,14 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 data:
   # TODO : si valeur manquante, ne pas définir les varenv
+  {{- if .Values.proxyRepository.pipRepository }}
   PIP_REPOSITORY: "{{ .Values.proxyRepository.pipRepository }}"
+  {{- end }}
+  {{- if .Values.proxyRepository.condaRepository }}
   CONDA_REPOSITORY: "{{ .Values.proxyRepository.condaRepository }}"
+  {{- end }}
+  {{- if .Values.proxyRepository.rRepository }}
   R_REPOSITORY: "{{ .Values.proxyRepository.rRepository }}"
+  {{- end }}
 {{- end }}
 {{- end }}

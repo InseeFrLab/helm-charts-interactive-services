@@ -17,15 +17,6 @@ security:
     enabled: true
     ip: "0.0.0.0/0"
 
-proxyRepository:
-  enabled: true
-  configMapName: ""
-  # TODO : vérifier si on peut utiliser une seule URL pour global.index et global.index-url
-  pipRepository: "https://nexus.insee.fr/repository/pypi-public/simple"
-  condaRepository: "https://nexus.insee.fr/repository/conda-proxy/main"
-  # TODO : vérifier valeur pour proxy R, peut-être limité à nexus.insee.fr/
-  rRepository: "https://nexus.insee.fr/repository/r_public/main"
-
 init:
   standardInitPath: "/opt/onyxia-init.sh"
   regionInit: ""
@@ -73,6 +64,12 @@ git:
   token: ""
   repository: ""
   branch: ""
+
+proxyRepository:
+  enabled: false
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
   
 #active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template

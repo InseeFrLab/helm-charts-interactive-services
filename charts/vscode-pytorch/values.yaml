@@ -48,6 +48,12 @@ vault:
   secret: ""
   directory: ""
 
+proxyRepository:
+  enabled: false
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
+
 git:
   # Specifies whether a config map should be created
   enabled: true
