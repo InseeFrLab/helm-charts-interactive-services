@@ -291,7 +291,6 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 data:
-  # TODO : si valeur manquante, ne pas définir les varenv
   {{- if .Values.proxyRepository.pipRepository }}
   PIP_REPOSITORY: "{{ .Values.proxyRepository.pipRepository }}"
   {{- end }}
