@@ -270,3 +270,35 @@ data:
     {{- include "library-chart.sparkConf" . | nindent 4 }}
 {{- end }}
 {{- end }}
+
+{{/* Create the name of the config map Proxy Repository to use */}}
+{{- define "library-chart.configMapNameProxyRepository" -}}
+{{- if .Values.proxyRepository.enabled }}
+{{- $name:= (printf "%s-configmapproxyrepository" (include "library-chart.fullname" .) )  }}
+{{- default $name .Values.proxyRepository.configMapName }}
+{{- else }}
+{{- default "default" .Values.proxyRepository.configMapName }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a ConfigMap for proxy repositories */}}
+{{- define "library-chart.configMapProxyRepository" -}}
+{{- if .Values.proxyRepository.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "library-chart.configMapNameProxyRepository" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+data:
+  {{- if .Values.proxyRepository.pipRepository }}
+  PIP_REPOSITORY: "{{ .Values.proxyRepository.pipRepository }}"
+  {{- end }}
+  {{- if .Values.proxyRepository.condaRepository }}
+  CONDA_REPOSITORY: "{{ .Values.proxyRepository.condaRepository }}"
+  {{- end }}
+  {{- if .Values.proxyRepository.rRepository }}
+  R_REPOSITORY: "{{ .Values.proxyRepository.rRepository }}"
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -64,6 +64,12 @@ git:
   token: ""
   repository: ""
   branch: ""
+
+proxyRepository:
+  enabled: false
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
   
 #active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template
@@ -151,7 +157,7 @@ resources: {}
   #   memory: 128Mi
 
 persistence:
-  enabled: true
+  enabled: false
   ## database data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning

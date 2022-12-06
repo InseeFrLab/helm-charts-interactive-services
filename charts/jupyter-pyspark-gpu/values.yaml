@@ -88,6 +88,12 @@ git:
   token: ""
   repository: ""
   branch: ""
+
+proxyRepository:
+  enabled: false
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
   
 #active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template
