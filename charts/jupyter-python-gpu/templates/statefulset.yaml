@@ -15,7 +15,6 @@ spec:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    metadata:
       annotations:
         {{- if .Values.git.enabled }}
         checksum/git: {{ include (print $.Template.BasePath "/configmap-git.yaml") . | sha256sum }}

@@ -48,12 +48,6 @@ vault:
   secret: ""
   directory: ""
 
-proxyRepository:
-  enabled: false
-  configMapName: ""
-  pipRepository: ""
-  condaRepository: ""
-
 git:
   # Specifies whether a config map should be created
   enabled: true
@@ -64,6 +58,12 @@ git:
   email: ""
   cache: ""
   branch: ""
+
+proxyRepository:
+  enabled: false
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
 
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
