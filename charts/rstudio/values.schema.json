@@ -596,7 +596,7 @@
               }
             }
           },
-          "init": {
+        "init": {
             "description": "Init parameters",
             "type": "object",
             "properties": {
@@ -622,6 +622,30 @@
                 "type": "string",
                 "description": "args for user initialization script",
                 "default": ""
+              }
+            }
+        },
+        "proxyRepository": {
+            "description": "python repositories for pip and conda",
+            "type": "object",
+            "properties": {
+              "pipRepository": {
+                "type": "string",
+                "description": "python repository for pip",
+                "default": "",
+                "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "{{packageRepositoryInjection.pypiProxyUrl}}"
+                }
+              },
+              "condaRepository": {
+                "type": "string",
+                "description": "python repository for pip",
+                "default": "",
+                "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "{{packageRepositoryInjection.condaProxyUrl}}"
+                }
               }
             }
         }
