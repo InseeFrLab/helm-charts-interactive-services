@@ -274,7 +274,7 @@ data:
 
 {{/* Create the name of the config map repository to use */}}
 {{- define "library-chart.repository.enabled" -}}
-{{- or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.cranRepository}}
+{{- default "" (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.cranRepository)) }}
 {{- end }}
 
 {{- define "library-chart.configMapNameRepository" -}}
