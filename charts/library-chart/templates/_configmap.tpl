@@ -271,34 +271,39 @@ data:
 {{- end }}
 {{- end }}
 
-{{/* Create the name of the config map Proxy Repository to use */}}
-{{- define "library-chart.configMapNameProxyRepository" -}}
-{{- if .Values.proxyRepository.enabled }}
-{{- $name:= (printf "%s-configmapproxyrepository" (include "library-chart.fullname" .) )  }}
-{{- default $name .Values.proxyRepository.configMapName }}
+
+{{/* Create the name of the config map repository to use */}}
+{{- define "library-chart.repository.enabled" -}}
+{{- or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.cranRepository}}
+{{- end }}
+
+{{- define "library-chart.configMapNameRepository" -}}
+{{- if (include "library-chart.repository.enabled"  .) }}
+{{- $name:= (printf "%s-configMapRepository" (include "library-chart.fullname" .) )  }}
+{{- default $name .Values.repository.configMapName }}
 {{- else }}
-{{- default "default" .Values.proxyRepository.configMapName }}
+{{- default "default" .Values.repository.configMapName }}
 {{- end }}
 {{- end }}
 
-{{/* Template to generate a ConfigMap for proxy repositories */}}
-{{- define "library-chart.configMapProxyRepository" -}}
-{{- if .Values.proxyRepository.enabled -}}
+{{/* Template to generate a ConfigMap for repositories */}}
+{{- define "library-chart.configMapRepository" -}}
+{{- if (include "library-chart.repository.enabled"  .) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "library-chart.configMapNameProxyRepository" . }}
+  name: {{ include "library-chart.configMapNameRepository" . }}
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 data:
-  {{- if .Values.proxyRepository.pipRepository }}
-  PIP_REPOSITORY: "{{ .Values.proxyRepository.pipRepository }}"
+  {{- if .Values.repository.pipRepository }}
+  PIP_REPOSITORY: "{{ .Values.repository.pipRepository }}"
   {{- end }}
-  {{- if .Values.proxyRepository.condaRepository }}
-  CONDA_REPOSITORY: "{{ .Values.proxyRepository.condaRepository }}"
+  {{- if .Values.repository.condaRepository }}
+  CONDA_REPOSITORY: "{{ .Values.repository.condaRepository }}"
   {{- end }}
-  {{- if .Values.proxyRepository.rRepository }}
-  R_REPOSITORY: "{{ .Values.proxyRepository.rRepository }}"
+  {{- if .Values.repository.rRepository }}
+  R_REPOSITORY: "{{ .Values.repository.rRepository }}"
   {{- end }}
 {{- end }}
 {{- end }}
