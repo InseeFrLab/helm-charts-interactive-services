@@ -279,7 +279,7 @@ data:
 
 {{- define "library-chart.configMapNameRepository" -}}
 {{- if (include "library-chart.repository.enabled"  .) }}
-{{- $name:= (printf "%s-configMapRepository" (include "library-chart.fullname" .) )  }}
+{{- $name:= (printf "%s-configmaprepository" (include "library-chart.fullname" .) )  }}
 {{- default $name .Values.repository.configMapName }}
 {{- else }}
 {{- default "default" .Values.repository.configMapName }}
