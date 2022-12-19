@@ -274,12 +274,12 @@ data:
 
 {{/* Create the name of the config map repository to use */}}
 {{- define "library-chart.repository.enabled" -}}
-{{- or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.cranRepository}}
+{{- default "" (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.cranRepository)) }}
 {{- end }}
 
 {{- define "library-chart.configMapNameRepository" -}}
 {{- if (include "library-chart.repository.enabled"  .) }}
-{{- $name:= (printf "%s-configMapRepository" (include "library-chart.fullname" .) )  }}
+{{- $name:= (printf "%s-configmaprepository" (include "library-chart.fullname" .) )  }}
 {{- default $name .Values.repository.configMapName }}
 {{- else }}
 {{- default "default" .Values.repository.configMapName }}
