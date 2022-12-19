@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-rstudio:ds-r4.2.3"
+    version: ""
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio:ds-r4.2.3"
+      version: ""
 
 security:
   password: "changeme"
