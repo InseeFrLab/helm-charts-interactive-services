@@ -1,12 +1,4 @@
 apiVersion: v2
 name: library-chart
-<<<<<<< HEAD
-<<<<<<< HEAD
-version: 1.2.0
-=======
-version: 1.2.1
->>>>>>> main
-=======
 version: 1.2.2
->>>>>>> main
 type: library
