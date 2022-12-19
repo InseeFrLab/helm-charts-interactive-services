@@ -25,8 +25,8 @@ spec:
         {{- if .Values.vault.enabled }}
         checksum/vault: {{ include (print $.Template.BasePath "/configmap-vault.yaml") . | sha256sum }}
         {{- end }}
-        {{- if .Values.proxyRepository.enabled }}
-        checksum/proxyRepository: {{ include (print $.Template.BasePath "/configmap-proxy-repository.yaml") . | sha256sum }}
+        {{- if (include "library-chart.repository.enabled"  .) }}
+        checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -113,9 +113,9 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameGit" . }}
             {{- end }}
-            {{- if .Values.proxyRepository.enabled }}
+            {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:
-                name: {{ include "library-chart.configMapNameProxyRepository" . }}
+                name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
           ports:
             - name: http

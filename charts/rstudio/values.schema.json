@@ -596,7 +596,7 @@
               }
             }
           },
-          "init": {
+        "init": {
             "description": "Init parameters",
             "type": "object",
             "properties": {
