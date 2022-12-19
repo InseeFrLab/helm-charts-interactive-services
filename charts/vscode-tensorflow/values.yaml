@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-vscode-python:py3.10.4"
+    version: ""
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-python:py3.10.4"
+      version: ""
 
 security:
   password: "changeme"
