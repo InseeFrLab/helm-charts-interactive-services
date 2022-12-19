@@ -59,8 +59,7 @@ git:
   cache: ""
   branch: ""
 
-proxyRepository:
-  enabled: false
+repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""

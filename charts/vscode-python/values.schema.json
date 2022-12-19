@@ -633,7 +633,7 @@
         }
       }
     },
-    "proxyRepository": {
+    "repository": {
       "description": "python repositories for pip and conda",
       "type": "object",
       "properties": {

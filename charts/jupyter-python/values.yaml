@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-jupyter-python:py3.10.4"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-jupyter-python:py3.10.4"
 
 security:
   password: "changeme"
@@ -65,8 +65,7 @@ git:
   repository: ""
   branch: ""
 
-proxyRepository:
-  enabled: false
+repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""

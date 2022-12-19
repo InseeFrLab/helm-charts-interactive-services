@@ -89,8 +89,7 @@ git:
   repository: ""
   branch: ""
 
-proxyRepository:
-  enabled: false
+repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""
