@@ -24,11 +24,12 @@ with open(PROJECT_PATH / "utils" / "prepull-daemon-template.yaml", "r") as file_
 
 for image in images_to_prepull:
     init_container = {
-        "name": image.split("/")[1].split(":")[0],
+        "name": image.split("/")[1].replace(":", "-").replace(".", "-"),
         "image": image,
+        "imagePullPolicy": "Always",
         "resources": {"limits": {"cpu": "100m", "memory": "100Mi"}}
     }
     daemon_template["spec"]["template"]["spec"]["initContainers"].append(init_container)
 
 with open(PROJECT_PATH / "utils" / "prepull-daemon-manifest.yaml", "w") as file_out:
-    yaml.dump(daemon_template, file_out)
+    yaml.dump(daemon_template, file_out, sort_keys=False)
