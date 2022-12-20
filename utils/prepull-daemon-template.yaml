@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: prepull
+spec:
+  selector:
+    matchLabels:
+      name: prepull 
+  template:
+    metadata:
+      labels:
+        name: prepull 
+    spec:
+      initContainers: []
+      containers:
+      - name: pause
+        image: gcr.io/google_containers/pause

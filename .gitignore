@@ -1,3 +1,4 @@
 *.tgz
 index.yaml
 Chart.lock
+utils/prepull-daemon-manifest.yaml
