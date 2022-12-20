@@ -21,9 +21,7 @@
               "type": "string",
               "enum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.2.0",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.9.13-spark3.3.0",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.9.13-spark3.2.0",
                 "inseefrlab/trevas-jupyter:0.1.9"
               ],
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",

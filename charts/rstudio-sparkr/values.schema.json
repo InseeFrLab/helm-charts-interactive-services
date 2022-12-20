@@ -21,9 +21,7 @@
                         "type": "string",
                         "enum": [
                             "inseefrlab/onyxia-rstudio-sparkr:r4.2.3-spark3.3.0",
-                            "inseefrlab/onyxia-rstudio-sparkr:r4.2.3-spark3.2.0",
-                            "inseefrlab/onyxia-rstudio-sparkr:r4.1.2-spark3.3.0",
-                            "inseefrlab/onyxia-rstudio-sparkr:r4.1.2-spark3.2.0"
+                            "inseefrlab/onyxia-rstudio-sparkr:r4.1.2-spark3.3.0"
                                 ],
                         "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                         "hidden": {
