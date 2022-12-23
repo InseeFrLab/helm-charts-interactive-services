@@ -26,6 +26,7 @@ for image in images_to_prepull:
     init_container = {
         "name": image.split("/")[1].replace(":", "-").replace(".", "-"),
         "image": image,
+        "command": ['bash', '-c', 'echo image pulled.'],
         "imagePullPolicy": "Always",
         "resources": {"limits": {"cpu": "100m", "memory": "100Mi"}}
     }
