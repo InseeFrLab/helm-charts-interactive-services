@@ -564,6 +564,15 @@
       "form": true,
       "title": "Ingress Details",
       "properties": {
+        "enabled": {
+          "description": "Enable Ingress",
+          "type": "boolean",
+          "default": true,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.ingress"
+          }
+        },
         "hostname": {
           "type": "string",
           "form": true,
@@ -587,7 +596,7 @@
           },
           "x-onyxia": {
             "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
           }
         },
         "userHostname": {
@@ -615,6 +624,53 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
+          }
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "form": true,
+      "title": "Route details",
+      "properties": {
+        "enabled": {
+          "description": "Enable route",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.route"
+          }
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+          }
+        },
+        "sparkHostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-form": {
+            "hidden": true,
+            "value": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
+          },
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
+          }
+        },
+        "userHostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
           }
         }
       }
