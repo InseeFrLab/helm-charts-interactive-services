@@ -1,14 +1,26 @@
 {{- if .Values.ingress.enabled }}
 - You can connect to this jupyter with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
-{{- end }}
 {{- if .Values.spark.sparkui }}
 - When the spark driver is running, you can connect to the spark-ui with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.sparkHostname }})
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+- You can connect to this jupyter with your browser on this [link](https://{{ .Values.route.hostname }})
+{{- if .Values.spark.sparkui }}
+- When the spark driver is running, you can connect to the spark-ui with your browser on this [link](https://{{ .Values.route.sparkHostname }})
+{{- end }}
 {{- end }}
 - Your access token is **{{ .Values.security.password }}**
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
 - You can connect to your custom port on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](https://{{ .Values.route.userHostname }})
 If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
