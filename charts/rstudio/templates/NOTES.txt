@@ -1,12 +1,21 @@
 {{- if .Values.ingress.enabled }}
 - You can connect to this rstudio with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- end }}
+{{- if .Values.route.enabled }}
+- You can connect to this rstudio with your browser on this [link](https://{{ .Values.route.hostname }})
+{{- end }}
 - The login is **{{ .Values.environment.user }}**
 - The password is **{{ .Values.security.password }}**
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
 - You can connect to your custom port on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](https://{{ .Values.route.userHostname }})
 If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
