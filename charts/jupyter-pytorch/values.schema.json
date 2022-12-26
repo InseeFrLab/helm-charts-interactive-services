@@ -553,7 +553,7 @@
           "default": true,
           "x-onyxia": {
             "hidden": true,
-            "overwriteDefaultWith": "{{k8s.ingress}}"
+            "overwriteDefaultWith": "k8s.ingress"
           }
         },
         "hostname": {
@@ -609,7 +609,7 @@
           "default": false,
           "x-onyxia": {
             "hidden": true,
-            "overwriteDefaultWith": "{{k8s.route}}"
+            "overwriteDefaultWith": "k8s.route"
           }
         },
         "hostname": {
