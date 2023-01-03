@@ -316,29 +316,29 @@ data:
 {{- end }}
 
 {{/* ConfigMap for config.json for Metaflow */}}
-{{- define "library-chart.metaflow"-}}
-{{- $namespace:= .Release.Namespace -}}
-{{- if .Values.discovery.metaflow -}}
-{{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items -}}
-{{- if (index $secret "metadata" "annotations") -}}
-{{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "metaflow" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) -}}
-{{- $host:= ( index $secret.data "host" | default "") | b64dec  -}}
-{{- $s3Bucket := (index $secret.data "s3Bucket" | default "") | b64dec -}}
-{{- $s3Secret := (index $secret.data "s3Secret" | default "") | b64dec -}}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- define "library.metaflow" -}}
 {{- printf "{" }}
 {{- printf "\"METAFLOW_DEFAULT_METADATA\": \"service\"," | indent 2 }}
-{{- printf "\"METAFLOW_KUBERNETES_NAMESPACE\": \"%s\"," $namespace | indent 2 }}
 {{- printf "\"METAFLOW_KUBERNETES_SERVICE_ACCOUNT\": \"default\"," | indent 2}}
+{{- printf "\"METAFLOW_DEFAULT_DATASTORE\": \"s3\"," | indent 2 }}
+{{- $namespace := .Release.Namespace }}
+{{- if .Values.discovery.metaflow }}
+{{- range $index, $secret := (lookup "v1" "Secret" $namespace "").items }}
+{{- if (index $secret "metadata" "annotations") }}
+{{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "metaflow" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) }}
+{{- $host := ( index $secret.data "host" | default "") | b64dec }}
+{{- $s3Bucket := (index $secret.data "s3Bucket" | default "") | b64dec }}
+{{- $s3Secret := (index $secret.data "s3Secret" | default "") | b64dec }}
+{{- printf "\"METAFLOW_KUBERNETES_NAMESPACE\": \"%s\"," $namespace | indent 2 }}
 {{- printf "\"METAFLOW_SERVICE_URL\": \"%s\"," $host | indent 2 }}
 {{- printf "\"METAFLOW_KUBERNETES_SECRETS\": \"%s\"," $s3Secret | indent 2 }}
-{{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://minio.lab.sspcloud.fr\"," | indent 2 }}
-{{- printf "\"METAFLOW_DEFAULT_DATASTORE\": \"s3\"," | indent 2 }}
 {{- printf "\"METAFLOW_DATASTORE_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
 {{- printf "\"METAFLOW_DATATOOLS_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://minio.lab.sspcloud.fr\"" | indent 2 }}
 {{- printf "}" }}
 {{- end }}
 
@@ -354,5 +354,5 @@ metadata:
     {{- include "library-chart.labels" $context | nindent 4 }}
 data:
   config.json: |
-  {{- include "library-chart.metaflow" . | indent 4}}
+  {{- include "library-chart.metaflow" . | nindent 4}}
 {{- end }}
