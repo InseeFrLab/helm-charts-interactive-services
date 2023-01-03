@@ -46,6 +46,11 @@ spec:
         - name: config-coresite
           configMap:
             name: {{ include "library-chart.configMapNameCoreSite" . }}
+        {{- if .Values.discovery.metaflow }}
+        - name: metaflow-config
+          configMap:
+            name: {{ include "library-chart.configMapNameMetaflow" . }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -159,6 +164,11 @@ spec:
             - name: hive-config
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
+            {{- end }}
+            {{- if .Values.discovery.metaflow }}
+            - name: metaflow-config
+              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
+              subPath: config.json
             {{- end }}         
       {{- with .Values.nodeSelector }}
       nodeSelector:

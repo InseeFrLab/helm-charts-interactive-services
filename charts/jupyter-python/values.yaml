@@ -75,6 +75,7 @@ repository:
 discovery:
   hive: true
   mlflow: true
+  metaflow: true
 
 hive:
   configMapName: ""
@@ -83,6 +84,9 @@ mlflow:
   configMapName: ""
 
 coresite:
+  configMapName: ""
+
+metaflow:
   configMapName: ""
   
   # This is a YAML-formatted file.

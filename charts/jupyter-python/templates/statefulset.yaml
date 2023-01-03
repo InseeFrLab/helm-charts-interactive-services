@@ -34,6 +34,9 @@ spec:
         {{- if not (empty (trim (include "library-chart.configMapHive" .)))}}
         checksum/hive: {{ include (print $.Template.BasePath "/configmap-hive.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not (empty (trim (include "library-chart.configMapMetaflow" .)))}}
+        checksum/metaflow: {{ include (print $.Template.BasePath "/configmap-metaflow.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -52,6 +55,11 @@ spec:
         - name: hive-config
           configMap:
             name: {{ include "library-chart.configMapNameHive" . }}
+        {{- end }}
+        {{- if .Values.discovery.metaflow }}
+        - name: metaflow-config
+          configMap:
+            name: {{ include "library-chart.configMapNameMetaflow" . }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -158,7 +166,13 @@ spec:
             - name: hive-config
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
-            {{- end }}      
+            {{- end }}
+            {{- if .Values.discovery.metaflow }}
+            - name: metaflow-config
+              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
+              subPath: config.json
+            {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
