@@ -316,7 +316,7 @@ data:
 {{- end }}
 
 {{/* ConfigMap for config.json for Metaflow */}}
-{{- define "library.metaflow" -}}
+{{- define "library-chart.metaflow" -}}
 {{- printf "{" }}
 {{- printf "\"METAFLOW_DEFAULT_METADATA\": \"service\"," | indent 2 }}
 {{- printf "\"METAFLOW_KUBERNETES_SERVICE_ACCOUNT\": \"default\"," | indent 2}}
