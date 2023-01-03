@@ -141,7 +141,7 @@ networking:
     enabled: false
     port: 5000
   service:
-    port: 80
+    port: 8787
   sparkui:
     port: 4040
 
