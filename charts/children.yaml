@@ -35,8 +35,8 @@ rstudio:
   rstudio-gpu:
     description: The RStudio IDE with a collection of standard data science packages, with GPU support.
     images:
-      - inseefrlab/onyxia-rstudio:ds-r4.2.3-gpu
-      - inseefrlab/onyxia-rstudio:ds-r4.1.2-gpu
+      - inseefrlab/onyxia-rstudio:r4.2.1-gpu
+      - inseefrlab/onyxia-rstudio:r4.1.3-gpu
 
 vscode-python:
   vscode-python-gpu:
