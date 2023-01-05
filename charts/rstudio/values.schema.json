@@ -20,15 +20,15 @@
                         "description": "supported versions",
                         "type": "string",
                         "enum": [
-                            "inseefrlab/onyxia-rstudio:ds-r4.2.3",
-                            "inseefrlab/onyxia-rstudio:ds-r4.1.2"
+                            "inseefrlab/onyxia-rstudio:r4.2.3",
+                            "inseefrlab/onyxia-rstudio:r4.1.2"
                           ],
                         "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                         "hidden": {
                             "value": true,
                             "path": "service/image/custom/enabled"
                         },
-                        "default": "inseefrlab/onyxia-rstudio:ds-r4.2.3"
+                        "default": "inseefrlab/onyxia-rstudio:r4.2.3"
                       },
                       "custom" : {
                         "description": "use a custom RStudio docker image",
@@ -43,7 +43,7 @@
                           "version": {
                             "description": "RStudio unsupported version",
                             "type": "string",
-                            "default": "inseefrlab/onyxia-rstudio:ds-r4.2.3",
+                            "default": "inseefrlab/onyxia-rstudio:r4.2.3",
                             "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                             "hidden": {
                                 "value": false,
