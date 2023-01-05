@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "enum": [
-                "inseefrlab/onyxia-rstudio:r4.2.3-gpu",
-                "inseefrlab/onyxia-rstudio:r4.1.2-gpu"
+                "inseefrlab/onyxia-rstudio:r4.2.1-gpu",
+                "inseefrlab/onyxia-rstudio:r4.1.3-gpu"
               ],
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-rstudio:r4.2.3-gpu"
+              "default": "inseefrlab/onyxia-rstudio:r4.2.1-gpu"
             },
             "custom": {
               "description": "use a custom RStudio docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "RStudio unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-rstudio:r4.2.3-gpu",
+                  "default": "inseefrlab/onyxia-rstudio:r4.2.1-gpu",
                   "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                   "hidden": {
                     "value": false,
