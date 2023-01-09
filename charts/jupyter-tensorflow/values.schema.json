@@ -75,12 +75,6 @@
           "title": "Enable mlflow discovery",
           "description": "discover your mlflow service",
           "default": true
-        },
-        "metaflow": {
-          "type": "boolean",
-          "title": "Enable metaflow discovery",
-          "description": "discover your metaflow service",
-          "default": true
         }
       }
     },

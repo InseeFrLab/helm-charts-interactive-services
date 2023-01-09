@@ -24,20 +24,6 @@ init:
   personalInit: ""
   personalInitArgs: ""
 
-discovery:
-  hive: true
-  mlflow: true
-  metaflow: true
-  
-hive:
-  configMapName: ""
-
-mlflow:
-  configMapName: ""
-
-metaflow: 
-  configMapName: ""
-
 s3:
   # Specifies whether a config map should be created
   enabled: true
