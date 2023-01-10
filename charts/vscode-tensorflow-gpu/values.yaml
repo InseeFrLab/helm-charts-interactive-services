@@ -36,6 +36,23 @@ s3:
   secretAccessKey: ""
   sessionToken: ""
 
+discovery:
+  hive: true
+  mlflow: true
+  metaflow: true
+
+hive:
+  configMapName: ""
+
+mlflow:
+  configMapName: ""
+
+coresite:
+  configMapName: ""
+  
+metaflow:
+  configMapName: ""
+
 vault:
   # Specifies whether a config map should be created
   enabled: true
