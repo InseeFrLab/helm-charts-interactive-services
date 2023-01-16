@@ -681,6 +681,21 @@
           "default": ""
         }
       }
+    },
+    "repository": {
+      "description": "r repository (eg : cran mirrors or proxy caches)",
+      "type": "object",
+      "properties": {
+        "rRepository": {
+          "type": "string",
+          "description": "r repository",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{packageRepositoryInjection.cranProxyUrl}}"
+          }
+        }
+      }
     }
   }
 }

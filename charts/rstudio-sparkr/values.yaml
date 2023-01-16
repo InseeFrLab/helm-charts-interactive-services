@@ -124,7 +124,7 @@ kubernetes:
 podAnnotations: {}
 
 podSecurityContext:
-  fsGroup: 1000
+  fsGroup: 100
 
 securityContext: {}
   # capabilities:
