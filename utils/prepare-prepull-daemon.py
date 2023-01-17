@@ -51,7 +51,7 @@ for event in w.stream(kube_core_api.list_namespaced_pod, namespace=NAMESPACE,
     pod_state = event['object'].status.phase
     if pod_state == "Running":
         w.stop()
-        kube_apps_api.delete_namespaced_deployment(namespace=NAMESPACE, name="prepull")
+        # kube_apps_api.delete_namespaced_deployment(namespace=NAMESPACE, name="prepull")
         break
 
 # 2nd step : create a DaemonSet to pull the images from cache on all workers
@@ -66,5 +66,5 @@ for event in w.stream(kube_apps_api.list_namespaced_daemon_set, namespace=NAMESP
     n_daemons_ready = event['object'].status.number_ready
     if n_daemons_ready == 11:
         w.stop()
-        kube_apps_api.delete_namespaced_daemon_set(namespace=NAMESPACE, name="prepull")
+        # kube_apps_api.delete_namespaced_daemon_set(namespace=NAMESPACE, name="prepull")
         break
