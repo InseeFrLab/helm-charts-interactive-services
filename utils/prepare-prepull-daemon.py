@@ -30,7 +30,7 @@ for chart in charts:
 with open(PROJECT_PATH / "utils" / "prepull-template.yaml", "r") as file_in:
     manifest = yaml.safe_load(file_in)
 
-for image in images_to_prepull[:2]:
+for image in images_to_prepull:
     init_container = {
         "name": image.split("/")[1].replace(":", "-").replace(".", "-"),
         "image": image,
