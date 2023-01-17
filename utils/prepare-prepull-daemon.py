@@ -1,6 +1,7 @@
 """Prepare a DaemonSet manifest to pre-pull a list of given images."""
 from pathlib import Path
 import os
+import sys
 import json
 
 import yaml
@@ -10,7 +11,7 @@ import kubernetes
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 
 # Configure Kubernetes Python API
-NAMESPACE = "user-avouacr"
+NAMESPACE = sys.argv[1]
 kube_config = kubernetes.config.load_incluster_config()
 with kubernetes.client.ApiClient(kube_config) as api_client:
     kube_apps_api = kubernetes.client.AppsV1Api(api_client)
@@ -57,11 +58,13 @@ for event in w.stream(kube_core_api.list_namespaced_pod, namespace=NAMESPACE,
 # 2nd step : create a DaemonSet to pull the images from cache on all workers
 manifest["kind"] = "DaemonSet"
 kube_apps_api.create_namespaced_daemon_set(namespace=NAMESPACE, body=manifest)
-res = kube_apps_api.list_namespaced_daemon_set(namespace=NAMESPACE, label_selector="name=prepull")
+res = kube_apps_api.list_namespaced_daemon_set(namespace=NAMESPACE,
+                                               label_selector="name=prepull")
 
 # Wait for all daemons to be in Running state and remove the DaemonSet
 w = kubernetes.watch.Watch()
-for event in w.stream(kube_apps_api.list_namespaced_daemon_set, namespace=NAMESPACE,
+for event in w.stream(kube_apps_api.list_namespaced_daemon_set,
+                      namespace=NAMESPACE,
                       label_selector="name=prepull"):
     n_daemons_ready = event['object'].status.number_ready
     if n_daemons_ready == 11:
