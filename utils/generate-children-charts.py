@@ -12,17 +12,22 @@ with open(PROJECT_PATH / "charts" / "children.yaml", "r") as file_in:
     parameters = yaml.safe_load(file_in)
 
 for parent in parameters:
-    for child in parameters[parent]:
-        description_child = parameters[parent][child]["description"]
-        images_child = parameters[parent][child]["images"]
 
-        parent_dir = PROJECT_PATH / "charts" / parent
+    # Retrieve list of parent's images
+    parent_dir = PROJECT_PATH / "charts" / parent
+    with open(parent_dir / "values.schema.json", "r") as file_in:
+        parent_schema = json.load(file_in)
+    images_parent = parent_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["enum"]
+
+    for child in parameters[parent]:
+
         child_dir = PROJECT_PATH / "charts" / child
 
         # Create child chart as a copy of parent chart
         shutil.copytree(src=parent_dir, dst=child_dir, dirs_exist_ok=True)
 
         # Correct Chart metadata
+        description_child = parameters[parent][child]["description"]
         with open(child_dir / "Chart.yaml", "r") as file_in:
             child_chart = yaml.safe_load(file_in)
 
@@ -33,6 +38,11 @@ for parent in parameters:
             yaml.dump(child_chart, file_out, sort_keys=False)
 
         # Fill child schema with proper values
+        child_no_gpu = child.split("-gpu")[0]
+        images_child = [image.replace(parent, child_no_gpu) for image in images_parent
+                        if "onyxia" in image]
+        images_child = [image + "-gpu" if "-gpu" in child else image
+                        for image in images_child] 
         with open(child_dir / "values.schema.json", "r") as file_in:
             child_schema = json.load(file_in)
 
