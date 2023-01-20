@@ -2782,6 +2782,27 @@ entries:
     version: 1.0.0
   rstudio:
   - apiVersion: v2
+    created: "2023-01-20T11:11:26.227110629Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.3.1
+    description: The RStudio IDE with a collection of standard data science packages.
+    digest: 11b180109f2d0ad3255f7c89441f775fc6fdebe003a78fa0b57d94af7b10ec95
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-1.6.4/rstudio-1.6.4.tgz
+    version: 1.6.4
+  - apiVersion: v2
     created: "2023-01-16T18:27:34.531851645Z"
     dependencies:
     - name: library-chart
@@ -3171,6 +3192,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-datascience-internal/releases/download/rstudio-1.0.0/rstudio-1.0.0.tgz
     version: 1.0.0
   rstudio-gpu:
+  - apiVersion: v2
+    created: "2023-01-20T11:11:26.428701637Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.3.1
+    description: The RStudio IDE with a collection of standard data science packages,
+      with GPU support.
+    digest: c73f3d9638eedc8fee7e81d603a3e7d81250fadbf5aae4cbfc9279d723029a97
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-gpu-1.6.4/rstudio-gpu-1.6.4.tgz
+    version: 1.6.4
   - apiVersion: v2
     created: "2023-01-16T18:27:34.665943151Z"
     dependencies:
@@ -5186,4 +5229,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.1.6/vscode-tensorflow-gpu-1.1.6.tgz
     version: 1.1.6
-generated: "2023-01-20T10:19:01.233391741Z"
+generated: "2023-01-20T11:11:26.429259236Z"
