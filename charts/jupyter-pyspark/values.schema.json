@@ -73,6 +73,26 @@
           "description": "Create a default spark config in spark-default.conf",
           "default": true
         },
+        "userConfig": {
+          "type": "object",
+          "title": "Create a spark config",
+          "description": "Create a default spark config in spark-default.conf",
+          "default": {
+            "spark.dynamicAllocation.enabled": "true",
+            "spark.dynamicAllocation.initialExecutors": "1",
+            "spark.dynamicAllocation.minExecutors": "1",
+            "spark.dynamicAllocation.maxExecutors": "10",
+            "spark.executor.memory": "2g",
+            "spark.driver.memory": "2g",
+            "spark.dynamicAllocation.executorAllocationRatio": "1",
+            "spark.dynamicAllocation.shuffleTracking.enabled": "true",
+            "spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled": "true"
+          },
+          "hidden": {
+            "value": false,
+            "path": "persistence/enabled"
+          }
+        },
         "disabledCertChecking": {
           "title": "Disable certificate checking ",
           "type": "boolean",
