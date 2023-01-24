@@ -42,12 +42,16 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        {{- if .Values.s3.enabled }}
         - name: config-coresite
           configMap:
             name: {{ include "library-chart.configMapNameCoreSite" . }}
+        {{- end }}
+        {{- if .Values.spark.default }}
         - name: config-sparkconf
           configMap:
             name: {{ include "library-chart.configMapNameSparkConf" . }}
+        {{- end }}
         {{- if .Values.discovery.hive }}
         - name: hive-config
           configMap:
@@ -138,9 +142,11 @@ spec:
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user }}/work
               name: home
+            {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
               subPath: core-site.xml
               name: config-coresite
+            {{- end }}
             {{- if .Values.spark.default }}
             - name: config-sparkconf
               mountPath: /opt/spark/conf/spark-defaults.conf

@@ -43,9 +43,11 @@ spec:
           configMap:
             name: {{ include "library-chart.configMapNameHive" . }}
         {{- end }}
+        {{- if .Values.s3.enabled }}
         - name: config-coresite
           configMap:
             name: {{ include "library-chart.configMapNameCoreSite" . }}
+        {{- end }}
         {{- if .Values.discovery.metaflow }}
         - name: metaflow-config
           configMap:
@@ -152,9 +154,11 @@ spec:
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user}}/work
               name: home
+            {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
               subPath: core-site.xml
               name: config-coresite
+            {{- end }}
             {{- if .Values.spark.default }}
             - name: config-sparkconf
               mountPath: /opt/spark/conf/spark-defaults.conf
