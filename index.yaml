@@ -4948,6 +4948,28 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pytorch-gpu-1.1.6/vscode-pytorch-gpu-1.1.6.tgz
     version: 1.1.6
+  vscode-r-python-julia:
+  - apiVersion: v2
+    created: "2023-01-24T08:58:00.042904195Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.3.1
+    description: The VSCode IDE with minimal installations of R, Python and Julia.
+    digest: 806c53c850c752ed40130f244fbbcd4cd4914726bc563e5305a1901feefbae84
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-r-python-julia
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-r-python-julia-1.4.2/vscode-r-python-julia-1.4.2.tgz
+    version: 1.4.2
   vscode-tensorflow:
   - apiVersion: v2
     created: "2023-01-10T10:40:12.038741985Z"
@@ -5251,4 +5273,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.1.6/vscode-tensorflow-gpu-1.1.6.tgz
     version: 1.1.6
-generated: "2023-01-20T13:01:23.829899426Z"
+generated: "2023-01-24T08:58:00.043368792Z"
