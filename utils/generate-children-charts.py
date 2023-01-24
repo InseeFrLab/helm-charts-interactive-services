@@ -38,11 +38,16 @@ for parent in parameters:
             yaml.dump(child_chart, file_out, sort_keys=False)
 
         # Fill child schema with proper values
-        child_no_gpu = child.split("-gpu")[0]
-        images_child = [image.replace(parent, child_no_gpu) for image in images_parent
-                        if "onyxia" in image]
-        images_child = [image + "-gpu" if "-gpu" in child else image
-                        for image in images_child] 
+        if "images" in parameters[parent][child]:
+            # If images are specified in children.yaml, use them
+            images_child = parameters[parent][child]["images"]
+        else:
+            # Otherwise, infer them from the list of images of the parent chart
+            child_no_gpu = child.split("-gpu")[0]
+            images_child = [image.replace(parent, child_no_gpu) for image in images_parent
+                            if "onyxia" in image]
+            images_child = [image + "-gpu" if "-gpu" in child else image
+                            for image in images_child] 
         with open(child_dir / "values.schema.json", "r") as file_in:
             child_schema = json.load(file_in)
 

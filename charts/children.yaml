@@ -29,3 +29,7 @@ vscode-python:
     description: The VSCode IDE with Python and the deep-learning framework TensorFlow.
   vscode-tensorflow-gpu:
     description: The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+  vscode-r-python-julia:
+    description: The VSCode IDE with minimal installations of R, Python and Julia.
+    images:
+      - inseefrlab/onyxia-vscode-r-python-julia:r4.2.1
