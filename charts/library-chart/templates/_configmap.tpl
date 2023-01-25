@@ -213,7 +213,7 @@ data:
 {{- default $name .Values.mlflow.configMapName }}
 {{- end }}
 
-{{/* ConfigMap for Hive Metastore */}}
+{{/* ConfigMap for MLFlow */}}
 {{- define "library-chart.configMapMLFlow" -}}
 {{- $context:= . -}}
 {{- if .Values.discovery.mlflow -}}
@@ -228,9 +228,6 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 data:
-  {{- if .Values.s3.enabled -}}
-  MLFLOW_S3_ENDPOINT_URL: "https://{{ .Values.s3.endpoint }}/"
-  {{- end }}
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
 {{- end }}
 {{- end }}
@@ -240,12 +237,12 @@ data:
 
 {{/* ConfigMap for SparkConf Metastore */}}
 {{- define "library-chart.sparkConf" -}}
-{{- $contexte:= .}}
+{{- $context:= .}}
 {{- range $key, $value := default dict .Values.spark.config }}
-{{- printf "%s %s\n" $key  (tpl $value  $contexte)}}
+{{- printf "%s %s\n" $key  (tpl $value  $context)}}
 {{- end }}
 {{- range $key, $value := default dict .Values.spark.userConfig }}
-{{- printf "%s %s\n" $key  (tpl $value  $contexte)}}
+{{- printf "%s %s\n" $key  (tpl $value  $context)}}
 {{- end }}
 {{- end }}
 
