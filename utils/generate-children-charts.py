@@ -8,7 +8,7 @@ import yaml
 
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 
-with open("charts-inheritance.yaml", "r") as file_in:
+with open(PROJECT_PATH / "utils" / "charts-inheritance.yaml", "r") as file_in:
     parameters = yaml.safe_load(file_in)
 
 for parent in parameters:
