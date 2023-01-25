@@ -232,3 +232,4 @@ probe:
 repository:
   configMapName: ""
   rRepository: ""
+  mavenRepository: ""

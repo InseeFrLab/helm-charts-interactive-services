@@ -93,6 +93,7 @@ repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""
+  mavenRepository: ""
   
 #active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template
