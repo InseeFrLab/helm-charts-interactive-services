@@ -1,30 +1,17 @@
 apiVersion: v2
 name: jupyter-r
-description: The JupyterLab IDE with an R kernel, and a collection of standard data science packages.
+description: The JupyterLab IDE with R and a collection of standard data science packages.
 icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
 keywords:
-  - Jupyter
-  - R
+- Jupyter
+- Python
 home: https://jupyter.org/
 sources:
-  - https://github.com/InseeFrLab/images-datascience
-  - https://github.com/InseeFrLab/helm-charts-interactive-services
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
-
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.5.2
-
+version: 1.6.4
 dependencies:
-  - name: library-chart
-    version: 1.3.1
-    repository: https://inseefrlab.github.io/helm-charts-interactive-services
+- name: library-chart
+  version: 1.3.2
+  repository: https://inseefrlab.github.io/helm-charts-interactive-services
