@@ -228,7 +228,9 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 data:
+  {{- if .Values.s3.enabled -}}
   MLFLOW_S3_ENDPOINT_URL: "https://{{ .Values.s3.endpoint }}/"
+  {{- end }}
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
 {{- end }}
 {{- end }}
