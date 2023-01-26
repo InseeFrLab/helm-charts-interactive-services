@@ -28,6 +28,12 @@ spec:
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
+        checksum/mlflow: {{ include (print $.Template.BasePath "/configmap-mlflow.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.configMapHive" .)))}}
+        checksum/hive: {{ include (print $.Template.BasePath "/configmap-hive.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -41,6 +47,16 @@ spec:
             claimName: {{ .Values.persistence.existingClaim | default (include "library-chart.fullname" .) }}
         {{- else }}
           emptyDir: {}
+        {{- end }}
+        {{- if .Values.discovery.hive }}
+        - name: hive-config
+          configMap:
+            name: {{ include "library-chart.configMapNameHive" . }}
+        {{- end }}
+        {{- if .Values.discovery.metaflow }}
+        - name: metaflow-config
+          configMap:
+            name: {{ include "library-chart.configMapNameMetaflow" . }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -117,6 +133,10 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
+            {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
+            - configMapRef:
+                name: {{ include "library-chart.configMapNameMLFlow" . }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 8888
@@ -138,7 +158,17 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user}}/work
-              name: home   
+              name: home
+            {{- if .Values.discovery.hive }}
+            - name: hive-config
+              mountPath: /opt/hive/conf/hive-site.xml
+              subPath: hive-site.xml
+            {{- end }}   
+            {{- if .Values.discovery.metaflow }}
+            - name: metaflow-config
+              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
+              subPath: config.json
+            {{- end }}     
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

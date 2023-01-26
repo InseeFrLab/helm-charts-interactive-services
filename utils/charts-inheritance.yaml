@@ -5,6 +5,11 @@ jupyter-python:
     description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
   jupyter-pytorch-gpu:
     description: The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
+  jupyter-r:
+    description: The JupyterLab IDE with R and a collection of standard data science packages.
+    images:
+      - inseefrlab/onyxia-jupyter-r:r4.2.1
+      - inseefrlab/onyxia-jupyter-r:r4.1.3
   jupyter-tensorflow:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
   jupyter-tensorflow-gpu:
@@ -17,6 +22,8 @@ jupyter-pyspark:
 rstudio:
   rstudio-gpu:
     description: The RStudio IDE with a collection of standard data science packages, with GPU support.
+
+rstudio-sparkr: []
 
 vscode-python:
   vscode-python-gpu:

@@ -213,7 +213,7 @@ data:
 {{- default $name .Values.mlflow.configMapName }}
 {{- end }}
 
-{{/* ConfigMap for Hive Metastore */}}
+{{/* ConfigMap for MLFlow */}}
 {{- define "library-chart.configMapMLFlow" -}}
 {{- $context:= . -}}
 {{- if .Values.discovery.mlflow -}}
@@ -228,6 +228,7 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 data:
+  MLFLOW_S3_ENDPOINT_URL: "https://minio.lab.sspcloud.fr"
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
 {{- end }}
 {{- end }}
@@ -237,12 +238,12 @@ data:
 
 {{/* ConfigMap for SparkConf Metastore */}}
 {{- define "library-chart.sparkConf" -}}
-{{- $contexte:= .}}
+{{- $context:= .}}
 {{- range $key, $value := default dict .Values.spark.config }}
-{{- printf "%s %s\n" $key  (tpl $value  $contexte)}}
+{{- printf "%s %s\n" $key  (tpl $value  $context)}}
 {{- end }}
 {{- range $key, $value := default dict .Values.spark.userConfig }}
-{{- printf "%s %s\n" $key  (tpl $value  $contexte)}}
+{{- printf "%s %s\n" $key  (tpl $value  $context)}}
 {{- end }}
 {{- end }}
 
@@ -268,6 +269,44 @@ metadata:
 data:
   spark-defaults.conf: |
     {{- include "library-chart.sparkConf" . | nindent 4 }}
+    {{- if .Values.repository.mavenRepository -}}
+    {{ printf "spark.jars.ivySettings /opt/spark/conf/ivysettings.xml" }}
+    {{- end }}
+{{- end }}
+{{- end }}
+
+
+
+{{/* ConfigMap for Ivy Settings (custom maven repository for Spark) */}}
+{{- define "library-chart.ivySettings" -}}
+{{ printf "<ivysettings>" }}
+{{ printf "<settings defaultResolver=\"custom_maven_repository\"/>" | indent 4 }}
+{{ printf "<resolvers>" | indent 4 }}
+{{ printf "<ibiblio name=\"custom_maven_repository\" m2compatible=\"true\" root=\"%s\"/>"  .Values.repository.mavenRepository | indent 8 }}
+{{ printf "</resolvers>" | indent 4 }}
+{{ printf "</ivysettings>" }}
+{{- end -}}
+
+{{/* Create the name of the config map Ivy Settings to use */}}
+{{- define "library-chart.configMapNameIvySettings" -}}
+{{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+{{- $name:= (printf "%s-configmapivysettings" (include "library-chart.fullname" .) )  }}
+{{- $name }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a ConfigMap for Ivy Settings */}}
+{{- define "library-chart.configMapIvySettings" -}}
+{{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "library-chart.configMapNameIvySettings" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+data:
+  ivysettings.xml: |
+    {{- include "library-chart.ivySettings" . | nindent 4 }}
 {{- end }}
 {{- end }}
 
