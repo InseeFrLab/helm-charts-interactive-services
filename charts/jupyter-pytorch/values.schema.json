@@ -27,6 +27,11 @@
                 "inseefrlab/onyxia-jupyter-pytorch:py3.10.4",
                 "inseefrlab/onyxia-jupyter-pytorch:py3.9.13"
               ],
+              "listEnum": [
+                "inseefrlab/onyxia-jupyter-python:py3.10.4",
+                "inseefrlab/onyxia-jupyter-python:py3.9.13"
+              ],
+              "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
