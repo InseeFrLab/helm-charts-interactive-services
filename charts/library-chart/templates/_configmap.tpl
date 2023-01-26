@@ -228,7 +228,6 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 data:
-  MLFLOW_S3_ENDPOINT_URL: "https://minio.lab.sspcloud.fr"
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
 {{- end }}
 {{- end }}
