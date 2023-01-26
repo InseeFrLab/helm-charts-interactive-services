@@ -38,6 +38,11 @@ spec:
           configMap:
             name: {{ include "library-chart.configMapNameSparkConf" . }}
         {{- end }}
+        {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+        - name: config-ivysettings
+          configMap:
+            name: {{ include "library-chart.configMapNameIvySettings" . }}
+        {{- end }}
         {{- if .Values.discovery.hive }}
         - name: hive-config
           configMap:
@@ -163,6 +168,11 @@ spec:
             - name: config-sparkconf
               mountPath: /opt/spark/conf/spark-defaults.conf
               subPath: spark-defaults.conf
+            {{- end }}
+            {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+            - name: config-ivysettings
+              mountPath: /opt/spark/conf/ivysettings.xml
+              subPath: ivysettings.xml
             {{- end }}
             {{- if .Values.discovery.hive }}
             - name: hive-config
