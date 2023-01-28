@@ -65,7 +65,11 @@ for parent in parameters:
                 "sliderMin": 1,
                 "sliderMax": 3,
                 "sliderStep": 1,
-                "sliderUnit": ""
+                "sliderUnit": "",
+                "x-onyxia": {
+                  "overwriteDefaultWith": "region.resources.gpu",
+                  "useRegionSliderConfig": "gpu"
+                }
                 }
             child_schema["properties"]["resources"]["properties"]["limits"]["properties"]["nvidia.com/gpu"] = gpu_limits
 
