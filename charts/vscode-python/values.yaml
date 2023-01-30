@@ -1,4 +1,4 @@
-# Default values for rstudio.
+# Default values for vscode.
 
 service:
   image:
@@ -35,6 +35,11 @@ s3:
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
+
+fauxpilot:
+  enabled: true
+  serverURL: "http://fauxpilot-proxy.fauxpilot"
+  serverPort: 5000
 
 discovery:
   hive: true

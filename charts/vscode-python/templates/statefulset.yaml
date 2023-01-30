@@ -74,8 +74,20 @@ spec:
           {{- else }}
           image: "{{ .Values.service.image.version }}"
           {{- end }} 
+          {{- if .Values.fauxpilot.enabled }}
+          command:
+            - sh
+            - -c
+            - |
+              wget -O $HOME/install-fauxpilot.sh https://raw.githubusercontent.com/amine-bs/fauxpilot-helm-chart/main/install-fauxpilot.sh && \
+              chmod +x $HOME/install-fauxpilot.sh && \
+              $HOME/install-fauxpilot.sh {{ .Values.fauxpilot.serverURL }} {{ .Values.fauxpilot.serverPort }} && \
+              rm $HOME/install-fauxpilot.sh && \
+              {{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work
+          {{- else }}
           command: ["/bin/sh","-c"]
           args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
+          {{- end }}
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             {{- if .Values.init.regionInit }}

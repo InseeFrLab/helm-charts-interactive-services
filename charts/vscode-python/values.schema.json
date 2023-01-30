@@ -92,6 +92,36 @@
           }
       }
   },
+  "fauxpilot": {
+      "description": "An extension equivalent to Copilot",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "enable fauxpilot extension",
+          "default": "false"
+        },
+        "serverURL": {
+          "type": "string",
+          "title": "Fauxpilot server URL",
+          "description": "This default server is hosted on SSPCloud",
+          "default": "http://fauxpilot-proxy.fauxpilot",
+          "hidden": {
+            "value": false,
+            "path": "fauxpilot/enabled"
+          }
+        },
+        "serverPort": {
+          "type": "string",
+          "title": "Fauxpilot server Port",
+          "default": "5000",
+          "hidden": {
+            "value": false,
+            "path": "fauxpilot/enabled"
+          }
+        }
+      }
+  },
   "discovery": {
       "description": "configure your service to autodetect some ressources.",
       "type": "object",
