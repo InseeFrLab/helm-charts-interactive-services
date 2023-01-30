@@ -80,7 +80,7 @@ spec:
             - |
               wget -O $HOME/install-fauxpilot.sh https://raw.githubusercontent.com/amine-bs/fauxpilot-helm-chart/main/install-fauxpilot.sh && \
               chmod +x $HOME/install-fauxpilot.sh && \
-              $HOME/install-fauxpilot.sh {{ .Values.fauxpilot.serverURL }} {{ .Values.fauxpilot.serverPort }} {{ .Values.fauxpilot.serverPort }} && \
+              $HOME/install-fauxpilot.sh {{ .Values.fauxpilot.serverURL }} {{ .Values.fauxpilot.serverPort }} {{ .Values.fauxpilot.enabled }} && \
               rm $HOME/install-fauxpilot.sh && \
               {{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
