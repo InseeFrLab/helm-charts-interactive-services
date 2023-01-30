@@ -39,7 +39,7 @@ s3:
 fauxpilot:
   enabled: true
   serverURL: "http://fauxpilot-proxy.fauxpilot"
-  serverPort: 5000
+  serverPort: "5000"
 
 discovery:
   hive: true
