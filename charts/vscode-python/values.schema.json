@@ -99,7 +99,7 @@
         "enabled": {
           "type": "boolean",
           "title": "enable fauxpilot extension",
-          "default": "false"
+          "default": false
         },
         "serverURL": {
           "type": "string",
