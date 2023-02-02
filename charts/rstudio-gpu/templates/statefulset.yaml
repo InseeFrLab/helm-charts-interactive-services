@@ -76,16 +76,12 @@ spec:
               {{- end }}
             - name: PASSWORD
               value: {{ .Values.security.password }}
-            {{- if .Values.environment.root }}
-            - name: ROOT
-              value: "TRUE"
             - name: PROJECT_USER
               value: {{ .Values.environment.user }}
             - name: PROJECT_GROUP
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}
-            {{- end }}
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
               value: {{ .Values.init.regionInit }}
