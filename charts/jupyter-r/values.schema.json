@@ -23,10 +23,6 @@
             "version": {
               "description": "supported versions",
               "type": "string",
-              "enum": [
-                "inseefrlab/onyxia-jupyter-r:r4.2.1",
-                "inseefrlab/onyxia-jupyter-r:r4.1.3"
-              ],
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-python:py3.10.4",
                 "inseefrlab/onyxia-jupyter-python:py3.9.13"
@@ -37,7 +33,11 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-r:r4.2.1"
+              "default": "inseefrlab/onyxia-jupyter-r:r4.2.1",
+              "enum": [
+                "inseefrlab/onyxia-jupyter-r:r4.2.1",
+                "inseefrlab/onyxia-jupyter-r:r4.1.3"
+              ]
             },
             "custom": {
               "description": "use a custom jupyter docker image",

@@ -152,15 +152,20 @@
               "description": "vscode supported version",
               "type": "string",
               "default": "inseefrlab/onyxia-vscode-python:py3.10.4-gpu",
-              "enum": [
-                "inseefrlab/onyxia-vscode-python:py3.10.4-gpu",
-                "inseefrlab/onyxia-vscode-python:py3.9.13-gpu"
+              "listEnum": [
+                "inseefrlab/onyxia-vscode-python:py3.10.4",
+                "inseefrlab/onyxia-vscode-python:py3.9.13"
               ],
+              "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
-              }
+              },
+              "enum": [
+                "inseefrlab/onyxia-vscode-python:py3.10.4-gpu",
+                "inseefrlab/onyxia-vscode-python:py3.9.13-gpu"
+              ]
             },
             "custom": {
               "description": "use a custom vscode docker image",

@@ -23,10 +23,6 @@
             "version": {
               "description": "supported versions",
               "type": "string",
-              "enum": [
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu",
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.9.13-gpu"
-              ],
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-python:py3.10.4",
                 "inseefrlab/onyxia-jupyter-python:py3.9.13"
@@ -37,7 +33,11 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu"
+              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu",
+              "enum": [
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.10.4-gpu",
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.9.13-gpu"
+              ]
             },
             "custom": {
               "description": "use a custom jupyter docker image",
