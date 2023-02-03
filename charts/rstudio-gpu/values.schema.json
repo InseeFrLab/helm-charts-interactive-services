@@ -28,6 +28,7 @@
                 "inseefrlab/onyxia-rstudio:r4.1.3",
                 "inseefrlab/utilitr:0.9.1"
               ],
+              "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
