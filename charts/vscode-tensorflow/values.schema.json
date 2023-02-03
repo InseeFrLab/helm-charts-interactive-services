@@ -138,15 +138,19 @@
               "description": "vscode supported version",
               "type": "string",
               "default": "inseefrlab/onyxia-vscode-tensorflow:py3.10.4",
-              "enum": [
-                "inseefrlab/onyxia-vscode-tensorflow:py3.10.4",
-                "inseefrlab/onyxia-vscode-tensorflow:py3.9.13"
+              "listEnum": [
+                "inseefrlab/onyxia-vscode-python:py3.10.4",
+                "inseefrlab/onyxia-vscode-python:py3.9.13"
               ],
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
-              }
+              },
+              "enum": [
+                "inseefrlab/onyxia-vscode-tensorflow:py3.10.4",
+                "inseefrlab/onyxia-vscode-tensorflow:py3.9.13"
+              ]
             },
             "custom": {
               "description": "use a custom vscode docker image",

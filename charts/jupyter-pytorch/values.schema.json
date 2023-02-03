@@ -23,10 +23,6 @@
             "version": {
               "description": "supported versions",
               "type": "string",
-              "enum": [
-                "inseefrlab/onyxia-jupyter-pytorch:py3.10.4",
-                "inseefrlab/onyxia-jupyter-pytorch:py3.9.13"
-              ],
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-python:py3.10.4",
                 "inseefrlab/onyxia-jupyter-python:py3.9.13"
@@ -37,7 +33,11 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.10.4"
+              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.10.4",
+              "enum": [
+                "inseefrlab/onyxia-jupyter-pytorch:py3.10.4",
+                "inseefrlab/onyxia-jupyter-pytorch:py3.9.13"
+              ]
             },
             "custom": {
               "description": "use a custom jupyter docker image",

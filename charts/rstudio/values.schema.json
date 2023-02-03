@@ -19,7 +19,7 @@
                       "version": {
                         "description": "supported versions",
                         "type": "string",
-                        "enum": [
+                        "listEnum": [
                             "inseefrlab/onyxia-rstudio:r4.2.1",
                             "inseefrlab/onyxia-rstudio:r4.1.3",
                             "inseefrlab/utilitr:0.9.1"
