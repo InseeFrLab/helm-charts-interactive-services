@@ -15,9 +15,9 @@ spec:
   {{- end }}
   ports:
     - port: {{ .Values.networking.service.port }}
-      targetPort: http
+      targetPort: {{ .Values.networking.service.port }}
       protocol: TCP
-      name: http
+      name: main
     {{ if .Values.networking.user.enabled }}
     - port: {{ .Values.networking.user.port }}
       targetPort: {{ .Values.networking.user.port }}
