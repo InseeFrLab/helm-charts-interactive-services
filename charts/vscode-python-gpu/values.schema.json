@@ -409,7 +409,7 @@
         },
         "branch": {
           "type": "string",
-          "description": "Brach automatically checkout",
+          "description": "Branch automatically checked out",
           "default": "",
           "hidden": {
             "value": "",
