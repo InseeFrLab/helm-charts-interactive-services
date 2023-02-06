@@ -104,7 +104,7 @@ spec:
             - name: PROJECT_GROUP
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
-              value: /home/{{ .Values.environment.user }}
+              value: /home/{{ .Values.environment.user }}/work
             {{- end }}
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
