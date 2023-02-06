@@ -151,11 +151,11 @@ securityContext: {}
 networking:
   type: ClusterIP
   clusterIP: None
+  service:
+    port: 8888
   user: 
     enabled: false
     port: 5000
-  service:
-    port: 8888
   sparkui:
     port: 4040
 

@@ -123,11 +123,11 @@ securityContext:
 networking:
   type: ClusterIP
   clusterIP: None
+  service:
+    port: 8080
   user: 
     enabled: false
     port: 5000
-  service:
-    port: 80
 
 ingress:
   enabled: true
