@@ -140,15 +140,15 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: main
+              port: {{ .Values.networking.service.port }}
           readinessProbe:
             httpGet:
               path: /
-              port: main
+              port: {{ .Values.networking.service.port }}
           startupProbe:
             httpGet:
               path: /
-              port: main
+              port: {{ .Values.networking.service.port }}
             {{- toYaml .Values.startupProbe | nindent 12 }}     
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -208,27 +208,6 @@ tolerations: []
 
 affinity: {}
 
-probe:
-  enabled: true
-  probeValue:
-    livenessProbe:
-      httpGet:
-        path: /
-        port: main
-    readinessProbe:
-      httpGet:
-        path: /
-        port: main
-    startupProbe:
-      httpGet:
-        path: /
-        port: main
-      failureThreshold: 60
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      successThreshold: 1
-      timeoutSeconds: 5
-
 repository:
   configMapName: ""
   rRepository: ""

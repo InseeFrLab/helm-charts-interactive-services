@@ -135,9 +135,23 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
-          {{- if .Values.probe.enabled }}
-          {{- toYaml .Values.probe.probeValue | nindent 10 }} 
-          {{- end }}        
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.networking.service.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.networking.service.port }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.networking.service.port }}
+            failureThreshold: 60
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5    
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
