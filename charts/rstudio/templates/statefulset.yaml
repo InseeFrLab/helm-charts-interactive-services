@@ -111,10 +111,6 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
-          ports:
-            - name: http
-              containerPort: 8787
-              protocol: TCP
           {{- if .Values.probe.enabled }}
           {{- toYaml .Values.probe.probeValue | nindent 10 }} 
           {{- end }}        

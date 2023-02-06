@@ -214,15 +214,15 @@ probe:
     livenessProbe:
       httpGet:
         path: /
-        port: http
+        port: main
     readinessProbe:
       httpGet:
         path: /
-        port: http
+        port: main
     startupProbe:
       httpGet:
         path: /
-        port: http
+        port: main
       failureThreshold: 60
       initialDelaySeconds: 10
       periodSeconds: 10
