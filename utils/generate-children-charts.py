@@ -19,7 +19,7 @@ for parent in parameters:
         parent_schema = json.load(file_in)
     images_parent = parent_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"]
     for child in parameters[parent]:
-        print('working on',child,'from',parent)
+        print(f"Building {child} from {parent}.")
         child_dir = PROJECT_PATH / "charts" / child
 
         # Create child chart as a copy of parent chart
@@ -50,7 +50,7 @@ for parent in parameters:
         with open(child_dir / "values.schema.json", "r") as file_in:
             child_schema = json.load(file_in)
 
-        child_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["enum"] = images_child
+        child_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"] = images_child
         child_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["default"] = images_child[0]
         child_schema["properties"]["service"]["properties"]["image"]["properties"]["custom"]["properties"]["version"]["default"] = images_child[0]
 

@@ -24,9 +24,8 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.9.13-spark3.3.0",
-                "inseefrlab/trevas-jupyter:0.1.13"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0-gpu",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.9.13-spark3.3.0-gpu"
               ],
               "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
@@ -34,11 +33,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0-gpu",
-              "enum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0-gpu",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.9.13-spark3.3.0-gpu"
-              ]
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.4-spark3.3.0-gpu"
             },
             "custom": {
               "description": "use a custom jupyter docker image",

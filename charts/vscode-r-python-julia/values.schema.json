@@ -139,18 +139,14 @@
               "type": "string",
               "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.2.1",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-python:py3.10.4",
-                "inseefrlab/onyxia-vscode-python:py3.9.13"
+                "inseefrlab/onyxia-vscode-r-python-julia:r4.2.1"
               ],
               "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
-              },
-              "enum": [
-                "inseefrlab/onyxia-vscode-r-python-julia:r4.2.1"
-              ]
+              }
             },
             "custom": {
               "description": "use a custom vscode docker image",

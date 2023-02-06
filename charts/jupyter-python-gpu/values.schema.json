@@ -24,8 +24,8 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-python:py3.10.4",
-                "inseefrlab/onyxia-jupyter-python:py3.9.13"
+                "inseefrlab/onyxia-jupyter-python:py3.10.4-gpu",
+                "inseefrlab/onyxia-jupyter-python:py3.9.13-gpu"
               ],
               "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
@@ -33,11 +33,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-python:py3.10.4-gpu",
-              "enum": [
-                "inseefrlab/onyxia-jupyter-python:py3.10.4-gpu",
-                "inseefrlab/onyxia-jupyter-python:py3.9.13-gpu"
-              ]
+              "default": "inseefrlab/onyxia-jupyter-python:py3.10.4-gpu"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
