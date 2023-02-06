@@ -123,10 +123,6 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameMLFlow" . }}
             {{- end }}
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
           livenessProbe:
             httpGet:
               path: /
