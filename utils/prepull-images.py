@@ -24,7 +24,7 @@ for chart in charts:
     schema_path = PROJECT_PATH / "charts" / chart / "values.schema.json"
     with open(schema_path, "r") as file_in:
         chart_schema = json.load(file_in)
-    images = chart_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["enum"]
+    images = chart_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"]
     images_to_prepull.extend(images)
 
 # Fill template with one init container per image to pre-pull
