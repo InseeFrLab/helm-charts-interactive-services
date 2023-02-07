@@ -104,7 +104,7 @@ spec:
               value: /home/{{ .Values.environment.user }}/work  
             {{- if  .Values.fauxpilot.enabled }}
             - name: FAUXPILOT_SERVER
-              value: "{{ .Values.fauxpilot.serverURL }}:{{ .Values.fauxpilot.serverPort }}/v1/engines" 
+              value: "{{ .Values.fauxpilot.server }}" 
             {{- end }}  
           envFrom: 
             {{- if .Values.s3.enabled }}

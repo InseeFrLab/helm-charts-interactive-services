@@ -55,8 +55,7 @@ metaflow:
 
 fauxpilot:
   enabled: false
-  serverURL: "http://fauxpilot-proxy.fauxpilot"
-  serverPort: "5000"
+  server: "http://fauxpilot-proxy.fauxpilot:5000/v1/engines"
 
 vault:
   # Specifies whether a config map should be created

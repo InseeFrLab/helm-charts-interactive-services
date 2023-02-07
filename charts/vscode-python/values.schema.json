@@ -101,17 +101,11 @@
         "title": "Enable Fauxpilot extension",
         "default": false
       },
-      "serverURL": {
+      "server": {
         "type": "string",
         "title": "Server's URL",
         "description": "the default URL is hosted on Datalab",
-        "default": "http://fauxpilot-proxy.fauxpilot"
-      },
-      "serverPort": {
-        "type": "string",
-        "title": "Server's Port",
-        "description": "Port of the server's proxy",
-        "default": "5000"
+        "default": "http://fauxpilot-proxy.fauxpilot:5000/v1/engines"
       }
     }
   },
