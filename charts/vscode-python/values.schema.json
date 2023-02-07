@@ -92,6 +92,23 @@
           }
       }
   },
+  "fauxpilot": {
+    "description": "An extension that is equivalent to Copilot",
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "title": "Enable Fauxpilot extension",
+        "default": false
+      },
+      "server": {
+        "type": "string",
+        "title": "Server's URL",
+        "description": "the default URL is hosted on Datalab",
+        "default": "http://fauxpilot-proxy.fauxpilot:5000/v1/engines"
+      }
+    }
+  },
   "discovery": {
       "description": "configure your service to autodetect some ressources.",
       "type": "object",
