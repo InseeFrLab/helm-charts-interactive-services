@@ -53,6 +53,11 @@ coresite:
 metaflow:
   configMapName: ""
 
+fauxpilot:
+  enabled: false
+  serverURL: "http://fauxpilot-proxy.fauxpilot"
+  serverPort: "5000"
+
 vault:
   # Specifies whether a config map should be created
   enabled: true

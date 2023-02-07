@@ -101,7 +101,13 @@ spec:
             - name: PROJECT_GROUP
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
-              value: /home/{{ .Values.environment.user }}/work       
+              value: /home/{{ .Values.environment.user }}/work  
+            - name: FAUXPILOT_ENABLED
+              value: {{ .Values.fauxpilot.enabled }}
+            - name: FAUXPILOT_URL
+             value: {{ .Values.fauxpilot.serverURL }}
+            - name: FAUXPILOT_PORT
+              value: {{ .Values.fauxpilot.serverPort }}      
           envFrom: 
             {{- if .Values.s3.enabled }}
             - configMapRef:
