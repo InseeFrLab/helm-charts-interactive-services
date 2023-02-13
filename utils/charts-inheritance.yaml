@@ -15,9 +15,7 @@ jupyter-python:
   jupyter-tensorflow-gpu:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
-jupyter-pyspark:
-  jupyter-pyspark-gpu:
-    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python, with GPU support.
+jupyter-pyspark: []
 
 rstudio:
   rstudio-gpu:
