@@ -696,8 +696,8 @@
                 }
               }
             }
-          },
-          "init": {
+        },
+        "init": {
             "description": "Init parameters",
             "type": "object",
             "properties": {
@@ -725,8 +725,8 @@
                 "default": ""
               }
             }
-          },
-          "repository": {
+        },
+        "repository": {
               "description": "r repository (eg : cran mirrors or proxy caches)",
               "type": "object",
               "properties": {
@@ -740,6 +740,45 @@
                   }
                 }
               }
-          }
+        },
+        "startupProbe": {
+            "type": "object",
+            "description": "Start up probe",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.startupProbe}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.startupProbe"
+            }
+        },
+        "tolerations": {
+            "type": "array",
+            "description": "Array of tolerations",
+            "default": [],
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.tolerations}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.tolerations"
+            }
+        },
+        "nodeSelector": {
+            "type": "object",
+            "description": "NodeSelector",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.nodeSelector}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.nodeSelector"
+            }
+        }
     }
 }
