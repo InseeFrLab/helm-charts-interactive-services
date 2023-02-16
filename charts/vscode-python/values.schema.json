@@ -91,8 +91,8 @@
               }
           }
       }
-  },
-  "fauxpilot": {
+    },
+    "fauxpilot": {
     "description": "An extension that is equivalent to Copilot",
     "type": "object",
     "properties": {
@@ -108,8 +108,8 @@
         "default": "http://fauxpilot-proxy.fauxpilot:5000/v1/engines"
       }
     }
-  },
-  "discovery": {
+    },
+    "discovery": {
       "description": "configure your service to autodetect some ressources.",
       "type": "object",
       "properties": {
@@ -493,8 +493,8 @@
               }
           }
       }
-  },
-  "s3": {
+    },
+    "s3": {
       "description": "Configuration of temporary identity",
       "type": "object",
       "properties": {
@@ -576,7 +576,7 @@
               }
           }
       }
-  },
+    },
     "ingress": {
       "type": "object",
       "form": true,
@@ -761,6 +761,45 @@
           }
         }
       }
-  }
+    },
+    "startupProbe": {
+      "type": "object",
+      "description": "Start up probe",
+      "default": {},
+      "x-form": {
+          "hidden": true,
+          "value": "{{region.startupProbe}}"
+      },
+      "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "region.startupProbe"
+      }
+    },
+    "tolerations": {
+      "type": "array",
+      "description": "Array of tolerations",
+      "default": [],
+      "x-form": {
+          "hidden": true,
+          "value": "{{region.tolerations}}"
+      },
+      "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "region.tolerations"
+      }
+    },
+    "nodeSelector": {
+      "type": "object",
+      "description": "NodeSelector",
+      "default": {},
+      "x-form": {
+          "hidden": true,
+          "value": "{{region.nodeSelector}}"
+      },
+      "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "region.nodeSelector"
+      }
+    }
   }
 }
