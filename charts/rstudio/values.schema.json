@@ -285,8 +285,8 @@
                 ]
               }
             }
-          },
-          "git": {
+        },
+        "git": {
             "description": "Git user configuration",
             "type": "object",
             "properties": {
@@ -381,7 +381,7 @@
                     }
                 }
             }
-          },
+        },
         "vault": {
             "description": "Configuration of vault client",
             "type": "object",
@@ -660,7 +660,7 @@
                 }
               }
             }
-          },
+        },
         "init": {
             "description": "Init parameters",
             "type": "object",
@@ -703,6 +703,45 @@
                   "overwriteDefaultWith": "{{packageRepositoryInjection.cranProxyUrl}}"
                 }
               }
+            }
+        },
+        "startupProbe": {
+            "type": "object",
+            "description": "Start up probe",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.startupProbe}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.startupProbe"
+            }
+        },
+        "tolerations": {
+            "type": "array",
+            "description": "Array of tolerations",
+            "default": [],
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.tolerations}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.tolerations"
+            }
+        },
+        "nodeSelector": {
+            "type": "object",
+            "description": "NodeSelector",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.nodeSelector}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.nodeSelector"
             }
         }
     }
