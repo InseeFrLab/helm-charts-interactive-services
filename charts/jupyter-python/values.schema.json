@@ -80,8 +80,8 @@
                 "default": true
               }
             }
-          },
-          "resources": {
+        },
+        "resources": {
             "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
             "type": "object",
             "properties": {
@@ -736,6 +736,45 @@
                 }
               }
             }
-          }
+        },
+        "startupProbe": {
+            "type": "object",
+            "description": "Start up probe",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.startupProbe}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.startupProbe"
+            }
+        },
+        "tolerations": {
+            "type": "array",
+            "description": "Array of tolerations",
+            "default": [],
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.tolerations}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.tolerations"
+            }
+        },
+        "nodeSelector": {
+            "type": "object",
+            "description": "NodeSelector",
+            "default": {},
+            "x-form": {
+                "hidden": true,
+                "value": "{{region.nodeSelector}}"
+            },
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.nodeSelector"
+            }
+        }
     }
 }
