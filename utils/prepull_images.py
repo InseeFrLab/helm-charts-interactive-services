@@ -65,6 +65,8 @@ def prepull_deployment(namespace):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
             w.stop()
+            kube_apps_api.delete_namespaced_deployment(namespace=NAMESPACE, 
+                                                       name="prepull")
             break
 
 
@@ -83,6 +85,8 @@ def prepull_daemon(namespace):
         n_daemons_ready = event['object'].status.number_ready
         if n_daemons_ready == 11:
             w.stop()
+            kube_apps_api.delete_namespaced_daemon_set(namespace=NAMESPACE, 
+                                                       name="prepull")
             break
 
 
