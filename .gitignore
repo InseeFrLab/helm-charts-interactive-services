@@ -1,3 +1,4 @@
+__pycache__/
 *.tgz
 index.yaml
 Chart.lock
