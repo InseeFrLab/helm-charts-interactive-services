@@ -1,4 +1,4 @@
-"""Prepare a DaemonSet manifest to pre-pull a list of given images."""
+"""Pre-pull images from the Onyxia catalog on the SSP Cloud workers."""
 from pathlib import Path
 import os
 import sys
@@ -11,7 +11,7 @@ import kubernetes
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 
 
-def configure_kube_api(namespace):
+def configure_kube_api():
     """Configure Kubernetes Python API."""
     kube_config = kubernetes.config.load_incluster_config()
     with kubernetes.client.ApiClient(kube_config) as api_client:
@@ -21,6 +21,7 @@ def configure_kube_api(namespace):
 
 
 def build_manifest():
+    """Build generic manifest with init containers to pre-pull images."""
     # Extract list of images to pre-pull from charts
     images_to_prepull = []
     charts = [f.name for f in os.scandir(PROJECT_PATH / "charts") 
@@ -50,7 +51,8 @@ def build_manifest():
 
 
 def prepull_deployment(namespace):
-    kube_apps_api, kube_core_api = configure_kube_api(namespace=namespace)
+    """Run a Deployment to pre-pull the images on the global registry cache."""
+    kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "Deployment"
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
@@ -65,13 +67,14 @@ def prepull_deployment(namespace):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
             w.stop()
-            kube_apps_api.delete_namespaced_deployment(namespace=NAMESPACE, 
+            kube_apps_api.delete_namespaced_deployment(namespace=namespace, 
                                                        name="prepull")
             break
 
 
 def prepull_daemon(namespace):
-    kube_apps_api, kube_core_api = configure_kube_api(namespace=namespace)
+    """Run a DaemonSet to pre-pull the images on each worker's cache."""
+    kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "DaemonSet"
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
@@ -85,7 +88,7 @@ def prepull_daemon(namespace):
         n_daemons_ready = event['object'].status.number_ready
         if n_daemons_ready == 11:
             w.stop()
-            kube_apps_api.delete_namespaced_daemon_set(namespace=NAMESPACE, 
+            kube_apps_api.delete_namespaced_daemon_set(namespace=namespace,
                                                        name="prepull")
             break
 
