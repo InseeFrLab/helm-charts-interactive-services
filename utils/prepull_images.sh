@@ -1,8 +1,6 @@
 #!/bin/bash
 
-export KUBERNETES_NAMESPACE=`cat /var/run/secrets/kubernetes.io/serviceaccount/namespace`
+pip install kubernetes
 
-env | grep -i KUBERNETES_NAMESPACE
-
-pip install -y kubernetes
+KUBERNETES_NAMESPACE=`cat /var/run/secrets/kubernetes.io/serviceaccount/namespace`
 python prepull_images.py $KUBERNETES_NAMESPACE
