@@ -1,6 +1,7 @@
 __pycache__/
 *.tgz
 index.yaml
-Chart.lock
+**/Chart.lock
 utils/prepull-deployment-manifest.yaml
 utils/prepull-daemon-manifest.yaml
+**/nohup.out
