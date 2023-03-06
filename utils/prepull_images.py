@@ -24,7 +24,7 @@ def build_manifest():
     """Build generic manifest with init containers to pre-pull images."""
     # Extract list of images to pre-pull from charts
     images_to_prepull = []
-    charts = [f.name for f in os.scandir(PROJECT_PATH / "charts") 
+    charts = [f.name for f in os.scandir(PROJECT_PATH / "charts")
               if f.is_dir() and f.name != "library-chart"]
     for chart in charts:
         schema_path = PROJECT_PATH / "charts" / chart / "values.schema.json"
@@ -50,6 +50,15 @@ def build_manifest():
     return manifest
 
 
+def clean_resources(namespace):
+    """Clean resources."""
+    kube_apps_api, _ = configure_kube_api()
+    kube_apps_api.delete_namespaced_deployment(namespace=namespace,
+                                               name="prepull")
+    kube_apps_api.delete_namespaced_daemon_set(namespace=namespace,
+                                               name="prepull")
+
+
 def prepull_deployment(namespace):
     """Run a Deployment to pre-pull the images on the global registry cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
@@ -67,8 +76,6 @@ def prepull_deployment(namespace):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
             w.stop()
-            kube_apps_api.delete_namespaced_deployment(namespace=namespace, 
-                                                       name="prepull")
             break
 
 
@@ -88,14 +95,15 @@ def prepull_daemon(namespace):
         n_daemons_ready = event['object'].status.number_ready
         if n_daemons_ready == 11:
             w.stop()
-            kube_apps_api.delete_namespaced_daemon_set(namespace=namespace,
-                                                       name="prepull")
             break
 
 
 if __name__ == "__main__":
 
     NAMESPACE = sys.argv[1]
+
+    # Clean previous jobs
+    clean_resources(namespace=NAMESPACE)
 
     # 1st step : create a Deployment to pull the images in the global registry cache once
     prepull_deployment(namespace=NAMESPACE)
