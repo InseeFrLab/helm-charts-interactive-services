@@ -13,8 +13,15 @@ metadata:
 spec:
   containers:
     - name: wget
-      image: busybox
+      image: busybox:1.36.0-uclibc
       command: ['wget']
       args: ['{{ include "library-chart.fullname" . }}:{{ .Values.networking.service.port }}']
+      resources:
+        limits:
+          cpu: 200m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
   restartPolicy: Never
 {{- end }}
