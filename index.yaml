@@ -5334,6 +5334,14 @@ entries:
     version: 1.3.3
   library-chart:
   - apiVersion: v2
+    created: "2023-03-09T08:32:30.208230519Z"
+    digest: 0648842f6f87a041d8a6f48678ef5778ae842ce4b9ef18ded458d97c65085599
+    name: library-chart
+    type: library
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/library-chart-1.3.10/library-chart-1.3.10.tgz
+    version: 1.3.10
+  - apiVersion: v2
     created: "2023-03-09T07:32:23.240599746Z"
     digest: 96d67febf42affeb4735f6967e1fd3cc8fdf2cc98c78fee2f04655b96ae60a43
     name: library-chart
@@ -11573,4 +11581,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.1.6/vscode-tensorflow-gpu-1.1.6.tgz
     version: 1.1.6
-generated: "2023-03-09T07:32:23.242364658Z"
+generated: "2023-03-09T08:32:30.209422635Z"
