@@ -23,5 +23,8 @@ spec:
         requests:
           cpu: 100m
           memory: 128Mi
+      securityContext:    
+        runAsUser: 1000
+        runAsNonRoot: true
   restartPolicy: Never
 {{- end }}
