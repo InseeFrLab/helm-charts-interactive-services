@@ -3,10 +3,13 @@ from pathlib import Path
 import os
 import sys
 import json
+import logging
 
 import yaml
 import kubernetes
 
+
+logging.basicConfig(filename='prepull.log', level=logging.INFO)
 
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 
@@ -94,7 +97,9 @@ if __name__ == "__main__":
     NAMESPACE = sys.argv[1]
 
     # 1st step : create a Deployment to pull the images in the global registry cache once
+    logging.info('1st step : Deployment')
     prepull_deployment(namespace=NAMESPACE)
 
     # 2nd step : create a DaemonSet to pull the images in each worker's local cache
+    logging.info('2nd step : DaemonSet')
     prepull_daemon(namespace=NAMESPACE)
