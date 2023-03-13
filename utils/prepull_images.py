@@ -50,15 +50,6 @@ def build_manifest():
     return manifest
 
 
-def clean_resources(namespace):
-    """Clean resources."""
-    kube_apps_api, _ = configure_kube_api()
-    kube_apps_api.delete_namespaced_deployment(namespace=namespace,
-                                               name="prepull")
-    kube_apps_api.delete_namespaced_daemon_set(namespace=namespace,
-                                               name="prepull")
-
-
 def prepull_deployment(namespace):
     """Run a Deployment to pre-pull the images on the global registry cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
@@ -101,9 +92,6 @@ def prepull_daemon(namespace):
 if __name__ == "__main__":
 
     NAMESPACE = sys.argv[1]
-
-    # Clean previous jobs
-    clean_resources(namespace=NAMESPACE)
 
     # 1st step : create a Deployment to pull the images in the global registry cache once
     prepull_deployment(namespace=NAMESPACE)
