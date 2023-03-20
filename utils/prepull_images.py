@@ -9,7 +9,7 @@ import yaml
 import kubernetes
 
 
-logging.basicConfig(filename='prepull.log', level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 
