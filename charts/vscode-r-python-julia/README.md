@@ -1,8 +1,8 @@
-# vscode-r-python-julia
+# vscode-python
 
 ![Version: 1.7.3](https://img.shields.io/badge/Version-1.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The VSCode IDE with minimal installations of R, Python and Julia.
+The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
 **Homepage:** <https://code.visualstudio.com/>
 
