@@ -1,8 +1,8 @@
-# jupyter-python
+# jupyter-pytorch-gpu
 
 ![Version: 1.10.0](https://img.shields.io/badge/Version-1.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
+The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
 **Homepage:** <https://jupyter.org/>
 
