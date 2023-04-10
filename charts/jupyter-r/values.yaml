@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-r:r4.2.2"
+    version: ""
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-r:r4.2.2"
+      version: ""
 
 security:
   password: "changeme"
@@ -14,7 +14,7 @@ security:
     enabled: false
     from: []
   allowlist:
-    enabled: false
+    enabled: true
     ip: "0.0.0.0/0"
 
 init:
@@ -135,7 +135,7 @@ networking:
     port: 4040
 
 ingress:
-  enabled: false
+  enabled: true
   tls: true
   ingressClassName: ""   
   annotations: []
