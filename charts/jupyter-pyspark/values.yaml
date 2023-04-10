@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.3.1"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.3.1"
 
 spark:
   sparkui: false
@@ -38,7 +38,7 @@ security:
     enabled: false
     from: []
   allowlist:
-    enabled: true
+    enabled: false
     ip: "0.0.0.0/0"
 
 init:
@@ -160,7 +160,7 @@ networking:
     port: 4040
 
 ingress:
-  enabled: true
+  enabled: false
   tls: true
   ingressClassName: ""   
   annotations: []

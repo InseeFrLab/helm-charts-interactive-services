@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-vscode-python:py3.10.9"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-vscode-python:py3.10.9"
 
 security:
   password: "changeme"
@@ -14,7 +14,7 @@ security:
     enabled: false
     from: []
   allowlist:
-    enabled: true
+    enabled: false
     ip: "0.0.0.0/0"
 
 init:
@@ -134,7 +134,7 @@ networking:
     port: 5000
 
 ingress:
-  enabled: true
+  enabled: false
   tls: true
   ingressClassName: ""
   annotations: []

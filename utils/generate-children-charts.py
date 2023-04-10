@@ -74,3 +74,12 @@ for parent in parameters:
 
         with open(child_dir / "values.schema.json", "w") as file_out:
             json.dump(child_schema, file_out, indent=2, sort_keys=False)
+
+        with open(child_dir / "values.yaml", "r") as file_in:
+            child_values = yaml.safe_load(file_in)
+
+        child_values["service"]["image"]["version"] = images_child[0]
+        child_values["service"]["image"]["custom"]["version"] = images_child[0]
+
+        with open(child_dir / "values.yaml", "w") as file_out:
+            yaml.dump(child_values, file_out, sort_keys=False)

@@ -2,11 +2,11 @@
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-rstudio:r4.2.2"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-rstudio:r4.2.2"
 
 security:
   password: "changeme"
@@ -14,7 +14,7 @@ security:
     enabled: false
     from: []
   allowlist:
-    enabled: true
+    enabled: false
     ip: "0.0.0.0/0"  
 
 init:
@@ -112,7 +112,7 @@ networking:
     port: 4040
 
 ingress:
-  enabled: true
+  enabled: false
   tls: true
   annotations: []
     # kubernetes.io/tls-acme: "true"
