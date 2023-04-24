@@ -58,6 +58,9 @@ spec:
           configMap:
             name: {{ include "library-chart.configMapNameMetaflow" . }}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -149,7 +152,9 @@ spec:
             - name: metaflow-config
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
               subPath: config.json
-            {{- end }}        
+            {{- end }}
+            - mountPath: /dev/shm
+              name: dshm        
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
