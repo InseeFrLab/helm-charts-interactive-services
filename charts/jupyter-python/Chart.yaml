@@ -28,3 +28,6 @@ dependencies:
   - name: library-chart
     version: 1.3.10
     repository: https://inseefrlab.github.io/helm-charts-interactive-services
+maintainers:
+  - name: onyxia-team
+    email: innovation@insee.fr
