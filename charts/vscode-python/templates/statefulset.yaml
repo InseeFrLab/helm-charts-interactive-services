@@ -61,6 +61,7 @@ spec:
         - name: dshm
           emptyDir:
             medium: Memory
+            sizeLimit: 128Mi
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
