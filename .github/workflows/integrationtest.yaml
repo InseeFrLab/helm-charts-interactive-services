@@ -2,9 +2,6 @@ name: install test charts
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-    - main
 
 jobs:
   chart-install:
