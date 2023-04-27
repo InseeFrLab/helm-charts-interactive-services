@@ -23,7 +23,7 @@ for parent in parameters:
         child_dir = PROJECT_PATH / "charts" / child
 
         # Create child chart as a copy of parent chart
-        shutil.copytree(src=parent_dir, dst=child_dir, dirs_exist_ok=True)
+        shutil.copytree(src=parent_dir, dst=child_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('README.md'))
 
         # Correct Chart metadata
         description_child = parameters[parent][child]["description"]
