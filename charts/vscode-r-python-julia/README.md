@@ -1,6 +1,6 @@
 # vscode-r-python-julia
 
-![Version: 1.8.5](https://img.shields.io/badge/Version-1.8.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.8.6](https://img.shields.io/badge/Version-1.8.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with minimal installations of R, Python and Julia.
 
@@ -15,7 +15,7 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.10 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.11 |
 
 ## Values
 
