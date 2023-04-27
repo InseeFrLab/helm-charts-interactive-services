@@ -1,0 +1,10 @@
+suite: route test
+templates:
+  - route.yaml
+tests:
+  - it: should render a route
+    set:
+      route.enabled: true
+    asserts:
+      - isKind:
+          of: Route

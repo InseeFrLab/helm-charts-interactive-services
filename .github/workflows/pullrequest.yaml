@@ -40,3 +40,14 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: ct lint --target-branch ${{ github.event.repository.default_branch }} --validate-maintainers=false
 
+      - name: List changed chart folders
+        uses: dorny/changed-files-action@v3.2.2
+        id: changes
+        with:
+          format: "json"
+          path: "charts"
+        
+      - name: Print changed chart folders
+        run: |
+          echo "Changed chart folders:"
+          echo "${{ steps.changes.outputs.folders }}"
