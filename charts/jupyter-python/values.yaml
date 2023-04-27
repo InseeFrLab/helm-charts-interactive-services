@@ -10,7 +10,7 @@ service:
 
 security:
   password: "changeme"
-  networkPolicy: 
+  networkPolicy:
     enabled: false
     from: []
   allowlist:
@@ -50,7 +50,7 @@ vault:
   url: ""
   mount: ""
   secret: ""
-  directory: ""  
+  directory: ""
 
 git:
   # Specifies whether a config map should be created
@@ -69,8 +69,8 @@ repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""
-  
-#active ou non la recherche d'un hiveMetastore dans le namespace
+
+# active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template
 discovery:
   hive: true
@@ -85,7 +85,7 @@ mlflow:
 
 coresite:
   configMapName: ""
-  
+
 metaflow:
   configMapName: ""
   # This is a YAML-formatted file.
@@ -128,7 +128,7 @@ networking:
   clusterIP: None
   service:
     port: 8888
-  user: 
+  user:
     enabled: false
     port: 5000
   sparkui:
@@ -137,7 +137,7 @@ networking:
 ingress:
   enabled: false
   tls: true
-  ingressClassName: ""   
+  ingressClassName: ""
   annotations: []
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local

@@ -1,8 +1,8 @@
-# vscode-r-python-julia
+# vscode-python
 
 ![Version: 1.8.2](https://img.shields.io/badge/Version-1.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The VSCode IDE with minimal installations of R, Python and Julia.
+The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
 **Homepage:** <https://code.visualstudio.com/>
 
@@ -95,9 +95,9 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.2.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.10.9"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.2.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.10.9"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
