@@ -49,7 +49,7 @@ mlflow:
 
 coresite:
   configMapName: ""
-  
+
 metaflow:
   configMapName: ""
 
@@ -129,7 +129,7 @@ networking:
   clusterIP: None
   service:
     port: 8080
-  user: 
+  user:
     enabled: false
     port: 5000
 

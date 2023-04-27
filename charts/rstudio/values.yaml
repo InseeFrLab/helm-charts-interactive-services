@@ -10,12 +10,12 @@ service:
 
 security:
   password: "changeme"
-  networkPolicy: 
+  networkPolicy:
     enabled: false
     from: []
   allowlist:
     enabled: false
-    ip: "0.0.0.0/0"  
+    ip: "0.0.0.0/0"
 
 init:
   standardInitPath: "/opt/onyxia-init.sh"
@@ -50,7 +50,7 @@ vault:
   url: ""
   mount: ""
   secret: ""
-  directory: ""  
+  directory: ""
 
 git:
   # Specifies whether a config map should be created
@@ -105,7 +105,7 @@ networking:
   clusterIP: None
   service:
     port: 8787
-  user: 
+  user:
     enabled: false
     port: 5000
   sparkui:

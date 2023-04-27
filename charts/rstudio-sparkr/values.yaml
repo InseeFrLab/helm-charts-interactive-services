@@ -14,7 +14,7 @@ spark:
   default: true
   config:
     spark.master: k8s://https://kubernetes.default.svc:443
-    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'                
+    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'
     spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
     spark.kubernetes.namespace: '{{ .Release.Namespace }}'
     spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
@@ -34,12 +34,12 @@ spark:
 
 security:
   password: "changeme"
-  networkPolicy: 
+  networkPolicy:
     enabled: false
     from: []
   allowlist:
     enabled: false
-    ip: "0.0.0.0/0"  
+    ip: "0.0.0.0/0"
 
 init:
   standardInitPath: "/opt/onyxia-init.sh"
@@ -84,7 +84,7 @@ vault:
   url: ""
   mount: ""
   secret: ""
-  directory: ""  
+  directory: ""
 
 git:
   # Specifies whether a config map should be created
@@ -139,7 +139,7 @@ networking:
   clusterIP: None
   service:
     port: 8787
-  user: 
+  user:
     enabled: false
     port: 5000
   sparkui:
