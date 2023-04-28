@@ -56,6 +56,38 @@ jobs:
             - 'charts/jupyter-pyspark/**'
           jupyter-python:
             - 'charts/jupyter-python/**'
+          jupyter-python-gpu:
+            - 'charts/jupyter-python-gpu/**'
+          jupyter-pytorch:
+            - 'charts/jupyter-pytorch/**'
+          jupyter-pytorch-gpu:
+            - 'charts/jupyter-pytorch-gpu/**'
+          jupyter-jupyter-r:
+            - 'charts/jupyter-r/**'
+          jupyter-tensorflow:
+            - 'charts/jupyter-tensorflow/**'
+          jupyter-tensorflow-gpu:
+            - 'charts/jupyter-tensorflow-gpu/**'
+          rstudio:
+            - 'charts/rstudio/**'
+          rstudio-gpu:
+            - 'charts/rstudio-gpu/**'
+          rstudio-sparkr:
+            - 'charts/rstudio-sparkr/**'
+          vscode-python:
+            - 'charts/vscode-python/**'
+          vscode-python-gpu:
+            - 'charts/vscode-python-gpu/**'
+          vscode-pytorch:
+            - 'charts/vscode-pytorch/**'
+          vscode-pytorch-gpu:
+            - 'charts/vscode-pytorch-gpu/**'
+          vscode-r-python-julia:
+            - 'charts/vscode-r-python-julia/**'
+          vscode-tensorflow:
+            - 'charts/vscode-tensorflow/**'
+          vscode-tensorflow-gpu:
+            - 'charts/vscode-tensorflow-gpu/**'
   unittest:
     needs: changes
     if: ${{ needs.changes.outputs.charts != '[]' && needs.changes.outputs.charts != '' }}
