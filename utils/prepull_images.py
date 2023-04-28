@@ -4,7 +4,6 @@ import os
 import sys
 import json
 import logging
-from random import randint
 
 import yaml
 import kubernetes
