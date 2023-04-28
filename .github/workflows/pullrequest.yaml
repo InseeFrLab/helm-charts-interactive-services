@@ -63,16 +63,16 @@ jobs:
             - 'charts/jupyter-pyspark/**'
           base:
             - 'charts/jupyter-python/**'
-   unittest:
+  unittest:
     needs: changes
     strategy:
-      matrix:
+      matrix: 
           # Parse JSON array containing names of all filters matching any of changed files
           # e.g. ['package1', 'package2'] if both package folders contains changes
-      package: ${{ fromJSON(needs.changes.outputs.charts) }}
-      runs-on: ubuntu-latest
-      steps:        
-        - name: helm unit test
-          run: |
-            echo "Changed chart folders:"
-            echo "${{ steps.changes.outputs.folders }}"
+        charts: ${{ fromJSON(needs.changes.outputs.charts) }}
+    runs-on: ubuntu-latest
+    steps:        
+      - name: helm unit test
+        run: |
+          echo "Changed chart folders:"
+          echo "${{ matrix.charts }}"
