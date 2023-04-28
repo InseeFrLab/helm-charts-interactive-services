@@ -58,6 +58,7 @@ jobs:
             - 'charts/jupyter-python/**'
   unittest:
     needs: changes
+    if: ${{ needs.changes.outputs.charts != '[]' && needs.changes.outputs.charts != '' }}
     strategy:
       matrix: 
           # Parse JSON array containing names of all filters matching any of changed files
