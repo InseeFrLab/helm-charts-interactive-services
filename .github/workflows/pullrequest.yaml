@@ -59,9 +59,9 @@ jobs:
       id: filter
       with:
         filters: |
-          base:
+          jupyter-pyspark:
             - 'charts/jupyter-pyspark/**'
-          base:
+          jupyter-python:
             - 'charts/jupyter-python/**'
   unittest:
     needs: changes
