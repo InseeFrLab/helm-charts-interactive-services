@@ -15,7 +15,7 @@ spark:
   disabledCertChecking: false
   config:
     spark.master: k8s://https://kubernetes.default.svc:443
-    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'  
+    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'
     spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
     spark.kubernetes.namespace: '{{ .Release.Namespace }}'
     spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
