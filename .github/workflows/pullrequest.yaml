@@ -46,8 +46,7 @@ jobs:
     permissions:
       pull-requests: read
     outputs:
-      jupyter-pyspark: ${{ steps.filter.outputs.jupyter-pyspark }}
-      jupyter-python: ${{ steps.filter.outputs.jupyter-python }}
+      charts: ${{ steps.filter.outputs.changes }}
     steps:
     - uses: dorny/paths-filter@v2
       id: filter
