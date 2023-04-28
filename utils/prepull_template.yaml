@@ -9,11 +9,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: prepull 
+      name: ""
   template:
     metadata:
       labels:
-        name: prepull 
+        name: "" 
     spec:
       initContainers: []
       containers:

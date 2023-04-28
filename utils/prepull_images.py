@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import logging
+from random import randint
 
 import yaml
 import kubernetes
@@ -40,7 +41,7 @@ def build_manifest():
     with open(PROJECT_PATH / "utils" / "prepull_template.yaml", "r") as file_in:
         manifest = yaml.safe_load(file_in)
 
-    for image in images_to_prepull:
+    for image in images_to_prepull[:3]:
         init_container = {
             "name": image.split("/")[1].replace(":", "-").replace(".", "-"),
             "image": image,
@@ -58,6 +59,9 @@ def prepull_deployment(namespace):
     kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "Deployment"
+    label_name = "prepull-deployment"
+    manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
+    manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
                                                body=manifest)
 
@@ -65,7 +69,7 @@ def prepull_deployment(namespace):
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_core_api.list_namespaced_pod,
                           namespace=namespace,
-                          label_selector="name=prepull"
+                          label_selector=f"name={label_name}"
                           ):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
@@ -78,6 +82,9 @@ def prepull_daemon(namespace):
     kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "DaemonSet"
+    label_name = "prepull-daemonset"
+    manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
+    manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
                                                body=manifest)
 
@@ -85,7 +92,7 @@ def prepull_daemon(namespace):
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_apps_api.list_namespaced_daemon_set,
                           namespace=namespace,
-                          label_selector="name=prepull"):
+                          label_selector=f"name={label_name}"):
         n_daemons_ready = event['object'].status.number_ready
         if n_daemons_ready == 11:
             w.stop()
