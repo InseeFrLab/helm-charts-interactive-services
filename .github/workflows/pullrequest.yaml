@@ -65,6 +65,10 @@ jobs:
         charts: ${{ fromJSON(needs.changes.outputs.charts) }}
     runs-on: ubuntu-latest
     steps:        
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: helm unit test
         run: |
           echo "Changed chart folders:"
