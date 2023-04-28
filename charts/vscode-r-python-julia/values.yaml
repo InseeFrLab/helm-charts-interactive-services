@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-vscode-r-python-julia:r4.2.2
+    version: inseefrlab/onyxia-vscode-r-python-julia:r4.2.3
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-r-python-julia:r4.2.2
+      version: inseefrlab/onyxia-vscode-r-python-julia:r4.2.3
 security:
   password: changeme
   networkPolicy:
