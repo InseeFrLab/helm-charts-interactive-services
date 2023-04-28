@@ -1,6 +1,6 @@
 # jupyter-r
 
-![Version: 1.10.4](https://img.shields.io/badge/Version-1.10.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.10.5](https://img.shields.io/badge/Version-1.10.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with R and a collection of standard data science packages.
 
@@ -95,9 +95,9 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r:r4.2.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r:r4.2.3"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-r:r4.2.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r:r4.2.3"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

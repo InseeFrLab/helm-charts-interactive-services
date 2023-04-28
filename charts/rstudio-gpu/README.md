@@ -1,6 +1,6 @@
 # rstudio-gpu
 
-![Version: 1.11.3](https://img.shields.io/badge/Version-1.11.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.4](https://img.shields.io/badge/Version-1.11.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages, with GPU support.
 
@@ -86,9 +86,9 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.2.2-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.2.3-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.2.2-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.2.3-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
