@@ -69,3 +69,5 @@ jobs:
         run: |
           echo "Changed chart folders:"
           echo "${{ matrix.charts }}"
+          helm plugin install https://github.com/helm-unittest/helm-unittest.git
+          helm unittest charts/${{ matrix.charts }} -f ../tests/*.yaml
