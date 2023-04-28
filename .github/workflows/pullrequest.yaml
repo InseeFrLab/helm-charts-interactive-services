@@ -46,8 +46,33 @@ jobs:
         with:
           format: "json"
           path: "charts"
-        
-      - name: Print changed chart folders
-        run: |
-          echo "Changed chart folders:"
-          echo "${{ steps.changes.outputs.folders }}"
+  changes:
+    if: ${{ github.actor != 'renovate[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      jupyter-pyspark: ${{ steps.filter.outputs.jupyter-pyspark }}
+      jupyter-python: ${{ steps.filter.outputs.jupyter-python }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          base:
+            - 'charts/jupyter-pyspark/**'
+          base:
+            - 'charts/jupyter-python/**'
+   unittest:
+    needs: changes
+    strategy:
+      matrix:
+          # Parse JSON array containing names of all filters matching any of changed files
+          # e.g. ['package1', 'package2'] if both package folders contains changes
+      package: ${{ fromJSON(needs.changes.outputs.charts) }}
+      runs-on: ubuntu-latest
+      steps:        
+        - name: helm unit test
+          run: |
+            echo "Changed chart folders:"
+            echo "${{ steps.changes.outputs.folders }}"
