@@ -15,7 +15,7 @@ spark:
   disabledCertChecking: false
   config:
     spark.master: k8s://https://kubernetes.default.svc:443
-    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'                
+    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'
     spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
     spark.kubernetes.namespace: '{{ .Release.Namespace }}'
     spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
@@ -34,7 +34,7 @@ spark:
 
 security:
   password: "changeme"
-  networkPolicy: 
+  networkPolicy:
     enabled: false
     from: []
   allowlist:
@@ -74,7 +74,7 @@ vault:
   url: ""
   mount: ""
   secret: ""
-  directory: ""  
+  directory: ""
 
 git:
   # Specifies whether a config map should be created
@@ -94,8 +94,8 @@ repository:
   pipRepository: ""
   condaRepository: ""
   mavenRepository: ""
-  
-#active ou non la recherche d'un hiveMetastore dans le namespace
+
+# active ou non la recherche d'un hiveMetastore dans le namespace
 # see configmap-hive.yaml et helpers template
 discovery:
   hive: true
@@ -153,7 +153,7 @@ networking:
   clusterIP: None
   service:
     port: 8888
-  user: 
+  user:
     enabled: false
     port: 5000
   sparkui:
@@ -162,7 +162,7 @@ networking:
 ingress:
   enabled: false
   tls: true
-  ingressClassName: ""   
+  ingressClassName: ""
   annotations: []
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local
