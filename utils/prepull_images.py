@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import logging
+from random import randint
 
 import yaml
 import kubernetes
@@ -58,7 +59,7 @@ def prepull_deployment(namespace):
     kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "Deployment"
-    label_name = "prepull-deployment"
+    label_name = "prepull-deployment-" + str(randint(100000, 999999))
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
@@ -81,7 +82,7 @@ def prepull_daemon(namespace):
     kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest()
     manifest["kind"] = "DaemonSet"
-    label_name = "prepull-daemonset"
+    label_name = "prepull-daemonset-" + str(randint(100000, 999999))
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
