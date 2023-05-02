@@ -1,6 +1,6 @@
 # vscode-pytorch
 
-![Version: 1.8.7](https://img.shields.io/badge/Version-1.8.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.8.8](https://img.shields.io/badge/Version-1.8.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework PyTorch.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.12 |
 
 ## Values
 

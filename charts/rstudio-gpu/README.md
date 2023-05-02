@@ -1,6 +1,6 @@
 # rstudio-gpu
 
-![Version: 1.11.4](https://img.shields.io/badge/Version-1.11.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.5](https://img.shields.io/badge/Version-1.11.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages, with GPU support.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.12 |
 
 ## Values
 
