@@ -414,14 +414,7 @@
                   "value": "",
                   "path": "git/repository"
               }
-          },
-          "mergeStrategy": {
-              "type": "string",
-              "description": "How Git should merge possibly unrelated histories",
-              "default": "only",
-              "listEnum": ["only", "true", "false"],
-              "render": "list"                      
-            }
+          }
       }
     },
     "vault": {

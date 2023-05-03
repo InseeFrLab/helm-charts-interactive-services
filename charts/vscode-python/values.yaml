@@ -79,7 +79,6 @@ git:
   email: ""
   cache: ""
   branch: ""
-  mergeStrategy: ""
 
 repository:
   configMapName: ""
