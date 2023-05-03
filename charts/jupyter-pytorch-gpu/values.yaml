@@ -46,7 +46,6 @@ git:
   token: ''
   repository: ''
   branch: ''
-  mergeStrategy: ''
 repository:
   configMapName: ''
   pipRepository: ''
