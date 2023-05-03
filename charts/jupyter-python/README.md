@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 1.10.6](https://img.shields.io/badge/Version-1.10.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.0](https://img.shields.io/badge/Version-1.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.12 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.13 |
 
 ## Values
 
@@ -38,6 +38,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `false` |  |
+| git.mergeStrategy | string | `""` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |

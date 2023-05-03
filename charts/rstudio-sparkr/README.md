@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 1.9.5](https://img.shields.io/badge/Version-1.9.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.10.0](https://img.shields.io/badge/Version-1.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.12 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.13 |
 
 ## Values
 
@@ -37,6 +37,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
+| git.mergeStrategy | string | `""` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
