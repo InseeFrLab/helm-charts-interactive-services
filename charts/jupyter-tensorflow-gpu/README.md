@@ -1,6 +1,6 @@
 # jupyter-tensorflow-gpu
 
-![Version: 1.11.0](https://img.shields.io/badge/Version-1.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.1](https://img.shields.io/badge/Version-1.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.14 |
 
 ## Values
 
@@ -38,7 +38,6 @@ The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with 
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `false` |  |
-| git.mergeStrategy | string | `""` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |

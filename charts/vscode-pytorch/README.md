@@ -1,6 +1,6 @@
 # vscode-pytorch
 
-![Version: 1.9.0](https://img.shields.io/badge/Version-1.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.9.1](https://img.shields.io/badge/Version-1.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework PyTorch.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.14 |
 
 ## Values
 
@@ -40,7 +40,6 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
-| git.mergeStrategy | string | `""` |  |
 | git.name | string | `""` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
