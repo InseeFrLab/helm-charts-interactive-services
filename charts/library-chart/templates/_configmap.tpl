@@ -83,7 +83,6 @@ data:
   GIT_PERSONAL_ACCESS_TOKEN: "{{ .Values.git.token }}"
   GIT_REPOSITORY: "{{ .Values.git.repository }}"
   GIT_BRANCH: "{{ .Values.git.branch }}"
-  GIT_MERGE_STRATEGY: "{{ .Values.git.mergeStrategy }}"
 {{- end }}
 {{- end }}
 
