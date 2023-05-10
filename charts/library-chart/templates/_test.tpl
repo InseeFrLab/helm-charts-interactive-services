@@ -12,10 +12,10 @@ metadata:
     "helm.sh/hook": test-success
 spec:
   containers:
-    - name: wget
-      image: busybox:1.36.0-uclibc
-      command: ['wget']
-      args: ['{{ include "library-chart.fullname" . }}:{{ .Values.networking.service.port }}']
+    - name: curl
+      image: curlimages/curl:8.00.1
+      command: ['curl']
+      args: ['http://{{ include "library-chart.fullname" . }}:{{ .Values.networking.service.port }}', '-L']
       resources:
         limits:
           cpu: 200m
