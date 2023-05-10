@@ -15,7 +15,7 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.15 |
 
 ## Values
 

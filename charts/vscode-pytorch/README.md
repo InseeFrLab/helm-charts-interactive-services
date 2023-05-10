@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.15 |
 
 ## Values
 

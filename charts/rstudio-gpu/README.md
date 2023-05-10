@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.15 |
 
 ## Values
 
