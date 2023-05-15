@@ -22,7 +22,7 @@
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.3.1",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.9.16-spark3.3.1",
-                "inseefrlab/trevas-jupyter:0.2.0"
+                "inseefrlab/trevas-jupyter:0.3.0"
                ],
               "render": "list",
               "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
