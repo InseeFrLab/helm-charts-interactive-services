@@ -24,23 +24,28 @@ def configure_kube_api():
     return kube_apps_api, kube_core_api
 
 
-def build_manifest():
+def build_manifest(kind, images_to_prepull=None):
     """Build generic manifest with init containers to pre-pull images."""
-    # Extract list of images to pre-pull from charts
-    images_to_prepull = []
-    charts = [f.name for f in os.scandir(PROJECT_PATH / "charts")
-              if f.is_dir() and f.name != "library-chart"]
-    for chart in charts:
-        schema_path = PROJECT_PATH / "charts" / chart / "values.schema.json"
-        with open(schema_path, "r") as file_in:
-            chart_schema = json.load(file_in)
-        images = chart_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"]
-        images_to_prepull.extend(images)
+    if images_to_prepull is None:
+        # Extract list of images to pre-pull from charts
+        images_to_prepull = []
+        charts = [f.name for f in os.scandir(PROJECT_PATH / "charts")
+                  if f.is_dir() and f.name != "library-chart"]
+        for chart in charts:
+            schema_path = PROJECT_PATH / "charts" / chart / "values.schema.json"
+            with open(schema_path, "r") as file_in:
+                chart_schema = json.load(file_in)
+            images = chart_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"]
+            images_to_prepull.extend(images)
 
-    # Fill template with one init container per image to pre-pull
+    # Open the manifest template
     with open(PROJECT_PATH / "utils" / "prepull_template.yaml", "r") as file_in:
         manifest = yaml.safe_load(file_in)
 
+    # Set the Kind of the manifest
+    manifest["kind"] = kind
+
+    # Fill template with one init container per image to pre-pull
     for image in images_to_prepull:
         init_container = {
             "name": image.split("/")[1].replace(":", "-").replace(".", "-"),
@@ -54,11 +59,11 @@ def build_manifest():
     return manifest
 
 
-def prepull_deployment(namespace):
+def prepull_deployment(namespace, images_to_prepull=None):
     """Run a Deployment to pre-pull the images on the global registry cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
-    manifest = build_manifest()
-    manifest["kind"] = "Deployment"
+    manifest = build_manifest(kind="Deployment",
+                              images_to_prepull=images_to_prepull)
     label_name = "prepull-deployment-" + str(randint(100000, 999999))
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
@@ -77,11 +82,11 @@ def prepull_deployment(namespace):
             break
 
 
-def prepull_daemon(namespace):
+def prepull_daemon(namespace, images_to_prepull=None):
     """Run a DaemonSet to pre-pull the images on each worker's cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
-    manifest = build_manifest()
-    manifest["kind"] = "DaemonSet"
+    manifest = build_manifest(kind="DaemonSet", 
+                              images_to_prepull=images_to_prepull)
     label_name = "prepull-daemonset-" + str(randint(100000, 999999))
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
@@ -99,14 +104,26 @@ def prepull_daemon(namespace):
             break
 
 
+def prepull_images(namespace, images_to_prepull=None):
+    """Full prepull procedure."""
+    # 1st step : create a Deployment to pull the images in the global registry cache once
+    logging.info('1st step : Deployment')
+    prepull_deployment(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+
+    # 2nd step : create a DaemonSet to pull the images in each worker's local cache
+    logging.info('2nd step : DaemonSet')
+    prepull_daemon(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+
+
 if __name__ == "__main__":
 
     NAMESPACE = sys.argv[1]
 
-    # 1st step : create a Deployment to pull the images in the global registry cache once
-    logging.info('1st step : Deployment')
-    prepull_deployment(namespace=NAMESPACE)
+    if len(sys.argv) == 2:
+        # Pulling all images specified in the charts of the catalog
+        prepull_images(namespace=NAMESPACE)
 
-    # 2nd step : create a DaemonSet to pull the images in each worker's local cache
-    logging.info('2nd step : DaemonSet')
-    prepull_daemon(namespace=NAMESPACE)
+    elif len(sys.argv) == 3:
+        # Pulling a list of specified images
+        images_to_prepull = sys.argv[2].split(",")
+        prepull_images(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
