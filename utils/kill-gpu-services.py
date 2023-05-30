@@ -1,6 +1,9 @@
 import subprocess
+import logging
 
 from prometheus_api_client import PrometheusConnect
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 prom = PrometheusConnect(url="http://prometheus-server.prometheus",
                          disable_ssl=True)
@@ -23,4 +26,5 @@ releases_to_kill = [(rel[0].split("-0")[0], rel[1]) for rel in pods_to_kill if "
 cmds = [f"helm delete {rel[0]} --namespace={rel[1]}"
         for rel in releases_to_kill]
 for cmd in cmds:
+    logging.info(f"Launching command : {cmd}")
     subprocess.run(cmd.split(" "))

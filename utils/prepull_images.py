@@ -85,7 +85,7 @@ def prepull_deployment(namespace, images_to_prepull=None):
 def prepull_daemon(namespace, images_to_prepull=None):
     """Run a DaemonSet to pre-pull the images on each worker's cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
-    manifest = build_manifest(kind="DaemonSet", 
+    manifest = build_manifest(kind="DaemonSet",
                               images_to_prepull=images_to_prepull)
     label_name = "prepull-daemonset-" + str(randint(100000, 999999))
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
