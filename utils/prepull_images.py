@@ -113,6 +113,8 @@ def prepull_images(namespace, images_to_prepull=None):
     # 2nd step : create a DaemonSet to pull the images in each worker's local cache
     logging.info('2nd step : DaemonSet')
     prepull_daemon(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+    
+    logging.info('Prepull job done')
 
 
 if __name__ == "__main__":
