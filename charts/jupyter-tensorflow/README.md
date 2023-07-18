@@ -1,6 +1,6 @@
 # jupyter-tensorflow
 
-![Version: 1.11.2](https://img.shields.io/badge/Version-1.11.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.12.0](https://img.shields.io/badge/Version-1.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
 
@@ -95,9 +95,9 @@ The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.10.9"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.11.4"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.10.9"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.11.4"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
