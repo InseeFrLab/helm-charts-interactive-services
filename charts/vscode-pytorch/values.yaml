@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-vscode-pytorch:py3.10.9
+    version: inseefrlab/onyxia-vscode-pytorch:py3.11.4
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-pytorch:py3.10.9
+      version: inseefrlab/onyxia-vscode-pytorch:py3.11.4
 security:
   password: changeme
   networkPolicy:

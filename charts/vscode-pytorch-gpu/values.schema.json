@@ -168,9 +168,10 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-pytorch:py3.10.9-gpu",
+              "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.4-gpu",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-pytorch:py3.10.9-gpu",
+                "inseefrlab/onyxia-vscode-pytorch:py3.11.4-gpu",
+                "inseefrlab/onyxia-vscode-pytorch:py3.10.12-gpu",
                 "inseefrlab/onyxia-vscode-pytorch:py3.9.16-gpu"
               ],
               "render": "list",
@@ -193,7 +194,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.10.9-gpu",
+                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.4-gpu",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"

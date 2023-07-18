@@ -154,9 +154,10 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-pytorch:py3.10.9",
+              "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.4",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-pytorch:py3.10.9",
+                "inseefrlab/onyxia-vscode-pytorch:py3.11.4",
+                "inseefrlab/onyxia-vscode-pytorch:py3.10.12",
                 "inseefrlab/onyxia-vscode-pytorch:py3.9.16"
               ],
               "render": "list",
@@ -179,7 +180,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.10.9",
+                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.4",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"

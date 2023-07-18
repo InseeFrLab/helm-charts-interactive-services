@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-vscode-python:py3.10.9-gpu
+    version: inseefrlab/onyxia-vscode-python:py3.11.4-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-python:py3.10.9-gpu
+      version: inseefrlab/onyxia-vscode-python:py3.11.4-gpu
 security:
   password: changeme
   networkPolicy:

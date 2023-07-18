@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-r:r4.2.3
+    version: inseefrlab/onyxia-jupyter-r:r4.3.1
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-r:r4.2.3
+      version: inseefrlab/onyxia-jupyter-r:r4.3.1
 security:
   password: changeme
   networkPolicy:
