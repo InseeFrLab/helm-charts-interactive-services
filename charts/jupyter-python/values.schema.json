@@ -20,7 +20,8 @@
                         "description": "supported versions",
                         "type": "string",
                         "listEnum": [
-                            "inseefrlab/onyxia-jupyter-python:py3.10.9",
+                            "inseefrlab/onyxia-jupyter-python:py3.11.4",
+                            "inseefrlab/onyxia-jupyter-python:py3.10.12",
                             "inseefrlab/onyxia-jupyter-python:py3.9.16"
                         ],
                         "render": "list",
@@ -29,7 +30,7 @@
                             "value": true,
                             "path": "service/image/custom/enabled"
                         },
-                        "default": "inseefrlab/onyxia-jupyter-python:py3.10.9"
+                        "default": "inseefrlab/onyxia-jupyter-python:py3.11.4"
                       },
                       "custom" : {
                         "description": "use a custom jupyter docker image",

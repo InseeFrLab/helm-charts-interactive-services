@@ -20,8 +20,8 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.4.0",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.9.16-spark3.4.0",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.11.4-spark3.4.1",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.10.12-spark3.4.1",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.3.1",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.9.16-spark3.3.1",
                 "inseefrlab/trevas-jupyter:0.3.2"
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.4.0"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.11.4-spark3.4.1"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.9-spark3.4.0",
+                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.11.4-spark3.4.1",
                   "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                   "hidden": {
                     "value": false,
