@@ -210,5 +210,6 @@ affinity: {}
 
 repository:
   configMapName: ""
+  packageManagerUrl: ""
   rRepository: ""
   mavenRepository: ""

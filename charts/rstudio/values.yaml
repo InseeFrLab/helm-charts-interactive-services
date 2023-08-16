@@ -176,4 +176,5 @@ affinity: {}
 
 repository:
   configMapName: ""
+  packageManagerUrl: ""
   rRepository: ""
