@@ -312,8 +312,7 @@ data:
 
 {{/* Create the name of the config map repository to use */}}
 {{- define "library-chart.repository.enabled" -}}
-{{- default "" (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.rRepository) }}
-{{- default "" (or (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.rRepository, .Values.repository.packageManagerUrl) }}
+{{- default "" (or (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.rRepository) .Values.repository.packageManagerUrl) }}
 {{- end }}
 
 {{- define "library-chart.configMapNameRepository" -}}
