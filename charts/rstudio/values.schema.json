@@ -703,6 +703,15 @@
                   "hidden": true,
                   "overwriteDefaultWith": "{{packageRepositoryInjection.cranProxyUrl}}"
                 }
+              },
+              "packageManagerUrl": {
+                "type": "string",
+                "description": "Posit Package Manager URL",
+                "default": "",
+                "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "{{packageRepositoryInjection.packageManagerUrl}}"
+                }
               }
             }
         },

@@ -69,6 +69,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | replicaCount | int | `1` |  |
 | repository.configMapName | string | `""` |  |
 | repository.mavenRepository | string | `""` |  |
+| repository.packageManagerUrl | string | `""` |  |
 | repository.rRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |

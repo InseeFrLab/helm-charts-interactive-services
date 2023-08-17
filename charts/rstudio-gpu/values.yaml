@@ -100,4 +100,5 @@ tolerations: []
 affinity: {}
 repository:
   configMapName: ''
+  packageManagerUrl: ''
   rRepository: ''
