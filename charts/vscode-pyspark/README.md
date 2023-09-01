@@ -1,10 +1,10 @@
-# jupyter-pyspark
+# vscode-pyspark
 
-![Version: 1.28.0](https://img.shields.io/badge/Version-1.28.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
+The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
-**Homepage:** <https://jupyter.org/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
