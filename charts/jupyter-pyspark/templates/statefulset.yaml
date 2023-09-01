@@ -51,15 +51,17 @@ spec:
           configMap:
             name: {{ include "library-chart.configMapNameHive" . }}
         {{- end }}
-        {{- if .Values.s3.enabled }}
-        - name: config-coresite
-          configMap:
-            name: {{ include "library-chart.configMapNameCoreSite" . }}
-        {{- end }}
         {{- if .Values.discovery.metaflow }}
         - name: metaflow-config
           configMap:
             name: {{ include "library-chart.configMapNameMetaflow" . }}
+        {{- end }}
+        {{- if .Values.s3.enabled }}
+        - name: config-coresite-tmp
+          configMap:
+            name: {{ include "library-chart.configMapNameCoreSite" . }}
+        - name: config-coresite
+          emptyDir: {}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -70,6 +72,15 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       subdomain: {{ include "library-chart.fullname" . }}
       hostname: jupyter
+      initContainers:
+        - name: make-config-coresite-writable
+          image: alpine
+          command: ['sh', '-c', 'cp /src/core-site.xml /dest/core-site.xml']
+          volumeMounts:
+            - name: config-coresite-tmp
+              mountPath: /src
+            - name: config-coresite
+              mountPath: /dest
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
