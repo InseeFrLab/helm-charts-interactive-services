@@ -1,13 +1,13 @@
 apiVersion: v2
-name: jupyter-pyspark
-description: The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
-icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+name: vscode-pyspark
+description: The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
 keywords:
-  - Jupyter
+  - VSCode
   - Python
   - Spark
   - VTL
-home: https://jupyter.org/
+home: https://code.visualstudio.com/
 sources:
   - https://github.com/InseeFrLab/images-datascience
   - https://github.com/InseeFrLab/helm-charts-interactive-services
@@ -24,7 +24,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.28.0
+version: 1.0.0
 
 dependencies:
   - name: library-chart
