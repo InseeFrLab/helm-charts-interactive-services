@@ -156,6 +156,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user }}/work
+              subPath: work
               name: home
             {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
