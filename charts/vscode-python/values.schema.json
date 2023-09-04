@@ -157,7 +157,6 @@
                   "inseefrlab/onyxia-vscode-python:py3.9.16"
                 ],
                 "render": "list",
-                "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                   "hidden": {
                       "value": true,
                       "path": "service/image/custom/enabled"
