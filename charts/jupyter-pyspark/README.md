@@ -15,7 +15,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.3.15 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.4.0 |
 
 ## Values
 
