@@ -27,7 +27,6 @@
                 "inseefrlab/trevas-jupyter:0.3.2"
                ],
               "render": "list",
-              "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
@@ -48,7 +47,6 @@
                   "description": "jupyter unsupported version",
                   "type": "string",
                   "default": "inseefrlab/onyxia-jupyter-pyspark:py3.11.4-spark3.4.1",
-                  "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
