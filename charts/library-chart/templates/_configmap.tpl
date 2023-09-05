@@ -240,7 +240,11 @@ data:
 Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable
 */}}
 {{- define "library-chart.sparkNonProxyHosts" -}}
-{{- default "localhost" (regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" .Values.proxy.noProxy)  "*.") "|*.") }}
+{{- if .Values.proxy -}}
+{{- regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." }}
+{{- else }}
+{{- printf "%s" "localhost" }}
+{{- end }}
 {{- end }}
 
 {{- define "library-chart.sparkConf" -}}
