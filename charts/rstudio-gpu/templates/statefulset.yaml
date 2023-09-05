@@ -132,6 +132,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user }}/work
+              subPath: work
               name: home        
       {{- with .Values.nodeSelector }}
       nodeSelector:

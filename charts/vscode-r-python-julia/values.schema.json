@@ -159,7 +159,6 @@
                 "inseefrlab/onyxia-vscode-r-python-julia:r4.3.1"
               ],
               "render": "list",
-              "pattern": "^[a-z0-9-_./]+(:[a-z0-9-_.]+)?$",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
