@@ -236,6 +236,13 @@ data:
 {{- end }}
 
 {{/* ConfigMap for SparkConf Metastore */}}
+{{/*
+Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable
+*/}}
+{{- define "library-chart.sparkNonProxyHosts" -}}
+{{- default "localhost" (regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" .Values.proxy.noProxy)  "*.") "|*.") }}
+{{- end }}
+
 {{- define "library-chart.sparkConf" -}}
 {{- $context:= .}}
 {{- range $key, $value := default dict .Values.spark.config }}
