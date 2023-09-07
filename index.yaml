@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   jupyter-pyspark:
   - apiVersion: v2
+    created: "2023-09-07T08:04:22.496154485Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.4.3
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 3d40fcb1d051c2be78991e2330d65cb999adb93acfc58bfe6a36d95c9f20ffdf
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    - VTL
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-1.30.0/jupyter-pyspark-1.30.0.tgz
+    version: 1.30.0
+  - apiVersion: v2
     created: "2023-09-05T08:11:28.287569362Z"
     dependencies:
     - name: library-chart
@@ -2067,6 +2091,30 @@ entries:
     version: 1.11.3
   rstudio-sparkr:
   - apiVersion: v2
+    created: "2023-09-07T08:04:22.676918636Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.4.3
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: efe1ec507e17b61b107bfa12be2ce6b6e19e8c7f5de83d00b4961d6e5eca5938
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-sparkr-1.15.0/rstudio-sparkr-1.15.0.tgz
+    version: 1.15.0
+  - apiVersion: v2
     created: "2023-09-05T08:11:30.585999879Z"
     dependencies:
     - name: library-chart
@@ -2307,6 +2355,30 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-sparkr-1.9.3/rstudio-sparkr-1.9.3.tgz
     version: 1.9.3
   vscode-pyspark:
+  - apiVersion: v2
+    created: "2023-09-07T08:04:22.830886728Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.4.3
+    description: The Visual Studio Code IDE with PySpark, an interface to use Apache
+      Spark from Python.
+    digest: 29faf300f4431f20c3dd7e64ea2377d43574c6343b6c887fa752a090138aad28
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Spark
+    - VTL
+    name: vscode-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pyspark-1.2.0/vscode-pyspark-1.2.0.tgz
+    version: 1.2.0
   - apiVersion: v2
     created: "2023-09-05T08:11:30.797670856Z"
     dependencies:
@@ -3618,4 +3690,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2023-09-07T07:36:22.073988344Z"
+generated: "2023-09-07T08:04:22.831250326Z"
