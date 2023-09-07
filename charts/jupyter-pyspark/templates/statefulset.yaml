@@ -85,6 +85,8 @@ spec:
             limits:
               cpu: 50m
               memory: 50Mi
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
