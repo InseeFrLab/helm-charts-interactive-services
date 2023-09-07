@@ -237,14 +237,24 @@ data:
 
 {{/* ConfigMap for SparkConf Metastore */}}
 {{/*
-Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable
+Aggregate variable to set extraJavaOptions
 */}}
-{{- define "library-chart.sparkNonProxyHosts" -}}
+{{- define "library-chart.sparkExtraJavaOptions" -}}
+
+{{/*
+Flag to disable certificate checking for Spark
+*/}}
+{{- if .Values.spark -}}
+{{- printf " -Dcom.amazonaws.sdk.disableCertChecking=%v" (default false .Values.spark.disabledCertChecking) }}
+{{- end -}}
+
+{{/* Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable */}}
 {{- if .Values.proxy -}}
-{{- regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." }}
-{{- else }}
-{{- printf "%s" "localhost" }}
-{{- end }}
+{{- $nonProxyHosts := regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." -}}
+{{- printf " -Dhttp.nonProxyHosts=%v" $nonProxyHosts }}
+{{- printf " -Dhttps.nonProxyHosts=%v" $nonProxyHosts }}
+{{- end -}}
+
 {{- end }}
 
 {{- define "library-chart.sparkConf" -}}
