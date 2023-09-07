@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 1.14.0](https://img.shields.io/badge/Version-1.14.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.15.0](https://img.shields.io/badge/Version-1.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.4.0 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.4.3 |
 
 ## Values
 
@@ -66,6 +66,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
+| proxy.httpProxy | string | `""` |  |
+| proxy.httpsProxy | string | `""` |  |
+| proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
 | repository.configMapName | string | `""` |  |
 | repository.mavenRepository | string | `""` |  |
@@ -98,8 +101,8 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}"` |  |
+| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
+| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
 | spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
 | spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
 | spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |

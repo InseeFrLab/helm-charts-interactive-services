@@ -19,8 +19,8 @@ spark:
     spark.kubernetes.driver.pod.name: '{{ include "library-chart.fullname" . }}-0'
     spark.kubernetes.namespace: '{{ .Release.Namespace }}'
     spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
-    spark.driver.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
-    spark.executor.extraJavaOptions: '-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }}'
+    spark.driver.extraJavaOptions: '{{ include "library-chart.sparkExtraJavaOptions" . }}'
+    spark.executor.extraJavaOptions: '{{ include "library-chart.sparkExtraJavaOptions" . }}'
   userConfig:
     spark.dynamicAllocation.enabled: "true"
     spark.dynamicAllocation.initialExecutors: "1"
@@ -88,6 +88,11 @@ git:
   token: ""
   repository: ""
   branch: ""
+
+proxy:
+  noProxy: ""
+  httpProxy: ""
+  httpsProxy: ""
 
 repository:
   configMapName: ""

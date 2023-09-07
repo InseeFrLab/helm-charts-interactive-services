@@ -803,6 +803,39 @@
         }
       }
     },
+    "proxy": {
+      "description": "Proxy configuration",
+      "type": "object",
+      "properties": {
+        "httpProxy": {
+          "type": "string",
+          "description": "Proxy URL for HTTP requests",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{proxyInjection.httpProxyUrl}}"
+          }
+        },
+        "httpsProxy": {
+          "type": "string",
+          "description": "Proxy URL for HTTPS requests",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{proxyInjection.httpsProxyUrl}}"
+          }
+        },
+        "noProxy": {
+          "type": "string",
+          "description": "Comma separated list of hosts for which proxy is bypassed",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{proxyInjection.noProxy}}"
+          }
+        }
+      }
+    },
     "startupProbe": {
       "type": "object",
       "description": "Start up probe",
