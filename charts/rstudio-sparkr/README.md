@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.4.2 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.4.3 |
 
 ## Values
 
@@ -101,8 +101,8 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }} -Dhttp.nonProxyHosts={{ include \"library-chart.sparkNonProxyHosts\" . }} -Dhttps.nonProxyHosts={{ include \"library-chart.sparkNonProxyHosts\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"-Dcom.amazonaws.sdk.disableCertChecking={{ .Values.spark.disabledCertChecking }} -Dhttp.nonProxyHosts={{ include \"library-chart.sparkNonProxyHosts\" . }} -Dhttps.nonProxyHosts={{ include \"library-chart.sparkNonProxyHosts\" . }}"` |  |
+| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
+| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
 | spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
 | spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
 | spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
