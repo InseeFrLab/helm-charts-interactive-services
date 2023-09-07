@@ -79,6 +79,10 @@ spec:
               mountPath: /src
             - name: config-tmp
               mountPath: /dest
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
