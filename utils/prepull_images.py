@@ -128,6 +128,7 @@ if __name__ == "__main__":
             prepull_images(namespace=NAMESPACE)
         except ApiException as e:
             if e.status == 410:  # "Reason: Expired: too old resource version"
+                logging.info('Error 410 ("too old resource version"), retrying.')
                 prepull_images(namespace=NAMESPACE)
 
     elif len(sys.argv) == 3:
