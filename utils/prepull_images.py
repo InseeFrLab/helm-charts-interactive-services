@@ -8,6 +8,7 @@ from random import randint
 
 import yaml
 import kubernetes
+from kubernetes.client.exceptions import ApiException
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -123,7 +124,11 @@ if __name__ == "__main__":
 
     if len(sys.argv) == 2:
         # Pulling all images specified in the charts of the catalog
-        prepull_images(namespace=NAMESPACE)
+        try:
+            prepull_images(namespace=NAMESPACE)
+        except ApiException as e:
+            if e.status == 410:  # "Reason: Expired: too old resource version"
+                prepull_images(namespace=NAMESPACE)
 
     elif len(sys.argv) == 3:
         # Pulling a list of specified images
