@@ -28,14 +28,17 @@ spec:
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
-        {{- with .Values.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
+        {{- if not (empty (trim (include "library-chart.configMapMetaflow" .)))}}
+        checksum/metaflow: {{ include (print $.Template.BasePath "/configmap-metaflow.yaml") . | sha256sum }}
         {{- end }}
         {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
         checksum/mlflow: {{ include (print $.Template.BasePath "/configmap-mlflow.yaml") . | sha256sum }}
         {{- end }}
         {{- if not (empty (trim (include "library-chart.configMapHive" .)))}}
         checksum/hive: {{ include (print $.Template.BasePath "/configmap-hive.yaml") . | sha256sum }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
