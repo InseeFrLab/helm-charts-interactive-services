@@ -91,7 +91,6 @@ stringData:
 {{- define "library-chart.secretNameToken" -}}
 {{- $name:= (printf "%s-secrettoken" (include "library-chart.fullname" .) )  }}
 {{- default $name (printf "%s-secrettoken" (include "library-chart.fullname" .) )  }}
-
 {{- end }}
 
 {{/* Template to generate a secret for token */}}
