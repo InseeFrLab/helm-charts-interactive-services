@@ -102,7 +102,7 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
-  PASSWORD: "{{ .Values.security.password }} "
+  PASSWORD: "{{ .Values.security.password }}"
 {{- end }}
 
 {{/* Create the name of the secret MLFlow to use */}}
