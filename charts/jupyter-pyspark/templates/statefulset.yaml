@@ -112,8 +112,6 @@ spec:
               {{- end }}
             - name: NB_USER
               value: {{ .Values.environment.user }}
-            - name: PASSWORD
-              value: {{ .Values.security.password }}
             - name: PROJECT_USER
               value: {{ .Values.environment.user }}
             - name: PROJECT_GROUP
@@ -137,6 +135,8 @@ spec:
               value: "yes"
             {{- end }}          
           envFrom: 
+            - secretRef:
+                name: {{ include "library-chart.secretNameToken" . }}
             {{- if .Values.s3.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
@@ -153,9 +153,9 @@ spec:
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
-            {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameMLFlow" . }}
+            {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameMLFlow" . }}
             {{- end }}
           livenessProbe:
             httpGet:
