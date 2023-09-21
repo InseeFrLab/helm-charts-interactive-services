@@ -61,7 +61,7 @@ spec:
           configMap:
             name: {{ include "library-chart.configMapNameCoreSite" . }}
         {{- end }}
-        - name: config-tmp
+        - name: config-files
           emptyDir: {}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -75,12 +75,39 @@ spec:
       initContainers:
         - name: make-configmaps-writable
           image: alpine
-          command: ['sh', '-c', 'cp /src/hive-site.xml /dest/hive-site.xml']
+          command: 
+            - sh
+            - -c 
+            - |
+              cp /src/coresite/core-site.xml /dest/core-site.xml;
+              cp /src/ivysettings/ivysettings.xml /dest/ivysettings.xml ;
+              cp /src/hive/hive-site.xml /dest/hive-site.xml ;
+              cp /src/metaflow/config.json /dest/config.json ;
+              cp /src/spark/spark-defaults.conf /dest/spark-defaults.conf ;
+              chmod -R 664 /dest/;
           volumeMounts:
-            - name: hive-config
-              mountPath: /src
-            - name: config-tmp
+            {{- if .Values.s3.enabled }}
+            - name: config-coresite
+              mountPath: /src/coresite
+            {{- end }}
+            {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+            - name: config-ivysettings
+              mountPath: /src/ivysettings
+            {{- end }}
+            - name: config-files
               mountPath: /dest
+            {{- if .Values.spark.default }}
+            - name: config-sparkconf
+              mountPath: /src/spark
+            {{- end }}
+            {{- if .Values.discovery.hive }}
+            - name: hive-config
+              mountPath: /src/hive
+            {{- end }}
+            {{- if .Values.discovery.metaflow }}
+            - name : metaflow-config
+              mountPath: /src/metaflow
+            {{- end }}
           resources:
             limits:
               cpu: 50m
@@ -182,7 +209,7 @@ spec:
               name: config-coresite
             {{- end }}
             {{- if .Values.spark.default }}
-            - name: config-sparkconf
+            - name: config-files
               mountPath: /opt/spark/conf/spark-defaults.conf
               subPath: spark-defaults.conf
             {{- end }}
@@ -192,7 +219,7 @@ spec:
               subPath: ivysettings.xml
             {{- end }}
             {{- if .Values.discovery.hive }}
-            - name: config-tmp
+            - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
             {{- end }}       
