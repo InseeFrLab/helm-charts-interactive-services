@@ -20,7 +20,7 @@ spec:
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
         {{- if .Values.s3.enabled }}
-        checksum/s3: {{ include (print $.Template.BasePath "/configmap-s3.yaml") . | sha256sum }}
+        checksum/s3: {{ include (print $.Template.BasePath "/secret-s3.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -112,8 +112,6 @@ spec:
               {{- end }}
             - name: NB_USER
               value: {{ .Values.environment.user }}
-            - name: PASSWORD
-              value: {{ .Values.security.password }}
             - name: PROJECT_USER
               value: {{ .Values.environment.user }}
             - name: PROJECT_GROUP
@@ -137,25 +135,27 @@ spec:
               value: "yes"
             {{- end }}          
           envFrom: 
+            - secretRef:
+                name: {{ include "library-chart.secretNameToken" . }}
             {{- if .Values.s3.enabled }}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameS3" . }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameS3" . }}
             {{- end }}
             {{- if .Values.vault.enabled }}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameVault" . }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameVault" . }}
             {{- end }}
             {{- if .Values.git.enabled }}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameGit" . }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameGit" . }}
             {{- end }}
             {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
-            {{- if not (empty (trim (include "library-chart.configMapMLFlow" .)))}}
-            - configMapRef:
-                name: {{ include "library-chart.configMapNameMLFlow" . }}
+            {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameMLFlow" . }}
             {{- end }}
           livenessProbe:
             httpGet:
