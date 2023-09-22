@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   jupyter-pyspark:
   - apiVersion: v2
+    created: "2023-09-22T16:46:51.575446671Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.4
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 0bc821b8a185d34d4fa71a919547da611d4c435b578e87ad97aba54934403bd5
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    - VTL
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-1.32.9/jupyter-pyspark-1.32.9.tgz
+    version: 1.32.9
+  - apiVersion: v2
     created: "2023-09-22T15:17:45.66543937Z"
     dependencies:
     - name: library-chart
@@ -2033,6 +2057,14 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-gpu-1.10.4/jupyter-tensorflow-gpu-1.10.4.tgz
     version: 1.10.4
   library-chart:
+  - apiVersion: v2
+    created: "2023-09-22T16:46:51.693583229Z"
+    digest: 267ed33cefb95f446e4025e248fe0f93e690dbf2375758f73513ec91102188ae
+    name: library-chart
+    type: library
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/library-chart-1.5.10/library-chart-1.5.10.tgz
+    version: 1.5.10
   - apiVersion: v2
     created: "2023-09-22T15:15:58.903715342Z"
     digest: 9f4409b898976674716f3d8ee3354a8b396d0e11c2de639f2007cc48cf37e166
@@ -4662,4 +4694,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2023-09-22T15:17:45.666337176Z"
+generated: "2023-09-22T16:46:51.694158936Z"
