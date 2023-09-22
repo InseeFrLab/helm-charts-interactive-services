@@ -37,29 +37,30 @@ spec:
           emptyDir: {}
         {{- end }}
         {{- if .Values.spark.default }}
-        - name: config-sparkconf
-          configMap:
-            name: {{ include "library-chart.configMapNameSparkConf" . }}
+        - name: secret-sparkconf
+          secret:
+            secretName: {{ include "library-chart.secretNameSparkConf" . }}
         {{- end }}
         {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-        - name: config-ivysettings
-          configMap:
-            name: {{ include "library-chart.configMapNameIvySettings" . }}
+        - name: secret-ivysettings
+          secret:
+            secretName: {{ include "library-chart.secretNameIvySettings" . }}
         {{- end }}
         {{- if .Values.discovery.hive }}
-        - name: hive-config
-          configMap:
-            name: {{ include "library-chart.configMapNameHive" . }}
+        - name: secret-hive
+          secret:
+            secretName: {{ include "library-chart.secretNameHive" . }}
         {{- end }}
         {{- if .Values.discovery.metaflow }}
-        - name: metaflow-config
-          configMap:
-            name: {{ include "library-chart.configMapNameMetaflow" . }}
+        - name: secret-metaflow
+          secret:
+            secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
         {{- if .Values.s3.enabled }}
-        - name: config-coresite
-          configMap:
-            name: {{ include "library-chart.configMapNameCoreSite" . }}
+        - name: secret-coresite
+          secret:
+            secretName: {{ include "library-chart.secretNameCoreSite" . }}
+            defaultMode: 0664
         {{- end }}
         - name: config-files
           emptyDir: {}
@@ -79,33 +80,31 @@ spec:
             - sh
             - -c 
             - |
-              cp /src/coresite/core-site.xml /dest/core-site.xml;
-              cp /src/ivysettings/ivysettings.xml /dest/ivysettings.xml ;
-              cp /src/hive/hive-site.xml /dest/hive-site.xml ;
-              cp /src/metaflow/config.json /dest/config.json ;
-              cp /src/spark/spark-defaults.conf /dest/spark-defaults.conf ;
+              ls -Ralh /src;
+              cp -R /src/* /dest ;
+              ls -Ralh /dest;
               chmod -R 664 /dest/;
           volumeMounts:
             {{- if .Values.s3.enabled }}
-            - name: config-coresite
+            - name: secret-coresite
               mountPath: /src/coresite
             {{- end }}
             {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-            - name: config-ivysettings
+            - name: secret-ivysettings
               mountPath: /src/ivysettings
             {{- end }}
             - name: config-files
               mountPath: /dest
             {{- if .Values.spark.default }}
-            - name: config-sparkconf
+            - name: secret-sparkconf
               mountPath: /src/spark
             {{- end }}
             {{- if .Values.discovery.hive }}
-            - name: hive-config
+            - name: secret-hive
               mountPath: /src/hive
             {{- end }}
             {{- if .Values.discovery.metaflow }}
-            - name : metaflow-config
+            - name : secret-metaflow
               mountPath: /src/metaflow
             {{- end }}
           resources:
@@ -205,29 +204,29 @@ spec:
               name: home
             {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
-              subPath: core-site.xml
-              name: config-coresite
+              subPath: coresite/core-site.xml
+              name: config-files
             {{- end }}
             {{- if .Values.spark.default }}
             - name: config-files
               mountPath: /opt/spark/conf/spark-defaults.conf
-              subPath: spark-defaults.conf
+              subPath: spark/spark-defaults.conf
             {{- end }}
             {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-            - name: config-ivysettings
+            - name: config-files
               mountPath: /opt/spark/conf/ivysettings.xml
-              subPath: ivysettings.xml
+              subPath: ivysettings/ivysettings.xml
             {{- end }}
             {{- if .Values.discovery.hive }}
             - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
-              subPath: hive-site.xml
-            {{- end }}       
+              subPath: hive/hive-site.xml
+            {{- end }}
             {{- if .Values.discovery.metaflow }}
-            - name: metaflow-config
+            - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
-              subPath: config.json
-            {{- end }}   
+              subPath: metaflow/config.json
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
