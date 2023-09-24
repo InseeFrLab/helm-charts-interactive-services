@@ -59,16 +59,10 @@ jobs:
             git push
           fi
 
-      - name: Copy library-chart
-        run: |
-             mkdir tmp
-             cp -R charts/library-chart tmp/library-chart
-             ls -R .
-
       - name: Run library-chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         with:
-          charts_dir: tmp
+          charts_dir: charts-base
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
