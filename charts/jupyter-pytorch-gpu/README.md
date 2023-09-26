@@ -1,6 +1,6 @@
 # jupyter-pytorch-gpu
 
-![Version: 1.13.2](https://img.shields.io/badge/Version-1.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.13.4](https://img.shields.io/badge/Version-1.13.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.2 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.12 |
 
 ## Values
 
