@@ -19,20 +19,23 @@ spec:
         {{- if .Values.git.enabled }}
         checksum/git: {{ include (print $.Template.BasePath "/secret-git.yaml") . | sha256sum }}
         {{- end }}
-        {{- if .Values.s3.enabled }}
-        checksum/s3: {{ include (print $.Template.BasePath "/secret-s3.yaml") . | sha256sum }}
+        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
+        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
         {{- end }}
-        {{- if .Values.vault.enabled }}
-        checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if (include "library-chart.repository.enabled"  .) }}
-        checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
+        {{- if not (empty (trim (include "library-chart.secretMetaflow" .)))}}
+        checksum/metaflow: {{ include (print $.Template.BasePath "/secret-metaflow.yaml") . | sha256sum }}
         {{- end }}
         {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
         checksum/mlflow: {{ include (print $.Template.BasePath "/secret-mlflow.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
-        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
+        {{- if .Values.s3.enabled }}
+        {{- if (include "library-chart.repository.enabled"  .) }}
+        checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
+        {{- end }}
+        checksum/s3: {{ include (print $.Template.BasePath "/secret-s3.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.vault.enabled }}
+        checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -76,9 +79,7 @@ spec:
             - sh
             - -c 
             - |
-              ls -Ralh /src;
               cp -R /src/* /dest ;
-              ls -Ralh /dest;
               chmod -R 664 /dest/;
           volumeMounts:
             - name: config-files
