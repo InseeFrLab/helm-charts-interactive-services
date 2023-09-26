@@ -2,6 +2,7 @@
 from pathlib import Path
 import json
 import shutil
+import os
 
 import yaml
 
@@ -21,6 +22,10 @@ for parent in parameters:
     for child in parameters[parent]:
         print(f"Building {child} from {parent}.")
         child_dir = PROJECT_PATH / "charts" / child
+
+        # Remove the child chart if it exists 
+        if os.path.exists(child_dir):
+            shutil.rmtree(child_dir)
 
         # Create child chart as a copy of parent chart
         shutil.copytree(src=parent_dir, dst=child_dir, dirs_exist_ok=True, ignore=shutil.ignore_patterns('README.md'))
