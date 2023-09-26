@@ -31,8 +31,8 @@ spec:
         {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
         checksum/mlflow: {{ include (print $.Template.BasePath "/secret-mlflow.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.configMapHive" .)))}}
-        checksum/hive: {{ include (print $.Template.BasePath "/configmap-hive.yaml") . | sha256sum }}
+        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
+        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -49,14 +49,16 @@ spec:
           emptyDir: {}
         {{- end }}
         {{- if .Values.discovery.hive }}
-        - name: hive-config
-          configMap:
-            name: {{ include "library-chart.configMapNameHive" . }}
+        - name: config-files
+          emptyDir: {}
+        - name: secret-hive
+          secret:
+            secretName: {{ include "library-chart.secretNameHive" . }}
         {{- end }}
         {{- if .Values.discovery.metaflow }}
-        - name: metaflow-config
-          configMap:
-            name: {{ include "library-chart.configMapNameMetaflow" . }}
+        - name: secret-metaflow
+          secret:
+            secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -67,6 +69,34 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       subdomain: {{ include "library-chart.fullname" . }}
       hostname: jupyter
+      initContainers:
+        - name: make-secrets-writable
+          image: alpine
+          command: 
+            - sh
+            - -c 
+            - |
+              ls -Ralh /src;
+              cp -R /src/* /dest ;
+              ls -Ralh /dest;
+              chmod -R 664 /dest/;
+          volumeMounts:
+            - name: config-files
+              mountPath: /dest
+            {{- if .Values.discovery.hive }}
+            - name: secret-hive
+              mountPath: /src/hive
+            {{- end }}
+            {{- if .Values.discovery.metaflow }}
+            - name : secret-metaflow
+              mountPath: /src/metaflow
+            {{- end }}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -157,14 +187,14 @@ spec:
               subPath: work
               name: home
             {{- if .Values.discovery.hive }}
-            - name: hive-config
+            - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
-              subPath: hive-site.xml
+              subPath: hive/hive-site.xml
             {{- end }}   
             {{- if .Values.discovery.metaflow }}
-            - name: metaflow-config
+            - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
-              subPath: config.json
+              subPath: metaflow/config.json
             {{- end }}     
       {{- with .Values.nodeSelector }}
       nodeSelector:
