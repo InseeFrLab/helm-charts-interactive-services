@@ -19,8 +19,17 @@ spec:
         {{- if .Values.git.enabled }}
         checksum/git: {{ include (print $.Template.BasePath "/secret-git.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
+        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretIvySettings" .)))}}
+        checksum/ivysettings: {{ include (print $.Template.BasePath "/secret-ivysettings.yaml") . | sha256sum }}
+        {{- end }}
         {{- if .Values.s3.enabled }}
         checksum/s3: {{ include (print $.Template.BasePath "/secret-s3.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretSparkConf" .)))}}
+        checksum/sparkconf: {{ include (print $.Template.BasePath "/secret-sparkconf.yaml") . | sha256sum }}
         {{- end }}
         {{- if .Values.vault.enabled }}
         checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
@@ -80,9 +89,7 @@ spec:
             - sh
             - -c 
             - |
-              ls -Ralh /src;
               cp -R /src/* /dest ;
-              ls -Ralh /dest;
               chmod -R 664 /dest/;
           volumeMounts:
             {{- if .Values.s3.enabled }}
