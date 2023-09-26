@@ -35,6 +35,8 @@ spec:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
       volumes:
+        - name: config-files
+          emptyDir: {}
         - name: home
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
@@ -43,24 +45,24 @@ spec:
           emptyDir: {}
         {{- end }}
         {{- if .Values.s3.enabled }}
-        - name: config-coresite
-          configMap:
-            name: {{ include "library-chart.configMapNameCoreSite" . }}
+        - name: secret-coresite
+          secret:
+            secretName: {{ include "library-chart.secretNameCoreSite" . }}
         {{- end }}
         {{- if .Values.spark.default }}
-        - name: config-sparkconf
-          configMap:
-            name: {{ include "library-chart.configMapNameSparkConf" . }}
+        - name: secret-sparkconf
+          secret:
+            secretName: {{ include "library-chart.secretNameSparkConf" . }}
         {{- end }}
         {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-        - name: config-ivysettings
-          configMap:
-            name: {{ include "library-chart.configMapNameIvySettings" . }}
+        - name: secret-ivysettings
+          secret:
+            secretName: {{ include "library-chart.secretNameIvySettings" . }}
         {{- end }}
         {{- if .Values.discovery.hive }}
-        - name: hive-config
-          configMap:
-            name: {{ include "library-chart.configMapNameHive" . }}
+        - name: secret-hive
+          secret:
+            secretName: {{ include "library-chart.secretNameHive" . }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -71,6 +73,42 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       subdomain: {{ include "library-chart.fullname" . }}
       hostname: rstudio
+      initContainers:
+        - name: make-secrets-writable
+          image: alpine
+          command: 
+            - sh
+            - -c 
+            - |
+              ls -Ralh /src;
+              cp -R /src/* /dest ;
+              ls -Ralh /dest;
+              chmod -R 664 /dest/;
+          volumeMounts:
+            {{- if .Values.s3.enabled }}
+            - name: secret-coresite
+              mountPath: /src/coresite
+            {{- end }}
+            {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+            - name: secret-ivysettings
+              mountPath: /src/ivysettings
+            {{- end }}
+            - name: config-files
+              mountPath: /dest
+            {{- if .Values.spark.default }}
+            - name: secret-sparkconf
+              mountPath: /src/spark
+            {{- end }}
+            {{- if .Values.discovery.hive }}
+            - name: secret-hive
+              mountPath: /src/hive
+            {{- end }}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -162,23 +200,23 @@ spec:
               name: home
             {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
-              subPath: core-site.xml
-              name: config-coresite
+              subPath: coresite/core-site.xml
+              name: config-files
             {{- end }}
             {{- if .Values.spark.default }}
-            - name: config-sparkconf
+            - name: config-files
               mountPath: /opt/spark/conf/spark-defaults.conf
-              subPath: spark-defaults.conf
+              subPath: spark/spark-defaults.conf
             {{- end }}
             {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-            - name: config-ivysettings
+            - name: config-files
               mountPath: /opt/spark/conf/ivysettings.xml
-              subPath: ivysettings.xml
+              subPath: ivysettings/ivysettings.xml
             {{- end }}
             {{- if .Values.discovery.hive }}
-            - name: hive-config
+            - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
-              subPath: hive-site.xml
+              subPath: hive/hive-site.xml
             {{- end }}         
       {{- with .Values.nodeSelector }}
       nodeSelector:
