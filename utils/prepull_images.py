@@ -100,7 +100,8 @@ def prepull_daemon(namespace, images_to_prepull=None):
                           namespace=namespace,
                           label_selector=f"name={label_name}"):
         n_daemons_ready = event['object'].status.number_ready
-        if n_daemons_ready == 11:
+        n_daemons_total = event['object'].status.desired_number_scheduled
+        if n_daemons_ready == n_daemons_total:
             w.stop()
             break
 
@@ -109,12 +110,12 @@ def prepull_images(namespace, images_to_prepull=None):
     """Full prepull procedure."""
     # 1st step : create a Deployment to pull the images in the global registry cache once
     logging.info('1st step : Deployment')
-    prepull_deployment(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+    prepull_deployment(namespace=namespace, images_to_prepull=images_to_prepull)
 
     # 2nd step : create a DaemonSet to pull the images in each worker's local cache
     logging.info('2nd step : DaemonSet')
-    prepull_daemon(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
-    
+    prepull_daemon(namespace=namespace, images_to_prepull=images_to_prepull)
+
     logging.info('Prepull job done')
 
 
