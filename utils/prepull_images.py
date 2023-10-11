@@ -5,6 +5,7 @@ import sys
 import json
 import logging
 from random import randint
+import time
 
 import yaml
 import kubernetes
@@ -66,6 +67,7 @@ def prepull_deployment(namespace, images_to_prepull=None):
     manifest = build_manifest(kind="Deployment",
                               images_to_prepull=images_to_prepull)
     label_name = "prepull-deployment-" + str(randint(100000, 999999))
+    manifest["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
@@ -75,7 +77,8 @@ def prepull_deployment(namespace, images_to_prepull=None):
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_core_api.list_namespaced_pod,
                           namespace=namespace,
-                          label_selector=f"name={label_name}"
+                          label_selector=f"name={label_name}",
+                          timeout_seconds=0
                           ):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
@@ -89,18 +92,33 @@ def prepull_daemon(namespace, images_to_prepull=None):
     manifest = build_manifest(kind="DaemonSet",
                               images_to_prepull=images_to_prepull)
     label_name = "prepull-daemonset-" + str(randint(100000, 999999))
+    manifest["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
                                                body=manifest)
 
-    # Wait for all daemons to be in Running state and remove the DaemonSet
+    # Get total number of daemons that will be launched
+    time.sleep(5)  # Let the daemonset set itself up
+    daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace,
+                                                           label_selector=f"name={label_name}")
+    n_daemons_total = daemon_info.to_dict()["items"][0]["status"]["desired_number_scheduled"]
+
+    # Wait for all daemons to be in Running state
+    counter_n_daemons_ready = 0
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_apps_api.list_namespaced_daemon_set,
                           namespace=namespace,
-                          label_selector=f"name={label_name}"):
+                          label_selector=f"name={label_name}",
+                          timeout_seconds=0
+                          ):
         n_daemons_ready = event['object'].status.number_ready
-        if n_daemons_ready == 11:
+
+        if n_daemons_ready > counter_n_daemons_ready:
+            logging.info(f'{n_daemons_ready}/{n_daemons_total} daemons done.')
+            counter_n_daemons_ready = n_daemons_ready
+
+        if n_daemons_ready == n_daemons_total:
             w.stop()
             break
 
@@ -109,12 +127,12 @@ def prepull_images(namespace, images_to_prepull=None):
     """Full prepull procedure."""
     # 1st step : create a Deployment to pull the images in the global registry cache once
     logging.info('1st step : Deployment')
-    prepull_deployment(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+    prepull_deployment(namespace=namespace, images_to_prepull=images_to_prepull)
 
     # 2nd step : create a DaemonSet to pull the images in each worker's local cache
     logging.info('2nd step : DaemonSet')
-    prepull_daemon(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
-    
+    prepull_daemon(namespace=namespace, images_to_prepull=images_to_prepull)
+
     logging.info('Prepull job done')
 
 
