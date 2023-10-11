@@ -67,6 +67,7 @@ def prepull_deployment(namespace, images_to_prepull=None):
     manifest = build_manifest(kind="Deployment",
                               images_to_prepull=images_to_prepull)
     label_name = "prepull-deployment-" + str(randint(100000, 999999))
+    manifest["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
@@ -91,6 +92,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
     manifest = build_manifest(kind="DaemonSet",
                               images_to_prepull=images_to_prepull)
     label_name = "prepull-daemonset-" + str(randint(100000, 999999))
+    manifest["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
@@ -99,7 +101,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
     # Get total number of daemons that will be launched
     time.sleep(5)  # Let the daemonset set itself up
     daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace,
-                                                           label_selector="name=prepull")
+                                                           label_selector=f"name={label_name}")
     n_daemons_total = daemon_info.to_dict()["items"][0]["status"]["desired_number_scheduled"]
 
     # Wait for all daemons to be in Running state
@@ -107,7 +109,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_apps_api.list_namespaced_daemon_set,
                           namespace=namespace,
-                          label_selector="name=prepull",
+                          label_selector=f"name={label_name}",
                           timeout_seconds=0
                           ):
         n_daemons_ready = event['object'].status.number_ready

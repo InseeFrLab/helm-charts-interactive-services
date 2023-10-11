@@ -5,7 +5,7 @@ kind: ""
 metadata:
   name: prepull
   labels:
-    name: prepull
+    name: ""
 spec:
   selector:
     matchLabels:
