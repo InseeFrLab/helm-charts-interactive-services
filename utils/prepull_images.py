@@ -5,6 +5,7 @@ import sys
 import json
 import logging
 from random import randint
+import time
 
 import yaml
 import kubernetes
@@ -75,7 +76,8 @@ def prepull_deployment(namespace, images_to_prepull=None):
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_core_api.list_namespaced_pod,
                           namespace=namespace,
-                          label_selector=f"name={label_name}"
+                          label_selector=f"name={label_name}",
+                          timeout_seconds=0
                           ):
         pod_state = event['object'].status.phase
         if pod_state == "Running":
@@ -94,13 +96,26 @@ def prepull_daemon(namespace, images_to_prepull=None):
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
                                                body=manifest)
 
-    # Wait for all daemons to be in Running state and remove the DaemonSet
+    # Get total number of daemons that will be launched
+    time.sleep(5)  # Let the daemonset set itself up
+    daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace,
+                                                           label_selector="name=prepull")
+    n_daemons_total = daemon_info.to_dict()["items"][0]["status"]["desired_number_scheduled"]
+
+    # Wait for all daemons to be in Running state
+    counter_n_daemons_ready = 0
     w = kubernetes.watch.Watch()
     for event in w.stream(kube_apps_api.list_namespaced_daemon_set,
                           namespace=namespace,
-                          label_selector=f"name={label_name}"):
+                          label_selector="name=prepull",
+                          timeout_seconds=0
+                          ):
         n_daemons_ready = event['object'].status.number_ready
-        n_daemons_total = event['object'].status.desired_number_scheduled
+
+        if n_daemons_ready > counter_n_daemons_ready:
+            logging.info(f'{n_daemons_ready}/{n_daemons_total} daemons done.')
+            counter_n_daemons_ready = n_daemons_ready
+
         if n_daemons_ready == n_daemons_total:
             w.stop()
             break
