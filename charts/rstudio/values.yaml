@@ -178,3 +178,6 @@ repository:
   configMapName: ""
   packageManagerUrl: ""
   rRepository: ""
+
+userPreferences:
+  darkMode: false
