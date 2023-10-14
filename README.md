@@ -9,3 +9,10 @@ helm repo add inseefrlab-datascience https://inseefrlab.github.io/helm-charts-in
 The repo is also browsable directly https://inseefrlab.github.io/helm-charts-interactive-services/index.yaml
 
 Contributions are welcome, feel free to open issues or submit pull requests :)
+
+## Governance references
+
+- [GOVERNANCE.md](https://github.com/InseeFrLab/onyxia/blob/main/GOVERNANCE.md)
+- [CODE_OF_CONDUCT.md](https://github.com/InseeFrLab/onyxia/blob/main/CODE_OF_CONDUCT.md)
+- [ROADMAP.md](https://github.com/InseeFrLab/onyxia/blob/main/ROADMAP.md)
+- [SECURITY.md](https://github.com/InseeFrLab/onyxia/blob/main/SECURITY.md)
