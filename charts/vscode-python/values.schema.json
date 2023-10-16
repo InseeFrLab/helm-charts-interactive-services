@@ -806,6 +806,7 @@
         "type": "boolean",
         "description": "dark mode is or is not enabled",
         "title": "Dark Mode enabled",
+        "default": false,
         "x-form": {
           "value": "{{user.darkMode}}"
         },
