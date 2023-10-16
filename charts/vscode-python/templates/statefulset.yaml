@@ -138,7 +138,11 @@ spec:
             {{- if  .Values.fauxpilot.enabled }}
             - name: FAUXPILOT_SERVER
               value: "{{ .Values.fauxpilot.server }}" 
-            {{- end }}  
+            {{- end }}
+            {{- if .Values.userPreferences.darkMode }}
+            - name: DARK_MODE
+              value: "true"
+            {{- end }}
           envFrom: 
             - secretRef:
                 name : {{ include "library-chart.secretNameToken" . }}

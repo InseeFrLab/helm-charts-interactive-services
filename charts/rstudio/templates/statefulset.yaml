@@ -94,7 +94,7 @@ spec:
             {{- end }}
             {{- if .Values.userPreferences.darkMode }}
             - name: DARK_MODE
-              value: 'TRUE'
+              value: "true"
             {{- end }}
           envFrom: 
             {{- if .Values.s3.enabled }}
