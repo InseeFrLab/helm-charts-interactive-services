@@ -218,3 +218,6 @@ repository:
   packageManagerUrl: ""
   rRepository: ""
   mavenRepository: ""
+
+userPreferences:
+  darkMode: false
