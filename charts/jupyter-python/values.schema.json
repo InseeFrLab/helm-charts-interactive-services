@@ -794,7 +794,7 @@
                     "default": "en",
                     "x-onyxia": {
                         "hidden": true,
-                        "overwriteDefaultWith": "user.language"
+                        "overwriteDefaultWith": "user.lang"
                     }
                 }
             }
