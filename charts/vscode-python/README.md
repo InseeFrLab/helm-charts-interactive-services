@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 1.11.5](https://img.shields.io/badge/Version-1.11.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.9](https://img.shields.io/badge/Version-1.11.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.12 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.14 |
 
 ## Values
 
@@ -32,8 +32,6 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
-| fauxpilot.enabled | bool | `false` |  |
-| fauxpilot.server | string | `"http://fauxpilot-proxy.fauxpilot:5000/v1/engines"` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -102,6 +100,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.darkMode | bool | `false` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `true` |  |
