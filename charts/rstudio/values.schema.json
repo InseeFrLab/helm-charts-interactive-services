@@ -753,19 +753,28 @@
             }
         },
         "userPreferences":{
-          "description": "User Preferences",
-          "type": "object",
-          "properties": {
-            "darkMode": {
-              "type": "boolean",
-              "description": "dark mode is or is not enabled",
-              "default": false,
-            "x-onyxia": {
-              "hidden": true,
-              "overwriteDefaultWith": "user.darkMode"
-              }
+            "description": "User Preferences",
+            "type": "object",
+            "properties": {
+                "darkMode": {
+                    "type": "boolean",
+                    "description": "dark mode is or is not enabled",
+                    "default": false,
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "user.darkMode"
+                    }
+                },
+                "language": {
+                    "type": "string",
+                    "description": "Preferred language",
+                    "default": "en",
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "user.lang"
+                    }
+                }
             }
-          }
         }
     }
 }

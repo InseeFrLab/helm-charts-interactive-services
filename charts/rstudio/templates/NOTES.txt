@@ -1,3 +1,36 @@
+{{- if eq .Values.userPreferences.language "fr"}}
+{{- if .Values.ingress.enabled }}
+- Vous pouvez vous connecter à ce RStudio avec votre navigateur sur ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- end }}
+{{- if .Values.route.enabled }}
+- Vous pouvez vous connecter à ce RStudio avec votre navigateur sur ce [lien](https://{{ .Values.route.hostname }})
+{{- end }}
+- Le nom d'utilisateur est {{ .Values.environment.user }}
+- Le mot de passe est **{{ .Values.security.password }}**
+
+{{- if .Values.ingress.enabled }}
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé sur ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+- Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé sur ce [lien](https://{{ .Values.route.userHostname }})
+- Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+
+*REMARQUES sur la suppression :*
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+- Le volume associé au chemin suivant {{ .Values.persistence.mountPath }} sera supprimé
+- Vous devriez donc sauvegarder votre code dans un dépôt Git externe
+- Vous devriez aussi sauvegarder vos données dans un référentiel de données externe tel que S3
+- Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin.
+{{- end }}
+{{- end }}
+{{- else }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this rstudio with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- end }}
@@ -27,4 +60,5 @@ If you don't run your custom service you will get a 502 bad gateway error.
 - So, you should save your code to an external git repository
 - So, You should save your data to an external data repository like S3
 - You can easily create a new {{ .Chart.Name }} service, clone your code and install again some librairies you need
+{{- end }}
 {{- end }}

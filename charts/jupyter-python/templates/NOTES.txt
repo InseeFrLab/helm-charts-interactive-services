@@ -9,7 +9,8 @@ Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 50
 {{- if .Values.route.enabled }}
 - Vous pouvez vous connecter à ce Jupyter avec votre navigateur en utilisant ce [lien](https://{{ .Values.route.hostname }}).
 {{- if .Values.networking.user.enabled }}
-Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](https://{{ .Values.route.userHostname }}). Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+- Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](https://{{ .Values.route.userHostname }})
+Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
 {{- end }}
 {{- end }}
 - Votre jeton d'accès est **{{ .Values.security.password }}**
