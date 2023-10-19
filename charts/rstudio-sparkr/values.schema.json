@@ -823,18 +823,19 @@
             }
         },
         "userPreferences":{
-			"darkMode": {
-                "type": "boolean",
-                "description": "dark mode is or is not enabled",
-                "title": "Dark Mode enabled",
-                "x-form": {
-                  "value": "{{user.darkMode}}"
-                },
-                "x-onyxia": {
-                  "hidden": true,
-                  "overwriteDefaultWith": "{{user.darkMode}}"
-                }
+          "description": "User Preferences",
+          "type": "object",
+          "properties": {
+            "darkMode": {
+              "type": "boolean",
+              "description": "dark mode is or is not enabled",
+              "default": false,
+            "x-onyxia": {
+              "hidden": true,
+              "overwriteDefaultWith": "user.darkMode"
+              }
             }
+          }
         }
     }
 }
