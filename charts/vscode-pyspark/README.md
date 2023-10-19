@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 1.3.5](https://img.shields.io/badge/Version-1.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.3.9](https://img.shields.io/badge/Version-1.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.12 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.14 |
 
 ## Values
 
@@ -131,6 +131,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `5` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.darkMode | bool | `false` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `false` |  |

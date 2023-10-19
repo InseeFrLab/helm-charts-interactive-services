@@ -1,6 +1,6 @@
 # jupyter-python-gpu
 
-![Version: 1.13.7](https://img.shields.io/badge/Version-1.13.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.13.11](https://img.shields.io/badge/Version-1.13.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.12 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.14 |
 
 ## Values
 
@@ -107,6 +107,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `5` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.darkMode | bool | `false` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `false` |  |

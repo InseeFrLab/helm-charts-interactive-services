@@ -39,9 +39,6 @@ coresite:
   configMapName: ''
 metaflow:
   configMapName: ''
-fauxpilot:
-  enabled: false
-  server: http://fauxpilot-proxy.fauxpilot:5000/v1/engines
 vault:
   enabled: true
   configMapName: ''
@@ -115,3 +112,5 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+userPreferences:
+  darkMode: false

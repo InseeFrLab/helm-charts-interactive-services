@@ -134,11 +134,11 @@ spec:
             - name: PROJECT_GROUP
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
-              value: /home/{{ .Values.environment.user }}/work  
-            {{- if  .Values.fauxpilot.enabled }}
-            - name: FAUXPILOT_SERVER
-              value: "{{ .Values.fauxpilot.server }}" 
-            {{- end }}  
+              value: /home/{{ .Values.environment.user }}/work
+            {{- if .Values.userPreferences.darkMode }}
+            - name: DARK_MODE
+              value: "true"
+            {{- end }}
           envFrom: 
             - secretRef:
                 name : {{ include "library-chart.secretNameToken" . }}
