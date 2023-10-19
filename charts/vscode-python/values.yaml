@@ -198,3 +198,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+userPreferences:
+  darkMode: false

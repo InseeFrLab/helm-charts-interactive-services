@@ -800,6 +800,21 @@
           "hidden": true,
           "overwriteDefaultWith": "region.nodeSelector"
       }
+    },
+    "userPreferences":{
+      "description": "User Preferences",
+      "type": "object",
+      "properties": {
+        "darkMode": {
+          "type": "boolean",
+          "description": "dark mode is or is not enabled",
+          "default": false,
+        "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "user.darkMode"
+          }
+        }
+      }
     }
   }
 }

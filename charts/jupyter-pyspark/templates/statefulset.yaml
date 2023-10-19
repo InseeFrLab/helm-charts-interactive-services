@@ -181,6 +181,10 @@ spec:
             {{- if .Values.environment.root }}
             - name: GRANT_SUDO
               value: "yes"
+            {{- end }}
+            {{- if .Values.userPreferences.darkMode }}
+            - name: DARK_MODE
+              value: "true"
             {{- end }}          
           envFrom: 
             - secretRef:

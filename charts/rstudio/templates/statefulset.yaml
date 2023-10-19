@@ -92,6 +92,10 @@ spec:
             - name: PERSONAL_INIT_ARGS
               value: {{ .Values.init.personalInitArgs }}
             {{- end }}
+            {{- if .Values.userPreferences.darkMode }}
+            - name: DARK_MODE
+              value: "true"
+            {{- end }}
           envFrom: 
             {{- if .Values.s3.enabled }}
             - secretRef:

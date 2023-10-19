@@ -163,6 +163,10 @@ spec:
             - name: PERSONAL_INIT_ARGS
               value: {{ .Values.init.personalInitArgs }}
             {{- end }}
+            {{- if .Values.userPreferences.darkMode }}
+            - name: DARK_MODE
+              value: "true"
+            {{- end }}
           envFrom: 
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
