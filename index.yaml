@@ -4171,6 +4171,30 @@ entries:
     version: 1.9.3
   vscode-pyspark:
   - apiVersion: v2
+    created: "2023-10-20T15:10:22.397206211Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.14
+    description: The Visual Studio Code IDE with PySpark, an interface to use Apache
+      Spark from Python.
+    digest: fe3ccc8a1bcd5b5161d8b8942c43dd3224ed6744cfeb72be81a21f44e3901294
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Spark
+    - VTL
+    name: vscode-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pyspark-1.3.12/vscode-pyspark-1.3.12.tgz
+    version: 1.3.12
+  - apiVersion: v2
     created: "2023-10-20T08:23:46.806894749Z"
     dependencies:
     - name: library-chart
@@ -6778,4 +6802,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2023-10-20T08:23:48.594807747Z"
+generated: "2023-10-20T15:10:22.398013457Z"
