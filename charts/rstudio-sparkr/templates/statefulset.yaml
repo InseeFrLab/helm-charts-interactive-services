@@ -84,13 +84,11 @@ spec:
       hostname: rstudio
       initContainers:
         - name: make-secrets-writable
-          image: alpine
+          image: inseefrlab/onyxia-base:latest
           command: 
             - sh
             - -c 
-            - |
-              cp -R /src/* /dest ;
-              chmod -R 664 /dest/;
+            - cp -R /src/* /dest
           volumeMounts:
             {{- if .Values.s3.enabled }}
             - name: secret-coresite
