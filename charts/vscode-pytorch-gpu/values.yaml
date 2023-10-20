@@ -114,3 +114,4 @@ tolerations: []
 affinity: {}
 userPreferences:
   darkMode: false
+  language: en

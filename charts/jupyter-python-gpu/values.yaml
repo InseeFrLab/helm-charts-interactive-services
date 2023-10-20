@@ -123,3 +123,4 @@ startupProbe:
   timeoutSeconds: 5
 userPreferences:
   darkMode: false
+  language: en

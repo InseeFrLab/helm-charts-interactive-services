@@ -1,3 +1,29 @@
+{{- if eq .Values.userPreferences.language "fr" }}
+{{- if .Values.ingress.enabled }}
+- Vous pouvez vous connecter à ce Jupyter avec votre navigateur en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }}).
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }}).
+Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+- Vous pouvez vous connecter à ce Jupyter avec votre navigateur en utilisant ce [lien](https://{{ .Values.route.hostname }}).
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](https://{{ .Values.route.userHostname }})
+Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+- Votre jeton d'accès est **{{ .Values.security.password }}**
+
+*NOTES concernant la suppression :*
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+- Le volume associé au chemin suivant {{ .Values.persistence.mountPath }} sera supprimé.
+- Par conséquent, vous devriez sauvegarder votre code dans un référentiel Git externe.
+- Vous devriez également sauvegarder vos données dans un référentiel de données externe tel que S3.
+- Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin.
+{{- end }}
+{{- else }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this jupyter with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- if .Values.networking.user.enabled }}
@@ -21,4 +47,5 @@ If you don't run your custom service you will get a 502 bad gateway error.
 - So, you should save your code to an external git repository
 - So, You should save your data to an external data repository like S3
 - You can easily create a new {{ .Chart.Name }} service, clone your code and install again some librairies you need
+{{- end }}
 {{- end }}

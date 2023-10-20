@@ -790,6 +790,15 @@
             "hidden": true,
             "overwriteDefaultWith": "user.darkMode"
           }
+        },
+        "language": {
+          "type": "string",
+          "description": "Preferred language",
+          "default": "en",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "user.lang"
+          }
         }
       }
     }
