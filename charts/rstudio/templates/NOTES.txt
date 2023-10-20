@@ -29,7 +29,6 @@
 - Vous devriez aussi sauvegarder vos données dans un référentiel de données externe tel que S3
 - Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin.
 {{- end }}
-{{- end }}
 {{- else }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this rstudio with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})

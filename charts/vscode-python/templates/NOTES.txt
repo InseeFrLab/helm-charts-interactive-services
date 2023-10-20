@@ -1,6 +1,5 @@
 {{- if eq .Values.userPreferences.language "fr"}}
 {{- if .Values.ingress.enabled }}
-{{- if .Values.ingress.enabled }}
 - Vous pouvez vous connecter à ce Visual Studio Code avec votre navigateur en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- if .Values.networking.user.enabled }}
 - Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})

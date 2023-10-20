@@ -1,6 +1,7 @@
 {{- if eq .Values.userPreferences.language "fr"}}
 {{- if .Values.ingress.enabled }}
 - Vous pouvez vous connecter à cet RStudio avec votre navigateur sur ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- if .Values.spark.sparkui }}
 - Lorsque le pilote Spark est en cours d'exécution, vous pouvez vous connecter à l'interface Spark avec votre navigateur en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.sparkHostname }})
 {{- end }}
 {{- end }}
