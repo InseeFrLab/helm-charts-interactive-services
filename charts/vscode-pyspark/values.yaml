@@ -238,3 +238,4 @@ startupProbe:
 
 userPreferences:
   darkMode: false
+  language: "en"
