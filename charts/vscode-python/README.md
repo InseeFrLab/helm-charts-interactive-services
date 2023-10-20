@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 1.11.9](https://img.shields.io/badge/Version-1.11.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.10](https://img.shields.io/badge/Version-1.11.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -101,6 +101,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
+| userPreferences.language | string | `"en"` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `true` |  |

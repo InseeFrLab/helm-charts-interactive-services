@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 1.13.11](https://img.shields.io/badge/Version-1.13.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.13.12](https://img.shields.io/badge/Version-1.13.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -108,6 +108,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | startupProbe.timeoutSeconds | int | `5` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
+| userPreferences.language | string | `"en"` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `false` |  |
