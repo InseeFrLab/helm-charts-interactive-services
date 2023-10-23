@@ -3,7 +3,7 @@
 kubectl delete deployments.apps --ignore-not-found=true prepull
 kubectl delete daemonsets.apps --ignore-not-found=true prepull
 
-pip install kubernetes
+pip install -q kubernetes
 
 KUBERNETES_NAMESPACE=`cat /var/run/secrets/kubernetes.io/serviceaccount/namespace`
 
