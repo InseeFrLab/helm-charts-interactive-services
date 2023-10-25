@@ -393,8 +393,10 @@ metadata:
 stringData:
   spark-defaults.conf: |
     {{- include "library-chart.sparkConf" . | nindent 4 }}
+    {{- if .Values.repository -}}
     {{- if .Values.repository.mavenRepository -}}
     {{ printf "spark.jars.ivySettings /opt/spark/conf/ivysettings.xml" }}
+    {{- end }}
     {{- end }}
 {{- end }}
 {{- end }}
