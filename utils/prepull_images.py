@@ -109,8 +109,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
             if elapsed_time > timeout:
                 raise TimeoutError("Timed out waiting for DaemonSet rollout to complete.")
 
-            daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace,
-                                                           label_selector=f"name={label_name}")
+            daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace, label_selector=f"name={label_name}")
 
             # Get total number of daemons that will be launched
             desired_number = daemon_info.to_dict()["items"][0]["status"]["desired_number_scheduled"]
@@ -120,15 +119,15 @@ def prepull_daemon(namespace, images_to_prepull=None):
 
             # If the number of updated pods matches the desired number of scheduled pods, rollout is done
             if desired_number == current_number:
-                print(f"DaemonSet prepull in namespace {namespace} has successfully rolled out in {elapsed_time} sec.")
+                logging.info(f"DaemonSet prepull in namespace {namespace} has successfully rolled out in {elapsed_time} sec.")
                 break
             else:
-                print(f"Waiting for DaemonSet prepull rollout to finish: {current_number} out of {desired_number} new pods have been updated...")
+                logging.info(f"Waiting for DaemonSet prepull rollout to finish: {current_number} out of {desired_number} new pods have been updated...")
 
         except ApiException as e:
-            print(f"Exception when calling AppsV1Api->list_namespaced_daemon_set: {e}")
+            logging.info(f"Exception when calling AppsV1Api->list_namespaced_daemon_set: {e}")
         except TimeoutError as e:
-            print(e)
+            logging.info(e)
             break
 
 def prepull_images(namespace, images_to_prepull=None):
