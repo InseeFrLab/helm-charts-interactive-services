@@ -302,7 +302,7 @@ stringData:
 {{- printf "{" }}
 {{- printf "\"METAFLOW_DEFAULT_METADATA\": \"service\"," | indent 2 }}
 {{- printf "\"METAFLOW_KUBERNETES_SERVICE_ACCOUNT\": \"default\"," | indent 2 }}
-{{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://minio.lab.sspcloud.fr\"," | indent 2 }}
+{{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://%s\"," (ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion ) .Values.s3.endpoint (eq .Values.s3.endpoint "s3.amazonaws.com") ) | indent 2 }}
 {{- if .Values.discovery.metaflow -}}
 {{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items -}}
 {{- if (index $secret "metadata" "annotations") -}}
