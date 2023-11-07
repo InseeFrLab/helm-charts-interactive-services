@@ -210,9 +210,6 @@
           "description": "Password",
           "default": "changeme",
           "render": "password",
-          "x-form": {
-            "value": "{{project.password}}"
-          },
           "x-onyxia": {
               "overwriteDefaultWith": "{{project.password}}"
           }
@@ -226,9 +223,6 @@
               "title": "Enable IP protection",
               "description": "Only the configured set of IPs will be able to reach the service",
               "default": true,
-              "x-form": {
-                "value": "{{region.defaultIpProtection}}"
-              },
               "x-onyxia": {
                   "overwriteDefaultWith": "region.defaultIpProtection"
               }
