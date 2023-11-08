@@ -60,30 +60,44 @@ def build_manifest(kind, images_to_prepull=None):
 
     return manifest
 
+def get_deployment-name():
+
+    return deployment_name 
 
 def prepull_deployment(namespace, images_to_prepull=None):
     """Run a Deployment to pre-pull the images on the global registry cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
     manifest = build_manifest(kind="Deployment",
                               images_to_prepull=images_to_prepull)
-    label_name = "prepull-deployment-" + str(randint(100000, 999999))
-    manifest["metadata"]["labels"]["name"] = label_name
-    manifest["spec"]["template"]["metadata"]["labels"]["name"] = label_name
-    manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
                                                body=manifest)
 
-    # Wait for the Deployment to be in Running state and remove it
-    w = kubernetes.watch.Watch()
-    for event in w.stream(kube_core_api.list_namespaced_pod,
-                          namespace=namespace,
-                          label_selector=f"name={label_name}",
-                          timeout_seconds=0
-                          ):
-        pod_state = event['object'].status.phase
-        if pod_state == "Running":
-            w.stop()
+    # get the deployment name from prepull_template.yaml
+    with open(PROJECT_PATH / "utils" / "prepull_template.yaml", "r") as file:
+        manifest = yaml.safe_load(file)
+        deployment_name=manifest['metadata']['name']
+    
+    timeout = 3600  # Timeout in one hour
+
+    start_time = time.time()
+    
+    while True:
+        elapsed_time = time.time() - start_time
+        if elapsed_time > timeout:
+            logging.info("Timeout waiting for deployment completion")
             break
+        try:
+            deployment = kube_apps_api.read_namespaced_deployment_status(deployment_name=deployment_name, namespace=namespace)
+            if (deployment.status.ready_replicas == deployment.spec.replicas):
+                logging.info(f"Deployment {deployment_name} has been successfully rolled out")
+                break
+            else:
+                logging.info("Waiting for prepull deployment rollout to finish")
+        except ApiException as e:
+            logging.error(f"Exception when calling AppsV1Api->read_namespaced_deployment: {e}")
+        
+        time.sleep(10)  # wait for 10 seconds before checking the status again
+
 
 
 def prepull_daemon(namespace, images_to_prepull=None):
@@ -125,9 +139,9 @@ def prepull_daemon(namespace, images_to_prepull=None):
                 logging.info(f"Waiting for DaemonSet prepull rollout to finish: {current_number} out of {desired_number} new pods have been updated...")
 
         except ApiException as e:
-            logging.info(f"Exception when calling AppsV1Api->list_namespaced_daemon_set: {e}")
+            logging.error(f"Exception when calling AppsV1Api->list_namespaced_daemon_set: {e}")
         except TimeoutError as e:
-            logging.info(e)
+            logging.error(e)
             break
 
 def prepull_images(namespace, images_to_prepull=None):
