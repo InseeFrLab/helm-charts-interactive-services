@@ -212,9 +212,6 @@
           "description": "Password",
           "default": "changeme",
           "render": "password",
-          "x-form": {
-            "value": "{{project.password}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{project.password}}"
           }
@@ -228,9 +225,6 @@
               "title": "Enable IP protection",
               "description": "Only the configured set of IPs will be able to reach the service",
               "default": true,
-              "x-form": {
-                "value": "{{region.defaultIpProtection}}"
-              },
               "x-onyxia": {
                 "overwriteDefaultWith": "region.defaultIpProtection"
               }
@@ -239,9 +233,6 @@
               "type": "string",
               "description": "the white list of IP is whitespace",
               "title": "Whitelist of IP",
-              "x-form": {
-                "value": "{{user.ip}}"
-              },
               "x-onyxia": {
                 "overwriteDefaultWith": "{{user.ip}}"
               }
@@ -257,9 +248,6 @@
               "title": "Enable network policy",
               "description": "Only pod from the same namespace will be allowed",
               "default": true,
-              "x-form": {
-                "value": "{{region.defaultNetworkPolicy}}"
-              },
               "x-onyxia": {
                 "overwriteDefaultWith": "region.defaultNetworkPolicy"
               }
@@ -268,10 +256,6 @@
               "type": "array",
               "description": "Array of source allowed to have network access to your service",
               "default": [],
-              "x-form": {
-                "hidden": true,
-                "value": "{{region.from}}"
-              },
               "x-onyxia": {
                 "hidden": true,
                 "overwriteDefaultWith": "region.from"
@@ -319,9 +303,6 @@
           "type": "string",
           "description": "user name for git",
           "default": "",
-          "x-form": {
-            "value": "{{git.name}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.name}}"
           },
@@ -334,9 +315,6 @@
           "type": "string",
           "description": "user email for git",
           "default": "",
-          "x-form": {
-            "value": "{{git.email}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.email}}"
           },
@@ -349,9 +327,6 @@
           "type": "string",
           "description": "duration in seconds of the credentials cache duration",
           "default": "",
-          "x-form": {
-            "value": "{{git.credentials_cache_duration}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
           },
@@ -365,9 +340,6 @@
           "description": "personal access token",
           "default": "",
           "render": "password",
-          "x-form": {
-            "value": "{{git.token}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.token}}"
           },
@@ -380,9 +352,6 @@
           "type": "string",
           "description": "projet",
           "default": "",
-          "x-form": {
-            "value": "{{git.project}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.project}}"
           },
@@ -415,9 +384,6 @@
           "description": "token vault",
           "type": "string",
           "render": "password",
-          "x-form": {
-            "value": "{{vault.VAULT_TOKEN}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_TOKEN}}"
           },
@@ -429,9 +395,6 @@
         "url": {
           "description": "url of vault server",
           "type": "string",
-          "x-form": {
-            "value": "{{vault.VAULT_ADDR}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
           },
@@ -443,9 +406,6 @@
         "mount": {
           "description": "mount of the v2 secret engine",
           "type": "string",
-          "x-form": {
-            "value": "{{vault.VAULT_MOUNT}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
           },
@@ -457,9 +417,6 @@
         "directory": {
           "description": "top level directory",
           "type": "string",
-          "x-form": {
-            "value": "{{vault.VAULT_TOP_DIR}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
           },
@@ -491,9 +448,6 @@
         "accessKeyId": {
           "description": "AWS Access Key",
           "type": "string",
-          "x-form": {
-            "value": "{{s3.AWS_ACCESS_KEY_ID}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "s3.AWS_ACCESS_KEY_ID"
           },
@@ -505,9 +459,6 @@
         "endpoint": {
           "description": "AWS S3 Endpoint",
           "type": "string",
-          "x-form": {
-            "value": "{{s3.AWS_S3_ENDPOINT}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
           },
@@ -519,9 +470,6 @@
         "defaultRegion": {
           "description": "AWS S3 default region",
           "type": "string",
-          "x-form": {
-            "value": "{{s3.AWS_DEFAULT_REGION}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
           },
@@ -534,9 +482,6 @@
           "description": "AWS S3 secret access key",
           "type": "string",
           "render": "password",
-          "x-form": {
-            "value": "{{s3.AWS_SECRET_ACCESS_KEY}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_SECRET_ACCESS_KEY}}"
           },
@@ -549,9 +494,6 @@
           "description": "AWS S3 session Token",
           "type": "string",
           "render": "password",
-          "x-form": {
-            "value": "{{s3.AWS_SESSION_TOKEN}}"
-          },
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_SESSION_TOKEN}}"
           },
@@ -580,10 +522,6 @@
           "type": "string",
           "form": true,
           "title": "Hostname",
-          "x-form": {
-            "hidden": true,
-            "value": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
-          },
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
@@ -593,10 +531,6 @@
           "type": "string",
           "form": true,
           "title": "Hostname",
-          "x-form": {
-            "hidden": true,
-            "value": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
-          },
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
@@ -607,10 +541,6 @@
           "form": true,
           "title": "ingressClassName",
           "default": "",
-          "x-form": {
-            "hidden": true,
-            "value": "{{k8s.ingressClassName}}"
-          },
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
@@ -689,10 +619,6 @@
           "type": "string",
           "description": "region initialization script",
           "default": "",
-          "x-form": {
-            "hidden": true,
-            "value": "{{k8s.initScriptUrl}}"
-          },
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
@@ -702,10 +628,6 @@
           "type": "string",
           "description": "region initialization script",
           "default": "",
-          "x-form": {
-            "hidden": true,
-            "value": "{{k8s.initScriptCheckSum}}"
-          },
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.initScriptCheckSum}}"
@@ -751,10 +673,6 @@
       "type": "object",
       "description": "Start up probe",
       "default": {},
-      "x-form": {
-        "hidden": true,
-        "value": "{{region.startupProbe}}"
-      },
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.startupProbe"
@@ -764,10 +682,6 @@
       "type": "array",
       "description": "Array of tolerations",
       "default": [],
-      "x-form": {
-        "hidden": true,
-        "value": "{{region.tolerations}}"
-      },
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.tolerations"
@@ -777,10 +691,6 @@
       "type": "object",
       "description": "NodeSelector",
       "default": {},
-      "x-form": {
-        "hidden": true,
-        "value": "{{region.nodeSelector}}"
-      },
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.nodeSelector"
