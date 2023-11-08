@@ -60,10 +60,6 @@ def build_manifest(kind, images_to_prepull=None):
 
     return manifest
 
-def get_deployment-name():
-
-    return deployment_name 
-
 def prepull_deployment(namespace, images_to_prepull=None):
     """Run a Deployment to pre-pull the images on the global registry cache."""
     kube_apps_api, kube_core_api = configure_kube_api()
