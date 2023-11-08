@@ -72,6 +72,7 @@ def prepull_deployment(namespace, images_to_prepull=None):
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_deployment(namespace=namespace,
                                                body=manifest)
+    logging.info("Start deployment prepull")
 
     timeout=36000
     start_time = time.time()
@@ -109,6 +110,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
     manifest["spec"]["selector"]["matchLabels"]["name"] = label_name
     kube_apps_api.create_namespaced_daemon_set(namespace=namespace,
                                                body=manifest)
+    logging.info("Start daemonset prepull")
 
     timeout=36000
     start_time = time.time()
