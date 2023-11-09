@@ -140,9 +140,6 @@ def prepull_daemon(namespace, images_to_prepull=None):
             if desired_number == n_daemons_ready:
                 logging.info(f"DaemonSet prepull in namespace {namespace} has successfully rolled out in {elapsed_time} sec.")
                 break
-            else:
-                logging.info(f"Waiting for DaemonSet prepull rollout to finish: {n_daemons_ready} out of {desired_number} new pods have been updated...")
-
         except ApiException as e:
             logging.error(f"Exception when calling AppsV1Api->list_namespaced_daemon_set: {e}")
         except TimeoutError as e:
@@ -179,3 +176,4 @@ if __name__ == "__main__":
         # Pulling a list of specified images
         images_to_prepull = sys.argv[2].split(",")
         prepull_images(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+
