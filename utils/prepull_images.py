@@ -133,7 +133,7 @@ def prepull_daemon(namespace, images_to_prepull=None):
             counter_n_daemons_ready = 0
 
             if n_daemons_ready > counter_n_daemons_ready:
-                logging.info(f'{n_daemons_ready}/{n_daemons_total} daemons done.')
+                logging.info(f'{n_daemons_ready}/{desired_number} daemons done.')
                 counter_n_daemons_ready = n_daemons_ready
 
             # If the number of updated pods matches the desired number of scheduled pods, rollout is done
