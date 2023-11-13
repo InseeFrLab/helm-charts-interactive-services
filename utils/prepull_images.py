@@ -258,9 +258,6 @@ def prepull_images(namespace: str,
                    image_type=image_type
                    )
 
-    logging.info('Prepull job done')
-
-
 if __name__ == "__main__":
 
     NAMESPACE = sys.argv[1]
@@ -273,6 +270,7 @@ if __name__ == "__main__":
             prepull_images(namespace=NAMESPACE, image_type="cpu")
             logging.info('SECOND BATCH : GPU IMAGES')
             prepull_images(namespace=NAMESPACE, image_type="gpu")
+            logging.info('PRE-PULL PROCESS DONE')
         except ApiException as e:
             if e.status == 410:  # "Reason: Expired: too old resource version"
                 logging.info('Error 410 ("too old resource version"), retrying.')
