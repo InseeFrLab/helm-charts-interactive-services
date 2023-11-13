@@ -23,7 +23,7 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 1.11.15
+version: 1.11.16
 
 dependencies:
   - name: library-chart
