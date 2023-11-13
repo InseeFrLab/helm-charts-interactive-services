@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-vscode-tensorflow:py3.11.4
+    version: inseefrlab/onyxia-vscode-tensorflow:py3.10.12
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-tensorflow:py3.11.4
+      version: inseefrlab/onyxia-vscode-tensorflow:py3.10.12
 security:
   password: changeme
   networkPolicy:
