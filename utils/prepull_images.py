@@ -279,4 +279,7 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         # Pulling a list of specified images
         images_to_prepull = sys.argv[2].split(",")
-        prepull_images(namespace=NAMESPACE, images_to_prepull=images_to_prepull)
+        prepull_images(namespace=NAMESPACE, 
+                       images_to_prepull=images_to_prepull,
+                       image_type="cpu"
+                       )
