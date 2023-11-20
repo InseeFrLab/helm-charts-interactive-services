@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-tensorflow:py3.10.12-gpu
+    version: inseefrlab/onyxia-jupyter-tensorflow:py3.10.13-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-tensorflow:py3.10.12-gpu
+      version: inseefrlab/onyxia-jupyter-tensorflow:py3.10.13-gpu
 security:
   password: changeme
   networkPolicy:
