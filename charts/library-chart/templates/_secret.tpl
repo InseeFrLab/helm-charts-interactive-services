@@ -119,6 +119,9 @@ stringData:
 {{- if (index $secret "metadata" "annotations") -}}
 {{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "mlflow" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) -}}
 {{- $uri:= ( index $secret.data "uri" | default "") | b64dec  -}}
+{{- $MLFLOW_TRACKING_USERNAME:= ( index $secret.data "MLFLOW_TRACKING_USERNAME" | default "") | b64dec  -}}
+{{- $MLFLOW_TRACKING_PASSWORD:= ( index $secret.data "MLFLOW_TRACKING_PASSWORD" | default "") | b64dec  -}}
+
 apiVersion: v1
 kind: Secret
 metadata:
@@ -127,6 +130,8 @@ metadata:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
+  MLFLOW_TRACKING_USERNAME: {{ printf "%s" $MLFLOW_TRACKING_USERNAME }}
+  MLFLOW_TRACKING_PASSWORD: {{ printf "%s" $MLFLOW_TRACKING_PASSWORD }}
 {{- end }}
 {{- end }}
 {{- end }}
