@@ -1,6 +1,6 @@
 # vscode-tensorflow
 
-![Version: 1.11.17](https://img.shields.io/badge/Version-1.11.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.18](https://img.shields.io/badge/Version-1.11.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework TensorFlow.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.16 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.17 |
 
 ## Values
 
