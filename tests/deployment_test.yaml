@@ -1,22 +1,26 @@
 suite: test deployment
 templates:
   - statefulset.yaml
+  - secret-*.yaml
 tests:
   - it: should work
-    set:
-      image.tag: latest
     asserts:
       - isKind:
           of: StatefulSet
+          template: statefulset.yaml
+        template: statefulset.yaml
+
   - it: should render right image if value given
     set:
       service:
         image:
-          version: "inseefrlab/onyxia-jupyter-python:py3.10.9"
+          version: "inseefrlab/onyxia-jupyter-python:py3.11.6"
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: "inseefrlab/onyxia-jupyter-python:py3.10.9"
+          value: "inseefrlab/onyxia-jupyter-python:py3.11.6"
+        template: statefulset.yaml
+
   - it: should render right if s3 enabled
     set:
       s3:
@@ -24,3 +28,4 @@ tests:
     asserts:
       - isNotNull:
           path: spec.template.metadata.annotations["checksum/s3"]
+        template: statefulset.yaml
