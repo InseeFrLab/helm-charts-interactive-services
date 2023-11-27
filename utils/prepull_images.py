@@ -6,6 +6,7 @@ import json
 import logging
 from random import randint
 import time
+import requests
 from typing import Tuple, List, Dict, Any
 
 import yaml
@@ -35,6 +36,29 @@ def configure_kube_api() -> Tuple[kubernetes.client.AppsV1Api, kubernetes.client
     return kube_apps_api, kube_core_api
 
 
+def check_image_exists(image) -> bool:
+    """
+    Check if a given tag exists for a Docker image in DockerHub.
+
+    Parameters:
+    image (str): Full name of the Docker image, including tag (e.g., "library/nginx:latest").
+
+    Returns:
+    bool: True if the tag exists, False otherwise.
+    """
+    repository, tag = image.split(":")
+    url = f"https://hub.docker.com/v2/repositories/{repository}/tags/{tag}/"
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        logging.info(f"Image {image} not found on DockerHub, skipped from prepull job.")
+        return False
+
+    time.sleep(1)
+
+    return True
+
+
 def build_manifest(kind: str, images_to_prepull: List[str], image_type: str) -> Dict[str, Any]:
     """
     Build a generic Kubernetes manifest with init containers to pre-pull images.
@@ -42,7 +66,7 @@ def build_manifest(kind: str, images_to_prepull: List[str], image_type: str) -> 
     Args:
         kind: The kind of Kubernetes resource (e.g., Deployment, DaemonSet).
         images_to_prepull: List of images to be pre-pulled.
-        image_type: Type of images to pre-pull ('cpu', 'gpu' or 'all').
+        image_type: Type of images to pre-pull ('cpu', 'gpu' or 'any').
 
     Returns:
         Dict[str, Any]: A Kubernetes manifest dictionary.
@@ -64,6 +88,9 @@ def build_manifest(kind: str, images_to_prepull: List[str], image_type: str) -> 
                 chart_schema = json.load(file_in)
             images = chart_schema["properties"]["service"]["properties"]["image"]["properties"]["version"]["listEnum"]
             images_to_prepull.extend(images)
+
+    # Filter out images that don't exist on DockerHub
+    images_to_prepull = [image for image in images_to_prepull if check_image_exists(image)]
 
     # Open the manifest template
     with open(PROJECT_PATH / "utils" / "prepull_template.yaml", "r") as file_in:
@@ -221,7 +248,7 @@ def prepull_daemon(namespace: str,
 
 def prepull_images(namespace: str,
                    images_to_prepull: List[str] = None,
-                   image_type: str = "all"
+                   image_type: str = "any"
                    ) -> None:
     """
     Full procedure to pre-pull Docker images in a Kubernetes cluster.
@@ -232,17 +259,17 @@ def prepull_images(namespace: str,
     Args:
         namespace: The Kubernetes namespace where resources are deployed.
         images_to_prepull: List of images to pre-pull. Defaults to None.
-        image_type: The type of images to pre-pull ('cpu' or 'gpu'). Defaults to 'all'.
+        image_type: The type of images to pre-pull ('cpu' or 'gpu'). Defaults to 'any'.
 
     Raises:
-        ValueError: If 'image_type' is not one of 'cpu', 'gpu' or 'all'.
+        ValueError: If 'image_type' is not one of 'cpu', 'gpu' or 'any'.
 
     Returns:
         None
     """
     # Validate parameters
-    if image_type not in ["cpu", "gpu", "all"]:
-        raise ValueError('image_type must be either "cpu", "gpu" or "all"')
+    if image_type not in ["cpu", "gpu", "any"]:
+        raise ValueError('image_type must be either "cpu", "gpu" or "any"')
 
     # 1st step : create a Deployment to pull the images in the global registry cache once
     logging.info('1st step : Deployment')
@@ -257,6 +284,7 @@ def prepull_images(namespace: str,
                    images_to_prepull=images_to_prepull,
                    image_type=image_type
                    )
+
 
 if __name__ == "__main__":
 
@@ -279,7 +307,7 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         # Pulling a list of specified images
         images_to_prepull = sys.argv[2].split(",")
-        prepull_images(namespace=NAMESPACE, 
+        prepull_images(namespace=NAMESPACE,
                        images_to_prepull=images_to_prepull,
                        image_type="cpu"
                        )

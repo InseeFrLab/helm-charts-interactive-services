@@ -6,6 +6,7 @@ utils/prepull-deployment-manifest.yaml
 utils/prepull-daemon-manifest.yaml
 **/nohup.out
 **/prepull.log
+*.ipynb
 
 
 # Byte-compiled / optimized / DLL files
