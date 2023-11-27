@@ -248,6 +248,9 @@ spec:
             {{- end }}
             {{- if .Values.discovery.metaflow }}
             - name: config-files
+              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
+              subPath: metaflowconf
+            - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
               subPath: metaflow/config.json
             {{- end }}
