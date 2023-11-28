@@ -78,7 +78,15 @@ spec:
           command: 
             - sh
             - -c 
-            - cp -R /src/* /dest
+            - |
+              {{- if .Values.discovery.hive }}
+              mkdir /dest/hive;
+              cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
+              {{- end }}
+              {{- if .Values.discovery.metaflow }}
+              mkdir /dest/metaflow/;
+              cp /src/metaflow/config.json /dest/metaflow/config.json;
+              {{- end }}
           volumeMounts:
             - name: config-files
               mountPath: /dest
@@ -196,8 +204,8 @@ spec:
             {{- end }}   
             {{- if .Values.discovery.metaflow }}
             - name: config-files
-              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig/config.json
-              subPath: metaflow/config.json
+              mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
+              subPath: metaflow
             {{- end }}     
       {{- with .Values.nodeSelector }}
       nodeSelector:
