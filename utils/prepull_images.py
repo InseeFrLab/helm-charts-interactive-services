@@ -41,7 +41,7 @@ def check_image_exists(image) -> bool:
     Check if a given tag exists for a Docker image in DockerHub.
 
     Parameters:
-    image (str): Full name of the Docker image, including tag (e.g., "library/nginx:latest").
+    image (str): Full name of the Docker image, including tag (e.g., "inseefrlab/onyxia-base:latest").
 
     Returns:
     bool: True if the tag exists, False otherwise.

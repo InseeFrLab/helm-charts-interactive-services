@@ -62,7 +62,7 @@ jobs:
             - 'charts/jupyter-pytorch/**'
           jupyter-pytorch-gpu:
             - 'charts/jupyter-pytorch-gpu/**'
-          jupyter-jupyter-r:
+          jupyter-r:
             - 'charts/jupyter-r/**'
           jupyter-tensorflow:
             - 'charts/jupyter-tensorflow/**'
