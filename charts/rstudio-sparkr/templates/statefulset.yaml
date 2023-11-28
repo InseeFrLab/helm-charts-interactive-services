@@ -113,7 +113,7 @@ spec:
               cpu: 50m
               memory: 50Mi
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.initContainerSecurityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
