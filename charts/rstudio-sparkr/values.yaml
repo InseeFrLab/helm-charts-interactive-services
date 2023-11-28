@@ -126,7 +126,7 @@ podAnnotations: {}
 podSecurityContext:
   fsGroup: 100
 
-initSecurityContext: {}
+initContainerSecurityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
