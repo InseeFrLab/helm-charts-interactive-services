@@ -88,7 +88,23 @@ spec:
           command: 
             - sh
             - -c 
-            - cp -R /src/* /dest
+            - |
+              {{- if .Values.s3.enabled }}
+              mkdir /dest/coresite;
+              cp /src/coresite/core-site.xml /dest/coresite/core-site.xml;
+              {{- end }}
+              {{- if .Values.spark.default }}
+              mkdir /dest/spark;
+              cp /src/spark/spark-defaults.conf /dest/spark/spark-defaults.conf;
+              {{- end }}
+              {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+              mkdir /dest/ivysettings;
+              cp /src/ivysettings/ivysettings.xml /dest/ivysettings/ivysettings.xml;
+              {{- end }}
+              {{- if .Values.discovery.hive }}
+              mkdir /dest/hive;
+              cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
+              {{- end }}         
           volumeMounts:
             {{- if .Values.s3.enabled }}
             - name: secret-coresite
