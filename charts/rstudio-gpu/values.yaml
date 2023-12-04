@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-rstudio:r4.3.1-gpu
+    version: inseefrlab/onyxia-rstudio:r4.3.2-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-rstudio:r4.3.1-gpu
+      version: inseefrlab/onyxia-rstudio:r4.3.2-gpu
 security:
   password: changeme
   networkPolicy:
