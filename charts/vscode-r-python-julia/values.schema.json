@@ -137,9 +137,9 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.3.1",
+              "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.3.2",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-r-python-julia:r4.3.1"
+                "inseefrlab/onyxia-vscode-r-python-julia:r4.3.2"
               ],
               "render": "list",
               "hidden": {
@@ -160,7 +160,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.3.1",
+                  "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.3.2",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
