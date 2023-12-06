@@ -80,13 +80,12 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
-         - name: config-files
+        - name: config-files
           emptyDir: {}
         {{- if .Values.s3.enabled }}
         - name: secret-coresite
           secret:
             secretName: {{ include "library-chart.secretNameCoreSite" . }}
-       
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
