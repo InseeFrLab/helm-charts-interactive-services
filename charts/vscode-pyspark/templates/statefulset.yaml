@@ -80,12 +80,13 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
+         - name: config-files
+          emptyDir: {}
         {{- if .Values.s3.enabled }}
         - name: secret-coresite
           secret:
             secretName: {{ include "library-chart.secretNameCoreSite" . }}
-        - name: config-files
-          emptyDir: {}
+       
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -101,6 +102,7 @@ spec:
             - sh
             - -c 
             - |
+              echo 'initContainer make-secrets-writable is started';
               {{- if .Values.s3.enabled }}
               mkdir /dest/coresite;
               cp /src/coresite/core-site.xml /dest/coresite/core-site.xml;

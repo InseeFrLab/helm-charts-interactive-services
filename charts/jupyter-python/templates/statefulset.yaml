@@ -51,9 +51,9 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        {{- if .Values.discovery.hive }}
         - name: config-files
           emptyDir: {}
+        {{- if .Values.discovery.hive }}
         - name: secret-hive
           secret:
             secretName: {{ include "library-chart.secretNameHive" . }}
@@ -79,6 +79,7 @@ spec:
             - sh
             - -c 
             - |
+              echo 'initContainer make-secrets-writable is started';
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
               cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
