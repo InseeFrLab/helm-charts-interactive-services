@@ -81,6 +81,7 @@ spec:
             - sh
             - -c 
             - |
+              echo 'initContainer make-secrets-writable is started';
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
               cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
