@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 1.32.27](https://img.shields.io/badge/Version-1.32.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.32.28](https://img.shields.io/badge/Version-1.32.28-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
