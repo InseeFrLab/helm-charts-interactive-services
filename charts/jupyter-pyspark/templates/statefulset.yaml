@@ -104,6 +104,7 @@ spec:
             - sh
             - -c 
             - | 
+              echo 'initContainer make-configmaps-writable is started';
               {{- if .Values.s3.enabled }}
               mkdir /dest/coresite;
               cp /src/coresite/core-site.xml /dest/coresite/core-site.xml;
