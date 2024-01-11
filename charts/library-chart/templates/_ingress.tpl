@@ -21,7 +21,7 @@ Usage:
 {{- if .Values.security.allowlist.enabled }}
 nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlist.ip }}
 {{- end }}
-{{- if not .Values.ingress.useDefaultCertificate }}
+{{- if .Values.ingress.useCertManager }}
 cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer }}
 {{- end }}
 {{- end }}
@@ -56,7 +56,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
-    {{- if not .Values.ingress.useDefaultCertificate }}
+    {{- if .Values.ingress.useCertManager }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
