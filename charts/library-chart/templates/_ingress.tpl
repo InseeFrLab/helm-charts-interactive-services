@@ -21,6 +21,10 @@ Usage:
 {{- if .Values.security.allowlist.enabled }}
 nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlist.ip }}
 {{- end }}
+{{- if .Values.ingress.useCertManager }}
+cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer }}
+acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }}
+{{- end }}
 {{- end }}
 
 {{/* Ingress hostname */}}
@@ -53,6 +57,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
+    {{- if .Values.ingress.useCertManager }}
+      secretName: tls-cert-{{ include "library-chart.fullname" . }}
+    {{- end }}
 {{- end }}
   rules:
     - host: {{ .Values.ingress.hostname | quote }}
