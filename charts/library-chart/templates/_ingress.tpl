@@ -23,6 +23,7 @@ nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlis
 {{- end }}
 {{- if .Values.ingress.useCertManager }}
 cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer }}
+acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }}
 {{- end }}
 {{- end }}
 
