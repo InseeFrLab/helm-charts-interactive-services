@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 1.3.21](https://img.shields.io/badge/Version-1.3.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.3.22](https://img.shields.io/badge/Version-1.3.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.17 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.18 |
 
 ## Values
 
@@ -44,10 +44,12 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
+| ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
+| ingress.useCertManager | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |

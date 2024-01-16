@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 1.13.22](https://img.shields.io/badge/Version-1.13.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.13.23](https://img.shields.io/badge/Version-1.13.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.17 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.18 |
 
 ## Values
 
@@ -44,10 +44,12 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
+| ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
+| ingress.useCertManager | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
