@@ -23,9 +23,9 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 1.11.20
+version: 1.11.21
 
 dependencies:
   - name: library-chart
-    version: 1.5.17
+    version: 1.5.18
     repository: https://inseefrlab.github.io/helm-charts-interactive-services
