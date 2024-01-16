@@ -91,6 +91,8 @@ ingress:
   annotations: []
   hostname: chart-example.local
   userHostname: chart-example-user.local
+  useCertManager: false
+  certManagerClusterIssuer: ''
 route:
   enabled: false
   annotations: []
