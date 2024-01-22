@@ -97,6 +97,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.userHostname | quote }}
+    {{- if .Values.ingress.useCertManager }}
+      secretName: tls-cert-{{ include "library-chart.fullname" . }}
+    {{- end }}
 {{- end }}
   rules:
     - host: {{ .Values.ingress.userHostname | quote }}
@@ -135,6 +138,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.sparkHostname | quote }}
+    {{- if .Values.ingress.useCertManager }}
+      secretName: tls-cert-{{ include "library-chart.fullname" . }}
+    {{- end }}
 {{- end }}
   rules:
     - host: {{ .Values.ingress.sparkHostname | quote }}
