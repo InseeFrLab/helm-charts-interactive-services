@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 1.15.16](https://img.shields.io/badge/Version-1.15.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.15.17](https://img.shields.io/badge/Version-1.15.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.18 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.19 |
 
 ## Values
 
