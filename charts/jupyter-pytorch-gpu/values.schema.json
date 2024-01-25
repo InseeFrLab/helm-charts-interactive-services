@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pytorch:py3.10.13-gpu",
-                "inseefrlab/onyxia-jupyter-pytorch:py3.11.6-gpu"
+                "inseefrlab/onyxia-jupyter-pytorch:py3.11.6-gpu",
+                "inseefrlab/onyxia-jupyter-pytorch:py3.10.13-gpu"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.10.13-gpu"
+              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.11.6-gpu"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pytorch:py3.10.13-gpu",
+                  "default": "inseefrlab/onyxia-jupyter-pytorch:py3.11.6-gpu",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
