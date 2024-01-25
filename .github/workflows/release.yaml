@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'charts/**'
+      - 'utils/charts-inheritance.yaml'
+      - 'utils/generate-children-charts.py'
 
 jobs:
   release:
