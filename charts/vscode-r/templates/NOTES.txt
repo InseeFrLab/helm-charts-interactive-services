@@ -1,0 +1,33 @@
+{{- if eq .Values.userPreferences.language "fr"}}
+{{- if .Values.ingress.enabled }}
+- Vous pouvez vous connecter à ce Visual Studio Code avec votre navigateur en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+- Vous pouvez vous connecter à ce Visual Studio Code avec votre navigateur en utilisant ce [lien](https://{{ .Values.route.hostname }})
+{{- if .Values.networking.user.enabled }}
+- Vous pouvez vous connecter à votre port personnalisé en utilisant ce [lien](https://{{ .Values.route.userHostname }})
+Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
+{{- end }}
+{{- end }}
+- Votre jeton d'accès est **{{ .Values.security.password }}**
+{{- else }}
+{{- if .Values.ingress.enabled }}
+- You can connect to this vscode with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
+{{- if .Values.route.enabled }}
+- You can connect to this vscode with your browser on this [link](https://{{ .Values.route.hostname }})
+{{- if .Values.networking.user.enabled }}
+- You can connect to your custom port on this [link](https://{{ .Values.route.userHostname }})
+If you don't run your custom service you will get a 502 bad gateway error.
+{{- end }}
+{{- end }}
+- Your access token is **{{ .Values.security.password }}**
+{{- end }}

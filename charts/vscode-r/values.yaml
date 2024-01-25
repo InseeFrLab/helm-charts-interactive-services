@@ -1,10 +1,10 @@
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-r:r4.3.2
+    version: inseefrlab/onyxia-vscode-r:r4.3.2
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-r:r4.3.2
+      version: inseefrlab/onyxia-vscode-r:r4.3.2
 security:
   password: changeme
   networkPolicy:
@@ -16,40 +16,17 @@ security:
 init:
   standardInitPath: /opt/onyxia-init.sh
   regionInit: ''
+  regionInitCheckSum: ''
   personalInit: ''
   personalInitArgs: ''
-environment:
-  user: onyxia
-  group: users
 s3:
-  enabled: false
+  enabled: true
   configMapName: ''
   accessKeyId: ''
   endpoint: ''
   defaultRegion: ''
   secretAccessKey: ''
   sessionToken: ''
-vault:
-  enabled: false
-  configMapName: ''
-  token: ''
-  url: ''
-  mount: ''
-  secret: ''
-  directory: ''
-git:
-  enabled: false
-  configMapName: ''
-  name: ''
-  email: ''
-  cache: ''
-  token: ''
-  repository: ''
-  branch: ''
-repository:
-  configMapName: ''
-  pipRepository: ''
-  condaRepository: ''
 discovery:
   hive: true
   mlflow: true
@@ -62,6 +39,25 @@ coresite:
   configMapName: ''
 metaflow:
   configMapName: ''
+vault:
+  enabled: true
+  configMapName: ''
+  token: ''
+  url: ''
+  mount: ''
+  secret: ''
+  directory: ''
+git:
+  enabled: true
+  configMapName: ''
+  name: ''
+  email: ''
+  cache: ''
+  branch: ''
+repository:
+  configMapName: ''
+  pipRepository: ''
+  condaRepository: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''
@@ -70,8 +66,11 @@ serviceAccount:
   create: true
   annotations: {}
   name: ''
+environment:
+  user: onyxia
+  group: users
 kubernetes:
-  enabled: false
+  enabled: true
   role: view
 podAnnotations: {}
 podSecurityContext:
@@ -81,12 +80,10 @@ networking:
   type: ClusterIP
   clusterIP: None
   service:
-    port: 8888
+    port: 8080
   user:
     enabled: false
     port: 5000
-  sparkui:
-    port: 4040
 ingress:
   enabled: false
   tls: true
@@ -106,7 +103,7 @@ route:
   wildcardPolicy: None
 resources: {}
 persistence:
-  enabled: false
+  enabled: true
   accessMode: ReadWriteOnce
   size: 10Gi
 autoscaling:
@@ -117,12 +114,6 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
-startupProbe:
-  failureThreshold: 60
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  successThreshold: 1
-  timeoutSeconds: 5
 userPreferences:
   darkMode: false
   language: en
