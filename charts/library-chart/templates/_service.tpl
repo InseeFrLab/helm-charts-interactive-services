@@ -15,21 +15,25 @@ spec:
   {{- end }}
   ports:
     - port: {{ .Values.networking.service.port }}
-      targetPort: {{ .Values.networking.service.port }}
+      targetPort: {{ default .Values.networking.service.port .Values.networking.service.targetPort }}
       protocol: TCP
       name: main
+    {{ if .Values.networking.user }}
     {{ if .Values.networking.user.enabled }}
     - port: {{ .Values.networking.user.port }}
       targetPort: {{ .Values.networking.user.port }}
       protocol: TCP
       name: user
     {{- end }}
+    {{- end }}
     {{ if .Values.spark }}
     {{ if .Values.spark.sparkui }}
+    {{ if .Values.networking.sparkui }}
     - port: {{ .Values.networking.sparkui.port }}
       targetPort: {{ .Values.networking.sparkui.port }}
       protocol: TCP
       name: sparkui
+    {{- end }}
     {{- end }}
     {{- end }}
   selector:
