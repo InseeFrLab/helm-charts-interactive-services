@@ -51,6 +51,10 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Gi
         - name: config-files
           emptyDir: {}
         {{- if .Values.discovery.hive }}
