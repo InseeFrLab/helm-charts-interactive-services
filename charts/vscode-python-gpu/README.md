@@ -1,8 +1,8 @@
-# vscode-python
+# vscode-python-gpu
 
 ![Version: 1.11.26](https://img.shields.io/badge/Version-1.11.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
+The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
 **Homepage:** <https://code.visualstudio.com/>
 
@@ -95,9 +95,9 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `""` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.11.6-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `""` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.11.6-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
