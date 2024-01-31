@@ -42,6 +42,10 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Gi
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

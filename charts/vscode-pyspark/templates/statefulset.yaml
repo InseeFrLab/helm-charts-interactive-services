@@ -60,6 +60,10 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Gi
         {{- if .Values.spark.default }}
         - name: secret-sparkconf
           secret:

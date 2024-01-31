@@ -53,6 +53,10 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Gi
         {{- if .Values.discovery.hive }}
         - name: secret-hive
           secret:

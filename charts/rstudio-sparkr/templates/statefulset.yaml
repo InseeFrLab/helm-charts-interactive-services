@@ -53,6 +53,10 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Gi
         {{- if .Values.s3.enabled }}
         - name: secret-coresite
           secret:
