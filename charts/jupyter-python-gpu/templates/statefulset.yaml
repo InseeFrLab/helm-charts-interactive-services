@@ -202,6 +202,8 @@ spec:
             - mountPath: /home/{{ .Values.environment.user}}/work
               subPath: work
               name: home
+            - mountPath: /dev/shm
+              name: dshm
             {{- if .Values.discovery.hive }}
             - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
