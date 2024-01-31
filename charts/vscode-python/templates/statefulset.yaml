@@ -67,10 +67,6 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
-        - name: dshm
-          emptyDir:
-            medium: Memory
-            sizeLimit: 128Mi
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -198,9 +194,7 @@ spec:
             - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
-            {{- end }}
-            - mountPath: /dev/shm
-              name: dshm        
+            {{- end }}      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
