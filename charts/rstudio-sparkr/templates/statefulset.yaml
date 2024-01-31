@@ -228,6 +228,8 @@ spec:
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
               name: home
+            - mountPath: /dev/shm
+              name: dshm
             {{- if .Values.s3.enabled }}
             - mountPath: /opt/hadoop/etc/hadoop/core-site.xml
               subPath: coresite/core-site.xml
