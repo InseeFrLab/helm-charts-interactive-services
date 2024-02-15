@@ -32,8 +32,10 @@ spec:
     matchLabels:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
   ingress:
-  - from:
-    {{- toYaml .Values.security.networkPolicy.from | nindent 4 }}
+  {{- with .Values.security.networkPolicy.from }}
+  - from: 
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
   policyTypes:
   - Ingress
 {{- end }}
