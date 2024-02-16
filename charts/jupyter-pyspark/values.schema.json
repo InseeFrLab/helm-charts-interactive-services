@@ -26,7 +26,7 @@
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.11.6-spark3.5.0",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.10.13-spark3.5.0",
-                "inseefrlab/trevas-jupyter:0.5.1"
+                "inseefrlab/trevas-jupyter:0.5.2"
               ],
               "render": "list",
               "hidden": {
