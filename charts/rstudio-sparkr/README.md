@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 1.17.7](https://img.shields.io/badge/Version-1.17.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.17.8](https://img.shields.io/badge/Version-1.17.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
