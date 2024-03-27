@@ -24,15 +24,15 @@
                             "description": "supported versions",
                             "type": "string",
                             "listEnum": [
-                                "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.1",
-                                "inseefrlab/onyxia-rstudio-sparkr:r4.2.3-spark3.5.1"
+                                "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.0",
+                                "inseefrlab/onyxia-rstudio-sparkr:r4.2.3-spark3.5.0"
                             ],
                             "render": "list",
                             "hidden": {
                                 "value": true,
                                 "path": "service/image/custom/enabled"
                             },
-                            "default": "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.1"
+                            "default": "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.0"
                         },
                         "custom": {
                             "description": "use a custom RStudio docker image",
@@ -47,7 +47,7 @@
                                 "version": {
                                     "description": "RStudio unsupported version",
                                     "type": "string",
-                                    "default": "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.1",
+                                    "default": "inseefrlab/onyxia-rstudio-sparkr:r4.3.2-spark3.5.0",
                                     "hidden": {
                                         "value": false,
                                         "path": "service/image/custom/enabled"
