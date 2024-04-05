@@ -110,6 +110,10 @@ kubernetes:
   enabled: false
   role: "view"
 
+openshiftSCC:
+  enabled: false
+  scc: nonroot
+
 podAnnotations: {}
 
 podSecurityContext:
