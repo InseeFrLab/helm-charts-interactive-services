@@ -620,11 +620,8 @@
           "title": "CertManager Cluster Issuer",
           "default": "",
           "x-onyxia": {
+            "hidden": true,
             "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
-          },
-          "hidden" :{
-            "value": true,
-            "path": "ingress/useCertManager"
           }
         }
       }
