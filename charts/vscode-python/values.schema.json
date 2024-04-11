@@ -549,7 +549,7 @@
         },
         "useCertManager": {
           "type": "boolean",
-          "description": "Whether CertManager should be used to generate a certificat",
+          "description": "Whether CertManager should be used to generate a certificate",
           "default": false,
           "x-onyxia": {
             "overwriteDefaultWith": "k8s.useCertManager"
@@ -561,10 +561,11 @@
           "title": "CertManager Cluster Issuer",
           "default": "",
           "x-onyxia": {
+            "hidden": true,
             "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
           },
           "hidden" :{
-            "value": false,
+            "value": true,
             "path": "ingress/useCertManager"
           }
         }
