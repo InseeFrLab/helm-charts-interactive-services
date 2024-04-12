@@ -1,4 +1,6 @@
 # Default values for jupyter.
+global:
+  suspend: false
 
 service:
   image:

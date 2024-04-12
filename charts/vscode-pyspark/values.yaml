@@ -1,4 +1,6 @@
 # Default values for vscode.
+global:
+  suspend: false
 
 service:
   image:
