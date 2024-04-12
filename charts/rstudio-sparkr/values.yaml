@@ -1,4 +1,6 @@
 # Default values for rstudio.
+global:
+  suspend: false
 
 service:
   image:
