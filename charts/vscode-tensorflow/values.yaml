@@ -1,3 +1,5 @@
+global:
+  suspend: false
 service:
   image:
     version: inseefrlab/onyxia-vscode-tensorflow:py3.11.6
