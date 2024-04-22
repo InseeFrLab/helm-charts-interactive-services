@@ -712,7 +712,7 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": true,
+        "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector"
       }
     },
