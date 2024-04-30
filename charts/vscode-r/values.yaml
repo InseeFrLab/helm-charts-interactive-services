@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-vscode-r:r4.3.2
+    version: inseefrlab/onyxia-vscode-r:r4.3.3
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-r:r4.3.2
+      version: inseefrlab/onyxia-vscode-r:r4.3.3
 security:
   password: changeme
   networkPolicy:
