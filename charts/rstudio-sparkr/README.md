@@ -8,8 +8,8 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/rstudio-sparkr>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

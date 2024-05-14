@@ -8,8 +8,8 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/rstudio-gpu>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

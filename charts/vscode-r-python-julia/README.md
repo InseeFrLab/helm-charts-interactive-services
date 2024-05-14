@@ -8,8 +8,8 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-r-python-julia>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

@@ -8,8 +8,8 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-python>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

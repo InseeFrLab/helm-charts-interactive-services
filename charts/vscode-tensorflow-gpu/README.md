@@ -8,8 +8,8 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-tensorflow-gpu>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

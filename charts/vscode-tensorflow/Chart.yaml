@@ -7,8 +7,8 @@ keywords:
 - Python
 home: https://code.visualstudio.com/
 sources:
+- https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-tensorflow
 - https://github.com/InseeFrLab/images-datascience
-- https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
 version: 1.11.32
 dependencies:

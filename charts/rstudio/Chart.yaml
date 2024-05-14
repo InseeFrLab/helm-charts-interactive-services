@@ -8,7 +8,8 @@ keywords:
 home: https://www.rstudio.com/
 sources:
   - https://github.com/InseeFrLab/images-datascience
-  - https://github.com/InseeFrLab/helm-charts-interactive-services
+  - https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/rstudio
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives

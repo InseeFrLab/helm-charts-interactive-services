@@ -8,8 +8,8 @@ The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/jupyter-tensorflow>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

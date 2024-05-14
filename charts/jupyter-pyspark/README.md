@@ -8,8 +8,8 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/jupyter-pyspark>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

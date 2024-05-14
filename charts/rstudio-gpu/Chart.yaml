@@ -8,8 +8,8 @@ keywords:
 - R
 home: https://www.rstudio.com/
 sources:
+- https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/rstudio-gpu
 - https://github.com/InseeFrLab/images-datascience
-- https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
 version: 1.15.25
 dependencies:

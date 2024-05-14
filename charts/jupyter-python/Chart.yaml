@@ -7,8 +7,8 @@ keywords:
   - Python
 home: https://jupyter.org/
 sources:
+  - https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/jupyter-python
   - https://github.com/InseeFrLab/images-datascience
-  - https://github.com/InseeFrLab/helm-charts-interactive-services
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives

@@ -8,8 +8,8 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 ## Source Code
 
+* <https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-pyspark>
 * <https://github.com/InseeFrLab/images-datascience>
-* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 

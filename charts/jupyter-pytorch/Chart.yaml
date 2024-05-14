@@ -7,8 +7,8 @@ keywords:
 - Python
 home: https://jupyter.org/
 sources:
+- https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/jupyter-pytorch
 - https://github.com/InseeFrLab/images-datascience
-- https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
 version: 1.13.33
 dependencies:
