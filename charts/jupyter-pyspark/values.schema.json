@@ -24,16 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.11.6-spark3.5.1",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.10.13-spark3.5.1",
-                "inseefrlab/trevas-jupyter:0.5.2"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.11.8-spark3.5.1"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.13-spark3.5.1"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -48,7 +47,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.10.13-spark3.5.1",
+                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -604,6 +603,25 @@
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
           }
+        },
+        "useCertManager": {
+          "type": "boolean",
+          "description": "Whether CertManager should be used to generate a certificate",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.useCertManager"
+          }
+        },
+        "certManagerClusterIssuer":{
+          "type": "string",
+          "description": "certManager cluster issuer",
+          "title": "CertManager Cluster Issuer",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
         }
       }
     },
@@ -808,6 +826,20 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
+          }
+        }
+      }
+    },
+    "global": {
+      "description": "Suspend",
+      "type": "object",
+      "properties": {
+        "suspend": {
+          "type": "boolean",
+          "description": "Suspend this service",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }

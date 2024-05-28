@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 1.33.10](https://img.shields.io/badge/Version-1.33.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.33.14](https://img.shields.io/badge/Version-1.33.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -41,6 +41,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
+| global.suspend | bool | `false` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |

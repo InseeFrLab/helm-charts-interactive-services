@@ -1,6 +1,6 @@
 # rstudio-gpu
 
-![Version: 1.15.20](https://img.shields.io/badge/Version-1.15.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.15.25](https://img.shields.io/badge/Version-1.15.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages, with GPU support.
 
@@ -37,6 +37,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
+| global.suspend | bool | `false` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -89,9 +90,9 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.3.2-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.3.3-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.3.2-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.3.3-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

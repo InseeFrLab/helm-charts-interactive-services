@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 1.3.29](https://img.shields.io/badge/Version-1.3.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.3.33](https://img.shields.io/badge/Version-1.3.33-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -41,6 +41,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
+| global.suspend | bool | `false` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |

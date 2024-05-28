@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.11.6",
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.10.13"
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.12.2",
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.11.8"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.11.6"
+              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.2"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.11.6",
+                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.2",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -550,6 +550,25 @@
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
           }
+        },
+        "useCertManager": {
+          "type": "boolean",
+          "description": "Whether CertManager should be used to generate a certificate",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.useCertManager"
+          }
+        },
+        "certManagerClusterIssuer": {
+          "type": "string",
+          "description": "certManager cluster issuer",
+          "title": "CertManager Cluster Issuer",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
         }
       }
     },
@@ -688,7 +707,7 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": true,
+        "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector"
       }
     },
@@ -712,6 +731,20 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
+          }
+        }
+      }
+    },
+    "global": {
+      "description": "Suspend",
+      "type": "object",
+      "properties": {
+        "suspend": {
+          "type": "boolean",
+          "description": "Suspend this service",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }

@@ -24,7 +24,7 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-rstudio:r4.3.2-gpu",
+                "inseefrlab/onyxia-rstudio:r4.3.3-gpu",
                 "inseefrlab/onyxia-rstudio:r4.2.3-gpu"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-rstudio:r4.3.2-gpu"
+              "default": "inseefrlab/onyxia-rstudio:r4.3.3-gpu"
             },
             "custom": {
               "description": "use a custom RStudio docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "RStudio unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-rstudio:r4.3.2-gpu",
+                  "default": "inseefrlab/onyxia-rstudio:r4.3.3-gpu",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -540,6 +540,25 @@
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
           }
+        },
+        "useCertManager": {
+          "type": "boolean",
+          "description": "Whether CertManager should be used to generate a certificate",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.useCertManager"
+          }
+        },
+        "certManagerClusterIssuer": {
+          "type": "string",
+          "description": "certManager cluster issuer",
+          "title": "CertManager Cluster Issuer",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
         }
       }
     },
@@ -678,7 +697,7 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": true,
+        "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector"
       }
     },
@@ -702,6 +721,20 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
+          }
+        }
+      }
+    },
+    "global": {
+      "description": "Suspend",
+      "type": "object",
+      "properties": {
+        "suspend": {
+          "type": "boolean",
+          "description": "Suspend this service",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }

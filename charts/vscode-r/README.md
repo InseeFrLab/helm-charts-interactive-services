@@ -1,6 +1,6 @@
 # vscode-r
 
-![Version: 1.11.27](https://img.shields.io/badge/Version-1.11.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.32](https://img.shields.io/badge/Version-1.11.32-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with R and a collection of standard data science packages.
 
@@ -39,6 +39,7 @@ The VSCode IDE with R and a collection of standard data science packages.
 | git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
+| global.suspend | bool | `false` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
@@ -95,9 +96,9 @@ The VSCode IDE with R and a collection of standard data science packages.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r:r4.3.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r:r4.3.3"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-r:r4.3.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-r:r4.3.3"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

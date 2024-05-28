@@ -137,10 +137,10 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.6",
+              "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.2",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-pytorch:py3.11.6",
-                "inseefrlab/onyxia-vscode-pytorch:py3.10.13"
+                "inseefrlab/onyxia-vscode-pytorch:py3.12.2",
+                "inseefrlab/onyxia-vscode-pytorch:py3.11.8"
               ],
               "render": "list",
               "hidden": {
@@ -161,7 +161,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.11.6",
+                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.2",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -546,6 +546,25 @@
             "hidden": true,
             "overwriteDefaultWith": "{{k8s.ingressClassName}}"
           }
+        },
+        "useCertManager": {
+          "type": "boolean",
+          "description": "Whether CertManager should be used to generate a certificate",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.useCertManager"
+          }
+        },
+        "certManagerClusterIssuer": {
+          "type": "string",
+          "description": "certManager cluster issuer",
+          "title": "CertManager Cluster Issuer",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
         }
       }
     },
@@ -693,7 +712,7 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": true,
+        "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector"
       }
     },
@@ -717,6 +736,20 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
+          }
+        }
+      }
+    },
+    "global": {
+      "description": "Suspend",
+      "type": "object",
+      "properties": {
+        "suspend": {
+          "type": "boolean",
+          "description": "Suspend this service",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }
