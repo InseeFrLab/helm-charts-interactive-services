@@ -291,6 +291,30 @@
         }
       }
     },
+    "openshiftSCC": {
+      "description": "configuration for openshift compatibility",
+      "type": "object",
+      "properties": {
+          "enabled": {
+          "description": "enable rolebinding with openshift scc",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+              "hidden": true,
+              "overwriteDefaultWith": "region.openshiftSCC.enabled"
+              }
+          },
+          "scc": {
+              "type": "string",
+              "description": "name of scc for rolebinding",
+              "default": "anyuid",
+              "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "region.openshiftSCC.scc"
+              }
+          }
+        }
+    },
     "git": {
       "description": "Git user configuration",
       "type": "object",
