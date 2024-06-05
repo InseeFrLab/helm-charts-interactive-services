@@ -203,3 +203,7 @@ affinity: {}
 userPreferences:
   darkMode: false
   language: "en"
+
+openshiftSCC:
+  enabled: false
+  scc: ""
