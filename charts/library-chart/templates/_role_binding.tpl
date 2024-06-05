@@ -26,6 +26,7 @@ subjects:
 {{/* Template to generate a RoleBinding to SCC */}}
 {{- define "library-chart.roleBindingSCC" -}}
 {{- if .Values.serviceAccount.create -}}
+{{- if .Values.openshiftSCC -}}
 {{- if .Values.openshiftSCC.enabled -}}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -41,6 +42,7 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "library-chart.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
