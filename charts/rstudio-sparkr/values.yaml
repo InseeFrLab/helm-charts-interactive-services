@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-rstudio-sparkr:r4.4.0-spark3.5.1"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-rstudio-sparkr:r4.4.0-spark3.5.1"
 
 spark:
   sparkui: false

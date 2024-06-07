@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: ""
+    version: "inseefrlab/onyxia-vscode-python:py3.12.3"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ""
+      version: "inseefrlab/onyxia-vscode-python:py3.12.3"
 
 security:
   password: "changeme"
