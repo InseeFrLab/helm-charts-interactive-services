@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.11.8-spark3.5.1"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.3-spark3.5.1",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.11.9-spark3.5.1"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.3-spark3.5.1"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -47,7 +47,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.2-spark3.5.1",
+                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.3-spark3.5.1",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"

@@ -1,6 +1,6 @@
 # vscode-tensorflow-gpu
 
-![Version: 1.11.32](https://img.shields.io/badge/Version-1.11.32-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.35](https://img.shields.io/badge/Version-1.11.35-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.21 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.23 |
 
 ## Values
 
@@ -66,6 +66,8 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
@@ -96,9 +98,9 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.2-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.3-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.2-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.3-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

@@ -11,8 +11,8 @@ sources:
 - https://github.com/InseeFrLab/helm-charts-interactive-services/tree/main/charts/vscode-tensorflow-gpu
 - https://github.com/InseeFrLab/images-datascience
 type: application
-version: 1.11.32
+version: 1.11.35
 dependencies:
 - name: library-chart
-  version: 1.5.21
+  version: 1.5.23
   repository: https://inseefrlab.github.io/helm-charts-interactive-services

@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-vscode-python:py3.12.2-gpu
+    version: inseefrlab/onyxia-vscode-python:py3.12.3-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-python:py3.12.2-gpu
+      version: inseefrlab/onyxia-vscode-python:py3.12.3-gpu
 security:
   password: changeme
   networkPolicy:
@@ -119,3 +119,6 @@ affinity: {}
 userPreferences:
   darkMode: false
   language: en
+openshiftSCC:
+  enabled: false
+  scc: ''
