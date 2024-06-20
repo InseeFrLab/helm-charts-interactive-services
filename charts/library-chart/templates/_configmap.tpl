@@ -38,3 +38,27 @@ data:
   {{- end }}
 {{- end }}
 {{- end }}
+
+
+{{/* Template to generate a ConfigMap for proxies */}}
+{{- define "library-chart.configMapProxy" -}}
+{{- if .Values.proxyInjection }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-configmapproxy" (include "library-chart.fullname" .) }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+data:
+  environment: |
+  {{- if .Values.proxyInjection.httpProxyUrl }}
+    http_proxy={{ .Values.proxyInjection.httpProxyUrl }}
+  {{- end }}
+  {{- if .Values.proxyInjection.httpsProxyUrl }}
+    https_proxy={{ .Values.proxyInjection.httpsProxyUrl }}
+  {{- end }}
+  {{- if .Values.proxyInjection.noProxy }}
+    no_proxy={{ .Values.proxyInjection.noProxy }}
+  {{- end }}
+{{- end }}
+{{- end }}
