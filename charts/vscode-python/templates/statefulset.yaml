@@ -71,6 +71,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
+        {{- if .Values.proxyInjection }}
+        - name: cm-proxy
+          configMap:
+            name: {{ printf "%s-configmapproxy" (include "library-chart.fullname" .) }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -94,6 +99,10 @@ spec:
               mkdir /dest/metaflow;
               cp /src/metaflow/config.json /dest/metaflow/config.json;
               {{- end }}
+              {{- if .Values.proxyInjection }}
+              mkdir /dest/environment;
+              cp /src/environment/environment /dest/environment/environment;
+              {{- end }}
           volumeMounts:
             - name: config-files
               mountPath: /dest
@@ -104,6 +113,10 @@ spec:
             {{- if .Values.discovery.metaflow }}
             - name : secret-metaflow
               mountPath: /src/metaflow
+            {{- end }}
+            {{- if .Values.proxyInjection }}
+            - name: cm-proxy
+              mountPath: /src/environment/
             {{- end }}
           resources:
             limits:
@@ -139,6 +152,20 @@ spec:
             {{- if .Values.init.personalInitArgs }}
             - name: PERSONAL_INIT_ARGS
               value: {{ .Values.init.personalInitArgs }}
+            {{- end }}
+            {{- if .Values.proxyInjection }}
+            {{- if .Values.proxyInjection.httpProxyUrl }}
+            - name: http_proxy
+              value: {{ .Values.proxyInjection.httpProxyUrl }}
+            {{- end }}
+            {{- if .Values.proxyInjection.httpsProxyUrl }}
+            - name: https_proxy
+              value: {{ .Values.proxyInjection.httpsProxyUrl }}
+            {{- end }}
+            {{- if .Values.proxyInjection.noProxy }}
+            - name: no_proxy
+              value: {{ .Values.proxyInjection.noProxy }}
+            {{- end }}
             {{- end }}
             - name: PROJECT_USER
               value: {{ .Values.environment.user }}
@@ -198,7 +225,12 @@ spec:
             - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
-            {{- end }}      
+            {{- end }} 
+            {{- if .Values.proxyInjection }}
+            - name: config-files
+              mountPath: /etc/environment
+              subPath: environment/environment
+            {{- end }}     
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
