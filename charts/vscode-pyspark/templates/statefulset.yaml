@@ -105,6 +105,7 @@ spec:
       initContainers:
         - name: make-secrets-writable
           image: inseefrlab/onyxia-base:latest
+          imagePullPolicy: IfNotPresent
           command: 
             - sh
             - -c 

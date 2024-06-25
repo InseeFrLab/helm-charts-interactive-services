@@ -108,6 +108,7 @@ spec:
       initContainers:
         - name: make-configmaps-writable
           image: inseefrlab/onyxia-base:latest
+          imagePullPolicy: IfNotPresent
           command: 
             - sh
             - -c 
