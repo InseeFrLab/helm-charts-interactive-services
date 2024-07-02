@@ -6,7 +6,7 @@
 - Vous pouvez vous connecter à ce RStudio avec votre navigateur sur ce [lien](https://{{ .Values.route.hostname }})
 {{- end }}
 - Le nom d'utilisateur est {{ .Values.environment.user }}
-- Le mot de passe est **{{ .Values.security.password }}**
+- votre token: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
@@ -37,7 +37,7 @@
 - You can connect to this rstudio with your browser on this [link](https://{{ .Values.route.hostname }})
 {{- end }}
 - The login is **{{ .Values.environment.user }}**
-- The password is **{{ .Values.security.password }}**
+- Your password: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
