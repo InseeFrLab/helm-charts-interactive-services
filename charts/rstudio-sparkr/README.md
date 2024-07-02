@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 1.17.16](https://img.shields.io/badge/Version-1.17.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.17.17](https://img.shields.io/badge/Version-1.17.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.21 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.23 |
 
 ## Values
 
