@@ -13,7 +13,7 @@ Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 50
 Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
 {{- end }}
 {{- end }}
-- Votre jeton d'accès est **{{ .Values.security.password }}**
+- Votre password: {{ .Values.security.password }}
 
 *NOTES concernant la suppression :*
 
@@ -38,7 +38,7 @@ If you don't run your custom service you will get a 502 bad gateway error.
 If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
-- Your access token is **{{ .Values.security.password }}**
+- Your token: {{ .Values.security.password }}
 
 *NOTES about deletion :*
 
