@@ -13,7 +13,7 @@ Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 
 Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 502 Bad Gateway.
 {{- end }}
 {{- end }}
-- Votre jeton d'accès est **{{ .Values.security.password }}**
+- Votre token: {{ .Values.security.password }}
 {{- else }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this vscode with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
@@ -29,5 +29,5 @@ If you don't run your custom service you will get a 502 bad gateway error.
 If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
-- Your access token is **{{ .Values.security.password }}**
+- Your password: {{ .Values.security.password }}
 {{- end }}
