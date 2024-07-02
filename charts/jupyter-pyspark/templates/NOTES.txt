@@ -11,7 +11,7 @@
 - Lorsque le driver Spark est en cours d'exécution, vous pouvez vous connecter à l'interface Spark-UI avec votre navigateur en utilisant ce [lien](https://{{ .Values.route.sparkHostname }})
 {{- end }}
 {{- end }}
-- Votre jeton d'accès est **{{ .Values.security.password }}**
+- Votre password: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
@@ -47,7 +47,7 @@ Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 50
 - When the spark driver is running, you can connect to the spark-ui with your browser on this [link](https://{{ .Values.route.sparkHostname }})
 {{- end }}
 {{- end }}
-- Your access token is **{{ .Values.security.password }}**
+- Your token: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
