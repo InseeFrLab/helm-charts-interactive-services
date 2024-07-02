@@ -6,7 +6,7 @@
 - Vous pouvez vous connecter à ce RStudio avec votre navigateur sur ce [lien](https://{{ .Values.route.hostname }})
 {{- end }}
 - Le nom d'utilisateur est {{ .Values.environment.user }}
-- votre token: {{ .Values.security.password }}
+- votre password: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}

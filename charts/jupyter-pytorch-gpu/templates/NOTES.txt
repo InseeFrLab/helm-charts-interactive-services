@@ -38,7 +38,7 @@ If you don't run your custom service you will get a 502 bad gateway error.
 If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
-- Your token: {{ .Values.security.password }}
+- Your password: {{ .Values.security.password }}
 
 *NOTES about deletion :*
 
