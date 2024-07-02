@@ -12,7 +12,7 @@
 {{- end }}
 {{- end }}
 - Le nom d'utilisateur est **{{ .Values.environment.user }}**
-- Votre token: {{ .Values.security.password }}
+- Votre password: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
