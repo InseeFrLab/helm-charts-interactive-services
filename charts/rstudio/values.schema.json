@@ -190,7 +190,7 @@
                     "default": "changeme",
                     "render": "password",
                     "x-onyxia": {
-                        "overwriteDefaultWith": "{{project.password}}"
+                        "overwriteDefaultWith": "{{service.oneTimePassword}}"
                     }
                 },
                 "allowlist": {

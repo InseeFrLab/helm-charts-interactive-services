@@ -12,7 +12,7 @@
 {{- end }}
 {{- end }}
 - Le nom d'utilisateur est **{{ .Values.environment.user }}**
-- Le mot de passe est  **{{ .Values.security.password }}**
+- Votre token: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
@@ -49,7 +49,7 @@ Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 
 {{- end }}
 {{- end }}
 - The login is **{{ .Values.environment.user }}**
-- The password is **{{ .Values.security.password }}**
+- Your password: {{ .Values.security.password }}
 
 {{- if .Values.ingress.enabled }}
 {{- if .Values.networking.user.enabled }}
