@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   jupyter-pyspark:
   - apiVersion: v2
+    created: "2024-07-02T12:32:53.63902816Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 797b8a038a7aa4e292aa1a9aadfde466f65351a52db940ad5365d3ba80decfdb
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    - VTL
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-1.33.18/jupyter-pyspark-1.33.18.tgz
+    version: 1.33.18
+  - apiVersion: v2
     created: "2024-06-27T14:39:22.945174603Z"
     dependencies:
     - name: library-chart
@@ -1251,6 +1275,28 @@ entries:
     version: 1.21.2
   jupyter-python:
   - apiVersion: v2
+    created: "2024-07-02T12:32:53.801798464Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard
+      data science packages.
+    digest: 0d6d77ff51060850aac90da9ec7da3b8615eb2e72b3337ce780d4ba288662976
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-1.13.39/jupyter-python-1.13.39.tgz
+    version: 1.13.39
+  - apiVersion: v2
     created: "2024-06-27T14:39:23.066336579Z"
     dependencies:
     - name: library-chart
@@ -2131,6 +2177,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-1.10.4/jupyter-python-1.10.4.tgz
     version: 1.10.4
   jupyter-python-gpu:
+  - apiVersion: v2
+    created: "2024-07-02T12:32:53.9102133Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python, Julia, and a collection of standard
+      data science packages, with GPU support.
+    digest: cebc8bcd1b2c441c6aab1803a32f23b784d8898e1505dd2ff93c0ff3a5032ca0
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-python-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-gpu-1.13.39/jupyter-python-gpu-1.13.39.tgz
+    version: 1.13.39
   - apiVersion: v2
     created: "2024-06-27T14:39:23.175190378Z"
     dependencies:
@@ -3013,6 +3081,27 @@ entries:
     version: 1.10.4
   jupyter-pytorch:
   - apiVersion: v2
+    created: "2024-07-02T12:32:54.036140758Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
+    digest: a78ceb6bd7d73ee7ef61162d0b38a43f9401896aa4a765f9ff8f79cc8f2b35c4
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-pytorch
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-1.13.39/jupyter-pytorch-1.13.39.tgz
+    version: 1.13.39
+  - apiVersion: v2
     created: "2024-06-27T14:39:23.292438628Z"
     dependencies:
     - name: library-chart
@@ -3853,6 +3942,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-1.10.4/jupyter-pytorch-1.10.4.tgz
     version: 1.10.4
   jupyter-pytorch-gpu:
+  - apiVersion: v2
+    created: "2024-07-02T12:32:54.156329991Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch,
+      with GPU support.
+    digest: 7a28f77598200502ab3f08a29b69f33ba86e52c57b2ecf602045021f59d7f4d2
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-pytorch-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-gpu-1.13.39/jupyter-pytorch-gpu-1.13.39.tgz
+    version: 1.13.39
   - apiVersion: v2
     created: "2024-06-27T14:39:23.387441833Z"
     dependencies:
@@ -4735,6 +4846,28 @@ entries:
     version: 1.10.4
   jupyter-r:
   - apiVersion: v2
+    created: "2024-07-02T12:32:54.28305046Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with R and a collection of standard data science
+      packages.
+    digest: c90b9e291c0800078602a31fab13d629c92d1ac643da7672465ca94b97e53f9c
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-r
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-r-1.13.39/jupyter-r-1.13.39.tgz
+    version: 1.13.39
+  - apiVersion: v2
     created: "2024-06-27T14:39:23.532067855Z"
     dependencies:
     - name: library-chart
@@ -5616,6 +5749,27 @@ entries:
     version: 1.10.4
   jupyter-tensorflow:
   - apiVersion: v2
+    created: "2024-07-02T12:32:54.408790178Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
+    digest: 7ae137564c534df7a5d2e76e89547f88c501ca8e08715077222cd5862f7eb858
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-tensorflow
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-1.13.39/jupyter-tensorflow-1.13.39.tgz
+    version: 1.13.39
+  - apiVersion: v2
     created: "2024-06-27T14:39:23.670267897Z"
     dependencies:
     - name: library-chart
@@ -6456,6 +6610,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-1.10.4/jupyter-tensorflow-1.10.4.tgz
     version: 1.10.4
   jupyter-tensorflow-gpu:
+  - apiVersion: v2
+    created: "2024-07-02T12:32:54.527169721Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.23
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow,
+      with GPU support.
+    digest: aa7c597eccf9b45959307254018b51dde07e145b668d1dd228106b55fee3db2d
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-tensorflow-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-gpu-1.13.39/jupyter-tensorflow-gpu-1.13.39.tgz
+    version: 1.13.39
   - apiVersion: v2
     created: "2024-06-27T14:39:23.788013359Z"
     dependencies:
@@ -17064,4 +17240,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2024-06-27T14:39:23.790408986Z"
+generated: "2024-07-02T12:32:54.529809482Z"
