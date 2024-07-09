@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-rstudio:r4.4.0-gpu
+    version: inseefrlab/onyxia-rstudio:r4.4.1-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-rstudio:r4.4.0-gpu
+      version: inseefrlab/onyxia-rstudio:r4.4.1-gpu
 security:
   password: changeme
   networkPolicy:

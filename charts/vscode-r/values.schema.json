@@ -137,10 +137,10 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-r:r4.3.3",
+              "default": "inseefrlab/onyxia-vscode-r:r4.4.1",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-r:r4.3.3",
-                "inseefrlab/onyxia-vscode-r:r4.2.3"
+                "inseefrlab/onyxia-vscode-r:r4.4.1",
+                "inseefrlab/onyxia-vscode-r:r4.3.3"
               ],
               "render": "list",
               "hidden": {
@@ -161,7 +161,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-r:r4.3.3",
+                  "default": "inseefrlab/onyxia-vscode-r:r4.4.1",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
