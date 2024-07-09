@@ -8,8 +8,8 @@ jupyter-python:
   jupyter-r:
     description: The JupyterLab IDE with R and a collection of standard data science packages.
     images:
+      - inseefrlab/onyxia-jupyter-r:r4.4.1
       - inseefrlab/onyxia-jupyter-r:r4.3.3
-      - inseefrlab/onyxia-jupyter-r:r4.2.3
   jupyter-tensorflow:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
   jupyter-tensorflow-gpu:
@@ -37,11 +37,11 @@ vscode-python:
   vscode-r-python-julia:
     description: The VSCode IDE with minimal installations of R, Python and Julia.
     images:
-      - inseefrlab/onyxia-vscode-r-python-julia:r4.3.3
+      - inseefrlab/onyxia-vscode-r-python-julia:r4.4.1
   vscode-r:
     description: The VSCode IDE with R and a collection of standard data science packages.
     images:
+      - inseefrlab/onyxia-vscode-r:r4.4.1
       - inseefrlab/onyxia-vscode-r:r4.3.3
-      - inseefrlab/onyxia-vscode-r:r4.2.3
 
 vscode-pyspark: []
