@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 1.33.20](https://img.shields.io/badge/Version-1.33.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.33.21](https://img.shields.io/badge/Version-1.33.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -102,9 +102,9 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.12.3-spark3.5.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.12.3-spark3.5.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

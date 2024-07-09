@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 1.17.19](https://img.shields.io/badge/Version-1.17.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.17.20](https://img.shields.io/badge/Version-1.17.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -99,9 +99,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.0-spark3.5.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.0-spark3.5.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
