@@ -194,69 +194,28 @@
         }
       }
     },
-    "security": {
-      "description": "RStudio specific configuration",
+    "init": {
+      "description": "Init parameters",
       "type": "object",
       "properties": {
-        "password": {
+        "regionInit": {
           "type": "string",
-          "description": "Password",
-          "default": "changeme",
-          "render": "password",
+          "description": "region initialization script",
+          "default": "",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{service.oneTimePassword}}"
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
           }
         },
-        "allowlist": {
-          "type": "object",
-          "description": "IP protection",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable IP protection",
-              "description": "Only the configured set of IPs will be able to reach the service",
-              "default": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultIpProtection"
-              }
-            },
-            "ip": {
-              "type": "string",
-              "description": "the white list of IP is whitespace",
-              "title": "Whitelist of IP",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{user.ip}}"
-              },
-              "hidden": {
-                "value": false,
-                "path": "security/allowlist/enabled"
-              }
-            }
-          }
+        "personalInit": {
+          "type": "string",
+          "description": "user initialization script",
+          "default": ""
         },
-        "networkPolicy": {
-          "type": "object",
-          "description": "Define access policy to the service",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable network policy",
-              "description": "Only pod from the same namespace will be allowed",
-              "default": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultNetworkPolicy"
-              }
-            },
-            "from": {
-              "type": "array",
-              "description": "Array of source allowed to have network access to your service",
-              "default": [],
-              "x-onyxia": {
-                "hidden": true,
-                "overwriteDefaultWith": "region.from"
-              }
-            }
-          }
+        "personalInitArgs": {
+          "type": "string",
+          "description": "args for user initialization script",
+          "default": ""
         }
       }
     },
@@ -282,87 +241,6 @@
             "edit",
             "admin"
           ]
-        }
-      }
-    },
-    "git": {
-      "description": "Git user configuration",
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Add git config inside your environment",
-          "default": true
-        },
-        "name": {
-          "type": "string",
-          "description": "user name for git",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.name}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "email": {
-          "type": "string",
-          "description": "user email for git",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.email}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "cache": {
-          "type": "string",
-          "description": "duration in seconds of the credentials cache duration",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "token": {
-          "type": "string",
-          "description": "personal access token",
-          "default": "",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.token}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "repository": {
-          "type": "string",
-          "description": "Repository url",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.project}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "branch": {
-          "type": "string",
-          "description": "Branch automatically checked out",
-          "default": "",
-          "hidden": {
-            "value": "",
-            "path": "git/repository"
-          }
         }
       }
     },
@@ -499,6 +377,191 @@
         }
       }
     },
+    "git": {
+      "description": "Git user configuration",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Add git config inside your environment",
+          "default": true
+        },
+        "name": {
+          "type": "string",
+          "description": "user name for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.name}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "email": {
+          "type": "string",
+          "description": "user email for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.email}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "cache": {
+          "type": "string",
+          "description": "duration in seconds of the credentials cache duration",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "token": {
+          "type": "string",
+          "description": "personal access token",
+          "default": "",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.token}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "repository": {
+          "type": "string",
+          "description": "Repository url",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.project}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch automatically checked out",
+          "default": "",
+          "hidden": {
+            "value": "",
+            "path": "git/repository"
+          }
+        }
+      }
+    },
+    "networking": {
+      "type": "object",
+      "form": true,
+      "title": "Networking detail",
+      "properties": {
+        "user": {
+          "type": "object",
+          "description": "user defined port",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable a custom service port",
+              "description": "Enable a custom service port",
+              "default": false
+            },
+            "port": {
+              "type": "integer",
+              "description": "port of the custom service",
+              "title": "Custom service port",
+              "hidden": {
+                "value": false,
+                "path": "networking/user/enabled"
+              },
+              "default": 5000
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "description": "RStudio specific configuration",
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "default": "changeme",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{service.oneTimePassword}}"
+          }
+        },
+        "allowlist": {
+          "type": "object",
+          "description": "IP protection",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable IP protection",
+              "description": "Only the configured set of IPs will be able to reach the service",
+              "default": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultIpProtection"
+              }
+            },
+            "ip": {
+              "type": "string",
+              "description": "the white list of IP is whitespace",
+              "title": "Whitelist of IP",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{user.ip}}"
+              },
+              "hidden": {
+                "value": false,
+                "path": "security/allowlist/enabled"
+              }
+            }
+          }
+        },
+        "networkPolicy": {
+          "type": "object",
+          "description": "Define access policy to the service",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable network policy",
+              "description": "Only pod from the same namespace will be allowed",
+              "default": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultNetworkPolicy"
+              }
+            },
+            "from": {
+              "type": "array",
+              "description": "Array of source allowed to have network access to your service",
+              "default": [],
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.from"
+              }
+            }
+          }
+        }
+      }
+    },
+    "nodeSelector": {
+      "type": "object",
+      "description": "NodeSelector",
+      "default": {},
+      "x-onyxia": {
+        "hidden": false,
+        "overwriteDefaultWith": "region.nodeSelector"
+      }
+    },
     "ingress": {
       "type": "object",
       "form": true,
@@ -596,60 +659,6 @@
         }
       }
     },
-    "networking": {
-      "type": "object",
-      "form": true,
-      "title": "Networking detail",
-      "properties": {
-        "user": {
-          "type": "object",
-          "description": "user defined port",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable a custom service port",
-              "description": "Enable a custom service port",
-              "default": false
-            },
-            "port": {
-              "type": "integer",
-              "description": "port of the custom service",
-              "title": "Custom service port",
-              "hidden": {
-                "value": false,
-                "path": "networking/user/enabled"
-              },
-              "default": 5000
-            }
-          }
-        }
-      }
-    },
-    "init": {
-      "description": "Init parameters",
-      "type": "object",
-      "properties": {
-        "regionInit": {
-          "type": "string",
-          "description": "region initialization script",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
-          }
-        },
-        "personalInit": {
-          "type": "string",
-          "description": "user initialization script",
-          "default": ""
-        },
-        "personalInitArgs": {
-          "type": "string",
-          "description": "args for user initialization script",
-          "default": ""
-        }
-      }
-    },
     "repository": {
       "description": "r repository (eg : cran mirrors or proxy caches)",
       "type": "object",
@@ -690,15 +699,6 @@
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.tolerations"
-      }
-    },
-    "nodeSelector": {
-      "type": "object",
-      "description": "NodeSelector",
-      "default": {},
-      "x-onyxia": {
-        "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector"
       }
     },
     "userPreferences": {
