@@ -1,10 +1,10 @@
-# rstudio-sparkr
+# vscode-r-python-julia
 
-![Version: 1.17.21](https://img.shields.io/badge/Version-1.17.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.11.41](https://img.shields.io/badge/Version-1.11.41-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
+The VSCode IDE with minimal installations of R, Python and Julia.
 
-**Homepage:** <https://www.rstudio.com/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
@@ -28,8 +28,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | coresite.configMapName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
+| discovery.metaflow | bool | `true` |  |
+| discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
-| environment.root | bool | `true` |  |
 | environment.user | string | `"onyxia"` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
@@ -38,8 +39,6 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
-| git.repository | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -47,37 +46,37 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| initContainerSecurityContext | object | `{}` |  |
-| kubernetes.enable | bool | `true` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
+| metaflow.configMapName | string | `""` |  |
+| mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
-| proxy.httpProxy | string | `""` |  |
-| proxy.httpsProxy | string | `""` |  |
-| proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.mavenRepository | string | `""` |  |
-| repository.packageManagerUrl | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -99,31 +98,12 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.4.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.4.1"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
-| spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
-| spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
-| spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
-| spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.configMapName | string | `""` |  |
-| spark.default | bool | `true` |  |
-| spark.sparkui | bool | `false` |  |
-| spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.initialExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.maxExecutors" | string | `"10"` |  |
-| spark.userConfig."spark.dynamicAllocation.minExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.shuffleTracking.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.executor.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled" | string | `"true"` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
