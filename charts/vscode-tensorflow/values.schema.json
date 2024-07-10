@@ -2,6 +2,63 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
+    "service": {
+      "description": "spark-history specific configuration",
+      "type": "object",
+      "properties": {
+        "image": {
+          "description": "image docker",
+          "type": "object",
+          "properties": {
+            "pullPolicy": {
+              "type": "string",
+              "description": "option when pulling the docker image",
+              "default": "IfNotPresent",
+              "enum": [
+                "IfNotPresent",
+                "Always",
+                "Never"
+              ]
+            },
+            "version": {
+              "description": "vscode supported version",
+              "type": "string",
+              "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
+              "listEnum": [
+                "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
+                "inseefrlab/onyxia-vscode-tensorflow:py3.11.9"
+              ],
+              "render": "list",
+              "hidden": {
+                "value": true,
+                "path": "service/image/custom/enabled"
+              }
+            },
+            "custom": {
+              "description": "use a custom vscode docker image",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "custom image",
+                  "type": "boolean",
+                  "description": "use a custom vscode docker images",
+                  "default": false
+                },
+                "version": {
+                  "description": "vscode unsupported version",
+                  "type": "string",
+                  "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
+                  "hidden": {
+                    "value": false,
+                    "path": "service/image/custom/enabled"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "resources": {
       "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
       "type": "object",
@@ -92,87 +149,6 @@
         }
       }
     },
-    "discovery": {
-      "description": "configure your service to autodetect some ressources.",
-      "type": "object",
-      "properties": {
-        "hive": {
-          "type": "boolean",
-          "title": "Enable hive metastore discovery",
-          "description": "discover your hive metastore service",
-          "default": true
-        },
-        "mlflow": {
-          "type": "boolean",
-          "title": "Enable mlflow discovery",
-          "description": "discover your mlflow service",
-          "default": true
-        },
-        "metaflow": {
-          "type": "boolean",
-          "title": "Enable metaflow discovery",
-          "description": "discover your metaflow service",
-          "default": true
-        }
-      }
-    },
-    "service": {
-      "description": "spark-history specific configuration",
-      "type": "object",
-      "properties": {
-        "image": {
-          "description": "image docker",
-          "type": "object",
-          "properties": {
-            "pullPolicy": {
-              "type": "string",
-              "description": "option when pulling the docker image",
-              "default": "IfNotPresent",
-              "enum": [
-                "IfNotPresent",
-                "Always",
-                "Never"
-              ]
-            },
-            "version": {
-              "description": "vscode supported version",
-              "type": "string",
-              "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
-              "listEnum": [
-                "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
-                "inseefrlab/onyxia-vscode-tensorflow:py3.11.9"
-              ],
-              "render": "list",
-              "hidden": {
-                "value": true,
-                "path": "service/image/custom/enabled"
-              }
-            },
-            "custom": {
-              "description": "use a custom vscode docker image",
-              "type": "object",
-              "properties": {
-                "enabled": {
-                  "title": "custom image",
-                  "type": "boolean",
-                  "description": "use a custom vscode docker images",
-                  "default": false
-                },
-                "version": {
-                  "description": "vscode unsupported version",
-                  "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.4",
-                  "hidden": {
-                    "value": false,
-                    "path": "service/image/custom/enabled"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "persistence": {
       "description": "Configuration for persistence",
       "type": "object",
@@ -204,65 +180,37 @@
         }
       }
     },
-    "security": {
-      "description": "security specific configuration",
+    "init": {
+      "description": "Init parameters",
       "type": "object",
       "properties": {
-        "password": {
+        "regionInit": {
           "type": "string",
-          "description": "Password",
-          "default": "changeme",
-          "render": "password",
+          "description": "region initialization script",
+          "default": "",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{service.oneTimePassword}}"
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
           }
         },
-        "allowlist": {
-          "type": "object",
-          "description": "IP protection",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable IP protection",
-              "description": "Only the configured set of IPs will be able to reach the service",
-              "default": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultIpProtection"
-              }
-            },
-            "ip": {
-              "type": "string",
-              "description": "the white list of IP is whitespace",
-              "title": "Whitelist of IP",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{user.ip}}"
-              }
-            }
+        "regionInitCheckSum": {
+          "type": "string",
+          "description": "region initialization script",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptCheckSum}}"
           }
         },
-        "networkPolicy": {
-          "type": "object",
-          "description": "Define access policy to the service",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable network policy",
-              "description": "Only pod from the same namespace will be allowed",
-              "default": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultNetworkPolicy"
-              }
-            },
-            "from": {
-              "type": "array",
-              "description": "Array of source allowed to have network access to your service",
-              "default": [],
-              "x-onyxia": {
-                "hidden": true,
-                "overwriteDefaultWith": "region.from"
-              }
-            }
-          }
+        "personalInit": {
+          "type": "string",
+          "description": "user initialization script",
+          "default": ""
+        },
+        "personalInitArgs": {
+          "type": "string",
+          "description": "args for user initialization script",
+          "default": ""
         }
       }
     },
@@ -311,87 +259,6 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "region.openshiftSCC.scc"
-          }
-        }
-      }
-    },
-    "git": {
-      "description": "Git user configuration",
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Add git config inside your environment",
-          "default": true
-        },
-        "name": {
-          "type": "string",
-          "description": "user name for git",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.name}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "email": {
-          "type": "string",
-          "description": "user email for git",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.email}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "cache": {
-          "type": "string",
-          "description": "duration in seconds of the credentials cache duration",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "token": {
-          "type": "string",
-          "description": "personal access token",
-          "default": "",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.token}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "repository": {
-          "type": "string",
-          "description": "projet",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.project}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "git/enabled"
-          }
-        },
-        "branch": {
-          "type": "string",
-          "description": "Branch automatically checked out",
-          "default": "",
-          "hidden": {
-            "value": "",
-            "path": "git/repository"
           }
         }
       }
@@ -529,6 +396,211 @@
         }
       }
     },
+    "git": {
+      "description": "Git user configuration",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Add git config inside your environment",
+          "default": true
+        },
+        "name": {
+          "type": "string",
+          "description": "user name for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.name}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "email": {
+          "type": "string",
+          "description": "user email for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.email}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "cache": {
+          "type": "string",
+          "description": "duration in seconds of the credentials cache duration",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "token": {
+          "type": "string",
+          "description": "personal access token",
+          "default": "",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.token}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "repository": {
+          "type": "string",
+          "description": "projet",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.project}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch automatically checked out",
+          "default": "",
+          "hidden": {
+            "value": "",
+            "path": "git/repository"
+          }
+        }
+      }
+    },
+    "networking": {
+      "type": "object",
+      "form": true,
+      "title": "Networking detail",
+      "properties": {
+        "user": {
+          "type": "object",
+          "description": "user defined port",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable a custom service port",
+              "description": "Enable a custom service port",
+              "default": false
+            },
+            "port": {
+              "type": "integer",
+              "description": "port of the custom service",
+              "title": "Custom service port",
+              "hidden": {
+                "value": false,
+                "path": "networking/user/enabled"
+              },
+              "default": 5000
+            }
+          }
+        }
+      }
+    },
+    "discovery": {
+      "description": "configure your service to autodetect some ressources.",
+      "type": "object",
+      "properties": {
+        "hive": {
+          "type": "boolean",
+          "title": "Enable hive metastore discovery",
+          "description": "discover your hive metastore service",
+          "default": true
+        },
+        "mlflow": {
+          "type": "boolean",
+          "title": "Enable mlflow discovery",
+          "description": "discover your mlflow service",
+          "default": true
+        },
+        "metaflow": {
+          "type": "boolean",
+          "title": "Enable metaflow discovery",
+          "description": "discover your metaflow service",
+          "default": true
+        }
+      }
+    },
+    "security": {
+      "description": "security specific configuration",
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "default": "changeme",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{service.oneTimePassword}}"
+          }
+        },
+        "allowlist": {
+          "type": "object",
+          "description": "IP protection",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable IP protection",
+              "description": "Only the configured set of IPs will be able to reach the service",
+              "default": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultIpProtection"
+              }
+            },
+            "ip": {
+              "type": "string",
+              "description": "the white list of IP is whitespace",
+              "title": "Whitelist of IP",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{user.ip}}"
+              }
+            }
+          }
+        },
+        "networkPolicy": {
+          "type": "object",
+          "description": "Define access policy to the service",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable network policy",
+              "description": "Only pod from the same namespace will be allowed",
+              "default": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultNetworkPolicy"
+              }
+            },
+            "from": {
+              "type": "array",
+              "description": "Array of source allowed to have network access to your service",
+              "default": [],
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.from"
+              }
+            }
+          }
+        }
+      }
+    },
+    "nodeSelector": {
+      "type": "object",
+      "description": "NodeSelector",
+      "default": {},
+      "x-onyxia": {
+        "hidden": false,
+        "overwriteDefaultWith": "region.nodeSelector"
+      }
+    },
     "ingress": {
       "type": "object",
       "form": true,
@@ -626,69 +698,6 @@
         }
       }
     },
-    "networking": {
-      "type": "object",
-      "form": true,
-      "title": "Networking detail",
-      "properties": {
-        "user": {
-          "type": "object",
-          "description": "user defined port",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable a custom service port",
-              "description": "Enable a custom service port",
-              "default": false
-            },
-            "port": {
-              "type": "integer",
-              "description": "port of the custom service",
-              "title": "Custom service port",
-              "hidden": {
-                "value": false,
-                "path": "networking/user/enabled"
-              },
-              "default": 5000
-            }
-          }
-        }
-      }
-    },
-    "init": {
-      "description": "Init parameters",
-      "type": "object",
-      "properties": {
-        "regionInit": {
-          "type": "string",
-          "description": "region initialization script",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
-          }
-        },
-        "regionInitCheckSum": {
-          "type": "string",
-          "description": "region initialization script",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.initScriptCheckSum}}"
-          }
-        },
-        "personalInit": {
-          "type": "string",
-          "description": "user initialization script",
-          "default": ""
-        },
-        "personalInitArgs": {
-          "type": "string",
-          "description": "args for user initialization script",
-          "default": ""
-        }
-      }
-    },
     "repository": {
       "description": "python repositories for pip and conda",
       "type": "object",
@@ -729,15 +738,6 @@
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.tolerations"
-      }
-    },
-    "nodeSelector": {
-      "type": "object",
-      "description": "NodeSelector",
-      "default": {},
-      "x-onyxia": {
-        "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector"
       }
     },
     "userPreferences": {
