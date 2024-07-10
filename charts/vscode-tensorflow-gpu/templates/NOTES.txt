@@ -14,6 +14,15 @@ Si vous n'exécutez pas votre service personnalisé, vous obtiendrez une erreur 
 {{- end }}
 {{- end }}
 - Votre password: {{ .Values.security.password }}
+
+*REMARQUES concernant la suppression :*
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+- Le volume associé au chemin suivant **/home/{{ .Values.environment.user }}/work** sera supprimé
+- Par conséquent, vous devriez sauvegarder votre code dans un dépôt Git externe
+- Vous devriez également sauvegarder vos données dans un référentiel de données externe tel que S3
+- Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin
+{{- end }}
 {{- else }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this vscode with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
@@ -30,4 +39,13 @@ If you don't run your custom service you will get a 502 bad gateway error.
 {{- end }}
 {{- end }}
 - Your password: {{ .Values.security.password }}
+
+*NOTES about deletion :*
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+- The volume associated with the following path **/home/{{ .Values.environment.user }}/work** will be deleted
+- So, you should save your code to an external git repository
+- So, You should save your data to an external data repository like S3
+- You can easily create a new {{ .Chart.Name }} service, clone your code and install again some librairies you need
+{{- end }}
 {{- end }}
