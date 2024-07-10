@@ -18,7 +18,7 @@ Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 50
 *NOTES concernant la suppression :*
 
 {{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
-- Le volume associé au chemin suivant {{ .Values.persistence.mountPath }} sera supprimé.
+- Le volume associé au chemin suivant **/home/{{ .Values.environment.user }}/work** sera supprimé.
 - Par conséquent, vous devriez sauvegarder votre code dans un référentiel Git externe.
 - Vous devriez également sauvegarder vos données dans un référentiel de données externe tel que S3.
 - Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin.
@@ -43,7 +43,7 @@ If you don't run your custom service you will get a 502 bad gateway error.
 *NOTES about deletion :*
 
 {{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
-- The volume associated with the following path **{{ .Values.persistence.mountPath }}** will be deleted
+- The volume associated with the following path **/home/{{ .Values.environment.user }}/work** will be deleted
 - So, you should save your code to an external git repository
 - So, You should save your data to an external data repository like S3
 - You can easily create a new {{ .Chart.Name }} service, clone your code and install again some librairies you need
