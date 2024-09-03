@@ -42,7 +42,10 @@
                   "title": "custom image",
                   "type": "boolean",
                   "description": "use a custom jupyter docker image",
-                  "default": false
+                  "default": false,
+                  "x-onyxia": {
+                    "overwriteSchemaWith": "ide/customImage.json"
+                  }
                 },
                 "version": {
                   "description": "jupyter unsupported version",
@@ -62,6 +65,9 @@
     "resources": {
       "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/resources.json"
+      },
       "properties": {
         "requests": {
           "description": "Guaranteed resources",
@@ -152,6 +158,9 @@
     "persistence": {
       "description": "Configuration for persistence",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/persistence.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -183,6 +192,9 @@
     "init": {
       "description": "Init parameters",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/init.json"
+      },
       "properties": {
         "regionInit": {
           "type": "string",
@@ -208,6 +220,9 @@
     "kubernetes": {
       "description": "configuration of your kubernetes access",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/role.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -233,6 +248,9 @@
     "vault": {
       "description": "Configuration of vault client",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/vault.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -298,6 +316,9 @@
     "s3": {
       "description": "Configuration of temporary identity",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/s3.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -366,6 +387,9 @@
     "git": {
       "description": "Git user configuration",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/git.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -569,7 +593,8 @@
       "default": {},
       "x-onyxia": {
         "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector"
+        "overwriteDefaultWith": "region.nodeSelector",
+        "overwriteSchemaWith": "nodeSelector.json"
       }
     },
     "openshiftSCC": {
@@ -732,7 +757,8 @@
       "default": [],
       "x-onyxia": {
         "hidden": true,
-        "overwriteDefaultWith": "region.tolerations"
+        "overwriteDefaultWith": "region.tolerations",
+        "overwriteSchemaWith": "tolerations.json"
       }
     },
     "userPreferences": {
