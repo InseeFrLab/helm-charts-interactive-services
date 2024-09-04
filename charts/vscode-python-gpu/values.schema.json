@@ -611,8 +611,8 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector"
+        "overwriteDefaultWith": "region.nodeSelector",
+        "overwriteSchemaWith": "nodeSelector-gpu.json"
       }
     },
     "ingress": {

@@ -606,9 +606,8 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector",
-        "overwriteSchemaWith": "nodeSelector.json"
+        "overwriteSchemaWith": "nodeSelector-gpu.json"
       }
     },
     "openshiftSCC": {
