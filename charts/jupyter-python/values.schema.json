@@ -600,6 +600,9 @@
         "openshiftSCC": {
             "description": "configuration for openshift compatibility",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/openshiftSCC.json"
+            },
             "properties": {
                 "enabled": {
                 "description": "enable rolebinding with openshift scc",
@@ -748,7 +751,8 @@
             "default": {},
             "x-onyxia": {
                 "hidden": true,
-                "overwriteDefaultWith": "region.startupProbe"
+                "overwriteDefaultWith": "region.startupProbe",
+                "overwriteSchemaWith": "ide/startupProbe.json"
             }
         },
         "tolerations": {
