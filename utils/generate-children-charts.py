@@ -76,6 +76,17 @@ for parent in parameters:
                 }
                 }
             child_schema["properties"]["resources"]["properties"]["limits"]["properties"]["nvidia.com/gpu"] = gpu_limits
+            node_selector = {
+                "type": "object",
+                "description": "NodeSelector",
+                "default": {},
+                "x-onyxia": {
+                    "hidden": false,
+                    "overwriteDefaultWith": "region.nodeSelector",
+                    "overwriteSchemaWith": "nodeSelector-gpu.json"
+                }
+                }  
+            child_schema["properties"]["nodeSelector"] = node_selector         
 
         with open(child_dir / "values.schema.json", "w") as file_out:
             json.dump(child_schema, file_out, indent=2, sort_keys=False)
