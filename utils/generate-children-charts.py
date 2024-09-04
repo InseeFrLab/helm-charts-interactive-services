@@ -81,7 +81,6 @@ for parent in parameters:
                 "description": "NodeSelector",
                 "default": {},
                 "x-onyxia": {
-                    "hidden": false,
                     "overwriteDefaultWith": "region.nodeSelector",
                     "overwriteSchemaWith": "nodeSelector-gpu.json"
                 }
