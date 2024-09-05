@@ -42,7 +42,10 @@
                                     "title": "custom image",
                                     "type": "boolean",
                                     "description": "use a custom RStudio docker image",
-                                    "default": false
+                                    "default": false,
+                                    "x-onyxia": {
+                                        "overwriteSchemaWith": "ide/customImage.json"
+                                    }
                                 },
                                 "version": {
                                     "description": "RStudio unsupported version",
@@ -62,6 +65,9 @@
         "spark": {
             "description": "spark specific configuration",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "spark.json"
+            },
             "properties": {
                 "sparkui": {
                     "type": "boolean",
@@ -80,6 +86,9 @@
         "resources": {
             "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/resources.json"
+            },
             "properties": {
                 "requests": {
                     "description": "Guaranteed resources",
@@ -154,6 +163,9 @@
         "persistence": {
             "description": "Configuration for persistence",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/persistence.json"
+            },
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -171,6 +183,10 @@
                     "sliderMax": 100,
                     "sliderStep": 1,
                     "sliderUnit": "Gi",
+                    "x-onyxia": {
+                        "overwriteDefaultWith": "region.resources.disk",
+                        "useRegionSliderConfig": "disk"
+                    },
                     "hidden": {
                         "value": false,
                         "path": "persistence/enabled"
@@ -181,6 +197,9 @@
         "init": {
             "description": "Init parameters",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/init.json"
+            },
             "properties": {
                 "regionInit": {
                     "type": "string",
@@ -206,6 +225,9 @@
         "kubernetes": {
             "description": "configuration of your kubernetes access",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/role.json"
+            },
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -215,7 +237,7 @@
                 "role": {
                     "type": "string",
                     "description": "bind your service account to this kubernetes default role",
-                    "default": "admin",
+                    "default": "view",
                     "hidden": {
                         "value": false,
                         "path": "kubernetes/enabled"
@@ -231,6 +253,9 @@
         "vault": {
             "description": "Configuration of vault client",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/vault.json"
+            },
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -296,6 +321,9 @@
         "s3": {
             "description": "Configuration of temporary identity",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/s3.json"
+            },
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -364,6 +392,9 @@
         "git": {
             "description": "Git user configuration",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "ide/git.json"
+            },
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -555,8 +586,9 @@
             "description": "NodeSelector",
             "default": {},
             "x-onyxia": {
-                "hidden": true,
-                "overwriteDefaultWith": "region.nodeSelector"
+                "hidden": false,
+                "overwriteDefaultWith": "region.nodeSelector",
+                "overwriteSchemaWith": "nodeSelector.json"
             }
         },
         "ingress": {
@@ -737,7 +769,8 @@
             "default": {},
             "x-onyxia": {
                 "hidden": true,
-                "overwriteDefaultWith": "region.startupProbe"
+                "overwriteDefaultWith": "region.startupProbe",
+                "overwriteSchemaWith": "ide/startupProbe.json"
             }
         },
         "tolerations": {
@@ -746,7 +779,8 @@
             "default": [],
             "x-onyxia": {
                 "hidden": true,
-                "overwriteDefaultWith": "region.tolerations"
+                "overwriteDefaultWith": "region.tolerations",
+                "overwriteSchemaWith": "tolerations.json"
             }
         },
         "userPreferences": {
