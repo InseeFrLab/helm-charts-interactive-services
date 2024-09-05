@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "service": {
-      "description": "spark-history specific configuration",
+      "description": "Service specific configuration",
       "type": "object",
       "properties": {
         "image": {
@@ -42,7 +42,10 @@
                   "title": "custom image",
                   "type": "boolean",
                   "description": "use a custom vscode docker images",
-                  "default": false
+                  "default": false,
+                  "x-onyxia": {
+                      "overwriteSchemaWith": "ide/customImage.json"
+                  }
                 },
                 "version": {
                   "description": "vscode unsupported version",
@@ -62,6 +65,9 @@
     "resources": {
       "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/resources.json"
+      },
       "properties": {
         "requests": {
           "description": "Guaranteed resources",
@@ -152,6 +158,9 @@
     "persistence": {
       "description": "Configuration for persistence",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/persistence.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -183,6 +192,9 @@
     "init": {
       "description": "Init parameters",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/init.json"
+      },
       "properties": {
         "regionInit": {
           "type": "string",
@@ -217,6 +229,9 @@
     "kubernetes": {
       "description": "configuration of your kubernetes access",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/role.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -242,6 +257,9 @@
     "openshiftSCC": {
       "description": "configuration for openshift compatibility",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/openshiftSCC.json"
+      },
       "properties": {
           "enabled": {
           "description": "enable rolebinding with openshift scc",
@@ -266,6 +284,9 @@
     "vault": {
       "description": "Configuration of vault client",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/vault.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -331,6 +352,9 @@
     "s3": {
       "description": "Configuration of temporary identity",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/s3.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -399,6 +423,9 @@
     "git": {
       "description": "Git user configuration",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "ide/git.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -597,8 +624,9 @@
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-        "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector"
+          "hidden": false,
+          "overwriteDefaultWith": "region.nodeSelector",
+          "overwriteSchemaWith": "nodeSelector.json"
       }
     },
     "ingress": {
@@ -727,8 +755,9 @@
       "description": "Start up probe",
       "default": {},
       "x-onyxia": {
-        "hidden": true,
-        "overwriteDefaultWith": "region.startupProbe"
+          "hidden": true,
+          "overwriteDefaultWith": "region.startupProbe",
+          "overwriteSchemaWith": "ide/startupProbe.json"
       }
     },
     "tolerations": {
@@ -736,8 +765,9 @@
       "description": "Array of tolerations",
       "default": [],
       "x-onyxia": {
-        "hidden": true,
-        "overwriteDefaultWith": "region.tolerations"
+          "hidden": true,
+          "overwriteDefaultWith": "region.tolerations",
+          "overwriteSchemaWith": "tolerations.json"
       }
     },
     "userPreferences": {
