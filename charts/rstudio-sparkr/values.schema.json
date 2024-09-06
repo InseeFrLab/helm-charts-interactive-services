@@ -515,7 +515,7 @@
             }
         },
         "security": {
-            "description": "RStudio specific configuration",
+            "description": "security specific configuration",
             "type": "object",
             "properties": {
                 "password": {
@@ -524,46 +524,22 @@
                     "default": "changeme",
                     "render": "password",
                     "x-onyxia": {
-                        "overwriteDefaultWith": "{{service.oneTimePassword}}"
-                    }
-                },
-                "allowlist": {
-                    "type": "object",
-                    "description": "IP protection",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enable IP protection",
-                            "description": "Only the configured set of IPs will be able to reach the service",
-                            "default": true,
-                            "x-onyxia": {
-                                "overwriteDefaultWith": "region.defaultIpProtection"
-                            }
-                        },
-                        "ip": {
-                            "type": "string",
-                            "description": "the allow list of IP is whitespace",
-                            "title": "Allowed IP",
-                            "default": "0.0.0.0/0",
-                            "x-onyxia": {
-                                "overwriteDefaultWith": "{{user.ip}}"
-                            },
-                            "hidden": {
-                                "value": false,
-                                "path": "security/allowlist/enabled"
-                            }
-                        }
+                        "overwriteDefaultWith": "{{service.oneTimePassword}}",
+                        "overwriteSchemaWith": "ide/password"
                     }
                 },
                 "networkPolicy": {
                     "type": "object",
                     "description": "Define access policy to the service",
+                    "x-onyxia": {
+                        "overwriteSchemaWith": "ide/network-policy.json"
+                    },
                     "properties": {
                         "enabled": {
                             "type": "boolean",
                             "title": "Enable network policy",
                             "description": "Only pod from the same namespace will be allowed",
-                            "default": true,
+                            "default": false,
                             "x-onyxia": {
                                 "overwriteDefaultWith": "region.defaultNetworkPolicy"
                             }
