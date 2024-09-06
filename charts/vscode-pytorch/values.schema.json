@@ -567,41 +567,22 @@
           "default": "changeme",
           "render": "password",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{service.oneTimePassword}}"
-          }
-        },
-        "allowlist": {
-          "type": "object",
-          "description": "IP protection",
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "title": "Enable IP protection",
-              "description": "Only the configured set of IPs will be able to reach the service",
-              "default": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultIpProtection"
-              }
-            },
-            "ip": {
-              "type": "string",
-              "description": "the white list of IP is whitespace",
-              "title": "Whitelist of IP",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{user.ip}}"
-              }
-            }
+            "overwriteDefaultWith": "{{service.oneTimePassword}}",
+            "overwriteSchemaWith": "ide/password"
           }
         },
         "networkPolicy": {
           "type": "object",
           "description": "Define access policy to the service",
+          "x-onyxia": {
+            "overwriteSchemaWith": "ide/network-policy.json"
+          },
           "properties": {
             "enabled": {
               "type": "boolean",
               "title": "Enable network policy",
               "description": "Only pod from the same namespace will be allowed",
-              "default": true,
+              "default": false,
               "x-onyxia": {
                 "overwriteDefaultWith": "region.defaultNetworkPolicy"
               }
