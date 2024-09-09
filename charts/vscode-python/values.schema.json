@@ -575,7 +575,7 @@
                 "type": "object",
                 "description": "Define access policy to the service",
                 "x-onyxia": {
-                    "overwriteSchemaWith": "ide/network-policy.json"
+                    "overwriteSchemaWith": "network-policy.json"
                 },
                 "properties": {
                     "enabled": {
