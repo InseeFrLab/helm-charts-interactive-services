@@ -246,7 +246,8 @@
                         "view",
                         "edit",
                         "admin"
-                    ]
+                    ],
+                    "render": "list"
                 }
             }
         },
