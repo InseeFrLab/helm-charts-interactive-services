@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.2](https://img.shields.io/badge/Version-2.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -57,6 +57,8 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | initContainerSecurityContext | object | `{}` |  |
 | kubernetes.enable | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
+| message.en | string | `""` |  |
+| message.fr | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
 | networking.service.port | int | `8787` |  |
