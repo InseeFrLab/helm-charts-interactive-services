@@ -1,4 +1,5 @@
 {{- if eq .Values.userPreferences.language "fr"}}
+{{  (.Values.message).fr }}
 {{- if .Values.ingress.enabled }}
 - Vous pouvez vous connecter à ce Jupyter avec votre navigateur en utilisant ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- if .Values.spark.sparkui }}
@@ -35,6 +36,7 @@ Si vous ne lancez pas votre service personnalisé, vous obtiendrez une erreur 50
 - Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin
 {{- end }}
 {{- else }}
+{{  (.Values.message).en }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this jupyter with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- if .Values.spark.sparkui }}

@@ -246,7 +246,7 @@
             "value": false,
             "path": "kubernetes/enabled"
           },
-          "enum": [
+          "listEnum": [
             "view",
             "edit",
             "admin"
@@ -787,6 +787,24 @@
             "hidden": true
           }
         }
+      }
+    },
+    "message": {
+      "type": "object",
+      "description": "Warning message",
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteSchemaWith": "ide/message.json"
+      },
+      "properties":{
+        "fr": {
+          "type": "string",
+          "description": "message à ajouter dans les notes",
+          "default": ""},
+        "en": {
+          "type": "string",
+          "description": "message to add in notes",
+          "default": ""}
       }
     }
   }
