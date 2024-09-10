@@ -178,10 +178,19 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.networking.service.port }} 
+            timeoutSeconds: 2
+            failureThreshold: 6
           readinessProbe:
             httpGet:
               path: /
               port: {{ .Values.networking.service.port }}
+          {{- if hasKey .Values "startupProbe" }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.networking.service.port }}
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
