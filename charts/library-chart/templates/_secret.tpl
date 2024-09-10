@@ -394,10 +394,13 @@ Flag to disable certificate checking for Spark
 {{- end -}}
 
 {{/* Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable */}}
-{{- if .Values.proxy -}}
-{{- $nonProxyHosts := regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." -}}
-{{- printf " -Dhttp.nonProxyHosts=%v" $nonProxyHosts }}
-{{- printf " -Dhttps.nonProxyHosts=%v" $nonProxyHosts }}
+{{- if (.Values.proxy).enabled -}}
+{{- if .Values.proxy.httpProxy }}
+{{- printf " -Dhttp.nonProxyHosts=%v" .Values.proxy.httpProxy }}
+{{- end }}
+{{- if .Values.proxy.httpsProxy }}
+{{- printf " -Dhttps.nonProxyHosts=%v" .Values.proxy.httpsProxy }}
+{{- end }}
 {{- end -}}
 
 {{- end }}
