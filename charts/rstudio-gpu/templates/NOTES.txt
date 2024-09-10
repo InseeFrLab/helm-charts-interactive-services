@@ -1,4 +1,5 @@
 {{- if eq .Values.userPreferences.language "fr"}}
+{{  (.Values.message).fr }}
 {{- if .Values.ingress.enabled }}
 - Vous pouvez vous connecter à ce RStudio avec votre navigateur sur ce [lien](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- end }}
@@ -30,6 +31,7 @@
 - Vous pouvez facilement créer un nouveau service {{ .Chart.Name }}, cloner votre code et réinstaller les bibliothèques dont vous avez besoin.
 {{- end }}
 {{- else }}
+{{  (.Values.message).en }}
 {{- if .Values.ingress.enabled }}
 - You can connect to this rstudio with your browser on this [link](http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .Values.ingress.hostname }})
 {{- end }}

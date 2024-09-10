@@ -122,3 +122,6 @@ userPreferences:
 openshiftSCC:
   enabled: false
   scc: ''
+message:
+  fr: ''
+  en: ''
