@@ -1,6 +1,6 @@
 # vscode-python-gpu
 
-![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -57,6 +57,8 @@ The VSCOde IDE with Python, Julia, and a collection of standard data science pac
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
 | kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
+| message.en | string | `""` |  |
+| message.fr | string | `""` |  |
 | metaflow.configMapName | string | `""` |  |
 | mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |

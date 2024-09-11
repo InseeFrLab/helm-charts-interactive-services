@@ -30,6 +30,39 @@ stringData:
 {{- end }}
 {{- end }}
 
+{{/* Create the name of the secret Proxy to use */}}
+{{- define "library-chart.secretNameProxy" -}}
+{{ if (.Values.proxy).enabled}}
+{{- $name:= (printf "%s-secretproxy" (include "library-chart.fullname" .) )  }}
+{{- default $name (printf "%s-secretproxy" (include "library-chart.fullname" .) )  }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a secret for proxy */}}
+{{- define "library-chart.secretProxy" -}}
+{{ if (.Values.proxy).enabled}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameProxy" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+stringData:
+  {{- if .Values.proxy.httpProxy }}
+    http_proxy: {{ .Values.proxy.httpProxy | quote }}
+    HTTP_PROXY: {{ .Values.proxy.httpProxy }}
+  {{- end }}
+  {{- if .Values.proxy.httpsProxy }}
+    https_proxy: {{ .Values.proxy.httpsProxy | quote }}
+    HTTPS_PROXY: {{ .Values.proxy.httpsProxy | quote }}
+  {{- end }}
+  {{- if .Values.proxy.noProxy }}
+    no_proxy: {{ .Values.proxy.noProxy | quote }}
+    NO_PROXY: {{ .Values.proxy.noProxy | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
+
 {{/* Create the name of the secret Vault to use */}}
 {{- define "library-chart.secretNameVault" -}}
 {{- if .Values.vault.enabled }}
@@ -361,10 +394,13 @@ Flag to disable certificate checking for Spark
 {{- end -}}
 
 {{/* Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable */}}
-{{- if .Values.proxy -}}
-{{- $nonProxyHosts := regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." -}}
-{{- printf " -Dhttp.nonProxyHosts=%v" $nonProxyHosts }}
-{{- printf " -Dhttps.nonProxyHosts=%v" $nonProxyHosts }}
+{{- if (.Values.proxy).enabled -}}
+{{- if .Values.proxy.httpProxy }}
+{{- printf " -Dhttp.nonProxyHosts=%v" .Values.proxy.httpProxy }}
+{{- end }}
+{{- if .Values.proxy.httpsProxy }}
+{{- printf " -Dhttps.nonProxyHosts=%v" .Values.proxy.httpsProxy }}
+{{- end }}
 {{- end -}}
 
 {{- end }}

@@ -243,3 +243,7 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: "en"
+
+message:
+  fr: ""
+  en: ""
