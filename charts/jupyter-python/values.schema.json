@@ -237,11 +237,12 @@
                         "value": false,
                         "path": "kubernetes/enabled"
                     },
-                    "enum": [
+                    "listEnum": [
                         "view",
                         "edit",
                         "admin"
-                    ]
+                    ],
+                    "render": "list"
                 }
             }
         },
@@ -779,6 +780,63 @@
                     }
                 }
             }
-        }      
+        },
+        "proxy": {
+            "description": "It can be used to inject proxy settings in the services",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Inject proxy settings",
+                    "default": "false"
+                },
+                "httpProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTP.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "{{proxyInjection.httpProxyUrl}}"
+                        }
+                    },
+                "httpsProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTPS.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "{{proxyInjection.httpsProxyUrl}}"
+                        }
+                    },
+                "noProxy": {
+                    "type": "string",
+                    "description": "enterprise local domain that should not take proxy comma separated",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "{{proxyInjection.noProxy}}"
+                    }
+                }
+            }
+        },
+        "message": {
+            "type": "object",
+            "description": "Warning message",
+            "x-onyxia": {
+              "hidden": true,
+              "overwriteSchemaWith": "ide/message.json"
+            },
+            "properties":{
+              "fr": {
+                "type": "string",
+                "description": "message à ajouter dans les notes",
+                "default": ""},
+              "en": {
+                "type": "string",
+                "description": "message to add in notes",
+                "default": ""}
+            }
+        }    
     }
+
 }

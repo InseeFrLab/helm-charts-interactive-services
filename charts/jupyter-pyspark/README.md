@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -58,6 +58,8 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
 | kubernetes.enabled | bool | `false` |  |
 | kubernetes.role | string | `"view"` |  |
+| message.en | string | `""` |  |
+| message.fr | string | `""` |  |
 | metaflow.configMapName | string | `""` |  |
 | mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
