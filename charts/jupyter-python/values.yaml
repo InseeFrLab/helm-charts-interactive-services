@@ -218,6 +218,12 @@ openshiftSCC:
   enabled: false
   scc: ""
 
+proxy:
+  enabled: false
+  noProxy: ""
+  httpProxy: ""
+  httpsProxy: ""
+
 message:
   fr: ""
   en: ""

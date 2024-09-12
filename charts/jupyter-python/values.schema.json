@@ -583,12 +583,12 @@
             },
             "properties": {
                 "enabled": {
-                "description": "enable rolebinding with openshift scc",
-                "type": "boolean",
-                "default": false,
-                "x-onyxia": {
-                    "hidden": true,
-                    "overwriteDefaultWith": "region.openshiftSCC.enabled"
+                    "description": "enable rolebinding with openshift scc",
+                    "type": "boolean",
+                    "default": false,
+                    "x-onyxia": {
+                        "hidden": true,
+                        "overwriteDefaultWith": "region.openshiftSCC.enabled"
                     }
                 },
                 "scc": {
@@ -649,18 +649,18 @@
                     "description": "Whether CertManager should be used to generate a certificate",
                     "default": false,
                     "x-onyxia": {
-                      "hidden": true,
-                      "overwriteDefaultWith": "k8s.useCertManager"
+                        "hidden": true,
+                        "overwriteDefaultWith": "k8s.useCertManager"
                     }
-                  },
-                  "certManagerClusterIssuer":{
+                },
+                "certManagerClusterIssuer": {
                     "type": "string",
                     "description": "certManager cluster issuer",
                     "title": "CertManager Cluster Issuer",
                     "default": "",
                     "x-onyxia": {
-                      "hidden": true,
-                      "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+                        "hidden": true,
+                        "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
                     }
                 }
             }
@@ -781,23 +781,72 @@
                 }
             }
         },
+        "proxy": {
+            "description": "It can be used to inject proxy settings in the services",
+            "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "proxy.json"
+            },
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Inject proxy settings",
+                    "default": "false"
+                },
+                "httpProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTP.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
+                    }
+                },
+                "httpsProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTPS.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
+                    }
+                },
+                "noProxy": {
+                    "type": "string",
+                    "description": "enterprise local domain that should not take proxy comma separated",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
+                    }
+                }
+            }
+        },
         "message": {
             "type": "object",
             "description": "Warning message",
             "x-onyxia": {
-              "hidden": true,
-              "overwriteSchemaWith": "ide/message.json"
+                "hidden": true,
+                "overwriteSchemaWith": "ide/message.json"
             },
-            "properties":{
-              "fr": {
-                "type": "string",
-                "description": "message à ajouter dans les notes",
-                "default": ""},
-              "en": {
-                "type": "string",
-                "description": "message to add in notes",
-                "default": ""}
+            "properties": {
+                "fr": {
+                    "type": "string",
+                    "description": "message à ajouter dans les notes",
+                    "default": ""
+                },
+                "en": {
+                    "type": "string",
+                    "description": "message to add in notes",
+                    "default": ""
+                }
             }
-        }    
+        }
     }
 }
