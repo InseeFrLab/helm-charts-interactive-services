@@ -743,6 +743,47 @@
         }
       }
     },
+    "proxy": {
+      "description": "It can be used to inject proxy settings in the services",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "proxy.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Inject proxy settings",
+          "default": "false"
+        },
+        "httpProxy": {
+          "type": "string",
+          "description": "URL of the enterprise proxy for the region for HTTP.",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "proxy/enabled"
+          }
+        },
+        "httpsProxy": {
+          "type": "string",
+          "description": "URL of the enterprise proxy for the region for HTTPS.",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "proxy/enabled"
+          }
+        },
+        "noProxy": {
+          "type": "string",
+          "description": "enterprise local domain that should not take proxy comma separated",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "proxy/enabled"
+          }
+        }
+      }
+    },
     "message": {
       "type": "object",
       "description": "Warning message",
