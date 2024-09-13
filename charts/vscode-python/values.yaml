@@ -208,6 +208,7 @@ openshiftSCC:
   enabled: false
   scc: ""
 
+proxy:
   enabled: false
   noProxy: ""
   httpProxy: ""
