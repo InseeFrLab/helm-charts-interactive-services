@@ -68,6 +68,11 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 10Gi
+        {{- if (.Values.proxy).enabled }}
+        - name: secret-proxy
+          secret:
+            secretName: {{ include "library-chart.secretNameProxy" . }}
+        {{- end }}
         {{- if .Values.spark.default }}
         - name: secret-sparkconf
           secret:
@@ -217,6 +222,10 @@ spec:
             {{- if .Values.s3.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
+            {{- end }}
+            {{- if (.Values.proxy).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameProxy" . }}
             {{- end }}
             {{- if .Values.vault.enabled }}
             - secretRef:

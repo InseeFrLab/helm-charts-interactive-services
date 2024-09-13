@@ -92,6 +92,7 @@ git:
   branch: ""
 
 proxy:
+  enabled: false
   noProxy: ""
   httpProxy: ""
   httpsProxy: ""
