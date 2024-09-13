@@ -66,7 +66,7 @@
       "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
       "type": "object",
       "x-onyxia": {
-        "overwriteSchemaWith": "ide/resources.json"
+        "overwriteSchemaWith": "ide/resources-gpu.json"
       },
       "properties": {
         "requests": {
