@@ -76,6 +76,10 @@ for parent in parameters:
                 }
                 }
             child_schema["properties"]["resources"]["properties"]["limits"]["properties"]["nvidia.com/gpu"] = gpu_limits
+            xonyxia = {
+                "overwriteSchemaWith": "ide/resources-gpu.json"
+            }
+            child_schema["properties"]["resources"]["x-onyxia"] = xonyxia
             node_selector = {
                 "type": "object",
                 "description": "NodeSelector",
