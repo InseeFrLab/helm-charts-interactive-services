@@ -221,6 +221,7 @@ tolerations: []
 affinity: {}
 
 proxy:
+  enabled: false
   noProxy: ""
   httpProxy: ""
   httpsProxy: ""
