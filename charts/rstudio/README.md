@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.23 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
 
 ## Values
 
@@ -67,6 +67,10 @@ The RStudio IDE with a collection of standard data science packages.
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
+| proxy.enabled | bool | `false` |  |
+| proxy.httpProxy | string | `""` |  |
+| proxy.httpsProxy | string | `""` |  |
+| proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
 | repository.configMapName | string | `""` |  |
 | repository.packageManagerUrl | string | `""` |  |
