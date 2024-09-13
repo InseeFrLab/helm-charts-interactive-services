@@ -785,7 +785,7 @@
           }
       }
   },
-"startupProbe": {
+  "startupProbe": {
       "type": "object",
       "description": "Start up probe",
       "default": {},
