@@ -797,33 +797,27 @@
                     "type": "string",
                     "description": "URL of the enterprise proxy for the region for HTTP.",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": {
-                            "value": true,
-                            "path": "proxy/enabled"
-                        }
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 },
                 "httpsProxy": {
                     "type": "string",
                     "description": "URL of the enterprise proxy for the region for HTTPS.",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": {
-                            "value": true,
-                            "path": "proxy/enabled"
-                        }
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 },
                 "noProxy": {
                     "type": "string",
                     "description": "enterprise local domain that should not take proxy comma separated",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": {
-                            "value": true,
-                            "path": "proxy/enabled"
-                        }
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 }
             }
