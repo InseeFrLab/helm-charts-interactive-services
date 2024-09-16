@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.11.9-spark3.5.1"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.2",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.11.9-spark3.5.2"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.2"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -44,13 +44,13 @@
                   "description": "use a custom jupyter docker image",
                   "default": false,
                   "x-onyxia": {
-                      "overwriteSchemaWith": "ide/customImage.json"
+                    "overwriteSchemaWith": "ide/customImage.json"
                   }
                 },
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1",
+                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.2",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -66,7 +66,7 @@
       "description": "spark specific configuration",
       "type": "object",
       "x-onyxia": {
-          "overwriteSchemaWith": "spark.json"
+        "overwriteSchemaWith": "spark.json"
       },
       "properties": {
         "sparkui": {
@@ -113,7 +113,7 @@
       "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
       "type": "object",
       "x-onyxia": {
-          "overwriteSchemaWith": "ide/resources.json"
+        "overwriteSchemaWith": "ide/resources.json"
       },
       "properties": {
         "requests": {
@@ -206,315 +206,315 @@
       "description": "Configuration for persistence",
       "type": "object",
       "x-onyxia": {
-          "overwriteSchemaWith": "ide/persistence.json"
+        "overwriteSchemaWith": "ide/persistence.json"
       },
       "properties": {
-          "enabled": {
-              "type": "boolean",
-              "description": "Create a persistent volume",
-              "default": true
+        "enabled": {
+          "type": "boolean",
+          "description": "Create a persistent volume",
+          "default": true
+        },
+        "size": {
+          "type": "string",
+          "title": "Persistent volume size",
+          "description": "Size of the persistent volume",
+          "default": "10Gi",
+          "form": true,
+          "render": "slider",
+          "sliderMin": 1,
+          "sliderMax": 100,
+          "sliderStep": 1,
+          "sliderUnit": "Gi",
+          "x-onyxia": {
+            "overwriteDefaultWith": "region.resources.disk",
+            "useRegionSliderConfig": "disk"
           },
-          "size": {
-              "type": "string",
-              "title": "Persistent volume size",
-              "description": "Size of the persistent volume",
-              "default": "10Gi",
-              "form": true,
-              "render": "slider",
-              "sliderMin": 1,
-              "sliderMax": 100,
-              "sliderStep": 1,
-              "sliderUnit": "Gi",
-              "x-onyxia": {
-                  "overwriteDefaultWith": "region.resources.disk",
-                  "useRegionSliderConfig": "disk"
-              },
-              "hidden": {
-                  "value": false,
-                  "path": "persistence/enabled"
-              }
+          "hidden": {
+            "value": false,
+            "path": "persistence/enabled"
           }
+        }
       }
     },
     "init": {
-        "description": "Init parameters",
-        "type": "object",
-        "x-onyxia": {
-            "overwriteSchemaWith": "ide/init.json"
+      "description": "Init parameters",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/init.json"
+      },
+      "properties": {
+        "regionInit": {
+          "type": "string",
+          "description": "region initialization script",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
+          }
         },
-        "properties": {
-            "regionInit": {
-                "type": "string",
-                "description": "region initialization script",
-                "default": "",
-                "x-onyxia": {
-                    "hidden": true,
-                    "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
-                }
-            },
-            "personalInit": {
-                "type": "string",
-                "description": "user initialization script",
-                "default": ""
-            },
-            "personalInitArgs": {
-                "type": "string",
-                "description": "args for user initialization script",
-                "default": ""
-            }
+        "personalInit": {
+          "type": "string",
+          "description": "user initialization script",
+          "default": ""
+        },
+        "personalInitArgs": {
+          "type": "string",
+          "description": "args for user initialization script",
+          "default": ""
         }
+      }
     },
     "kubernetes": {
-        "description": "configuration of your kubernetes access",
-        "type": "object",
-        "x-onyxia": {
-            "overwriteSchemaWith": "role-spark.json"
+      "description": "configuration of your kubernetes access",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "role-spark.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "allow your service to access your namespace ressources",
+          "default": true
         },
-        "properties": {
-            "enabled": {
-                "type": "boolean",
-                "description": "allow your service to access your namespace ressources",
-                "default": true
-            },
-            "role": {
-                "type": "string",
-                "description": "bind your service account to this kubernetes default role",
-                "default": "admin",
-                "hidden": {
-                    "value": false,
-                    "path": "kubernetes/enabled"
-                },
-                "listEnum": [
-                    "view",
-                    "edit",
-                    "admin"
-                ],
-                "render": "list"
-            }
+        "role": {
+          "type": "string",
+          "description": "bind your service account to this kubernetes default role",
+          "default": "admin",
+          "hidden": {
+            "value": false,
+            "path": "kubernetes/enabled"
+          },
+          "listEnum": [
+            "view",
+            "edit",
+            "admin"
+          ],
+          "render": "list"
         }
+      }
     },
     "vault": {
-        "description": "Configuration of vault client",
-        "type": "object",
-        "x-onyxia": {
-            "overwriteSchemaWith": "ide/vault.json"
+      "description": "Configuration of vault client",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/vault.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Add vault temporary identity inside your environment",
+          "default": true
         },
-        "properties": {
-            "enabled": {
-                "type": "boolean",
-                "description": "Add vault temporary identity inside your environment",
-                "default": true
-            },
-            "token": {
-                "description": "token vault",
-                "type": "string",
-                "render": "password",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{vault.VAULT_TOKEN}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "vault/enabled"
-                }
-            },
-            "url": {
-                "description": "url of vault server",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "vault/enabled"
-                }
-            },
-            "mount": {
-                "description": "mount of the v2 secret engine",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "vault/enabled"
-                }
-            },
-            "directory": {
-                "description": "top level directory",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "vault/enabled"
-                }
-            },
-            "secret": {
-                "description": "the path of the secret to convert into a list of environment variables",
-                "type": "string",
-                "default": "",
-                "hidden": {
-                    "value": false,
-                    "path": "vault/enabled"
-                }
-            }
+        "token": {
+          "description": "token vault",
+          "type": "string",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{vault.VAULT_TOKEN}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "vault/enabled"
+          }
+        },
+        "url": {
+          "description": "url of vault server",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "vault/enabled"
+          }
+        },
+        "mount": {
+          "description": "mount of the v2 secret engine",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "vault/enabled"
+          }
+        },
+        "directory": {
+          "description": "top level directory",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "vault/enabled"
+          }
+        },
+        "secret": {
+          "description": "the path of the secret to convert into a list of environment variables",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "vault/enabled"
+          }
         }
+      }
     },
     "s3": {
-        "description": "Configuration of temporary identity",
-        "type": "object",
-        "x-onyxia": {
-            "overwriteSchemaWith": "ide/s3.json"
+      "description": "Configuration of temporary identity",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/s3.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Add S3 temporary identity inside your environment",
+          "default": true
         },
-        "properties": {
-            "enabled": {
-                "type": "boolean",
-                "description": "Add S3 temporary identity inside your environment",
-                "default": true
-            },
-            "accessKeyId": {
-                "description": "AWS Access Key",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{s3.AWS_ACCESS_KEY_ID}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "s3/enabled"
-                }
-            },
-            "endpoint": {
-                "description": "AWS S3 Endpoint",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "s3/enabled"
-                }
-            },
-            "defaultRegion": {
-                "description": "AWS S3 default region",
-                "type": "string",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "s3/enabled"
-                }
-            },
-            "secretAccessKey": {
-                "description": "AWS S3 secret access key",
-                "type": "string",
-                "render": "password",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{s3.AWS_SECRET_ACCESS_KEY}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "s3/enabled"
-                }
-            },
-            "sessionToken": {
-                "description": "AWS S3 session Token",
-                "type": "string",
-                "render": "password",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{s3.AWS_SESSION_TOKEN}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "s3/enabled"
-                }
-            }
+        "accessKeyId": {
+          "description": "AWS Access Key",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.AWS_ACCESS_KEY_ID}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "endpoint": {
+          "description": "AWS S3 Endpoint",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "defaultRegion": {
+          "description": "AWS S3 default region",
+          "type": "string",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "secretAccessKey": {
+          "description": "AWS S3 secret access key",
+          "type": "string",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.AWS_SECRET_ACCESS_KEY}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "sessionToken": {
+          "description": "AWS S3 session Token",
+          "type": "string",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.AWS_SESSION_TOKEN}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
         }
+      }
     },
     "git": {
-        "description": "Git user configuration",
-        "type": "object",
-        "x-onyxia": {
-            "overwriteSchemaWith": "ide/git.json"
+      "description": "Git user configuration",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/git.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Add git config inside your environment",
+          "default": true
         },
-        "properties": {
-            "enabled": {
-                "type": "boolean",
-                "description": "Add git config inside your environment",
-                "default": true
-            },
-            "name": {
-                "type": "string",
-                "description": "user name for git",
-                "default": "",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{git.name}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "git/enabled"
-                }
-            },
-            "email": {
-                "type": "string",
-                "description": "user email for git",
-                "default": "",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{git.email}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "git/enabled"
-                }
-            },
-            "cache": {
-                "type": "string",
-                "description": "duration in seconds of the credentials cache duration",
-                "default": "",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "git/enabled"
-                }
-            },
-            "token": {
-                "type": "string",
-                "description": "personal access token",
-                "default": "",
-                "render": "password",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{git.token}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "git/enabled"
-                }
-            },
-            "repository": {
-                "type": "string",
-                "description": "Repository url",
-                "default": "",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{git.project}}"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "git/enabled"
-                }
-            },
-            "branch": {
-                "type": "string",
-                "description": "Branch automatically checked out",
-                "default": "",
-                "hidden": {
-                    "value": "",
-                    "path": "git/repository"
-                }
-            }
+        "name": {
+          "type": "string",
+          "description": "user name for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.name}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "email": {
+          "type": "string",
+          "description": "user email for git",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.email}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "cache": {
+          "type": "string",
+          "description": "duration in seconds of the credentials cache duration",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "token": {
+          "type": "string",
+          "description": "personal access token",
+          "default": "",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.token}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "repository": {
+          "type": "string",
+          "description": "Repository url",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.project}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "git/enabled"
+          }
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch automatically checked out",
+          "default": "",
+          "hidden": {
+            "value": "",
+            "path": "git/repository"
+          }
         }
+      }
     },
     "networking": {
       "type": "object",
@@ -570,56 +570,56 @@
       }
     },
     "security": {
-        "description": "security specific configuration",
-        "type": "object",
-        "properties": {
-            "password": {
-                "type": "string",
-                "description": "Password",
-                "default": "changeme",
-                "render": "password",
-                "x-onyxia": {
-                    "overwriteDefaultWith": "{{service.oneTimePassword}}",
-                    "overwriteSchemaWith": "ide/password"
-                }
+      "description": "security specific configuration",
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "default": "changeme",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{service.oneTimePassword}}",
+            "overwriteSchemaWith": "ide/password"
+          }
+        },
+        "networkPolicy": {
+          "type": "object",
+          "description": "Define access policy to the service",
+          "x-onyxia": {
+            "overwriteSchemaWith": "network-policy.json"
+          },
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "title": "Enable network policy",
+              "description": "Only pod from the same namespace will be allowed",
+              "default": false,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultNetworkPolicy"
+              }
             },
-            "networkPolicy": {
-                "type": "object",
-                "description": "Define access policy to the service",
-                "x-onyxia": {
-                    "overwriteSchemaWith": "network-policy.json"
-                },
-                "properties": {
-                    "enabled": {
-                        "type": "boolean",
-                        "title": "Enable network policy",
-                        "description": "Only pod from the same namespace will be allowed",
-                        "default": false,
-                        "x-onyxia": {
-                            "overwriteDefaultWith": "region.defaultNetworkPolicy"
-                        }
-                    },
-                    "from": {
-                        "type": "array",
-                        "description": "Array of source allowed to have network access to your service",
-                        "default": [],
-                        "x-onyxia": {
-                            "hidden": true,
-                            "overwriteDefaultWith": "region.from"
-                        }
-                    }
-                }
+            "from": {
+              "type": "array",
+              "description": "Array of source allowed to have network access to your service",
+              "default": [],
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.from"
+              }
             }
+          }
         }
+      }
     },
     "nodeSelector": {
       "type": "object",
       "description": "NodeSelector",
       "default": {},
       "x-onyxia": {
-          "hidden": false,
-          "overwriteDefaultWith": "region.nodeSelector",
-          "overwriteSchemaWith": "nodeSelector.json"
+        "hidden": false,
+        "overwriteDefaultWith": "region.nodeSelector",
+        "overwriteSchemaWith": "nodeSelector.json"
       }
     },
     "ingress": {
@@ -776,36 +776,44 @@
       }
     },
     "proxy": {
-      "description": "Proxy configuration",
+      "description": "It can be used to inject proxy settings in the services",
       "type": "object",
+      "x-onyxia": {
+          "overwriteSchemaWith": "proxy.json"
+      },
       "properties": {
-        "httpProxy": {
-          "type": "string",
-          "description": "Proxy URL for HTTP requests",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{proxyInjection.httpProxyUrl}}"
+          "enabled": {
+              "type": "boolean",
+              "description": "Inject proxy settings",
+              "default": "false"
+          },
+          "httpProxy": {
+              "type": "string",
+              "description": "URL of the enterprise proxy for the region for HTTP.",
+              "default": "",
+              "hidden": {
+                  "value": false,
+                  "path": "proxy/enabled"
+              }
+          },
+          "httpsProxy": {
+              "type": "string",
+              "description": "URL of the enterprise proxy for the region for HTTPS.",
+              "default": "",
+              "hidden": {
+                  "value": false,
+                  "path": "proxy/enabled"
+              }
+          },
+          "noProxy": {
+              "type": "string",
+              "description": "enterprise local domain that should not take proxy comma separated",
+              "default": "",
+              "hidden": {
+                  "value": false,
+                  "path": "proxy/enabled"
+              }
           }
-        },
-        "httpsProxy": {
-          "type": "string",
-          "description": "Proxy URL for HTTPS requests",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{proxyInjection.httpsProxyUrl}}"
-          }
-        },
-        "noProxy": {
-          "type": "string",
-          "description": "Comma separated list of hosts for which proxy is bypassed",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{proxyInjection.noProxy}}"
-          }
-        }
       }
     },
     "startupProbe": {
@@ -819,9 +827,9 @@
         "timeoutSeconds": 2
       },
       "x-onyxia": {
-          "hidden": true,
-          "overwriteDefaultWith": "region.startupProbe",
-          "overwriteSchemaWith": "ide/startupProbe.json"
+        "hidden": true,
+        "overwriteDefaultWith": "region.startupProbe",
+        "overwriteSchemaWith": "ide/startupProbe.json"
       }
     },
     "tolerations": {
@@ -829,9 +837,9 @@
       "description": "Array of tolerations",
       "default": [],
       "x-onyxia": {
-          "hidden": true,
-          "overwriteDefaultWith": "region.tolerations",
-          "overwriteSchemaWith": "tolerations.json"
+        "hidden": true,
+        "overwriteDefaultWith": "region.tolerations",
+        "overwriteSchemaWith": "tolerations.json"
       }
     },
     "repository": {
@@ -865,15 +873,17 @@
         "hidden": true,
         "overwriteSchemaWith": "ide/message.json"
       },
-      "properties":{
+      "properties": {
         "fr": {
           "type": "string",
           "description": "message à ajouter dans les notes",
-          "default": ""},
+          "default": ""
+        },
         "en": {
           "type": "string",
           "description": "message to add in notes",
-          "default": ""}
+          "default": ""
+        }
       }
     }
   }

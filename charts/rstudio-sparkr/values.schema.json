@@ -24,15 +24,15 @@
                             "description": "supported versions",
                             "type": "string",
                             "listEnum": [
-                                "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1",
-                                "inseefrlab/onyxia-rstudio-sparkr:r4.3.3-spark3.5.1"
+                                "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.2",
+                                "inseefrlab/onyxia-rstudio-sparkr:r4.3.3-spark3.5.2"
                             ],
                             "render": "list",
                             "hidden": {
                                 "value": true,
                                 "path": "service/image/custom/enabled"
                             },
-                            "default": "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1"
+                            "default": "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.2"
                         },
                         "custom": {
                             "description": "use a custom RStudio docker image",
@@ -50,7 +50,7 @@
                                 "version": {
                                     "description": "RStudio unsupported version",
                                     "type": "string",
-                                    "default": "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.1",
+                                    "default": "inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.2",
                                     "hidden": {
                                         "value": false,
                                         "path": "service/image/custom/enabled"
@@ -708,34 +708,42 @@
             }
         },
         "proxy": {
-            "description": "Proxy configuration",
+            "description": "It can be used to inject proxy settings in the services",
             "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "proxy.json"
+            },
             "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Inject proxy settings",
+                    "default": "false"
+                },
                 "httpProxy": {
                     "type": "string",
-                    "description": "Proxy URL for HTTP requests",
+                    "description": "URL of the enterprise proxy for the region for HTTP.",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": true,
-                        "overwriteDefaultWith": "{{proxyInjection.httpProxyUrl}}"
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 },
                 "httpsProxy": {
                     "type": "string",
-                    "description": "Proxy URL for HTTPS requests",
+                    "description": "URL of the enterprise proxy for the region for HTTPS.",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": true,
-                        "overwriteDefaultWith": "{{proxyInjection.httpsProxyUrl}}"
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 },
                 "noProxy": {
                     "type": "string",
-                    "description": "Comma separated list of hosts for which proxy is bypassed",
+                    "description": "enterprise local domain that should not take proxy comma separated",
                     "default": "",
-                    "x-onyxia": {
-                        "hidden": true,
-                        "overwriteDefaultWith": "{{proxyInjection.noProxy}}"
+                    "hidden": {
+                        "value": false,
+                        "path": "proxy/enabled"
                     }
                 }
             }
@@ -800,6 +808,53 @@
                     "default": false,
                     "x-onyxia": {
                         "hidden": true
+                    }
+                }
+            }
+        },
+        "proxy": {
+            "description": "It can be used to inject proxy settings in the services",
+            "type": "object",
+            "x-onyxia": {
+                "overwriteSchemaWith": "proxy.json"
+            },
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Inject proxy settings",
+                    "default": "false"
+                },
+                "httpProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTP.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
+                    }
+                },
+                "httpsProxy": {
+                    "type": "string",
+                    "description": "URL of the enterprise proxy for the region for HTTPS.",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
+                    }
+                },
+                "noProxy": {
+                    "type": "string",
+                    "description": "enterprise local domain that should not take proxy comma separated",
+                    "default": "",
+                    "x-onyxia": {
+                        "hidden": {
+                            "value": true,
+                            "path": "proxy/enabled"
+                        }
                     }
                 }
             }

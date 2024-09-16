@@ -194,6 +194,12 @@ userPreferences:
   darkMode: false
   language: "en"
 
+proxy:
+  enabled: false
+  noProxy: ""
+  httpProxy: ""
+  httpsProxy: ""
+
 message:
   fr: ""
   en: ""

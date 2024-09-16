@@ -66,6 +66,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCoreSite" . }}
         {{- end }}
+        {{- if (.Values.proxy).enabled }}
+        - name: secret-proxy
+          secret:
+            secretName: {{ include "library-chart.secretNameProxy" . }}
+        {{- end }}
         {{- if .Values.spark.default }}
         - name: secret-sparkconf
           secret:
@@ -205,6 +210,10 @@ spec:
             {{- if .Values.git.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameGit" . }}
+            {{- end }}
+            {{- if (.Values.proxy).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameProxy" . }}
             {{- end }}
             {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:

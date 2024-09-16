@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1"
+    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.2"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.1"
+      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.4-spark3.5.2"
 
 spark:
   sparkui: false
@@ -92,6 +92,7 @@ git:
   branch: ""
 
 proxy:
+  enabled: false
   noProxy: ""
   httpProxy: ""
   httpsProxy: ""

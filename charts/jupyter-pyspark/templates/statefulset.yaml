@@ -73,6 +73,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameSparkConf" . }}
         {{- end }}
+        {{- if (.Values.proxy).enabled }}
+        - name: secret-proxy
+          secret:
+            secretName: {{ include "library-chart.secretNameProxy" . }}
+        {{- end }}
         {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
         - name: secret-ivysettings
           secret:
@@ -218,6 +223,10 @@ spec:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
             {{- if .Values.s3.enabled }}
+            {{- if (.Values.proxy).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameProxy" . }}
+            {{- end }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
             {{- end }}
