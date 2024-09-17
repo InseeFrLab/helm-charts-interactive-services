@@ -1,6 +1,6 @@
 # vscode-python-gpu
 
-![Version: 2.0.5](https://img.shields.io/badge/Version-2.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.6](https://img.shields.io/badge/Version-2.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -110,6 +110,11 @@ The VSCOde IDE with Python, Julia, and a collection of standard data science pac
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
+| startupProbe.failureThreshold | int | `60` |  |
+| startupProbe.initialDelaySeconds | int | `10` |  |
+| startupProbe.periodSeconds | int | `10` |  |
+| startupProbe.successThreshold | int | `1` |  |
+| startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
