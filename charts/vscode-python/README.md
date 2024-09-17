@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.0.6](https://img.shields.io/badge/Version-2.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
