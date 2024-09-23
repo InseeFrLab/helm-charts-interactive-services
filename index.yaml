@@ -12722,6 +12722,30 @@ entries:
     version: 1.11.3
   rstudio-sparkr:
   - apiVersion: v2
+    created: "2024-09-23T09:11:55.248538843Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 1.5.25
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: 5142f84f0b1a4c52546ae7d00e4ba93c1b67489054123f2633fe13320b5b7efc
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-sparkr-2.1.2/rstudio-sparkr-2.1.2.tgz
+    version: 2.1.2
+  - apiVersion: v2
     created: "2024-09-17T14:27:33.858560832Z"
     dependencies:
     - name: library-chart
@@ -24360,4 +24384,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2024-09-17T14:27:35.024941366Z"
+generated: "2024-09-23T09:11:55.249964351Z"
