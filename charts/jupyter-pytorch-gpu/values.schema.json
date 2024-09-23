@@ -810,7 +810,7 @@
         "enabled": {
           "type": "boolean",
           "description": "Inject proxy settings",
-          "default": "false"
+          "default": false
         },
         "httpProxy": {
           "type": "string",
