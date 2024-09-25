@@ -100,6 +100,19 @@ spec:
               mkdir /dest/metaflow;
               cp /src/metaflow/config.json /dest/metaflow/config.json;
               {{- end }}
+              {{- if .Values.certificateAuthorityInjection }}
+              {{- if .Values.certificateAuthorityInjection.cacerts }}
+              mkdir /dest/certs;
+              if [[ {{ .Values.certificateAuthorityInjection.cacerts }} =~ ^https?://.+$ ]]; 
+              then
+                  curl -s {{ .Values.certificateAuthorityInjection.cacerts }} -o /tmp/ca.pem
+              else
+                  echo -n {{ .Values.certificateAuthorityInjection.cacerts }} | base64 -d > /tmp/ca.pem;
+              fi
+              awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/tmp/cert." c ".crt"}' < /tmp/ca.pem;
+              cp /tmp/*.crt /dest/certs/;
+              {{- end }}
+              {{- end }}
           volumeMounts:
             - name: config-files
               mountPath: /dest
@@ -217,7 +230,14 @@ spec:
             - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
-            {{- end }}      
+            {{- end }}
+            {{- if .Values.certificateAuthorityInjection }}
+            {{- if .Values.certificateAuthorityInjection.pathToCaBundle }}
+            - name: config-files
+              mountPath: {{ .Values.certificateAuthorityInjection.pathToCaBundle }}
+              subPath: certs
+            {{- end }}
+            {{- end }}  
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

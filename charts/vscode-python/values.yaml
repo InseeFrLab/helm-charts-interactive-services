@@ -221,6 +221,10 @@ proxy:
   httpProxy: ""
   httpsProxy: ""
 
+# certificateAuthorityInjection:
+#   pathToCaBundle:
+#   cacerts:
+
 message:
   fr: ""
   en: ""

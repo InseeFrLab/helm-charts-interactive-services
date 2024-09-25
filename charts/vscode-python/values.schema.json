@@ -837,6 +837,31 @@
           }
       }
   },
+  "certificateAuthorityInjection": {
+    "description": "It can be used to inject certificate authority into the services, if the Helm chart in the catalog allows it you can bind this value to the Helm chart value to add some certificate authorities in the pod.",
+    "type": "object",
+    "default": {},
+    "properties": {
+      "cacerts": {
+        "type": "string",
+        "description": "String of crts concatenated in base64, can be a url",
+        "default": "",
+        "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "{{certificateAuthorityInjection.cacerts}}"
+        }
+      },
+      "pathToCaBundle": {
+        "type": "string",
+        "description": "String path where a bundle is made or injected by third party solution",
+        "default": "/usr/local/share/ca-certificates/",
+        "x-onyxia": {
+          "hidden": true,
+          "overwriteDefaultWith": "{{certificateAuthorityInjection.pathToCaBundle}}"
+        }
+      }
+    }
+  },
     "message": {
       "type": "object",
       "description": "Warning message",
