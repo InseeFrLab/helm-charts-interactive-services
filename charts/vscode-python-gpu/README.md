@@ -1,6 +1,6 @@
 # vscode-python-gpu
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.3](https://img.shields.io/badge/Version-2.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -104,9 +104,9 @@ The VSCOde IDE with Python, Julia, and a collection of standard data science pac
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.12.5-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.12.6-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.12.5-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.12.6-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
