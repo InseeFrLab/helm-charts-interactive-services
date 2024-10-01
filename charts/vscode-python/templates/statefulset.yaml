@@ -100,14 +100,14 @@ spec:
               mkdir /dest/metaflow;
               cp /src/metaflow/config.json /dest/metaflow/config.json;
               {{- end }}
-              {{- if .Values.certificateAuthorityInjection }}
-              {{- if .Values.certificateAuthorityInjection.cacerts }}
+              {{- if .Values.certificates }}
+              {{- if .Values.certificates.cacerts }}
               mkdir /dest/certs;
-              if [[ {{ .Values.certificateAuthorityInjection.cacerts }} =~ ^https?://.+$ ]]; 
+              if [[ {{ .Values.certificates.cacerts }} =~ ^https?://.+$ ]]; 
               then
-                  curl -s {{ .Values.certificateAuthorityInjection.cacerts }} -o /tmp/ca.pem
+                  curl -s {{ .Values.certificates.cacerts }} -o /tmp/ca.pem
               else
-                  echo -n {{ .Values.certificateAuthorityInjection.cacerts }} | base64 -d > /tmp/ca.pem;
+                  echo -n {{ .Values.certificates.cacerts }} | base64 -d > /tmp/ca.pem;
               fi
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/tmp/cert." c ".crt"}' < /tmp/ca.pem;
               cp /tmp/*.crt /dest/certs/;
@@ -231,10 +231,10 @@ spec:
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
             {{- end }}
-            {{- if .Values.certificateAuthorityInjection }}
-            {{- if .Values.certificateAuthorityInjection.pathToCaBundle }}
+            {{- if .Values.certificates }}
+            {{- if .Values.certificates.pathToCaBundle }}
             - name: config-files
-              mountPath: {{ .Values.certificateAuthorityInjection.pathToCaBundle }}
+              mountPath: {{ .Values.certificates.pathToCaBundle }}
               subPath: certs
             {{- end }}
             {{- end }}  

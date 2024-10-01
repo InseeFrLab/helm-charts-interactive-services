@@ -221,9 +221,9 @@ proxy:
   httpProxy: ""
   httpsProxy: ""
 
-# certificateAuthorityInjection:
-#   pathToCaBundle:
-#   cacerts:
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
 
 message:
   fr: ""
