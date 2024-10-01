@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-vscode-pytorch:py3.12.5
+    version: inseefrlab/onyxia-vscode-pytorch:py3.12.6
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-pytorch:py3.12.5
+      version: inseefrlab/onyxia-vscode-pytorch:py3.12.6
 security:
   password: changeme
   networkPolicy:
