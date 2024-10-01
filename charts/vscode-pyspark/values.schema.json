@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-pyspark:py3.12.5-spark3.5.2",
-                "inseefrlab/onyxia-vscode-pyspark:py3.11.9-spark3.5.2"
+                "inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.2",
+                "inseefrlab/onyxia-vscode-pyspark:py3.11.10-spark3.5.2"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-vscode-pyspark:py3.12.5-spark3.5.2"
+              "default": "inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.2"
             },
             "custom": {
               "description": "use a custom vscode docker image",
@@ -50,7 +50,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-pyspark:py3.12.5-spark3.5.2",
+                  "default": "inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.2",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
