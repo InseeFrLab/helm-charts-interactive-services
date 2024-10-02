@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-python:py3.12.5"
+    version: "inseefrlab/onyxia-jupyter-python:py3.12.6"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-python:py3.12.5"
+      version: "inseefrlab/onyxia-jupyter-python:py3.12.6"
 
 security:
   password: "changeme"
