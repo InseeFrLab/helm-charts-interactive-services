@@ -10,7 +10,7 @@ The repo is also browsable directly https://inseefrlab.github.io/helm-charts-int
 
 Contributions are welcome, feel free to open issues or submit pull requests :)
 
-## Create your own schemas
+## Create your own schemas for [Onyxia](https://github.com/inseefrlab/onyxia)
 
 Our charts allow you to personify the user experience on your platform by defining json schemas.  
 For more information on this mecanism, [refer to the dedicated page](https://docs.onyxia.sh/admin-doc/catalog-of-services#x-onyxia-overwriteschemawith).
