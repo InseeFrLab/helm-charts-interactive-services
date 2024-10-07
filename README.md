@@ -20,7 +20,7 @@ Following, you will find a list of all the schemas used in this repository. You 
 
 |Schema|Description|
 |---------|---------------------------------|
-|[ide/customImage.json](#ide/cutomImage.json)|Choose whether a user is allowed to use a custom image|
+|[ide/customImage.json](#ide/customImage.json)|Choose whether a user is allowed to use a custom image|
 |ide/git.json|Add git configuration inside your environment|
 |[ide/ingress.json](#ide/ingress.json)|Configure ingress parameters|
 |ide/init.json|Initialization parameters|
@@ -48,39 +48,24 @@ Following, you will find a list of all the schemas used in this repository. You 
 
 ### ide/customImage.json 
 
-This schema allows you to permit or forbid users from installing custom images when launching their service. 
-
-#### Allow users to install a custom image. 
-By default, the custom property is set to false. If set to true, a default version image is automatically assigned to the corresponding field.
-
-```yaml
-- relativePath: ide/customImage.json
-    content: |
-        {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "title": "custom image",
-            "type": "boolean",
-            "description": "use a custom jupyter docker image",
-            "default": false
-        }
-```
+This schema allows you to permit or forbid users from installing custom images when launching their service.
+This is allowed by default.
 
 #### Forbide users to install a custom image.
 
  The following code disables the option to install a custom image and also hides the field from the user. Moreover, if a user attempts to override this by forcing a custom image using constants, it will fail. This is due to the `const` keyword defining a fixed value, which cannot be changed.
 
-```yaml
-- relativePath: ide/custom-image.json
-    content: |
-        {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "type": "boolean",
-            "const": false,
-            "x-onyxia": {
-                "hidden": true
-            }
-        }
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "boolean",
+    "const": false,
+    "x-onyxia": {
+        "hidden": true
+    }
+}
 ```
+
 
 ### ide/ingress.json
 
@@ -95,8 +80,7 @@ To ensure that your user deploys an ingress to a specific domain name (e.g. mydo
 Additionally, you can automate SSL certificate generation by integrating certManager, which can issue and manage certificates for your ingress resource.
 
 
-```yaml
-
+```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Ingress",
@@ -113,27 +97,24 @@ Additionally, you can automate SSL certificate generation by integrating certMan
         },
         "hostname": {
             "type": "string",
-            "form": true,
             "title": "Hostname",
             "pattern": "^([a-zA-Z0-9-]+\.)*mydomain\.com$",
             "x-onyxia": {
                 "hidden": true,
-                "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+                "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.mydomain.com"
             }
         },
         "userHostname": {
             "type": "string",
-            "form": true,
             "title": "Hostname",
             "pattern": "^([a-zA-Z0-9-]+\.)*mydomain\.com$",
             "x-onyxia": {
                 "hidden": true,
-                "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
+                "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.mydomain.com"
             }
         },
         "ingressClassName": {
             "type": "string",
-            "form": true,
             "const": "myIngressClassName",
             "x-onyxia": {
                 "hidden": true,
@@ -145,7 +126,7 @@ Additionally, you can automate SSL certificate generation by integrating certMan
             "x-onyxia": {
                 "hidden": true,
             }
-},
+        },
         "certManagerClusterIssuer":{
             "type": "string",
             "const": "myCertManagerClusterIssuer",
@@ -166,34 +147,30 @@ In the following example, a message is added to warn users about the risk of the
 
 Currently, our charts support two languages (French and English).
 
-```yaml
-- relativePath: ide/message.json
-    content: |
-    {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Message",
-        "description": "Add message in notes",
-
-        "type": "object",
-        "properties": {
-        "fr": {
-            "type": "string",
-            "x-onyxia": {
-                "hidden": true
-            },
-            "description":"message à ajouter dans les notes",
-            "default": "**NB:** ce service pourrait être supprimé après 7 jours d'utilisation en raison de nos règles de gestion"
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Message",
+    "description": "Add message in notes",
+    "type": "object",
+    "properties": {
+    "fr": {
+        "type": "string",
+        "x-onyxia": {
+            "hidden": true
         },
-        "en": {
-            "type": "string",
-            "x-onyxia": {
-                "hidden": true
-            },
-            "description": "message to add in notes",
-            "default": "**Warning:** this service may be deleted after 7 days due to our management policies"
-            }
-        }
+        "description":"message à ajouter dans les notes",
+        "default": "**NB:** ce service pourrait être supprimé après 7 jours d'utilisation en raison de nos règles de gestion"
+    },
+    "en": {
+        "type": "string",
+        "x-onyxia": {
+            "hidden": true
+        },
+        "description": "message to add in notes",
+        "default": "**Warning:** this service may be deleted after 7 days due to our management policies"
     }
+}
 ```
 
 ### ide/resources.json
@@ -202,85 +179,83 @@ This schema defines the resource management configuration for a service.
 
 Specifically, it is used to set guaranteed resources (requests) and maximum resource limits (limits) for CPU and memory. It allows for the specification of both minimum (guaranteed) and maximum (capped) resources, using sliders to adjust values within set ranges. Hence the users will have a precise control over resources allocation within the allowed range.
 
-```yaml
-- relativePath: ide/resources.json
-    content: |
-    {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Resources",
-        "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
-        "type": "object",
-        "properties": {
-            "requests": {
-                "description": "Guaranteed resources",
-                "type": "object",
-                "properties": {
-                    "cpu": {
-                        "description": "The amount of cpu guaranteed",
-                        "title": "CPU",
-                        "type": "string",
-                        "default": "100m",
-                        "render": "slider",
-                        "sliderMin": 100,
-                        "sliderMax": 40000,
-                        "sliderStep": 100,
-                        "sliderUnit": "m",
-                        "sliderExtremity": "down",
-                        "sliderExtremitySemantic": "guaranteed",
-                        "sliderRangeId": "cpu"
-                    },
-                    "memory": {
-                        "description": "The amount of memory guaranteed",
-                        "title": "memory",
-                        "type": "string",
-                        "default": "2Gi",
-                        "render": "slider",
-                        "sliderMin": 1,
-                        "sliderMax": 200,
-                        "sliderStep": 1,
-                        "sliderUnit": "Gi",
-                        "sliderExtremity": "down",
-                        "sliderExtremitySemantic": "guaranteed",
-                        "sliderRangeId": "memory"
-                    }
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Resources",
+    "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
+    "type": "object",
+    "properties": {
+        "requests": {
+            "description": "Guaranteed resources",
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "description": "The amount of cpu guaranteed",
+                    "title": "CPU",
+                    "type": "string",
+                    "default": "100m",
+                    "render": "slider",
+                    "sliderMin": 100,
+                    "sliderMax": 40000,
+                    "sliderStep": 100,
+                    "sliderUnit": "m",
+                    "sliderExtremity": "down",
+                    "sliderExtremitySemantic": "guaranteed",
+                    "sliderRangeId": "cpu"
+                },
+                "memory": {
+                    "description": "The amount of memory guaranteed",
+                    "title": "memory",
+                    "type": "string",
+                    "default": "2Gi",
+                    "render": "slider",
+                    "sliderMin": 1,
+                    "sliderMax": 200,
+                    "sliderStep": 1,
+                    "sliderUnit": "Gi",
+                    "sliderExtremity": "down",
+                    "sliderExtremitySemantic": "guaranteed",
+                    "sliderRangeId": "memory"
                 }
-            },
-            "limits": {
-                "description": "max resources",
-                "type": "object",
-                "properties": {
-                    "cpu": {
-                        "description": "The maximum amount of cpu",
-                        "title": "CPU",
-                        "type": "string",
-                        "default": "30000m",
-                        "render": "slider",
-                        "sliderMin": 100,
-                        "sliderMax": 40000,
-                        "sliderStep": 100,
-                        "sliderUnit": "m",
-                        "sliderExtremity": "up",
-                        "sliderExtremitySemantic": "Maximum",
-                        "sliderRangeId": "cpu"
-                    },
-                    "memory": {
-                        "description": "The maximum amount of memory",
-                        "title": "Memory",
-                        "type": "string",
-                        "default": "50Gi",
-                        "render": "slider",
-                        "sliderMin": 1,
-                        "sliderMax": 200,
-                        "sliderStep": 1,
-                        "sliderUnit": "Gi",
-                        "sliderExtremity": "up",
-                        "sliderExtremitySemantic": "Maximum",
-                        "sliderRangeId": "memory"
-                    }
+            }
+        },
+        "limits": {
+            "description": "max resources",
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "description": "The maximum amount of cpu",
+                    "title": "CPU",
+                    "type": "string",
+                    "default": "30000m",
+                    "render": "slider",
+                    "sliderMin": 100,
+                    "sliderMax": 40000,
+                    "sliderStep": 100,
+                    "sliderUnit": "m",
+                    "sliderExtremity": "up",
+                    "sliderExtremitySemantic": "Maximum",
+                    "sliderRangeId": "cpu"
+                },
+                "memory": {
+                    "description": "The maximum amount of memory",
+                    "title": "Memory",
+                    "type": "string",
+                    "default": "50Gi",
+                    "render": "slider",
+                    "sliderMin": 1,
+                    "sliderMax": 200,
+                    "sliderStep": 1,
+                    "sliderUnit": "Gi",
+                    "sliderExtremity": "up",
+                    "sliderExtremitySemantic": "Maximum",
+                    "sliderRangeId": "memory"
                 }
             }
         }
     }
+}
 ```
 
 ### ide/role.json
@@ -288,7 +263,7 @@ Specifically, it is used to set guaranteed resources (requests) and maximum reso
 This schema defines the default kubernetes role for interactive services pods. As it is very permissive, you may want to restrict it to view-only access, using a constant.  
 
 #### Permissive schema
-```yaml
+```json
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Role",
@@ -320,7 +295,7 @@ This schema defines the default kubernetes role for interactive services pods. A
 
 You can enforce the role using the 'view' constant.
 
-```yaml
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Role",
@@ -350,33 +325,31 @@ WIP
 
 Utiliser les namespaces (metadatas annotation)
 
-```yaml
-- relativePath: network-policy.json
-    content: |
-    {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "title": "Network Policy",
-        "description": "Define access policy to the service",
-        "properties": {
-            "enabled": {
-                "type": "boolean",
-                "title": "Enable network policy",
-                "description": "Only pod from the same namespace will be allowed",
-                "default": true
-            },
-            "from": {
-                "type": "array",
-                "description": "Array of source allowed to have network access to your service",
-                "default": [
-                    { "namespaceSelector": { "matchLabels": { "kubernetes.io/metadata.name" : mynamespace } } }
-                ],
-                "x-onyxia": {
-                    "hidden": true
-                }
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "title": "Network Policy",
+    "description": "Define access policy to the service",
+    "properties": {
+        "enabled": {
+            "type": "boolean",
+            "title": "Enable network policy",
+            "description": "Only pod from the same namespace will be allowed",
+            "default": true
+        },
+        "from": {
+            "type": "array",
+            "description": "Array of source allowed to have network access to your service",
+            "default": [
+                { "namespaceSelector": { "matchLabels": { "kubernetes.io/metadata.name" : mynamespace } } }
+            ],
+            "x-onyxia": {
+                "hidden": true
             }
         }
     }
+}
 ```
 
 ### nodeSelector-gpu.json
@@ -385,24 +358,24 @@ This schema allows you to specify which gpu resource will be used by your servic
 
 In the following example, we use the `nvidia.com/gpu.product` annotation and force the user to select a specific type of gpu from the following options: NVIDIA-A2, Tesla-T4 or NVIDIA-H100-PCIe.
 
-```yaml
-        - relativePath: nodeSelector-gpu.json
-          content: |
-            {
-              "$schema": "http://json-schema.org/draft-07/schema#",
-              "title": "Node Selector",
-              "type": "object",
-              "properties": {
-                "nvidia.com/gpu.product": {
-                  "description": "The type of GPU",
-                  "type": "string",
-                  "default": "NVIDIA-A2",
-                  "enum": ["NVIDIA-A2", "Tesla-T4", "NVIDIA-H100-PCIe"]
-                }
-              },
-              "additionalProperties": false
-            }
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Node Selector",
+    "type": "object",
+    "properties": {
+    "nvidia.com/gpu.product": {
+        "description": "The type of GPU",
+        "type": "string",
+        "default": "NVIDIA-A2",
+        "enum": ["NVIDIA-A2", "Tesla-T4", "NVIDIA-H100-PCIe"]
+    }
+    },
+    "additionalProperties": false
+}
 ```
+
+Because "NVIDIA-A2" is the default option, "Tesla-T4" may seldom be selected. In this scenario, it would be advisable to create a specific label with just two options: basic GPU or high GPU.
 
 ### proxy.json
 
@@ -427,7 +400,7 @@ In the following example, the configuration is hidden from users and enforces th
         "httpProxy": {
             "type": "string",
             "description": "Proxy URL for HTTP requests",
-            "const": "myHttpProxy",
+            "const": "http://myHttpProxy",
             "x-onyxia": {
                 "hidden": true
             }
@@ -435,7 +408,7 @@ In the following example, the configuration is hidden from users and enforces th
         "httpsProxy": {
             "type": "string",
             "description": "Proxy URL for HTTPS requests",
-            "const": "myHttpsProxy",
+            "const": "http://myHttpProxy",
             "x-onyxia": {
                 "hidden": true
             }
@@ -454,82 +427,13 @@ In the following example, the configuration is hidden from users and enforces th
 
 ### spark.json
 
-This schema enables the Spark UI and let the user change the default spark config like disabling certificate checkings for spark metastore configuration (if used with the discovery mecanism) and specifying spark session configuration that will be stored inside of a spark-config.conf fille.
+This schema enables the Spark UI and let the user change the default spark config like disabling certificate checkings for spark metastore configuration (if used with the discovery mecanism) and specifying spark session configuration that will be stored inside of a spark-config.conf file.
 
-If you want to use spark in cluster mode, you have to give spark an admin kubernetes role. If you [do not want to do so](#spark-with-kubernetes-view-role), you have the ability to configure spark in local mode and force the use of a view kubernetes role.
+By [default](https://github.com/InseeFrLab/onyxia-api/blob/main/onyxia-api/src/main/resources/schemas/spark.json), spark is configured with kubernetes as the ressource manager (master) with a dynamic configuration.
 
-#### Spark with Kubernetes admin role
+You can use a configuration with a master local for example. 
 
-The following schema enables spark ui, and create a default spark configuration as set in the userConfig object. Users will have the ability to modify the field to adapt it to his needs.  
-Note the spark default config is shown when the `default` property is set to true thanks to the `path` key inside of the `hidden` object.
-
-```yaml
-- relativePath: spark.json
-    content: |
-    {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Spark",
-        "type": "object",
-        "description": "spark specific configuration",
-        "properties": {
-            "sparkui": {
-                "type": "boolean",
-                "title": "SparkUI",
-                "description": "Enable Spark monitoring interface",
-                "const": true,
-                "x-onyxia": {
-                    "hidden": true
-                }
-            },
-            "disabledCertChecking": {
-                "title": "Disable certificate checking ",
-                "type": "boolean",
-                "description": "Disable certificate checking for your S3 storage, do not use it in production",
-                "default": false
-            },
-            "default": {
-                "type": "boolean",
-                "title": "Create a spark config",
-                "description": "Create a default spark config in spark-default.conf",
-                "const": true,
-                "x-onyxia": {
-                    "hidden": true
-                }
-            },
-            "userConfig": {
-                "type": "object",
-                "title": "Create a spark config",
-                "description": "Create a default spark config in spark-default.conf",
-                "default": {
-                    "spark.dynamicAllocation.enabled": "true",
-                    "spark.dynamicAllocation.initialExecutors": "1",
-                    "spark.dynamicAllocation.minExecutors": "1",
-                    "spark.dynamicAllocation.maxExecutors": "10",
-                    "spark.executor.memory": "2g",
-                    "spark.driver.memory": "2g",
-                    "spark.dynamicAllocation.executorAllocationRatio": "1",
-                    "spark.dynamicAllocation.shuffleTracking.enabled": "true",
-                    "spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled": "true"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "default",
-                    "isPathRelative": true
-                }
-            }
-        }
-    }
-
-```
-
-#### Spark with Kubernetes view role
-
-If you do not wish to allow the admin kubernetes role, you have to use role-spark.json schema with the [restrictive configuration exposed](#restricted-schema) and preconfigure spark in local mode, thanks `userConfig` object in the spark.json schema. With such settings, the user won't need to specify the master in the session builder.
-
-
-```yaml
-- relativePath: spark.json
-    content: |
+```json
     {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Spark",
