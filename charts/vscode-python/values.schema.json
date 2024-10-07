@@ -23,7 +23,7 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-python:py3.12.5",
+              "default": "inseefrlab/onyxia-vscode-python:py3.12.6",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-python:py3.12.6",
                 "inseefrlab/onyxia-vscode-python:py3.11.10"
