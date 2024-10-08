@@ -221,6 +221,10 @@ proxy:
   httpProxy: ""
   httpsProxy: ""
 
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
+
 message:
   fr: ""
   en: ""
