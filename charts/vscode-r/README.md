@@ -1,6 +1,6 @@
 # vscode-r
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.5](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with R and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The VSCode IDE with R and a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.26 |
 
 ## Values
 
