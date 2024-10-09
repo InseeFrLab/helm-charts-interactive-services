@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.1.5](https://img.shields.io/badge/Version-2.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.6](https://img.shields.io/badge/Version-2.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 

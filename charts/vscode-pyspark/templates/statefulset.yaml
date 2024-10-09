@@ -121,7 +121,7 @@ spec:
               cp /src/coresite/core-site.xml /dest/coresite/core-site.xml;
               {{- end }}
               {{- if .Values.spark.default }}
-              mdir /dest/spark;
+              mkdir /dest/spark;
               cp /src/spark/spark-defaults.conf /dest/spark/spark-defaults.conf;
               {{- end }}
               {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
