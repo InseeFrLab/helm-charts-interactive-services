@@ -20,28 +20,28 @@ Following, you will find a list of all the schemas used in this repository. You 
 
 |Schema|Description|
 |---------|---------------------------------|
-|[ide/customImage.json](#ide/customImage.json)|Choose whether a user is allowed to use a custom image|
+|[ide/customImage.json](#idecustomimagejson)|Choose whether a user is allowed to use a custom image|
 |ide/git.json|Add git configuration inside your environment|
-|[ide/ingress.json](#ide/ingress.json)|Configure ingress parameters|
+|[ide/ingress.json](#ideingressjson)|Configure ingress parameters|
 |ide/init.json|Initialization parameters|
-|[ide/message.json](#ide/message.json)|✉️  Add a message in different languages in the NOTES.txt |
+|[ide/message.json](#idemessagejson)|✉️  Add a message in different languages in the NOTES.txt |
 |ide/openshiftSCC.json|Configuration for Openshift compatibility|
 |ide/password.json|Password|
 |ide/persistence.json|Configuration for persistence|
 |ide/resources-gpu.json|Resources|
-|[ide/resources.json](#ide/resources.json)|Resources|
-|[ide/role.json](#ide/role.json)|Defines the default kubernetes role for interactive services pods|
+|[ide/resources.json](#ideresourcesjson)|Resources|
+|[ide/role.json](#iderolejson)|Defines the default kubernetes role for interactive services pods|
 |ide/route.json|Configure route parameters|
 |ide/s3.json|Configuration of temporary identity for AWS S3|
 |ide/startupProbe.json|Startup probe|
 |ide/vault.json|Configuration of vault client|
-|[certificates.json]()|Certificates|
-|[network-policy.json]()|Network Policy|
-|[nodeSelector-gpu.json]()|Node Selector|
+|[certificates.json](#certificatesjson)|Certificates|
+|[network-policy.json](#networkpolicyjson)|Network Policy|
+|[nodeSelector-gpu.json](#nodeselector-gpujson)|Node Selector|
 |nodeSelector.json|Node Selector|
-|[proxy.json]()|Proxy|
+|[proxy.json](#proxyjson)|Proxy|
 |role-spark.json|Role|
-|[spark.json](#spark.json)|Spark specific configuration|
+|[spark.json](#sparkjson)|Spark specific configuration|
 |tolerations.json|Kubernetes Tolerations|
 
 ## Schema & Configuration Examples
@@ -291,7 +291,7 @@ This schema defines the default kubernetes role for interactive services pods. A
     }
 }
 ```
-#### Restricted schema
+#### Restrictive schema
 
 You can enforce the role using the 'view' constant.
 
@@ -317,13 +317,39 @@ You can enforce the role using the 'view' constant.
 ```
 ### certificates.json
 
-TO DO
+This schema is used to inject certificate authority into your services. 
+
+In the following example, we enforce the use of a specific CA certificate, encoded in base64, and define the file path where the CA bundle will be injected.
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "cacerts": {
+        "type": "string",
+        "description": "String of crts concatenated in base64, can be a url",
+        "const": "bXljYWNlcnRzZXhhbXBsZQo=",
+        "x-onyxia": {
+          "hidden": true
+        }
+      },
+      "pathToCaBundle": {
+        "type": "string",
+        "const": "/usr/local/share/ca-certificates/",
+        "x-onyxia": {
+          "hidden": true
+        }
+      }
+    }
+}
+```
 
 ### network-policy.json
 
-WIP
+This schema defines the network access policy for a service, specifying which sources are allowed to communicate with it.
 
-Utiliser les namespaces (metadatas annotation)
+In the following example, network access is granted only to pods from a specific namespace by matching the namespace's label with `mynamespace`.
 
 ```json
 {
@@ -341,7 +367,7 @@ Utiliser les namespaces (metadatas annotation)
         "from": {
             "type": "array",
             "description": "Array of source allowed to have network access to your service",
-            "default": [
+            "const": [
                 { "namespaceSelector": { "matchLabels": { "kubernetes.io/metadata.name" : mynamespace } } }
             ],
             "x-onyxia": {
