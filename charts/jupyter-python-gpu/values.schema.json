@@ -675,6 +675,14 @@
             "hidden": true,
             "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
           }
+        },
+        "useTlsSecret": {
+          "type": "boolean",
+          "description": "Whether you want to use the specified secretName in ingress tls",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
+          }
         }
       }
     },
