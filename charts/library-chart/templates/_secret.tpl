@@ -445,11 +445,6 @@ stringData:
 
 
 {{/* Name of the CA certificates secret */}}
-{{- define "library-chart.requiresCacertsSecret" -}}
-{{- and .Values.certificates .Values.certificates.cacerts (not (regexMatch "^https?://.+" .Values.certificates.cacerts)) }}
-{{- end -}}
-
-{{/* Name of the CA certificates secret */}}
 {{- define "library-chart.secretNameCacerts" -}}
 {{- if .Values.certificates }}
 {{- $name:= (printf "%s-secretcacerts" (include "library-chart.fullname" .) )  }}
