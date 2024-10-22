@@ -57,7 +57,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret}}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
@@ -97,7 +97,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.userHostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret}}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
@@ -138,7 +138,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.sparkHostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}

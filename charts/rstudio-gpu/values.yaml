@@ -81,6 +81,7 @@ ingress:
   userHostname: chart-example-user.local
   useCertManager: false
   certManagerClusterIssuer: ''
+  useTlsSecret: false
 route:
   enabled: false
   annotations: []

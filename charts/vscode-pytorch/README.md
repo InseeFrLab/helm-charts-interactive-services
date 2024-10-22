@@ -1,6 +1,6 @@
 # vscode-pytorch
 
-![Version: 2.1.6](https://img.shields.io/badge/Version-2.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.7](https://img.shields.io/badge/Version-2.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework PyTorch.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.26 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.27 |
 
 ## Values
 
@@ -50,6 +50,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch.
 | ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
+| ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
