@@ -180,6 +180,7 @@ ingress:
   #      - chart-example.local
   useCertManager: false
   certManagerClusterIssuer: ""
+  useTlsSecret: false
 
 route:
   enabled: false
