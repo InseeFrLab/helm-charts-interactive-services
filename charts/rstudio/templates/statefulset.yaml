@@ -134,43 +134,43 @@ spec:
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
-              {{- if .Values.init.regionInit }}
+            {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
               value: {{ .Values.init.regionInit }}
-              {{- end }}
-              {{- if .Values.init.personalInit }}
+            {{- end }}
+            {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
               value: {{ .Values.init.personalInit }}
-              {{- end }}
-              {{- if .Values.init.personalInitArgs }}
+            {{- end }}
+            {{- if .Values.init.personalInitArgs }}
             - name: PERSONAL_INIT_ARGS
               value: {{ .Values.init.personalInitArgs }}
-              {{- end }}
-              {{- if .Values.userPreferences.darkMode }}
+            {{- end }}
+            {{- if .Values.userPreferences.darkMode }}
             - name: DARK_MODE
               value: "true"
-              {{- end }}
+            {{- end }}
           envFrom:
-              {{- if .Values.s3.enabled }}
+            {{- if .Values.s3.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
-              {{- end }}
-              {{- if (.Values.proxy).enabled }}
+            {{- end }}
+            {{- if (.Values.proxy).enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameProxy" . }}
-              {{- end }}
-              {{- if .Values.vault.enabled }}
+            {{- end }}
+            {{- if .Values.vault.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameVault" . }}
-              {{- end }}
-              {{- if .Values.git.enabled }}
+            {{- end }}
+            {{- if .Values.git.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameGit" . }}
-              {{- end }}
-              {{- if (include "library-chart.repository.enabled"  .) }}
+            {{- end }}
+            {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
-              {{- end }}
+            {{- end }}
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
           livenessProbe:
