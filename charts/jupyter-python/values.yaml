@@ -41,7 +41,6 @@ s3:
   secretAccessKey: ""
   sessionToken: ""
 
-
 vault:
   # Specifies whether a config map should be created
   enabled: false
@@ -224,6 +223,10 @@ proxy:
   noProxy: ""
   httpProxy: ""
   httpsProxy: ""
+
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
 
 message:
   fr: ""

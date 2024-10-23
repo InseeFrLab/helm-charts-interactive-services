@@ -246,6 +246,10 @@ userPreferences:
   darkMode: false
   language: "en"
 
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
+
 message:
   fr: ""
   en: ""

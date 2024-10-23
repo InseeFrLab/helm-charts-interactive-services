@@ -41,6 +41,9 @@ spec:
         {{- if .Values.vault.enabled }}
         checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
         {{- end }}
+        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -76,6 +79,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameMetaflow" . }}
         {{- end }}
+        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        - name: cacerts
+          secret:
+            secretName: {{ include "library-chart.secretNameCacerts" . }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -89,9 +97,9 @@ spec:
         - name: make-secrets-writable
           image: inseefrlab/onyxia-base:latest
           imagePullPolicy: IfNotPresent
-          command: 
+          command:
             - sh
-            - -c 
+            - -c
             - |
               echo 'initContainer make-secrets-writable is started';
               {{- if .Values.discovery.hive }}
@@ -102,9 +110,22 @@ spec:
               mkdir /dest/metaflow/;
               cp /src/metaflow/config.json /dest/metaflow/config.json;
               {{- end }}
+              {{- if and .Values.certificates .Values.certificates.cacerts }}
+              mkdir /dest/cacerts;
+              {{- if regexMatch "^https?://" .Values.certificates.cacerts }}
+              curl -s $(cat /cacerts/ca-certs.url) -o /tmp/ca.pem
+              {{- else }}
+              cp /cacerts/ca.pem /tmp/ca.pem
+              {{- end }}
+              awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
+              {{- end }}
           volumeMounts:
             - name: config-files
               mountPath: /dest
+            {{- if and .Values.certificates .Values.certificates.cacerts }}
+            - name: cacerts
+              mountPath: /cacerts
+            {{- end }}
             {{- if .Values.discovery.hive }}
             - name: secret-hive
               mountPath: /src/hive
@@ -170,7 +191,7 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-          envFrom: 
+          envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
             {{- if .Values.s3.enabled }}
@@ -226,12 +247,17 @@ spec:
             - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive/hive-site.xml
-            {{- end }}   
+            {{- end }}
             {{- if .Values.discovery.metaflow }}
             - name: config-files
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
-            {{- end }}     
+            {{- end }}
+            {{- if and .Values.certificates .Values.certificates.pathToCaBundle }}
+            - name: config-files
+              mountPath: {{ .Values.certificates.pathToCaBundle }}
+              subPath: cacerts
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
