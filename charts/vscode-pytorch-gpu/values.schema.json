@@ -868,7 +868,7 @@
       "properties": {
         "cacerts": {
           "type": "string",
-          "description": "String of crts concatenated in base64, can be a url",
+          "description": "String of concatenated CA certificates. Alternatively a target URL can be provided.",
           "default": "",
           "x-onyxia": {
             "hidden": true

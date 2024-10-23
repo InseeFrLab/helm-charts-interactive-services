@@ -32,6 +32,9 @@ spec:
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
+        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -39,22 +42,29 @@ spec:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
       volumes:
+        - name: config-files
+          emptyDir: {}
         - name: home
-        {{- if .Values.persistence.enabled }}
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "library-chart.fullname" .) }}
-        {{- else }}
+          {{- else }}
           emptyDir: {}
-        {{- end }}
+          {{- end }}
         - name: dshm
           emptyDir:
             medium: Memory
             sizeLimit: 10Gi
-        {{- if (.Values.proxy).enabled }}
+          {{- if (.Values.proxy).enabled }}
         - name: secret-proxy
           secret:
             secretName: {{ include "library-chart.secretNameProxy" . }}
-        {{- end }}
+          {{- end }}
+          {{- if and .Values.certificates .Values.certificates.cacerts }}
+        - name: cacerts
+          secret:
+            secretName: {{ include "library-chart.secretNameCacerts" . }}
+          {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -64,6 +74,37 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       subdomain: {{ include "library-chart.fullname" . }}
       hostname: rstudio
+      initContainers:
+        - name: make-secrets-writable
+          image: inseefrlab/onyxia-base:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              echo 'initContainer make-secrets-writable is started';
+              {{- if and .Values.certificates .Values.certificates.cacerts }}
+              mkdir /dest/cacerts;
+              {{- if regexMatch "^https?://" .Values.certificates.cacerts }}
+              curl -s $(cat /cacerts/ca-certs.url) -o /tmp/ca.pem
+              {{- else }}
+              cp /cacerts/ca.pem /tmp/ca.pem
+              {{- end }}
+              awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
+              {{- end }}
+          volumeMounts:
+            - name: config-files
+              mountPath: /dest
+              {{- if and .Values.certificates .Values.certificates.cacerts }}
+            - name: cacerts
+              mountPath: /cacerts
+              {{- end }}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+          securityContext:
+            {{- toYaml .Values.initContainerSecurityContext | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -109,7 +150,7 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-          envFrom: 
+          envFrom:
             {{- if .Values.s3.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
@@ -154,9 +195,14 @@ spec:
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
-              name: home   
+              name: home
             - mountPath: /dev/shm
-              name: dshm     
+              name: dshm
+            {{- if and .Values.certificates .Values.certificates.pathToCaBundle }}
+            - name: config-files
+              mountPath: {{ .Values.certificates.pathToCaBundle }}
+              subPath: cacerts
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
