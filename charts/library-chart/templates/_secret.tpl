@@ -442,3 +442,34 @@ stringData:
     {{- end }}
 {{- end }}
 {{- end }}
+
+
+{{/* Name of the CA certificates secret */}}
+{{- define "library-chart.secretNameCacerts" -}}
+{{- if .Values.certificates }}
+{{- $name:= (printf "%s-secretcacerts" (include "library-chart.fullname" .) )  }}
+{{- default $name .Values.certificates.secretName }}
+{{- else }}
+{{- default "default" .Values.certificates.secretName }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a secret for CA certificates */}}
+{{- define "library-chart.secretCacerts" -}}
+{{- if and .Values.certificates .Values.certificates.cacerts }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameCacerts" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  {{- if regexMatch "^https?://" .Values.certificates.cacerts }}
+  ca-certs.url: {{ .Values.certificates.cacerts }}
+  {{- else }}
+  ca.pem: |
+    {{- .Values.certificates.cacerts | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
