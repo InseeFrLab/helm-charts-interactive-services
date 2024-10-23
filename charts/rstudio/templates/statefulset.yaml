@@ -109,7 +109,7 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-          envFrom: 
+          envFrom:
             {{- if .Values.s3.enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
@@ -154,9 +154,9 @@ spec:
           volumeMounts:
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
-              name: home   
+              name: home
             - mountPath: /dev/shm
-              name: dshm     
+              name: dshm
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

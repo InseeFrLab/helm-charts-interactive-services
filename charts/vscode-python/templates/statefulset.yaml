@@ -91,19 +91,19 @@ spec:
       serviceAccountName: {{ include "library-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      initContainers: 
+      initContainers:
         - name: make-secrets-writable
           image: inseefrlab/onyxia-base:latest
           imagePullPolicy: IfNotPresent
-          command: 
+          command:
             - sh
-            - -c 
+            - -c
             - |
               echo 'initContainer make-secrets-writable is started';
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
               cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
-              {{- end }}   
+              {{- end }}
               {{- if .Values.discovery.metaflow }}
               mkdir /dest/metaflow;
               cp /src/metaflow/config.json /dest/metaflow/config.json;
@@ -146,7 +146,7 @@ spec:
           image: "{{ .Values.service.image.custom.version }}"
           {{- else }}
           image: "{{ .Values.service.image.version }}"
-          {{- end }} 
+          {{- end }}
           command: ["/bin/sh","-c"]
           args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
@@ -177,7 +177,7 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-          envFrom: 
+          envFrom:
             - secretRef:
                 name : {{ include "library-chart.secretNameToken" . }}
             {{- if .Values.s3.enabled }}
@@ -207,7 +207,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.networking.service.port }} 
+              port: {{ .Values.networking.service.port }}
             timeoutSeconds: 2
             failureThreshold: 6
           readinessProbe:
@@ -239,13 +239,11 @@ spec:
               mountPath: /home/{{ .Values.environment.user}}/.metaflowconfig
               subPath: metaflow
             {{- end }}
-            {{- if .Values.certificates }}
-            {{- if .Values.certificates.pathToCaBundle }}
+            {{- if and .Values.certificates .Values.certificates.pathToCaBundle }}
             - name: config-files
               mountPath: {{ .Values.certificates.pathToCaBundle }}
               subPath: cacerts
             {{- end }}
-            {{- end }}  
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
