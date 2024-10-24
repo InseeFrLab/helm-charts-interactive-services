@@ -221,7 +221,8 @@ def prepull_daemon(namespace: str,
                 raise TimeoutError("Timed out waiting for DaemonSet rollout to complete.")
 
             daemon_info = kube_apps_api.list_namespaced_daemon_set(namespace=namespace,
-                                                                   label_selector=f"name={label_name}"
+                                                                   label_selector=f"name={label_name}",
+                                                                   timeout_seconds = 10
                                                                    )
 
             # Get total number of daemons that will be launched
