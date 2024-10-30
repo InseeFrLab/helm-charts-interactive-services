@@ -25,6 +25,13 @@ init:
   personalInit: ""
   personalInitArgs: ""
 
+# Array with (templated) extra environment variables to be made accessible within the service
+# e.g:
+# extraEnvVars:
+#   - name: FOO
+#     value: "bar"
+extraEnvVars: []
+
 environment:
   user: onyxia
   group: users
