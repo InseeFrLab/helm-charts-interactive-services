@@ -237,6 +237,9 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
+            {{- with .Values.extraEnvVars }}
+            {{- tpl (toYaml .) $.Values | nindent 12 }}
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
