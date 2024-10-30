@@ -21,6 +21,7 @@ init:
   regionInitCheckSum: ''
   personalInit: ''
   personalInitArgs: ''
+extraEnvVars: []
 s3:
   enabled: true
   configMapName: ''

@@ -20,6 +20,7 @@ init:
   regionInit: ''
   personalInit: ''
   personalInitArgs: ''
+extraEnvVars: []
 environment:
   user: onyxia
   group: users

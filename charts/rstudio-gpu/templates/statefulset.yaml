@@ -150,6 +150,9 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
+            {{- with .Values.extraEnvVars }}
+            {{- tpl (toYaml .) $.Values | nindent 12 }}
+            {{- end }}
           envFrom:
             {{- if .Values.s3.enabled }}
             - secretRef:

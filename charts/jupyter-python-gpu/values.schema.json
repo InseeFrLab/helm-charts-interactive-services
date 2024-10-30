@@ -231,6 +231,26 @@
         }
       }
     },
+    "extraEnvVars": {
+      "description": "environment variables available within your service",
+      "type": "array",
+      "default": [],
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteSchemaWith": "ide/extraenv.json"
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "kubernetes": {
       "description": "configuration of your kubernetes access",
       "type": "object",
