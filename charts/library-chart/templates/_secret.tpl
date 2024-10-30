@@ -178,8 +178,8 @@ stringData:
 {{/* Secret for CoreSite.xml Metastore */}}
 {{- define "library-chart.coreSite" -}}
 {{ printf "<?xml version=\"1.0\"?>" }}
-{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }} 
-{{ printf "<configuration>"}}     
+{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }}
+{{ printf "<configuration>"}}
 {{ printf "<property>"}}
 {{ printf "<name>fs.s3a.connection.ssl.enabled</name>" | indent 4}}
 {{ printf "<value>true</value>" | indent 4}}
@@ -255,8 +255,8 @@ stringData:
 {{/* Secret for Hive Metastore */}}
 {{- define "hiveMetastore.secret" -}}
 {{- printf "<?xml version=\"1.0\"?>\n" }}
-{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }} 
-{{- printf "<configuration>\n"}}     
+{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }}
+{{- printf "<configuration>\n"}}
 {{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items }}
 {{- if (index $secret "metadata" "annotations") }}
 {{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "hive" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) }}
@@ -422,7 +422,6 @@ Flag to disable certificate checking for Spark
 {{- end }}
 {{- end }}
 
-
 {{/* Template to generate a Secret for SparkConf */}}
 {{- define "library-chart.secretSparkConf" -}}
 {{- if .Values.spark.default -}}
@@ -470,6 +469,30 @@ stringData:
   {{- else }}
   ca.pem: |
     {{- .Values.certificates.cacerts | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+
+
+
+{{/* Name of the extraEnv secret */}}
+{{- define "library-chart.secretNameExtraEnv" -}}
+{{- printf "%s-secretextraenv" (include "library-chart.fullname" .) }}
+{{- end }}
+
+{{/* Template to generate a secret for extra environment variables */}}
+{{- define "library-chart.secretExtraEnv" -}}
+{{- if .Values.extraEnvVars }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameExtraEnv" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  {{- range .Values.extraEnvVars }}
+  {{ .name | trim }}: {{ tpl .value $.Values | quote }}
   {{- end }}
 {{- end }}
 {{- end }}
