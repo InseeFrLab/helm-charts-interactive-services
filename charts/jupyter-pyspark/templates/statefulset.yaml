@@ -240,10 +240,6 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-            {{- range .Values.extraEnvVars }}
-            - name: {{ .name }}
-              value: {{ tpl .value $.Values }}
-            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
@@ -270,6 +266,10 @@ spec:
             {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
             - secretRef:
                 name: {{ include "library-chart.secretNameMLFlow" . }}
+            {{- end }}
+            {{- if .Values.extraEnvVars }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameExtraEnv" . }}
             {{- end }}
           livenessProbe:
             httpGet:
