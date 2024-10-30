@@ -264,7 +264,8 @@ Specifically, it is used to set guaranteed resources (requests) and maximum reso
 
 ### ide/role.json
 
-This schema defines the default kubernetes role for interactive services pods. As it is very permissive, you may want to restrict it to view-only access, using a constant.
+This schema defines the default kubernetes role for interactive services pods.
+As it is very permissive, you may want to restrict it to view-only access, using a constant.
 
 #### Permissive schema
 ```json
@@ -297,26 +298,25 @@ This schema defines the default kubernetes role for interactive services pods. A
 ```
 #### Restrictive schema
 
-You can enforce the role using the 'view' constant.
-
+You can also enforce a fixed role (e.g. `view`) by setting its `const` attribute.
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Role",
-  "type": "object",
-  "properties": {
-    "enabled": {
-      "type": "boolean",
-      "const": true,
-      "x-onyxia":{
-        "hidden": true
-      }
-    },
-    "role": {
-      "type": "string",
-      "const": "view",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Role",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean",
+            "const": true,
+            "x-onyxia":{
+                "hidden": true
+            }
+        },
+        "role": {
+            "type": "string",
+            "const": "view"
+        }
     }
-  }
 }
 ```
 
@@ -338,10 +338,10 @@ This feature is hidden by default and can be enabled using the following schema:
         "type": "object",
         "properties": {
             "name": {
-            "type": "string"
+                "type": "string"
             },
             "value": {
-            "type": "string"
+                "type": "string"
             }
         }
     }
@@ -360,21 +360,21 @@ In the following example, we enforce the use of a specific CA certificate, encod
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "cacerts": {
-        "type": "string",
-        "description": "String of crts concatenated in base64, can be a url",
-        "const": "bXljYWNlcnRzZXhhbXBsZQo=",
-        "x-onyxia": {
-          "hidden": true
+        "cacerts": {
+            "type": "string",
+            "description": "String of crts concatenated in base64, can be a url",
+            "const": "bXljYWNlcnRzZXhhbXBsZQo=",
+            "x-onyxia": {
+                 "hidden": true
+            }
+        },
+        "pathToCaBundle": {
+            "type": "string",
+            "const": "/usr/local/share/ca-certificates/",
+            "x-onyxia": {
+                "hidden": true
+            }
         }
-      },
-      "pathToCaBundle": {
-        "type": "string",
-        "const": "/usr/local/share/ca-certificates/",
-        "x-onyxia": {
-          "hidden": true
-        }
-      }
     }
 }
 ```
@@ -424,12 +424,12 @@ In the following example, we use the `nvidia.com/gpu.product` annotation and for
     "title": "Node Selector",
     "type": "object",
     "properties": {
-    "nvidia.com/gpu.product": {
-        "description": "The type of GPU",
-        "type": "string",
-        "default": "NVIDIA-A2",
-        "enum": ["NVIDIA-A2", "Tesla-T4", "NVIDIA-H100-PCIe"]
-    }
+        "nvidia.com/gpu.product": {
+            "description": "The type of GPU",
+            "type": "string",
+            "default": "NVIDIA-A2",
+            "enum": ["NVIDIA-A2", "Tesla-T4", "NVIDIA-H100-PCIe"]
+        }
     },
     "additionalProperties": false
 }
@@ -455,8 +455,8 @@ In the following example, the configuration is hidden from users and enforces th
             "const": false,
             "x-onyxia": {
                 "hidden": true
-                }
-            },
+            }
+        },
         "httpProxy": {
             "type": "string",
             "description": "Proxy URL for HTTP requests",
@@ -494,54 +494,54 @@ By [default](https://github.com/InseeFrLab/onyxia-api/blob/main/onyxia-api/src/m
 You can use a configuration with a master local for example.
 
 ```json
-    {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Spark",
-        "type": "object",
-        "description": "spark specific configuration",
-        "properties": {
-            "sparkui": {
-                "type": "boolean",
-                "title": "SparkUI",
-                "description": "Enable Spark monitoring interface",
-                "const": true,
-                "x-onyxia": {
-                    "hidden": true
-                }
-            },
-            "disabledCertChecking": {
-                "title": "Disable certificate checking ",
-                "type": "boolean",
-                "description": "Disable certificate checking for your S3 storage, do not use it in production",
-                "const": false,
-                "x-onyxia": {
-                    "hidden": true
-                }
-            },
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Spark",
+    "type": "object",
+    "description": "spark specific configuration",
+    "properties": {
+        "sparkui": {
+            "type": "boolean",
+            "title": "SparkUI",
+            "description": "Enable Spark monitoring interface",
+            "const": true,
+            "x-onyxia": {
+                "hidden": true
+            }
+        },
+        "disabledCertChecking": {
+            "title": "Disable certificate checking ",
+            "type": "boolean",
+            "description": "Disable certificate checking for your S3 storage, do not use it in production",
+            "const": false,
+            "x-onyxia": {
+                "hidden": true
+            }
+        },
+        "default": {
+            "type": "boolean",
+            "title": "Create a spark config",
+            "description": "Create a default spark config in spark-default.conf",
+            "const": true,
+            "x-onyxia": {
+                "hidden": true
+            }
+        },
+        "userConfig": {
+            "type": "object",
+            "title": "Create a spark config",
+            "description": "Create a default spark config in spark-default.conf",
             "default": {
-                "type": "boolean",
-                "title": "Create a spark config",
-                "description": "Create a default spark config in spark-default.conf",
-                "const": true,
-                "x-onyxia": {
-                    "hidden": true
-                }
+                "spark.master": "local[10]"
             },
-            "userConfig": {
-                "type": "object",
-                "title": "Create a spark config",
-                "description": "Create a default spark config in spark-default.conf",
-                "default": {
-                    "spark.master": "local[10]"
-                },
-                "hidden": {
-                    "value": false,
-                    "path": "default",
-                    "isPathRelative": true
-                }
+            "hidden": {
+                "value": false,
+                "path": "default",
+                "isPathRelative": true
             }
         }
     }
+}
 ```
 
 ## Governance references
