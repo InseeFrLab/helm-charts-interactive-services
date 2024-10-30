@@ -191,8 +191,9 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-            {{- with .Values.extraEnvVars }}
-            {{- tpl (toYaml .) $.Values | nindent 12 }}
+            {{- range .Values.extraEnvVars }}
+            - name: {{ .name }}
+              value: {{ tpl .value $.Values }}
             {{- end }}
           envFrom:
             - secretRef:
