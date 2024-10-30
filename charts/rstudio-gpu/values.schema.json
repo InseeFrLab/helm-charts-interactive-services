@@ -243,10 +243,13 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "default": "",
+            "pattern": "^[a-zA-Z0-9_]+$"
           },
           "value": {
-            "type": "string"
+            "type": "string",
+            "default": ""
           }
         }
       }
