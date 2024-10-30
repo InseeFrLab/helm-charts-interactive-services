@@ -150,10 +150,6 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
-            {{- range .Values.extraEnvVars }}
-            - name: {{ .name }}
-              value: {{ tpl .value $.Values }}
-            {{- end }}
           envFrom:
             {{- if .Values.s3.enabled }}
             - secretRef:
@@ -177,6 +173,10 @@ spec:
             {{- end }}
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
+            {{- if .Values.extraEnvVars }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameExtraEnv" . }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /
