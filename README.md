@@ -1,18 +1,18 @@
 #  helm-charts-interactive-services
 
-Helm charts interactive services 
+Helm charts interactive services
 
-This collection of Helm Charts is tailored for datascientists ! It is primarily designed to work with Onyxia but you can use them like  helm charts.
+This collection of Helm Charts is tailored for datascientists ! It is primarily designed to work with Onyxia but they can also be used as regular helm charts.
 
 helm repo add inseefrlab-datascience https://inseefrlab.github.io/helm-charts-interactive-services
 
 The repo is also browsable directly https://inseefrlab.github.io/helm-charts-interactive-services/index.yaml
 
-Contributions are welcome, feel free to open issues or submit pull requests :)
+Contributions are much welcome! Feel free to open issues or submit pull requests :)
 
 ## Create your own schemas for [Onyxia](https://github.com/inseefrlab/onyxia)
 
-Our charts allow you to personify the user experience on your platform by defining json schemas.  
+Our charts allow to customize the user experience on your platform by defining json schemas.
 For more information on this mecanism, [refer to the dedicated page](https://docs.onyxia.sh/admin-doc/catalog-of-services#x-onyxia-overwriteschemawith).
 
 Following, you will find a list of all the schemas used in this repository. You can also [consult the default schemas](https://github.com/InseeFrLab/onyxia-api/tree/main/onyxia-api/src/main/resources/schemas).
@@ -35,6 +35,7 @@ Following, you will find a list of all the schemas used in this repository. You 
 |ide/s3.json|Configuration of temporary identity for AWS S3|
 |ide/startupProbe.json|Startup probe|
 |ide/vault.json|Configuration of vault client|
+|[ide/extraenv.json](#extraenvjson)|User-defined extra environment variables|
 |[certificates.json](#certificatesjson)|Certificates|
 |[network-policy.json](#networkpolicyjson)|Network Policy|
 |[nodeSelector-gpu.json](#nodeselector-gpujson)|Node Selector|
@@ -46,14 +47,16 @@ Following, you will find a list of all the schemas used in this repository. You 
 
 ## Schema & Configuration Examples
 
-### ide/customImage.json 
+### ide/customImage.json
 
 This schema allows you to permit or forbid users from installing custom images when launching their service.
 This is allowed by default.
 
-#### Forbide users to install a custom image.
+#### Forbid users to install a custom image
 
- The following code disables the option to install a custom image and also hides the field from the user. Moreover, if a user attempts to override this by forcing a custom image using constants, it will fail. This is due to the `const` keyword defining a fixed value, which cannot be changed.
+ The following code disables the option to install a custom image and also hides the field from the user.
+ Moreover, if a user attempts to override this by forcing a custom image using constants, it will fail.
+ This is due to the `const` keyword defining a fixed value, which cannot be changed.
 
 ```json
 {
@@ -71,9 +74,9 @@ This is allowed by default.
 
 This schema is used to configure ingress settings.
 
-It defines parameters such as whether ingress is enabled, hostname configurations, ingress class name, and certificate management using CertManager. 
+It defines parameters such as whether ingress is enabled, hostname configurations, ingress class name, and certificate management using CertManager.
 
-The following schema hides all the fields from the user by default. It dynamically fills in values ensuring automated and consistent configuration during service deployment by using [onyxia injections](https://docs.onyxia.sh/admin-doc/catalog-of-services#x-onyxia-overwritedefaultwith). 
+The following schema hides all the fields from the user by default. It dynamically fills in values ensuring automated and consistent configuration during service deployment by using [onyxia injections](https://docs.onyxia.sh/admin-doc/catalog-of-services#x-onyxia-overwritedefaultwith).
 
 To ensure that your user deploys an ingress to a specific domain name (e.g. mydomain.com), you can enforce this by specifying a pattern using a regular expression.
 
@@ -139,7 +142,7 @@ Additionally, you can automate SSL certificate generation by integrating certMan
 
 ```
 
-### ide/message.json 
+### ide/message.json
 
 This schema adds a message in different languages in the NOTES.txt.
 
@@ -154,28 +157,29 @@ Currently, our charts support two languages (French and English).
     "description": "Add message in notes",
     "type": "object",
     "properties": {
-    "fr": {
-        "type": "string",
-        "x-onyxia": {
-            "hidden": true
+        "fr": {
+            "type": "string",
+            "x-onyxia": {
+                "hidden": true
+            },
+            "description":"message à ajouter dans les notes",
+            "default": "**NB:** ce service pourrait être supprimé après 7 jours d'utilisation en raison de nos règles de gestion"
         },
-        "description":"message à ajouter dans les notes",
-        "default": "**NB:** ce service pourrait être supprimé après 7 jours d'utilisation en raison de nos règles de gestion"
-    },
-    "en": {
-        "type": "string",
-        "x-onyxia": {
-            "hidden": true
-        },
-        "description": "message to add in notes",
-        "default": "**Warning:** this service may be deleted after 7 days due to our management policies"
+        "en": {
+            "type": "string",
+            "x-onyxia": {
+                "hidden": true
+            },
+            "description": "message to add in notes",
+            "default": "**Warning:** this service may be deleted after 7 days due to our management policies"
+        }
     }
 }
 ```
 
 ### ide/resources.json
 
-This schema defines the resource management configuration for a service. 
+This schema defines the resource management configuration for a service.
 
 Specifically, it is used to set guaranteed resources (requests) and maximum resource limits (limits) for CPU and memory. It allows for the specification of both minimum (guaranteed) and maximum (capped) resources, using sliders to adjust values within set ranges. Hence the users will have a precise control over resources allocation within the allowed range.
 
@@ -260,7 +264,7 @@ Specifically, it is used to set guaranteed resources (requests) and maximum reso
 
 ### ide/role.json
 
-This schema defines the default kubernetes role for interactive services pods. As it is very permissive, you may want to restrict it to view-only access, using a constant.  
+This schema defines the default kubernetes role for interactive services pods. As it is very permissive, you may want to restrict it to view-only access, using a constant.
 
 #### Permissive schema
 ```json
@@ -315,9 +319,39 @@ You can enforce the role using the 'view' constant.
   }
 }
 ```
+
+
+### ide/extraenv.json
+
+This schema allows the user to define their own custom environment variables that will be available within their service.
+This mechanism allows to further pre-configure the environment which saves time and prevents errors during the setup of dependencies that rely on environment variables.
+It also simplifies and encourages the use of environment variables to provide execution specific parameters rather than hardcoding them in scripts.
+
+This feature is hidden by default and can be enabled using the following schema:
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Environment variables available within your service",
+    "type": "array",
+    "default": [],
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+            "type": "string"
+            },
+            "value": {
+            "type": "string"
+            }
+        }
+    }
+}
+```
+A `default` list of variables can be provided as an example for the user.
+
 ### certificates.json
 
-This schema is used to inject certificate authority into your services. 
+This schema is used to inject certificate authority into your services.
 
 In the following example, we enforce the use of a specific CA certificate, encoded in base64, and define the file path where the CA bundle will be injected.
 
@@ -380,7 +414,7 @@ In the following example, network access is granted only to pods from a specific
 
 ### nodeSelector-gpu.json
 
-This schema allows you to specify which gpu resource will be used by your service. 
+This schema allows you to specify which gpu resource will be used by your service.
 
 In the following example, we use the `nvidia.com/gpu.product` annotation and force the user to select a specific type of gpu from the following options: NVIDIA-A2, Tesla-T4 or NVIDIA-H100-PCIe.
 
@@ -405,7 +439,7 @@ Because "NVIDIA-A2" is the default option, "Tesla-T4" may seldom be selected. In
 
 ### proxy.json
 
-This schema is used to automatically inject proxy environment variables into the interactive service. 
+This schema is used to automatically inject proxy environment variables into the interactive service.
 
 In the following example, the configuration is hidden from users and enforces the use of predefined values for these variables.
 
@@ -457,7 +491,7 @@ This schema enables the Spark UI and let the user change the default spark confi
 
 By [default](https://github.com/InseeFrLab/onyxia-api/blob/main/onyxia-api/src/main/resources/schemas/spark.json), spark is configured with kubernetes as the ressource manager (master) with a dynamic configuration.
 
-You can use a configuration with a master local for example. 
+You can use a configuration with a master local for example.
 
 ```json
     {

@@ -44,7 +44,7 @@
                   "description": "use a custom vscode docker images",
                   "default": false,
                   "x-onyxia": {
-                      "overwriteSchemaWith": "ide/customImage.json"
+                    "overwriteSchemaWith": "ide/customImage.json"
                   }
                 },
                 "version": {
