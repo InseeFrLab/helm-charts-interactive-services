@@ -234,10 +234,13 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "default": "",
+            "pattern": "^[^ ]+$"
           },
           "value": {
-            "type": "string"
+            "type": "string",
+            "default": ""
           }
         }
       }
