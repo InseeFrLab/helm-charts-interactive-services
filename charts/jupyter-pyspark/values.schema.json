@@ -562,7 +562,8 @@
                 "value": false,
                 "path": "networking/user/enabled"
               },
-              "default": 5000
+              "default": 5000,
+              "minimum": 1024
             }
           }
         }
