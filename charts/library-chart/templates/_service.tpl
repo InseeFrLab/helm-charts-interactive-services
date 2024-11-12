@@ -2,6 +2,10 @@
 
 {{/* Template to generate a Service */}}
 {{- define "library-chart.service" -}}
+{{- $userPorts := list -}}
+{{- if and .Values.networking.user .Values.networking.user.enabled (or .Values.networking.user.ports .Values.networking.user.port) -}}
+{{- $userPorts = .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
+{{- end -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -18,13 +22,11 @@ spec:
       targetPort: {{ default .Values.networking.service.port .Values.networking.service.targetPort }}
       protocol: TCP
       name: main
-    {{ if .Values.networking.user }}
-    {{ if .Values.networking.user.enabled }}
-    - port: {{ .Values.networking.user.port }}
-      targetPort: {{ .Values.networking.user.port }}
+    {{- range $userPort := $userPorts }}
+    - port: {{ $userPort }}
+      targetPort: {{ $userPort }}
       protocol: TCP
-      name: user
-    {{- end }}
+      name: {{ printf "user-%d" (int $userPort) | quote }}
     {{- end }}
     {{ if .Values.spark }}
     {{ if .Values.spark.sparkui }}
