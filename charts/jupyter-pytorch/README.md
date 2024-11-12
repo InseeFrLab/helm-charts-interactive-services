@@ -1,10 +1,10 @@
-# rstudio-sparkr
+# jupyter-pytorch
 
 ![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
+The JupyterLab IDE with Python and the deep-learning framework PyTorch.
 
-**Homepage:** <https://www.rstudio.com/>
+**Homepage:** <https://jupyter.org/>
 
 ## Source Code
 
@@ -29,8 +29,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | certificates | object | `{}` |  |
 | coresite.configMapName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
+| discovery.metaflow | bool | `true` |  |
+| discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
-| environment.root | bool | `true` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
@@ -38,7 +39,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | git.cache | string | `""` |  |
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
@@ -49,6 +50,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
@@ -57,21 +59,24 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| initContainerSecurityContext | object | `{}` |  |
-| kubernetes.enable | bool | `true` |  |
+| kubernetes.enabled | bool | `false` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
+| metaflow.configMapName | string | `""` |  |
+| mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
+| networking.service.port | int | `8888` |  |
 | networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `true` |  |
+| persistence.enabled | bool | `false` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -80,10 +85,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.mavenRepository | string | `""` |  |
-| repository.packageManagerUrl | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -94,7 +98,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | s3.accessKeyId | string | `""` |  |
 | s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
-| s3.enabled | bool | `true` |  |
+| s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
@@ -105,31 +109,12 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.3"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pytorch:py3.12.6"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.3"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-pytorch:py3.12.6"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
-| spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
-| spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
-| spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
-| spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.configMapName | string | `""` |  |
-| spark.default | bool | `true` |  |
-| spark.sparkui | bool | `false` |  |
-| spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.initialExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.maxExecutors" | string | `"10"` |  |
-| spark.userConfig."spark.dynamicAllocation.minExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.shuffleTracking.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.executor.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled" | string | `"true"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
@@ -140,7 +125,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | userPreferences.language | string | `"en"` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
-| vault.enabled | bool | `true` |  |
+| vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
 | vault.token | string | `""` |  |
