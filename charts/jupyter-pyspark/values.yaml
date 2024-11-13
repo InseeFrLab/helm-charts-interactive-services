@@ -167,11 +167,16 @@ networking:
   clusterIP: None
   service:
     port: 8888
+  sparkui:
+    port: 4040
+  # Custom user-specified extra ports exposition.
+  # If ingress or route is enabled, the exposed ports are also made available at the
+  # {ingress,route}.userHostname URL (or variations, in case several ports are provided).
+  # Note: a non-empty networking.user.ports overrides networking.user.port
   user:
     enabled: false
     port: 5000
-  sparkui:
-    port: 4040
+    ports: []
 
 ingress:
   enabled: false
