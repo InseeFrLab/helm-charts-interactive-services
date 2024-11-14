@@ -561,7 +561,9 @@
               "description": "Port numbers of custom services to expose",
               "type": "array",
               "items": {
-                "type": "integer"
+                "type": "integer",
+                "uniqueItems": true,
+                "default": 5000
               },
               "default": [],
               "x-onyxia": {

@@ -9,7 +9,11 @@
 {{- end }}
 - Votre password: {{ .Values.security.password }}
 
-{{- if and .Values.networking.user .Values.networking.user.enabled (or .Values.networking.user.ports .Values.networking.user.port) }}
+{{- if and
+      ((.Values.networking).user).enabled
+      (or .Values.networking.user.ports .Values.networking.user.port)
+      (or (.Values.ingress).enabled (.Values.route).enabled)
+}}
 {{ $userPorts := .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
 {{- if eq (len $userPorts) 1 -}}
   {{- if .Values.ingress.enabled }}
@@ -52,7 +56,11 @@ Si vous accédez ces URL sans démarrer vos services personnalisés, vous obtien
 {{- end }}
 - Your password: {{ .Values.security.password }}
 
-{{- if and .Values.networking.user .Values.networking.user.enabled (or .Values.networking.user.ports .Values.networking.user.port) }}
+{{- if and
+      ((.Values.networking).user).enabled
+      (or .Values.networking.user.ports .Values.networking.user.port)
+      (or (.Values.ingress).enabled (.Values.route).enabled)
+}}
 {{ $userPorts := .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
 {{- if eq (len $userPorts) 1 -}}
   {{- if .Values.ingress.enabled }}
