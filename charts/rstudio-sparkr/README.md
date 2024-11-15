@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.1.2](https://img.shields.io/badge/Version-2.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
 
 ## Values
 
@@ -26,11 +26,13 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificates | object | `{}` |  |
 | coresite.configMapName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.root | bool | `true` |  |
 | environment.user | string | `"onyxia"` |  |
+| extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -49,6 +51,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
+| ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
@@ -102,9 +105,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.3"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.1-spark3.5.3"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

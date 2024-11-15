@@ -1,6 +1,6 @@
 # jupyter-pytorch-gpu
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
 
 ## Values
 
@@ -26,12 +26,14 @@ The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificates | object | `{}` |  |
 | coresite.configMapName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
+| extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -51,6 +53,7 @@ The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU
 | ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
+| ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |

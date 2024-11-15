@@ -21,6 +21,7 @@ init:
   regionInitCheckSum: ''
   personalInit: ''
   personalInitArgs: ''
+extraEnvVars: []
 s3:
   enabled: true
   configMapName: ''
@@ -95,6 +96,7 @@ ingress:
   userHostname: chart-example-user.local
   useCertManager: false
   certManagerClusterIssuer: ''
+  useTlsSecret: false
 route:
   enabled: false
   annotations: []
@@ -133,6 +135,7 @@ proxy:
   noProxy: ''
   httpProxy: ''
   httpsProxy: ''
+certificates: {}
 message:
   fr: ''
   en: ''

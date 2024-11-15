@@ -57,7 +57,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret}}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
@@ -70,7 +70,7 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: 
+                port:
                   number: {{ $svcPort }}
 {{- end }}
 {{- end }}
@@ -78,9 +78,13 @@ spec:
 {{/* Template to generate a custom Ingress */}}
 {{- define "library-chart.ingressUser" -}}
 {{- if .Values.ingress.enabled -}}
-{{ if .Values.networking.user.enabled }}
+{{- if and .Values.networking.user .Values.networking.user.enabled -}}
+{{- $userPorts := list -}}
+{{- if or .Values.networking.user.ports .Values.networking.user.port -}}
+{{- $userPorts = .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
+{{- end -}}
+{{- if $userPorts -}}
 {{- $fullName := include "library-chart.fullname" . -}}
-{{- $svcPort := .Values.networking.user.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -96,13 +100,25 @@ spec:
 {{- if .Values.ingress.tls }}
   tls:
     - hosts:
-        - {{ .Values.ingress.userHostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+      {{- range $userPort := $userPorts }}
+        {{- if eq (len $userPorts) 1 }}
+        - {{ $.Values.ingress.userHostname | quote }}
+        {{- else }}
+        - {{ regexReplaceAll "([^\\.]+)\\.(.*)" $.Values.ingress.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
-    {{- end }}
+      {{- end }}
 {{- end }}
   rules:
+  {{- range $userPort := $userPorts }}
+  {{- with $ }}
+    {{- if eq (len $userPorts) 1 }}
     - host: {{ .Values.ingress.userHostname | quote }}
+    {{- else }}
+    - host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.ingress.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
+    {{- end }}
       http:
         paths:
           - path: /
@@ -110,8 +126,11 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: 
-                  number: {{ $svcPort }}
+                port:
+                  number: {{ $userPort }}
+  {{- end }}
+  {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -138,7 +157,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.sparkHostname | quote }}
-    {{- if .Values.ingress.useCertManager }}
+    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
@@ -151,7 +170,7 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: 
+                port:
                   number: {{ $svcPort }}
 {{- end }}
 {{- end }}

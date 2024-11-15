@@ -38,7 +38,7 @@ spec:
   to:
     kind: Service
     name: {{ $fullName }}
-  port: 
+  port:
     targetPort: {{ $svcPort }}
   tls:
     termination: {{ .Values.route.tls.termination }}
@@ -61,9 +61,11 @@ spec:
 {{/* Template to generate a custom Route */}}
 {{- define "library-chart.routeUser" -}}
 {{- if .Values.route.enabled -}}
-{{ if .Values.networking.user.enabled }}
+{{- if and .Values.networking.user .Values.networking.user.enabled (or .Values.networking.user.ports .Values.networking.user.port) -}}
 {{- $fullName := include "library-chart.fullname" . -}}
-{{- $svcPort := .Values.networking.user.port -}}
+{{- $userPorts := .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
+{{- range $userPort := $userPorts -}}
+{{- with $ -}}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -73,13 +75,17 @@ metadata:
   annotations:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
+{{- if eq (len $userPorts) 1 }}
   host: {{ .Values.route.userHostname | quote }}
+{{- else }}
+  host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.route.userHostname (printf "${1}-d.${2}" $userPort) | quote }}
+{{- end }}
   path: /
   to:
     kind: Service
     name: {{ $fullName }}
-  port: 
-    targetPort: {{ $svcPort }}
+  port:
+    targetPort: {{ $userPort }}
   tls:
     termination: {{ .Values.route.tls.termination }}
     {{- if .Values.route.tls.key }}
@@ -92,9 +98,12 @@ spec:
     caCertificate: {{- .Values.route.tls.caCertificate }}
     {{- end }}
     {{- if .Values.route.tls.destinationCACertificate }}
-    destinationCACertificate: {{- .Values.route.tls.destinationCACertificate }}
+    destinationCACertificate: {{ .Values.route.tls.destinationCACertificate }}
     {{- end }}
   wildcardPolicy: {{ .Values.route.wildcardPolicy }}
+---
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -119,7 +128,7 @@ spec:
   to:
     kind: Service
     name: {{ $fullName }}
-  port: 
+  port:
     targetPort: {{ $svcPort }}
   tls:
     termination: {{ .Values.route.tls.termination }}

@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.1.4](https://img.shields.io/badge/Version-2.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.15](https://img.shields.io/badge/Version-2.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
 
 ## Values
 
@@ -26,12 +26,14 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificates | object | `{}` |  |
 | coresite.configMapName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
+| extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -51,6 +53,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
+| ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
@@ -105,9 +108,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.3"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.6-spark3.5.3"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

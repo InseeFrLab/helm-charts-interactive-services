@@ -1,6 +1,6 @@
 # rstudio-gpu
 
-![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.10](https://img.shields.io/badge/Version-2.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages, with GPU support.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.25 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
 
 ## Values
 
@@ -28,6 +28,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
+| extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -45,6 +46,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
+| ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |

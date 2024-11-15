@@ -26,6 +26,13 @@ init:
   personalInit: ""
   personalInitArgs: ""
 
+# Array with (templated) extra environment variables to be made accessible within the service
+# e.g:
+# extraEnvVars:
+#   - name: FOO
+#     value: "bar"
+extraEnvVars: []
+
 s3:
   # Specifies whether a config map should be created
   enabled: true
@@ -144,6 +151,7 @@ ingress:
   #      - chart-example.local
   useCertManager: false
   certManagerClusterIssuer: ""
+  useTlsSecret: false
 
 
 route:
@@ -220,6 +228,10 @@ proxy:
   noProxy: ""
   httpProxy: ""
   httpsProxy: ""
+
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
 
 message:
   fr: ""

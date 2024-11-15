@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.2"
+    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.2"
+      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3"
 
 spark:
   sparkui: false
@@ -49,6 +49,13 @@ init:
   personalInit: ""
   personalInitArgs: ""
 
+# Array with (templated) extra environment variables to be made accessible within the service
+# e.g:
+# extraEnvVars:
+#   - name: FOO
+#     value: "bar"
+extraEnvVars: []
+
 environment:
   user: onyxia
   group: users
@@ -64,7 +71,6 @@ s3:
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
-
 
 vault:
   # Specifies whether a config map should be created
@@ -180,6 +186,7 @@ ingress:
   #      - chart-example.local
   useCertManager: false
   certManagerClusterIssuer: ""
+  useTlsSecret: false
 
 route:
   enabled: false
@@ -244,6 +251,10 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: "en"
+
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
 
 message:
   fr: ""

@@ -231,6 +231,29 @@
         }
       }
     },
+    "extraEnvVars": {
+      "description": "environment variables available within your service",
+      "type": "array",
+      "default": [],
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteSchemaWith": "ide/extraenv.json"
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "default": "",
+            "pattern": "^[a-zA-Z0-9_]+$"
+          },
+          "value": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      }
+    },
     "kubernetes": {
       "description": "configuration of your kubernetes access",
       "type": "object",
@@ -623,6 +646,14 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
+        },
+        "useTlsSecret": {
+          "type": "boolean",
+          "description": "Whether you want to use the specified secretName in ingress tls",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }

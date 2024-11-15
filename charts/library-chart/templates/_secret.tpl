@@ -178,8 +178,8 @@ stringData:
 {{/* Secret for CoreSite.xml Metastore */}}
 {{- define "library-chart.coreSite" -}}
 {{ printf "<?xml version=\"1.0\"?>" }}
-{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }} 
-{{ printf "<configuration>"}}     
+{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }}
+{{ printf "<configuration>"}}
 {{ printf "<property>"}}
 {{ printf "<name>fs.s3a.connection.ssl.enabled</name>" | indent 4}}
 {{ printf "<value>true</value>" | indent 4}}
@@ -255,8 +255,8 @@ stringData:
 {{/* Secret for Hive Metastore */}}
 {{- define "hiveMetastore.secret" -}}
 {{- printf "<?xml version=\"1.0\"?>\n" }}
-{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }} 
-{{- printf "<configuration>\n"}}     
+{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }}
+{{- printf "<configuration>\n"}}
 {{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items }}
 {{- if (index $secret "metadata" "annotations") }}
 {{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "hive" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) }}
@@ -395,12 +395,9 @@ Flag to disable certificate checking for Spark
 
 {{/* Build a spark (or java) oriented non proxy hosts list from the linux based noProxy variable */}}
 {{- if (.Values.proxy).enabled -}}
-{{- if .Values.proxy.httpProxy }}
-{{- printf " -Dhttp.nonProxyHosts=%v" .Values.proxy.httpProxy }}
-{{- end }}
-{{- if .Values.proxy.httpsProxy }}
-{{- printf " -Dhttps.nonProxyHosts=%v" .Values.proxy.httpsProxy }}
-{{- end }}
+{{- $nonProxyHosts := regexReplaceAllLiteral "\\|\\." (regexReplaceAllLiteral "^(\\.)" (replace "," "|" (default "localhost" .Values.proxy.noProxy))  "*.") "|*." -}}
+{{- printf " -Dhttp.nonProxyHosts=%v" $nonProxyHosts }}
+{{- printf " -Dhttps.nonProxyHosts=%v" $nonProxyHosts }}
 {{- end -}}
 
 {{- end }}
@@ -425,7 +422,6 @@ Flag to disable certificate checking for Spark
 {{- end }}
 {{- end }}
 
-
 {{/* Template to generate a Secret for SparkConf */}}
 {{- define "library-chart.secretSparkConf" -}}
 {{- if .Values.spark.default -}}
@@ -443,5 +439,60 @@ stringData:
     {{ printf "spark.jars.ivySettings /opt/spark/conf/ivysettings.xml" }}
     {{- end }}
     {{- end }}
+{{- end }}
+{{- end }}
+
+
+{{/* Name of the CA certificates secret */}}
+{{- define "library-chart.secretNameCacerts" -}}
+{{- if .Values.certificates }}
+{{- $name:= (printf "%s-secretcacerts" (include "library-chart.fullname" .) )  }}
+{{- default $name .Values.certificates.secretName }}
+{{- else }}
+{{- default "default" .Values.certificates.secretName }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a secret for CA certificates */}}
+{{- define "library-chart.secretCacerts" -}}
+{{- if and .Values.certificates .Values.certificates.cacerts }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameCacerts" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  {{- if regexMatch "^https?://" .Values.certificates.cacerts }}
+  ca-certs.url: {{ .Values.certificates.cacerts }}
+  {{- else }}
+  ca.pem: |
+    {{- .Values.certificates.cacerts | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+
+
+
+{{/* Name of the extraEnv secret */}}
+{{- define "library-chart.secretNameExtraEnv" -}}
+{{- printf "%s-secretextraenv" (include "library-chart.fullname" .) }}
+{{- end }}
+
+{{/* Template to generate a secret for extra environment variables */}}
+{{- define "library-chart.secretExtraEnv" -}}
+{{- if .Values.extraEnvVars }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameExtraEnv" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  {{- range .Values.extraEnvVars }}
+  {{ .name | trim }}: {{ tpl .value $.Values | quote }}
+  {{- end }}
 {{- end }}
 {{- end }}
