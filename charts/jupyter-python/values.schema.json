@@ -496,6 +496,9 @@
       "type": "object",
       "form": true,
       "title": "Networking detail",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/networking.json"
+      },
       "properties": {
         "user": {
           "type": "object",
@@ -508,14 +511,28 @@
               "default": false
             },
             "port": {
-              "type": "integer",
-              "description": "port of the custom service",
               "title": "Custom service port",
+              "description": "Port number of a single custom service to expose",
+              "type": "integer",
               "hidden": {
                 "value": false,
                 "path": "networking/user/enabled"
               },
               "default": 5000
+            },
+            "ports": {
+              "title": "Custom service ports",
+              "description": "Port numbers of custom services to expose",
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "uniqueItems": true,
+                "default": 5000
+              },
+              "default": [],
+              "x-onyxia": {
+                "hidden": true
+              }
             }
           }
         }
