@@ -85,11 +85,12 @@ networking:
   clusterIP: None
   service:
     port: 8888
+  sparkui:
+    port: 4040
   user:
     enabled: false
     port: 5000
-  sparkui:
-    port: 4040
+    ports: []
 ingress:
   enabled: false
   tls: true

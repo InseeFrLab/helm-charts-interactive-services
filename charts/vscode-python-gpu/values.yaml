@@ -87,6 +87,7 @@ networking:
   user:
     enabled: false
     port: 5000
+    ports: []
 ingress:
   enabled: false
   tls: true
