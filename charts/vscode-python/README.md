@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.1.14](https://img.shields.io/badge/Version-2.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.15](https://img.shields.io/badge/Version-2.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.31 |
 
 ## Values
 
@@ -70,6 +70,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
+| networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |

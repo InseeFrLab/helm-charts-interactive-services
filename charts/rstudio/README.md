@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.1.10](https://img.shields.io/badge/Version-2.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.11](https://img.shields.io/badge/Version-2.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.31 |
 
 ## Values
 
@@ -63,6 +63,7 @@ The RStudio IDE with a collection of standard data science packages.
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
+| networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |

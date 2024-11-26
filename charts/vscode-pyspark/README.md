@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.1.15](https://img.shields.io/badge/Version-2.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.16](https://img.shields.io/badge/Version-2.1.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.31 |
 
 ## Values
 
@@ -72,6 +72,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
+| networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |

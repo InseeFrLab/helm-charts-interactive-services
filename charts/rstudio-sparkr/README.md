@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.1.13](https://img.shields.io/badge/Version-2.1.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.14](https://img.shields.io/badge/Version-2.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.30 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.31 |
 
 ## Values
 
@@ -69,6 +69,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
+| networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
