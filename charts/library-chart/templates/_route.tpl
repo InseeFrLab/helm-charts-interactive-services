@@ -78,7 +78,7 @@ spec:
 {{- if eq (len $userPorts) 1 }}
   host: {{ .Values.route.userHostname | quote }}
 {{- else }}
-  host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.route.userHostname (printf "${1}-d.${2}" $userPort) | quote }}
+  host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.route.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
 {{- end }}
   path: /
   to:
