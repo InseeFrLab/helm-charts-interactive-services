@@ -54,6 +54,9 @@ spec:
     {{- if .Values.route.tls.destinationCACertificate }}
     destinationCACertificate: {{- .Values.route.tls.destinationCACertificate }}
     {{- end }}
+    {{- if .Values.route.tls.insecureEdgeTerminationPolicy }}
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
+    {{- end }}
   wildcardPolicy: {{ .Values.route.wildcardPolicy }}
 {{- end }}
 {{- end }}
@@ -69,7 +72,7 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ $fullName }}-user
+  name: {{ $fullName }}-user-{{ $userPort }}
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
   annotations:
@@ -99,6 +102,9 @@ spec:
     {{- end }}
     {{- if .Values.route.tls.destinationCACertificate }}
     destinationCACertificate: {{ .Values.route.tls.destinationCACertificate }}
+    {{- end }}
+    {{- if .Values.route.tls.insecureEdgeTerminationPolicy }}
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
     {{- end }}
   wildcardPolicy: {{ .Values.route.wildcardPolicy }}
 ---
@@ -143,6 +149,9 @@ spec:
     {{- end }}
     {{- if .Values.route.tls.destinationCACertificate }}
     destinationCACertificate: {{- .Values.route.tls.destinationCACertificate }}
+    {{- end }}
+    {{- if .Values.route.tls.insecureEdgeTerminationPolicy }}
+    insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
     {{- end }}
   wildcardPolicy: {{ .Values.route.wildcardPolicy }}
 {{- end }}
