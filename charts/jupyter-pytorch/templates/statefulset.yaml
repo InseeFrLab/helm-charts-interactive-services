@@ -191,6 +191,10 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
+            {{- if .Values.service.customPythonEnv }}
+            - name: CUSTOM_PYTHON_ENV
+              value: "true"
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}

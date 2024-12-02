@@ -7,6 +7,7 @@ service:
     custom:
       enabled: false
       version: inseefrlab/onyxia-jupyter-r:r4.4.1
+  customPythonEnv: false
 security:
   password: changeme
   networkPolicy:
