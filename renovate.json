@@ -2,6 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":disableDependencyDashboard"],
   "bumpVersion": "patch",
+  "prHourlyLimit": 30,
+  "prConcurrentLimit": 100,
   "helmv3": {
     "enabled": true
   }
