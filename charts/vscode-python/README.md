@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.1.16](https://img.shields.io/badge/Version-2.1.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.17](https://img.shields.io/badge/Version-2.1.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -107,6 +107,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
+| service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
 | service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.12.6"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |

@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 2.1.15](https://img.shields.io/badge/Version-2.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.16](https://img.shields.io/badge/Version-2.1.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -109,6 +109,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
+| service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
 | service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.6"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
