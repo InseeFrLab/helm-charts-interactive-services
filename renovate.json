@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:recommended", ":disableDependencyDashboard"],
   "bumpVersion": "patch",
   "helmv3": {
     "enabled": true
