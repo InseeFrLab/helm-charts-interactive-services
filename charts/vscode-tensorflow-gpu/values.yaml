@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-vscode-tensorflow:py3.12.6-gpu
+    version: inseefrlab/onyxia-vscode-tensorflow:py3.12.7-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-tensorflow:py3.12.6-gpu
+      version: inseefrlab/onyxia-vscode-tensorflow:py3.12.7-gpu
   customPythonEnv: false
 security:
   password: changeme
