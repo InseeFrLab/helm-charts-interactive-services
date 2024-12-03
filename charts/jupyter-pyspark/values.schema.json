@@ -24,7 +24,7 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.11.10-spark3.5.3"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
