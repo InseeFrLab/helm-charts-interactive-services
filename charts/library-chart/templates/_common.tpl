@@ -14,3 +14,25 @@ Return the target Kubernetes version
 {{- default .Capabilities.KubeVersion.Version .Values.kubeVersion -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the URL at which the service can be reached
+*/}}
+{{- define "library-chart.service-url" -}}
+  {{- if .Values.ingress.enabled -}}
+    {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.hostname -}}
+  {{- else if .Values.route.enabled -}}
+    {{- printf "https://%s" .Values.route.hostname -}}
+  {{- end -}}
+{{- end -}}
+
+{{/*
+Return the URL at which the custom port can be reached
+*/}}
+{{- define "library-chart.user-url" -}}
+  {{- if .Values.ingress.enabled -}}
+    {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.userHostname -}}
+  {{- else if .Values.route.enabled -}}
+    {{- printf "https://%s" .Values.route.userHostname -}}
+  {{- end -}}
+{{- end -}}
