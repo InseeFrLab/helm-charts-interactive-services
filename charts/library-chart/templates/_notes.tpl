@@ -1,7 +1,5 @@
-{{/* vim: set filetype=mustache: */}}
-
 {{/*
-Generate a general message as a NOTES header.
+  Generate a general message as a NOTES header.
 */}}
 {{- define "library-chart.general-message" -}}
 {{- if and (eq .Values.userPreferences.language "fr" (.Values.message).fr) -}}
@@ -11,15 +9,16 @@ Generate a general message as a NOTES header.
 {{ end -}}
 {{- end -}}
 
+
 {{/*
-Generate NOTES about connection to the service.
+  Generate NOTES about connection to the service.
 
-Usage:
-{{ include "library-chart.notes-connection" (dict "serviceName" "Visual Studio Code" "context" $) }}
+  Usage:
+    {{ include "library-chart.notes-connection" (dict "serviceName" "Visual Studio Code" "context" $) }}
 
-Params:
-  - serviceName - String - Optional. The human readable name of the service.
-  - context - Dict - Required. The context for the template evaluation.
+  Params:
+    - serviceName - String - Optional. The human readable name of the service.
+    - context - Dict - Required. The context for the template evaluation.
 */}}
 {{- define "library-chart.notes-connection" -}}
 {{- $serviceName := .serviceName | default .context.Chart.Name -}}
@@ -33,7 +32,7 @@ Vous pouvez tout de même y accéder en executant la commande suivante depuis un
 `kubectl port-forward service/{{ include "library-chart.fullname" . }} <port-local>:{{ .Values.networking.service.port }}`
 puis en vous connectant depuis votre navigateur à l'URL suivante : `http://localhost:<port-local>`
 {{ end -}}
-- Votre mot de passe : **`{{ .Values.security.password }}`**
+- Votre password: {{ .Values.security.password }}
 {{ else -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
 - You can connect to {{ $serviceName }} with your browser using [this link]({{ include "library-chart.service-url" . }}).
@@ -43,20 +42,20 @@ You can still access it by running the following command from a terminal:
 `kubectl port-forward service/{{ include "library-chart.fullname" . }} <local-port>:{{ .Values.networking.service.port }}`
 and then use the following URL with your browser: `http://localhost:<local-port>`
 {{ end -}}
-- Your password: **`{{ .Values.security.password }}`**
+- Your password: {{ .Values.security.password }}
 {{ end -}}
 {{- end -}}
 {{- end -}}
 
 
 {{/*
-Generate NOTES about connection to the Spark UI (if enabled).
+  Generate NOTES about connection to the Spark UI (if enabled).
 */}}
 {{- define "library-chart.notes-sparkui" -}}
 {{- if (.Values.spark).sparkui -}}
 {{- if eq .Values.userPreferences.language "fr" -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
-- Vous pouvez vous connecter à l'interface Spark depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.spark-url" . }}).
+- Vous pouvez vous connecter à l'interface Spark depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.sparkui-url" . }}).
 {{ else }}
 - Votre interface Spark n'est pas directement exposée sur internet.
 Vous pouvez tout de même y accéder en executant la commande suivante depuis un terminal :
@@ -67,7 +66,7 @@ puis en vous connectant depuis votre navigateur à l'URL suivante : `http://loca
 - Votre mot de passe : **`{{ .Values.security.password }}`**
 {{ else -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
-- You can connect to the Spark UI with your browser using [this link]({{ include "library-chart.spark-url" . }}).
+- You can connect to the Spark UI with your browser using [this link]({{ include "library-chart.sparkui-url" . }}).
 {{ else }}
 - Your Spark interface is not exposed on the internet.
 You can still access it by running the following command from a terminal:
@@ -82,7 +81,7 @@ and then use the following URL with your browser: `http://localhost:<local-port>
 
 
 {{/*
-Generate NOTES about custom user-defined port exposition.
+  Generate NOTES about custom user-defined port exposition.
 */}}
 {{- define "library-chart.notes-custom-ports" -}}
 {{- if and
@@ -118,12 +117,12 @@ If you access these URL without starting the corresponding services you will get
 
 
 {{/*
-Generate NOTES about service deletion.
+  Generate NOTES about service deletion.
 */}}
 {{- define "library-chart.notes-deletion" -}}
-{{- if and (.Values.persistence).enabled (not .Values.persistence.existingClaim) -}}
+{{- if not (and (.Values.persistence).enabled .Values.persistence.existingClaim) -}}
 {{- if eq .Values.userPreferences.language "fr" }}
-**NOTES concernant la suppression :**
+**REMARQUES concernant la suppression :**
 Votre répertoire de travail `/home/{{ .Values.environment.user }}/work`
 sera **immédiatement effacé** à la suppression de votre service {{ .Chart.Name }}.
 Assurez-vous de sauvegarder toutes vos ressources de travail sur des supports persistants :
@@ -146,14 +145,14 @@ It is possible to associate an initialization script with your service to set up
 
 
 {{/*
-Prints out all NOTES.
+  Prints out all NOTES.
 
-Usage:
-{{- template "library-chart.notes" (dict "serviceName" "Visual Studio Code" "context" $) -}}
+  Usage:
+    {{- template "library-chart.notes" (dict "serviceName" "Visual Studio Code" "context" $) -}}
 
-Params:
-  - serviceName - String - Optional. The human readable name of the service.
-  - context - Dict - Required. The context for the template evaluation.
+  Params:
+    - serviceName - String - Optional. The human readable name of the service.
+    - context - Dict - Required. The context for the template evaluation.
 */}}
 {{- define "library-chart.notes" -}}
 {{- template "library-chart.general-message" .context -}}

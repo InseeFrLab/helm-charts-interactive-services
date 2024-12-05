@@ -1,7 +1,5 @@
-{{/* vim: set filetype=mustache: */}}
-
 {{/*
-Return the target Kubernetes version
+  Return the target Kubernetes version
 */}}
 {{- define "library-chart.capabilities.kubeVersion" -}}
 {{- if .Values.global }}
@@ -16,7 +14,7 @@ Return the target Kubernetes version
 {{- end -}}
 
 {{/*
-Return the URL at which the service can be accessed
+  Return the URL at which the service can be accessed
 */}}
 {{- define "library-chart.service-url" -}}
   {{- if .Values.ingress.enabled -}}
@@ -27,9 +25,9 @@ Return the URL at which the service can be accessed
 {{- end -}}
 
 {{/*
-Return the URL at which the service can be accessed
+  Return the URL at which the service can be accessed
 */}}
-{{- define "library-chart.spark-url" -}}
+{{- define "library-chart.sparkui-url" -}}
   {{- if (.Values.spark).sparkui -}}
     {{- if .Values.ingress.enabled -}}
       {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.sparkHostname -}}
@@ -40,7 +38,7 @@ Return the URL at which the service can be accessed
 {{- end -}}
 
 {{/*
-Return the URL at which the user-defined custom port(s) can be accessed
+  Return the URL at which the user-defined custom port(s) can be accessed
 */}}
 {{- define "library-chart.user-url" -}}
   {{- if .Values.ingress.enabled -}}
