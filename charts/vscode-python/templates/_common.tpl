@@ -1,1 +1,0 @@
-/home/gaspi/git/helm-charts-interactive-services/charts/library-chart/templates/_common.tpl

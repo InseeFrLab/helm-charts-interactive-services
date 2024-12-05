@@ -16,7 +16,7 @@ Return the target Kubernetes version
 {{- end -}}
 
 {{/*
-Return the URL at which the service can be reached
+Return the URL at which the service can be accessed
 */}}
 {{- define "library-chart.service-url" -}}
   {{- if .Values.ingress.enabled -}}
@@ -27,7 +27,20 @@ Return the URL at which the service can be reached
 {{- end -}}
 
 {{/*
-Return the URL at which the custom port can be reached
+Return the URL at which the service can be accessed
+*/}}
+{{- define "library-chart.spark-url" -}}
+  {{- if (.Values.spark).sparkui -}}
+    {{- if .Values.ingress.enabled -}}
+      {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.sparkHostname -}}
+    {{- else if .Values.route.enabled -}}
+      {{- printf "https://%s" .Values.route.sparkHostname -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/*
+Return the URL at which the user-defined custom port(s) can be accessed
 */}}
 {{- define "library-chart.user-url" -}}
   {{- if .Values.ingress.enabled -}}
