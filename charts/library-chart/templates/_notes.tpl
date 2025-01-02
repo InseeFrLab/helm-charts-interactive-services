@@ -32,6 +32,9 @@ Vous pouvez tout de même y accéder en executant la commande suivante depuis un
 `kubectl port-forward service/{{ include "library-chart.fullname" . }} <port-local>:{{ .Values.networking.service.port }}`
 puis en vous connectant depuis votre navigateur à l'URL suivante : `http://localhost:<port-local>`
 {{ end -}}
+{{- with (.Values.environment).user }}
+- Votre nom d'utilisateur: {{ . }}
+{{- end -}}
 - Votre password: {{ .Values.security.password }}
 {{ else -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
@@ -42,6 +45,9 @@ You can still access it by running the following command from a terminal:
 `kubectl port-forward service/{{ include "library-chart.fullname" . }} <local-port>:{{ .Values.networking.service.port }}`
 and then use the following URL with your browser: `http://localhost:<local-port>`
 {{ end -}}
+{{- with (.Values.environment).user }}
+- Your user name: {{ . }}
+{{- end -}}
 - Your password: {{ .Values.security.password }}
 {{ end -}}
 {{- end -}}
@@ -120,11 +126,13 @@ If you access these URL without starting the corresponding services you will get
   Generate NOTES about service deletion.
 */}}
 {{- define "library-chart.notes-deletion" -}}
+{{- $serviceName := .serviceName | default .context.Chart.Name -}}
+{{- with .context -}}
 {{- if not (and (.Values.persistence).enabled .Values.persistence.existingClaim) -}}
 {{- if eq .Values.userPreferences.language "fr" }}
 **REMARQUES concernant la suppression :**
 Votre répertoire de travail `/home/{{ .Values.environment.user }}/work`
-sera **immédiatement effacé** à la suppression de votre service {{ .Chart.Name }}.
+sera **immédiatement effacé** à la suppression de votre service {{ $serviceName }}.
 Assurez-vous de sauvegarder toutes vos ressources de travail sur des supports persistants :
 - Votre code peux être stocké dans une forge logicielle telle que git.
 - Vos données et modèles peuvent être stockés dans un système de stockage objet tel que S3.
@@ -133,7 +141,7 @@ Il est possible d'associer un script d'initialisation à votre service pour mett
 {{ else }}
 **NOTES about deletion:**
 Your work directory `/home/{{ .Values.environment.user }}/work`
-will be **immediately deleted** upon the termination of your {{ .Chart.Name }} service.
+will be **immediately deleted** upon the termination of your {{ $serviceName }} service.
 Make sure to save all your work resources on persistent storage:
 - Your code can be stored in a version control system such as git.
 - Your data and models can be stored in an object storage system such as S3.
@@ -159,5 +167,5 @@ It is possible to associate an initialization script with your service to set up
 {{- template "library-chart.notes-connection" . -}}
 {{- template "library-chart.notes-sparkui" .context -}}
 {{- template "library-chart.notes-custom-ports" .context -}}
-{{- template "library-chart.notes-deletion" .context -}}
+{{- template "library-chart.notes-deletion" . -}}
 {{- end -}}
