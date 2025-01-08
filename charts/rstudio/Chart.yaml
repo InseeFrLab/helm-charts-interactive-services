@@ -25,5 +25,5 @@ type: application
 version: 2.1.15
 dependencies:
   - name: library-chart
-    version: 1.5.35
+    version: 1.5.36
     repository: https://inseefrlab.github.io/helm-charts-interactive-services
