@@ -150,7 +150,7 @@ It is possible to associate an initialization script with your service to set up
 {{ end -}}
 {{- end -}}
 {{- end -}}
-
+{{- end -}}
 
 {{/*
   Prints out all NOTES.
