@@ -585,8 +585,8 @@
       }
     },
     "nodeSelector": {
+      "title": "Node selector",
       "type": "object",
-      "description": "NodeSelector",
       "default": {},
       "additionalProperties": {
         "type": "string"

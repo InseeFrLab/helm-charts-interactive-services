@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/Gaspi/pre-commit-hooks
-  rev: 7366ea0
+  rev: v0.1
   hooks:
   # Validate schemas using the jsonschema.validators package
   - id: validate-json-schemas
