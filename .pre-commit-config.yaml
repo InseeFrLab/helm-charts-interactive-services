@@ -22,7 +22,7 @@ repos:
     files: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v3.1.0
+  rev: v5.0.0
   hooks:
   # Check yaml files except for Helm templates
   - id: check-yaml
