@@ -587,6 +587,9 @@
             },
             "from": {
               "type": "array",
+              "items": {
+                "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer"
+              },
               "description": "Array of source allowed to have network access to your service",
               "default": [],
               "x-onyxia": {
@@ -599,9 +602,12 @@
       }
     },
     "nodeSelector": {
+      "title": "Node selector",
       "type": "object",
-      "description": "NodeSelector",
       "default": {},
+      "additionalProperties": {
+        "type": "string"
+      },
       "x-onyxia": {
         "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector",
@@ -757,6 +763,13 @@
     },
     "startupProbe": {
       "type": "object",
+      "properties": {
+        "failureThreshold": { "type": "integer" },
+        "initialDelaySeconds": { "type": "integer" },
+        "periodSeconds": { "type": "integer" },
+        "successThreshold": { "type": "integer" },
+        "timeoutSeconds": { "type": "integer" }
+      },
       "description": "Startup probe",
       "default": {
         "failureThreshold": 60,
@@ -773,6 +786,9 @@
     },
     "tolerations": {
       "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.core.v1.Toleration"
+      },
       "description": "Array of tolerations",
       "default": [],
       "x-onyxia": {

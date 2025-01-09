@@ -1,0 +1,39 @@
+repos:
+- repo: https://github.com/Gaspi/pre-commit-hooks
+  rev: 7366ea0
+  hooks:
+  # Validate schemas using the jsonschema.validators package
+  - id: validate-json-schemas
+    exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    args:
+      # Forbid legacy https://json-schema.org/draft/2020-12/schema schema validator and suggest Draft 7 instead
+      - --forbid-legacy
+  # Ensure technically facultative attribute (such as `type`) are systematically specified
+  - id: missing-attributes-schemas
+    exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    args:
+      # Also require `items` to be systematically specified for arrays
+      - --check-items
+      # Also require `properties` to be systematically specified for object
+      - --check-properties
+  - id: just-fail
+    files: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.1.0
+  hooks:
+  # Check yaml files except for Helm templates
+  - id: check-yaml
+    exclude: "/templates/"
+  # Check empty new line before EOF (ignore generated charts)
+  - id: end-of-file-fixer
+    exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+  # Check trailing whitespaces (ignore generated charts)
+  - id: trailing-whitespace
+    exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+
+# Run `helm lint` on all (modified) charts: this may require a manual `helm dep update`
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.15
+  hooks:
+  - id: helmlint
