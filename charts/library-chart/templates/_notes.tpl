@@ -167,5 +167,5 @@ It is possible to associate an initialization script with your service to set up
 {{- template "library-chart.notes-connection" . -}}
 {{- template "library-chart.notes-sparkui" .context -}}
 {{- template "library-chart.notes-custom-ports" .context -}}
-{{- template "library-chart.notes-deletion" . -}}
+{{- template "library-chart.notes-deletion" .context -}}
 {{- end -}}
