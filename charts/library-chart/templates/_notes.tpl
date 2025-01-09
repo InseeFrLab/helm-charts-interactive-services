@@ -61,7 +61,7 @@ and then use the following URL with your browser: `http://localhost:<local-port>
 {{- if (.Values.spark).sparkui -}}
 {{- if eq .Values.userPreferences.language "fr" -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
-- Vous pouvez vous connecter à l'interface Spark depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.sparkui-url" . }}).
+- Lorsque le driver Spark est en cours d'exécution, vous pouvez vous connecter à l'interface Spark depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.sparkui-url" . }}).
 {{ else }}
 - Votre interface Spark n'est pas directement exposée sur internet.
 Vous pouvez tout de même y accéder en executant la commande suivante depuis un terminal :
@@ -72,7 +72,7 @@ puis en vous connectant depuis votre navigateur à l'URL suivante : `http://loca
 - Votre mot de passe : **`{{ .Values.security.password }}`**
 {{ else -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
-- You can connect to the Spark UI with your browser using [this link]({{ include "library-chart.sparkui-url" . }}).
+- When the Spark driver is running, you can connect to the Spark UI with your browser using [this link]({{ include "library-chart.sparkui-url" . }}).
 {{ else }}
 - Your Spark interface is not exposed on the internet.
 You can still access it by running the following command from a terminal:
@@ -167,5 +167,5 @@ It is possible to associate an initialization script with your service to set up
 {{- template "library-chart.notes-connection" . -}}
 {{- template "library-chart.notes-sparkui" .context -}}
 {{- template "library-chart.notes-custom-ports" .context -}}
-{{- template "library-chart.notes-deletion" .context -}}
+{{- template "library-chart.notes-deletion" . -}}
 {{- end -}}
