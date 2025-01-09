@@ -94,9 +94,12 @@
           "default": false
         },
         "userConfig": {
+          "title": "Create a Spark config",
+          "description": "Create a default Spark configuration in spark-default.conf",
           "type": "object",
-          "title": "Create a spark config",
-          "description": "Create a default spark config in spark-default.conf",
+          "additionalProperties": {
+            "type": "string"
+          },
           "default": {
             "spark.dynamicAllocation.enabled": "true",
             "spark.dynamicAllocation.initialExecutors": "1",
@@ -630,8 +633,11 @@
               }
             },
             "from": {
+              "description": "Array of sources allowed to have network access to your service",
               "type": "array",
-              "description": "Array of source allowed to have network access to your service",
+              "items": {
+                "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer"
+              },
               "default": [],
               "x-onyxia": {
                 "hidden": true,
@@ -643,9 +649,12 @@
       }
     },
     "nodeSelector": {
+      "title": "Node selector",
       "type": "object",
-      "description": "NodeSelector",
       "default": {},
+      "additionalProperties": {
+        "type": "string"
+      },
       "x-onyxia": {
         "hidden": true,
         "overwriteDefaultWith": "region.nodeSelector"
@@ -840,8 +849,15 @@
       }
     },
     "startupProbe": {
-      "type": "object",
       "description": "Startup probe",
+      "type": "object",
+      "properties": {
+        "failureThreshold": { "type": "integer" },
+        "initialDelaySeconds": { "type": "integer" },
+        "periodSeconds": { "type": "integer" },
+        "successThreshold": { "type": "integer" },
+        "timeoutSeconds": { "type": "integer" }
+      },
       "default": {
         "failureThreshold": 60,
         "initialDelaySeconds": 10,
@@ -856,8 +872,11 @@
       }
     },
     "tolerations": {
-      "type": "array",
       "description": "Array of tolerations",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.core.v1.Toleration"
+      },
       "default": [],
       "x-onyxia": {
         "hidden": true,
