@@ -636,7 +636,8 @@
               "description": "Array of sources allowed to have network access to your service",
               "type": "array",
               "items": {
-                "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer"
+                "type": "object",
+                "additionalProperties": true
               },
               "default": [],
               "x-onyxia": {
@@ -875,7 +876,8 @@
       "description": "Array of tolerations",
       "type": "array",
       "items": {
-        "$ref": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.30.4/_definitions.json#/definitions/io.k8s.api.core.v1.Toleration"
+        "type": "object",
+        "additionalProperties": true
       },
       "default": [],
       "x-onyxia": {
