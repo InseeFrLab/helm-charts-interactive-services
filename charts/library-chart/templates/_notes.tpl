@@ -101,21 +101,21 @@ and then use the following URL with your browser: `http://localhost:<local-port>
 {{- if eq (len $userPorts) 1 }}
 Vous pouvez vous connecter à votre port personnalisé ({{ first $userPorts }}) en utilisant [ce lien]({{ $URL }}).
 {{- else }}
-Vous pouvez vous connecter à vos ports personnalisés en utilisant les liens ci-dessous :
-{{ range $userPort := $userPorts -}}
-- [Port {{ $userPort }}]({{ regexReplaceAll "([^\\.]+)\\.(.*)" $URL (printf "${1}-%d.${2}" (int $userPort)) }})
-{{ end -}}
-{{- end -}}
-Si vous accédez ces URL sans démarrer vos services personnalisés, vous obtiendrez une erreur 502 Bad Gateway.
+Vous pouvez vous connecter à vos ports personnalisés en utilisant les liens suivant :
+{{- range $i, $userPort := $userPorts -}}
+{{- gt $i 0 | ternary "," "" }} [port {{ $userPort }}]({{ regexReplaceAll "([^\\.]+)\\.(.*)" $URL (printf "${1}-%d.${2}" (int $userPort)) }})
+{{- end -}}.
+{{- end }}
+Si vous accédez à ces URL sans démarrer vos services personnalisés, vous obtiendrez une erreur 502 Bad Gateway.
 {{ else -}}
 {{- if eq (len $userPorts) 1 }}
 You can connect to your custom port ({{ first $userPorts }}) using [this link]({{ $URL }}).
 {{- else }}
 You can connect to your custom ports using the following links:
-{{ range $userPort := $userPorts -}}
-- [Port {{ $userPort }}]({{ regexReplaceAll "([^\\.]+)\\.(.*)" $URL (printf "${1}-%d.${2}" (int $userPort)) }})
-{{ end -}}
-{{- end -}}
+{{- range $i, $userPort := $userPorts -}}
+{{- gt $i 0 | ternary "," "" }} [Port {{ $userPort }}]({{ regexReplaceAll "([^\\.]+)\\.(.*)" $URL (printf "${1}-%d.${2}" (int $userPort)) }})
+{{- end -}}.
+{{- end }}
 If you access these URL without starting the corresponding services you will get a 502 bad gateway error.
 {{ end -}}
 {{- end -}}
