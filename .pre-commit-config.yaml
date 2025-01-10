@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/Gaspi/pre-commit-hooks
-  rev: v0.1
+  rev: v0.2
   hooks:
   # Validate schemas using the jsonschema.validators package
   - id: validate-json-schemas
@@ -16,6 +16,8 @@ repos:
       - --check-items
       # Also require `properties` to be systematically specified for object
       - --check-properties
+      # Also require `properties` to be systematically specified for object
+      - --check-defaults
   # Just fail if any modification occurs to files in the charts/ folder
   # other than jupyter-py{spark,thon}, rstudio[-sparkr] or vscode-py{thon,spark}
   - id: just-fail
@@ -39,3 +41,4 @@ repos:
   rev: v0.1.15
   hooks:
   - id: helmlint
+    exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
