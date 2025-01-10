@@ -22,6 +22,7 @@ repos:
   # other than jupyter-py{spark,thon}, rstudio[-sparkr] or vscode-py{thon,spark}
   - id: just-fail
     files: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+  # Ensure that the Chart.yaml version is bumped in all charts with staged modifications *in the `main` branch only*
   - id: version-bump
     exclude: "charts/(?!((jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
     args:
