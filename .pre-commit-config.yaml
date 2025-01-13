@@ -52,10 +52,13 @@ repos:
 # Warn the user if `library-chart` is updated and its new version simulatenously reused in other charts
 - repo: local
   hooks:
-  - id: test
+  - id: check_library_chart
     name: check library-chart update and reuse
     language: system
     entry: python3 -m utils.check_library_chart
     # Add -s flag to raise warning only if the library-chart updated version is reused
     pass_filenames: false
     always_run: true
+    args:
+    - --branch
+    - main
