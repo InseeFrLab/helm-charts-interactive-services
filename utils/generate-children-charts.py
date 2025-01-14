@@ -23,7 +23,7 @@ for parent in parameters:
         print(f"Building {child} from {parent}.")
         child_dir = PROJECT_PATH / "charts" / child
 
-        # Remove the child chart if it exists 
+        # Remove the child chart if it exists
         if os.path.exists(child_dir):
             shutil.rmtree(child_dir)
 
@@ -51,7 +51,7 @@ for parent in parameters:
             images_child = [image.replace(parent, child_no_gpu) for image in images_parent
                             if "onyxia" in image]
             images_child = [image + "-gpu" if "-gpu" in child else image
-                            for image in images_child] 
+                            for image in images_child]
         with open(child_dir / "values.schema.json", "r") as file_in:
             child_schema = json.load(file_in)
 
@@ -88,8 +88,8 @@ for parent in parameters:
                     "overwriteDefaultWith": "region.nodeSelector",
                     "overwriteSchemaWith": "nodeSelector-gpu.json"
                 }
-                }  
-            child_schema["properties"]["nodeSelector"] = node_selector         
+                }
+            child_schema["properties"]["nodeSelector"] = node_selector
 
         with open(child_dir / "values.schema.json", "w") as file_out:
             json.dump(child_schema, file_out, indent=2, sort_keys=False)

@@ -16,7 +16,7 @@ spec:
     - podSelector: {}
   policyTypes:
   - Ingress
-{{- end }} 
+{{- end }}
 {{- end }}
 
 {{/* Template to generate a NetworkPolicy for an Ingress */}}
@@ -33,11 +33,11 @@ spec:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
   ingress:
   {{- with .Values.security.networkPolicy.from }}
-  - from: 
+  - from:
   {{- toYaml . | nindent 4 }}
   {{- end }}
   policyTypes:
   - Ingress
 {{- end }}
-{{- end }} 
+{{- end }}
 {{- end }}

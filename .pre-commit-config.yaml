@@ -1,0 +1,64 @@
+repos:
+- repo: https://github.com/Gaspi/pre-commit-hooks
+  rev: v0.3
+  hooks:
+  # Validate schemas using the jsonschema.validators package
+  - id: validate-json-schemas
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    args:
+    # Forbid legacy https://json-schema.org/draft/2020-12/schema schema validator and suggest Draft 7 instead
+    - --forbid-legacy
+  # Ensure technically facultative attribute (such as `type`) are systematically specified
+  - id: missing-attributes-schemas
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    args:
+    # Also require `items` to be systematically specified for arrays
+    - --check-items
+    # Also require `properties` to be systematically specified for object
+    - --check-properties
+    # Also require `properties` to be systematically specified for object
+    - --check-defaults
+  # Just fail if any modification occurs to files in the charts/ folder
+  # other than jupyter-py{spark,thon}, rstudio[-sparkr] or vscode-py{thon,spark}
+  - id: just-fail
+    files: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+  # Ensure that the Chart.yaml version is bumped in all charts with staged modifications *in the `main` branch only*
+  - id: version-bump
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    args:
+    - --branch
+    - main
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+  # Check yaml files except for Helm templates
+  - id: check-yaml
+    exclude: "/templates/"
+  # Check empty new line before EOF (ignore generated charts)
+  - id: end-of-file-fixer
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+  # Check trailing whitespaces (ignore generated charts)
+  - id: trailing-whitespace
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+
+# Run `helm lint` on all (modified) charts: this may require a manual `helm dep update`
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.15
+  hooks:
+  - id: helmlint
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+
+# Warn the user if `library-chart` is updated and its new version simulatenously reused in other charts
+- repo: local
+  hooks:
+  - id: check_library_chart
+    name: check library-chart update and reuse
+    language: system
+    entry: python3 -m utils.check_library_chart
+    # Add -s flag to raise warning only if the library-chart updated version is reused
+    pass_filenames: false
+    always_run: true
+    args:
+    - --branch
+    - main
