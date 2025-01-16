@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3"
+    version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.4"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3"
+      version: "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.4"
   customPythonEnv: false
 spark:
   sparkui: false
