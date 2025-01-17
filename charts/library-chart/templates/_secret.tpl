@@ -138,23 +138,56 @@ stringData:
   PASSWORD: "{{ .Values.security.password }}"
 {{- end }}
 
+{{/*
+  Checks if a secret has the "onyxia/discovery" annotation matching a given service name.
+
+  Params:
+    - First: The secret object to check
+    - Second: Service name to match against (e.g. "postgresql")
+
+  Example:
+    {{- include "library-chart.isOnyxiaDiscoverySecret" (list $secret "postgresql") -}}
+*/}}
+{{- define "library-chart.isOnyxiaDiscoverySecret" -}}
+{{- $secret := first . -}}
+{{- $service := last . -}}
+{{- eq $service (index $secret "metadata" "annotations" "onyxia/discovery" | default "" | toString) -}}
+{{- end -}}
+
+{{/*
+  List all discovery secrets of a given service name in a given namespace.
+
+  Example:
+    {{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql") -}}
+      or, to only retrieve the first secret:
+    {{- with $secret := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql")) -}}
+*/}}
+{{- define "library-chart.getOnyxiaDiscoverySecrets" -}}
+{{- $namespace := first . -}}
+{{- $service := last . -}}
+{{- $secrets := list -}}
+{{- range $secret := (lookup "v1" "Secret" $namespace "").items | default list -}}
+{{- if include "isOnyxiaDiscoverySecret" (list $secret $service) -}}
+{{- $secrets = append $secrets $secret -}}
+{{- end -}}
+{{- end -}}
+{{- $secrets -}}
+{{- end -}}
+
 {{/* Create the name of the secret MLFlow to use */}}
 {{- define "library-chart.secretNameMLFlow" -}}
-{{- $name:= (printf "%s-secretmlflow" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretmlflow" (include "library-chart.fullname" .) }}
 {{- default $name .Values.mlflow.secretName }}
 {{- end }}
 
 {{/* Secret for MLFlow */}}
-{{- define "library-chart.secretMLFlow" -}}
-{{- $context:= . -}}
-{{- if .Values.discovery.mlflow -}}
-{{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items -}}
-{{- if (index $secret "metadata" "annotations") -}}
-{{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "mlflow" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) -}}
-{{- $uri:= ( index $secret.data "uri" | default "") | b64dec  -}}
-{{- $mlflow_tracking_username:= ( index $secret.data "MLFLOW_TRACKING_USERNAME" | default "") | b64dec  -}}
-{{- $mlflow_tracking_password:= ( index $secret.data "MLFLOW_TRACKING_PASSWORD" | default "") | b64dec  -}}
-
+{{- define "library-chart.secretMLFlow" }}
+{{- $context := . }}
+{{- if .Values.discovery.mlflow }}
+{{- with $secret := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow")) }}
+{{- $uri := (index $secret.data "uri" | default "") | b64dec }}
+{{- $mlflow_tracking_username := (index $secret.data "MLFLOW_TRACKING_USERNAME" | default "") | b64dec }}
+{{- $mlflow_tracking_password := (index $secret.data "MLFLOW_TRACKING_PASSWORD" | default "") | b64dec }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -162,14 +195,12 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
-{{-  if $uri }}
+{{- if $uri }}
   MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
 {{- end }}
-{{-  if and  $mlflow_tracking_username $mlflow_tracking_password }}
+{{- if and $mlflow_tracking_username $mlflow_tracking_password }}
   MLFLOW_TRACKING_USERNAME: {{ printf "%s" $mlflow_tracking_username }}
   MLFLOW_TRACKING_PASSWORD: {{ printf "%s" $mlflow_tracking_password }}
-{{- end }}
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -229,7 +260,7 @@ stringData:
 {{/* Create the name of the secret Coresite to use */}}
 {{- define "library-chart.secretNameCoreSite" -}}
 {{- if .Values.s3.enabled -}}
-{{- $name:= (printf "%s-secretcoresite" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretcoresite" (include "library-chart.fullname" .) }}
 {{- default $name .Values.coresite.secretName }}
 {{- else }}
 {{- default "default" .Values.coresite.secretName }}
@@ -257,16 +288,12 @@ stringData:
 {{- printf "<?xml version=\"1.0\"?>\n" }}
 {{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }}
 {{- printf "<configuration>\n"}}
-{{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items }}
-{{- if (index $secret "metadata" "annotations") }}
-{{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "hive" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) }}
-{{- $service:= ( index $secret.data "hive-service" | default "") | b64dec  }}
+{{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") }}
+{{- $service := (index $secret.data "hive-service" | default "") | b64dec  }}
 {{- printf "<property>\n"}}
-{{- printf "<name>hive.metastore.uris</name>\n"  | indent 4}}
+{{- printf "<name>hive.metastore.uris</name>\n" | indent 4}}
 {{- printf "<value>thrift://%s:9083</value>\n" $service | indent 4}}
 {{- printf "</property>\n"}}
-{{- end -}}
-{{- end -}}
 {{- end -}}
 {{- printf "</configuration>"}}
 {{- end }}
@@ -311,8 +338,7 @@ stringData:
 {{/* Create the name of the secret Ivy Settings to use */}}
 {{- define "library-chart.secretNameIvySettings" -}}
 {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
-{{- $name:= (printf "%s-secretivysettings" (include "library-chart.fullname" .) )  }}
-{{- $name }}
+{{- printf "%s-secretivysettings" (include "library-chart.fullname" .) }}
 {{- end }}
 {{- end }}
 
@@ -346,10 +372,8 @@ stringData:
 {{- printf "\"METAFLOW_KUBERNETES_SERVICE_ACCOUNT\": \"default\"," | indent 2 }}
 {{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://%s\"," (ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion ) .Values.s3.endpoint (eq .Values.s3.endpoint "s3.amazonaws.com") ) | indent 2 }}
 {{- if .Values.discovery.metaflow -}}
-{{- range $index, $secret := (lookup "v1" "Secret" .Release.Namespace "").items -}}
-{{- if (index $secret "metadata" "annotations") -}}
-{{- if and (index $secret "metadata" "annotations" "onyxia/discovery") (eq "metaflow" (index $secret "metadata" "annotations" "onyxia/discovery" | toString)) -}}
-{{- $host:= ( index $secret.data "host" | default "") | b64dec  -}}
+{{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "metaflow") }}
+{{- $host := (index $secret.data "host" | default "") | b64dec  -}}
 {{- $s3Bucket := (index $secret.data "s3Bucket" | default "") | b64dec -}}
 {{- $s3Secret := (index $secret.data "s3Secret" | default "") | b64dec -}}
 {{- printf "\"METAFLOW_KUBERNETES_NAMESPACE\": \"%s\"," $namespace | indent 2 }}
@@ -357,8 +381,6 @@ stringData:
 {{- printf "\"METAFLOW_KUBERNETES_SECRETS\": \"%s\"," $s3Secret | indent 2 }}
 {{- printf "\"METAFLOW_DATASTORE_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
 {{- printf "\"METAFLOW_DATATOOLS_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
-{{- end }}
-{{- end }}
 {{- end }}
 {{- end }}
 {{- printf "\"METAFLOW_DEFAULT_DATASTORE\": \"s3\"" | indent 2 }}
