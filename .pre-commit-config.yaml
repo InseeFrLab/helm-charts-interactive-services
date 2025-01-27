@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/Gaspi/pre-commit-hooks
-  rev: v0.3
+  rev: v0.4
   hooks:
   # Validate schemas using the jsonschema.validators package
   - id: validate-json-schemas
@@ -21,13 +21,16 @@ repos:
   # Just fail if any modification occurs to files in the charts/ folder
   # other than jupyter-py{spark,thon}, rstudio[-sparkr] or vscode-py{thon,spark}
   - id: just-fail
-    files: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "^((?!charts/)|(charts/(library-chart|jupyter-python|jupyter-pyspark|rstudio|rstudio-sparkr|vscode-python|vscode-pyspark)/)).*$"
   # Ensure that the Chart.yaml version is bumped in all charts with staged modifications *in the `main` branch only*
   - id: version-bump
     exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
     args:
     - --branch
     - main
+  # Run `helm dependency update` then `helm lint` on all (modified) charts
+  - id: helmlint
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
@@ -40,13 +43,6 @@ repos:
     exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
   # Check trailing whitespaces (ignore generated charts)
   - id: trailing-whitespace
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
-
-# Run `helm lint` on all (modified) charts: this may require a manual `helm dep update`
-- repo: https://github.com/gruntwork-io/pre-commit
-  rev: v0.1.15
-  hooks:
-  - id: helmlint
     exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
 
 # Warn the user if `library-chart` is updated and its new version simulatenously reused in other charts

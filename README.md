@@ -4,7 +4,7 @@ Helm charts interactive services
 
 This collection of Helm Charts is tailored for datascientists ! It is primarily designed to work with Onyxia but they can also be used as regular helm charts.
 
-helm repo add inseefrlab-datascience https://inseefrlab.github.io/helm-charts-interactive-services
+``` helm repo add inseefrlab-datascience https://inseefrlab.github.io/helm-charts-interactive-services ```
 
 The repo is also browsable directly https://inseefrlab.github.io/helm-charts-interactive-services/index.yaml
 
