@@ -1,10 +1,10 @@
-# rstudio
+# jupyter-r
 
-![Version: 2.1.19](https://img.shields.io/badge/Version-2.1.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.23](https://img.shields.io/badge/Version-2.1.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The RStudio IDE with a collection of standard data science packages.
+The JupyterLab IDE with R and a collection of standard data science packages.
 
-**Homepage:** <https://www.rstudio.com/>
+**Homepage:** <https://jupyter.org/>
 
 ## Source Code
 
@@ -26,6 +26,11 @@ The RStudio IDE with a collection of standard data science packages.
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificates | object | `{}` |  |
+| coresite.configMapName | string | `""` |  |
+| discovery.hive | bool | `true` |  |
+| discovery.metaflow | bool | `true` |  |
+| discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
@@ -34,16 +39,18 @@ The RStudio IDE with a collection of standard data science packages.
 | git.cache | string | `""` |  |
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
+| hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
@@ -52,21 +59,25 @@ The RStudio IDE with a collection of standard data science packages.
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `true` |  |
+| kubernetes.enabled | bool | `false` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
+| metaflow.configMapName | string | `""` |  |
+| mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
+| networking.service.port | int | `8888` |  |
 | networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `true` |  |
+| persistence.enabled | bool | `false` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -75,9 +86,9 @@ The RStudio IDE with a collection of standard data science packages.
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.packageManagerUrl | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -88,7 +99,7 @@ The RStudio IDE with a collection of standard data science packages.
 | s3.accessKeyId | string | `""` |  |
 | s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
-| s3.enabled | bool | `true` |  |
+| s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
@@ -98,10 +109,11 @@ The RStudio IDE with a collection of standard data science packages.
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
+| service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.4.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r:r4.4.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.4.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r:r4.4.1"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
@@ -115,7 +127,7 @@ The RStudio IDE with a collection of standard data science packages.
 | userPreferences.language | string | `"en"` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
-| vault.enabled | bool | `true` |  |
+| vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
 | vault.token | string | `""` |  |
