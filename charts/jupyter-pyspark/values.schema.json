@@ -7,12 +7,12 @@
       "type": "object",
       "properties": {
         "image": {
-          "description": "image docker",
+          "description": "Docker image",
           "type": "object",
           "properties": {
             "pullPolicy": {
+              "title": "Pull image from registry",
               "type": "string",
-              "description": "option when pulling the docker image",
               "default": "IfNotPresent",
               "enum": [
                 "IfNotPresent",
@@ -21,7 +21,7 @@
               ]
             },
             "version": {
-              "description": "supported versions",
+              "title": "name of the service's Docker image",
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3",
@@ -35,20 +35,19 @@
               "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.7-spark3.5.3"
             },
             "custom": {
-              "description": "use a custom jupyter docker image",
+              "title": "Custom image",
               "type": "object",
               "properties": {
                 "enabled": {
-                  "title": "custom image",
+                  "title": "Use a custom image",
                   "type": "boolean",
-                  "description": "use a custom jupyter docker image",
                   "default": false,
                   "x-onyxia": {
                     "overwriteSchemaWith": "ide/customImage.json"
                   }
                 },
                 "version": {
-                  "description": "jupyter unsupported version",
+                  "title": "Name of the custom image",
                   "type": "string",
                   "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3",
                   "hidden": {
@@ -61,9 +60,8 @@
           }
         },
         "customPythonEnv": {
-          "title": "custom python environment",
+          "title": "Use a custom Python environment",
           "type": "boolean",
-          "description": "Use a custom python environment",
           "default": false
         }
       }
@@ -212,21 +210,19 @@
       }
     },
     "persistence": {
-      "description": "Configuration for persistence",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/persistence.json"
       },
       "properties": {
         "enabled": {
+          "title": "Create a persistent volume",
           "type": "boolean",
-          "description": "Create a persistent volume",
           "default": true
         },
         "size": {
-          "type": "string",
           "title": "Persistent volume size",
-          "description": "Size of the persistent volume",
+          "type": "string",
           "default": "10Gi",
           "form": true,
           "render": "slider",
@@ -246,7 +242,7 @@
       }
     },
     "init": {
-      "description": "Init parameters",
+      "title": "Initialization script",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/init.json"
@@ -262,13 +258,13 @@
           }
         },
         "personalInit": {
+          "title": "User initialization script",
           "type": "string",
-          "description": "user initialization script",
           "default": ""
         },
         "personalInitArgs": {
+          "title": "Arguments for user init script",
           "type": "string",
-          "description": "args for user initialization script",
           "default": ""
         }
       }
@@ -297,20 +293,21 @@
       }
     },
     "kubernetes": {
-      "description": "configuration of your kubernetes access",
+      "title": "Kubernetes permissions",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "role-spark.json"
       },
       "properties": {
         "enabled": {
+          "title": "Allow your service to access Kubernetes resources",
+          "description": "access will be restricted to your own namespace",
           "type": "boolean",
-          "description": "allow your service to access your namespace ressources",
           "default": true
         },
         "role": {
+          "title": "Bind your service account to this Kubernetes role",
           "type": "string",
-          "description": "bind your service account to this kubernetes default role",
           "default": "admin",
           "hidden": {
             "value": false,
@@ -884,11 +881,21 @@
       "description": "Startup probe",
       "type": "object",
       "properties": {
-        "failureThreshold": { "type": "integer" },
-        "initialDelaySeconds": { "type": "integer" },
-        "periodSeconds": { "type": "integer" },
-        "successThreshold": { "type": "integer" },
-        "timeoutSeconds": { "type": "integer" }
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "successThreshold": {
+          "type": "integer"
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        }
       },
       "default": {
         "failureThreshold": 60,
