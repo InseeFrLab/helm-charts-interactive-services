@@ -21,7 +21,7 @@
               ]
             },
             "version": {
-              "title": "name of the service's Docker image",
+              "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-pyspark:py3.12.7-spark3.5.3",
@@ -39,7 +39,7 @@
               "type": "object",
               "properties": {
                 "enabled": {
-                  "title": "Use a custom image",
+                  "title": "Use a custom image instead",
                   "type": "boolean",
                   "default": false,
                   "x-onyxia": {
@@ -307,19 +307,19 @@
       }
     },
     "vault": {
-      "description": "Configuration of vault client",
+      "title": "Vault access",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/vault.json"
       },
       "properties": {
         "enabled": {
+          "title": "Enable Vault access from within the service",
           "type": "boolean",
-          "description": "Add vault temporary identity inside your environment",
           "default": true
         },
         "token": {
-          "description": "token vault",
+          "title": "Vault token",
           "type": "string",
           "render": "password",
           "x-onyxia": {
@@ -331,7 +331,7 @@
           }
         },
         "url": {
-          "description": "url of vault server",
+          "title": "Vault server URL",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
@@ -342,7 +342,7 @@
           }
         },
         "mount": {
-          "description": "mount of the v2 secret engine",
+          "title": "Secret engine",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
@@ -353,7 +353,7 @@
           }
         },
         "directory": {
-          "description": "top level directory",
+          "title": "Top-level directory",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
@@ -364,7 +364,8 @@
           }
         },
         "secret": {
-          "description": "the path of the secret to convert into a list of environment variables",
+          "title": "Path to the secret to load",
+          "description": "The secret will be converted into a list of environment variables",
           "type": "string",
           "default": "",
           "hidden": {
@@ -375,7 +376,7 @@
       }
     },
     "s3": {
-      "description": "Configuration of temporary identity",
+      "title": "S3 object storage",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/s3.json"
