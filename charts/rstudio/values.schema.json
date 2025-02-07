@@ -344,12 +344,12 @@
       },
       "properties": {
         "enabled": {
+          "title": "Enable S3 access from within the service",
           "type": "boolean",
-          "description": "Add S3 temporary identity inside your environment",
           "default": true
         },
         "accessKeyId": {
-          "description": "AWS Access Key",
+          "title": "Access Key ID",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_ACCESS_KEY_ID}}"
@@ -360,7 +360,7 @@
           }
         },
         "endpoint": {
-          "description": "AWS S3 Endpoint",
+          "title": "S3 endpoint URL",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
@@ -371,7 +371,7 @@
           }
         },
         "defaultRegion": {
-          "description": "AWS S3 default region",
+          "title": "Default region",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
@@ -382,7 +382,7 @@
           }
         },
         "secretAccessKey": {
-          "description": "AWS S3 secret access key",
+          "title": "Secret Access Key",
           "type": "string",
           "render": "password",
           "x-onyxia": {
@@ -394,7 +394,7 @@
           }
         },
         "sessionToken": {
-          "description": "AWS S3 session Token",
+          "title": "Session token",
           "type": "string",
           "render": "password",
           "x-onyxia": {
