@@ -3,11 +3,11 @@
   "type": "object",
   "properties": {
     "service": {
-      "description": "Service specific configuration",
+      "title": "Service",
       "type": "object",
       "properties": {
         "image": {
-          "description": "Docker image",
+          "title": "Docker image",
           "type": "object",
           "properties": {
             "pullPolicy": {
@@ -47,7 +47,7 @@
                   }
                 },
                 "version": {
-                  "title": "Name of the custom image",
+                  "title": "Name of the custom Docker image",
                   "type": "string",
                   "default": "inseefrlab/onyxia-vscode-python:py3.12.7",
                   "hidden": {
