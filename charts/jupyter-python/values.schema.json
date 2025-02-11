@@ -780,19 +780,24 @@
       "type": "object",
       "properties": {
         "failureThreshold": {
-          "type": "integer"
+          "type": "integer",
+          "default": 60
         },
         "initialDelaySeconds": {
-          "type": "integer"
+          "type": "integer",
+          "default": 10
         },
         "periodSeconds": {
-          "type": "integer"
+          "type": "integer",
+          "default": 10
         },
         "successThreshold": {
-          "type": "integer"
+          "type": "integer",
+          "default": 1
         },
         "timeoutSeconds": {
-          "type": "integer"
+          "type": "integer",
+          "default": 2
         }
       },
       "default": {
