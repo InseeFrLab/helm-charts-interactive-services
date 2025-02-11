@@ -256,7 +256,7 @@
           "default": true
         },
         "role": {
-          "title": "Bind your service account to this Kubernetes role",
+          "title": "Kubernetes role",
           "type": "string",
           "default": "view",
           "hidden": {
