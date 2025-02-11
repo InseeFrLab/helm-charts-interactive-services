@@ -1,8 +1,8 @@
-# jupyter-python
+# jupyter-r
 
 ![Version: 2.1.24](https://img.shields.io/badge/Version-2.1.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
+The JupyterLab IDE with R and a collection of standard data science packages.
 
 **Homepage:** <https://jupyter.org/>
 
@@ -111,9 +111,9 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r:r4.4.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r:r4.4.1"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
