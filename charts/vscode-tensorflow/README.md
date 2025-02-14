@@ -1,10 +1,10 @@
-# jupyter-python
+# vscode-tensorflow
 
 ![Version: 2.1.25](https://img.shields.io/badge/Version-2.1.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
+The VSCode IDE with Python and the deep-learning framework TensorFlow.
 
-**Homepage:** <https://jupyter.org/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
@@ -39,10 +39,8 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | git.cache | string | `""` |  |
 | git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `false` |  |
+| git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
-| git.repository | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -58,8 +56,9 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -67,8 +66,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8888` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -77,7 +75,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `false` |  |
+| persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -99,7 +97,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | s3.accessKeyId | string | `""` |  |
 | s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
-| s3.enabled | bool | `false` |  |
+| s3.enabled | bool | `true` |  |
 | s3.endpoint | string | `""` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
@@ -111,9 +109,9 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.7"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.7"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
@@ -127,7 +125,7 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | userPreferences.language | string | `"en"` |  |
 | vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
-| vault.enabled | bool | `false` |  |
+| vault.enabled | bool | `true` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
 | vault.token | string | `""` |  |
