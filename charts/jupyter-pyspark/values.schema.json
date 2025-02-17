@@ -47,7 +47,7 @@
                   }
                 },
                 "version": {
-                  "title": "Name of the custom Docker image",
+                  "title": "Name of the custom image",
                   "type": "string",
                   "default": "inseefrlab/onyxia-jupyter-pyspark:py3.12.6-spark3.5.3",
                   "hidden": {
@@ -270,7 +270,7 @@
       }
     },
     "extraEnvVars": {
-      "description": "environment variables available within your service",
+      "title": "Environment variables available within your service",
       "type": "array",
       "default": [],
       "x-onyxia": {
