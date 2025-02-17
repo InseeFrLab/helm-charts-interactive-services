@@ -39,6 +39,7 @@ acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }
 {{/* Template to generate a standard Ingress */}}
 {{- define "library-chart.ingress" -}}
 {{- if .Values.ingress.enabled -}}
+{{- if or .Values.autoscaling.enabled (not .Values.global.suspend) }}
 {{- $fullName := include "library-chart.fullname" . -}}
 {{- $svcPort := .Values.networking.service.port -}}
 apiVersion: networking.k8s.io/v1
@@ -74,10 +75,12 @@ spec:
                   number: {{ $svcPort }}
 {{- end }}
 {{- end }}
+{{- end }}
 
 {{/* Template to generate a custom Ingress */}}
 {{- define "library-chart.ingressUser" -}}
 {{- if .Values.ingress.enabled -}}
+{{- if or .Values.autoscaling.enabled (not .Values.global.suspend) }}
 {{- if and .Values.networking.user .Values.networking.user.enabled -}}
 {{- $userPorts := list -}}
 {{- if or .Values.networking.user.ports .Values.networking.user.port -}}
@@ -130,6 +133,7 @@ spec:
                   number: {{ $userPort }}
   {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
