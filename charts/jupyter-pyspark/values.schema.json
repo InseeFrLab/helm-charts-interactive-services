@@ -278,11 +278,12 @@
         "overwriteSchemaWith": "ide/extraenv.json"
       },
       "items": {
+        "title": "",
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "default": "",
+            "default": "VAR_NAME",
             "pattern": "^[a-zA-Z0-9_]+$"
           },
           "value": {
@@ -499,7 +500,8 @@
           }
         },
         "cache": {
-          "title": "Credentials caching duration (seconds)",
+          "title": "Credentials caching duration",
+          "description": "(in seconds)",
           "type": "string",
           "default": "",
           "x-onyxia": {
@@ -524,7 +526,8 @@
           }
         },
         "repository": {
-          "title": "Project repository to clone in service",
+          "title": "Project repository",
+          "description": "cloned in service",
           "type": "string",
           "default": "",
           "x-onyxia": {
