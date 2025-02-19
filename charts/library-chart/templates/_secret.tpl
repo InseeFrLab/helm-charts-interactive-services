@@ -3,7 +3,7 @@
 {{/* Create the name of the secret S3 to use */}}
 {{- define "library-chart.secretNameS3" -}}
 {{- if .Values.s3.enabled }}
-{{- $name:= (printf "%s-secrets3" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secrets3" (include "library-chart.fullname" .) }}
 {{- default $name .Values.s3.secretName }}
 {{- else }}
 {{- default "default" .Values.s3.secretName }}
@@ -32,15 +32,14 @@ stringData:
 
 {{/* Create the name of the secret Proxy to use */}}
 {{- define "library-chart.secretNameProxy" -}}
-{{ if (.Values.proxy).enabled}}
-{{- $name:= (printf "%s-secretproxy" (include "library-chart.fullname" .) )  }}
-{{- default $name (printf "%s-secretproxy" (include "library-chart.fullname" .) )  }}
+{{ if (.Values.proxy).enabled }}
+{{- printf "%s-secretproxy" (include "library-chart.fullname" .) }}
 {{- end }}
 {{- end }}
 
 {{/* Template to generate a secret for proxy */}}
 {{- define "library-chart.secretProxy" -}}
-{{ if (.Values.proxy).enabled}}
+{{ if (.Values.proxy).enabled }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -66,7 +65,7 @@ stringData:
 {{/* Create the name of the secret Vault to use */}}
 {{- define "library-chart.secretNameVault" -}}
 {{- if .Values.vault.enabled }}
-{{- $name:= (printf "%s-secretvault" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretvault" (include "library-chart.fullname" .) }}
 {{- default $name .Values.vault.secretName }}
 {{- else }}
 {{- default "default" .Values.vault.secretName }}
@@ -83,18 +82,18 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
-  VAULT_ADDR: "{{ .Values.vault.url }}"
-  VAULT_TOKEN: "{{ .Values.vault.token }}"
-  VAULT_RELATIVE_PATH: "{{ .Values.vault.secret }}"
-  VAULT_TOP_DIR: "{{ .Values.vault.directory }}"
-  VAULT_MOUNT: "{{ .Values.vault.mount }}"
+  VAULT_ADDR: {{ .Values.vault.url | quote }}
+  VAULT_TOKEN: {{ .Values.vault.token | quote }}
+  VAULT_RELATIVE_PATH: {{ .Values.vault.secret | quote }}
+  VAULT_TOP_DIR: {{ .Values.vault.directory | quote }}
+  VAULT_MOUNT: {{ .Values.vault.mount | quote }}
 {{- end }}
 {{- end }}
 
 {{/* Create the name of the secret Git to use */}}
 {{- define "library-chart.secretNameGit" -}}
 {{- if .Values.git.enabled }}
-{{- $name:= (printf "%s-secretgit" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretgit" (include "library-chart.fullname" .) }}
 {{- default $name .Values.git.secretName }}
 {{- else }}
 {{- default "default" .Values.git.secretName }}
@@ -111,19 +110,18 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
-  GIT_USER_NAME: "{{ .Values.git.name }}"
-  GIT_USER_MAIL: "{{ .Values.git.email }}"
-  GIT_CREDENTIALS_CACHE_DURATION: "{{ .Values.git.cache }}"
-  GIT_PERSONAL_ACCESS_TOKEN: "{{ .Values.git.token }}"
-  GIT_REPOSITORY: "{{ .Values.git.repository }}"
-  GIT_BRANCH: "{{ .Values.git.branch }}"
+  GIT_USER_NAME: {{ .Values.git.name | quote }}
+  GIT_USER_MAIL: {{ .Values.git.email | quote }}
+  GIT_CREDENTIALS_CACHE_DURATION: {{ .Values.git.cache | quote }}
+  GIT_PERSONAL_ACCESS_TOKEN: {{ .Values.git.token | quote }}
+  GIT_REPOSITORY: {{ .Values.git.repository | quote }}
+  GIT_BRANCH: {{ .Values.git.branch | quote }}
 {{- end }}
 {{- end }}
 
 {{/* Create the name of the secret Token to use */}}
 {{- define "library-chart.secretNameToken" -}}
-{{- $name:= (printf "%s-secrettoken" (include "library-chart.fullname" .) )  }}
-{{- default $name (printf "%s-secrettoken" (include "library-chart.fullname" .) )  }}
+{{- printf "%s-secrettoken" (include "library-chart.fullname" .) }}
 {{- end }}
 
 {{/* Template to generate a secret for token */}}
@@ -135,7 +133,7 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
-  PASSWORD: "{{ .Values.security.password }}"
+  PASSWORD: {{ .Values.security.password | quote }}
 {{- end }}
 
 {{/*
@@ -149,29 +147,31 @@ stringData:
     {{- include "library-chart.isOnyxiaDiscoverySecret" (list $secret "postgresql") -}}
 */}}
 {{- define "library-chart.isOnyxiaDiscoverySecret" -}}
-{{- $secret := first . -}}
+{{- $secret := first . }}
 {{- $service := last . -}}
-{{- eq $service (index $secret "metadata" "annotations" "onyxia/discovery" | default "" | toString) -}}
+{{- if eq $service (index (($secret.metadata).annotations | default dict) "onyxia/discovery" | default "" | toString) }}
+{{- "ok" }}
+{{- end -}}
 {{- end -}}
 
 {{/*
-  List all discovery secrets of a given service name in a given namespace.
+  List data from all discovery secrets of a given service name in a given namespace.
 
   Example:
-    {{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql") -}}
+    {{- range $secretData := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql") | fromJsonArray -}}
       or, to only retrieve the first secret:
-    {{- with $secret := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql")) -}}
+    {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgresql") | fromJsonArray) -}}
 */}}
 {{- define "library-chart.getOnyxiaDiscoverySecrets" -}}
-{{- $namespace := first . -}}
-{{- $service := last . -}}
-{{- $secrets := list -}}
-{{- range $secret := (lookup "v1" "Secret" $namespace "").items | default list -}}
-{{- if include "isOnyxiaDiscoverySecret" (list $secret $service) -}}
-{{- $secrets = append $secrets $secret -}}
+{{- $namespace := first . }}
+{{- $service := last . }}
+{{- $discoverySecrets := list }}
+{{- range $secret := (lookup "v1" "Secret" $namespace "").items -}}
+{{- if (include "library-chart.isOnyxiaDiscoverySecret" (list $secret $service)) -}}
+{{- $discoverySecrets = append $discoverySecrets $secret.data -}}
 {{- end -}}
 {{- end -}}
-{{- $secrets -}}
+{{- toJson $discoverySecrets -}}
 {{- end -}}
 
 {{/* Create the name of the secret MLFlow to use */}}
@@ -184,10 +184,10 @@ stringData:
 {{- define "library-chart.secretMLFlow" }}
 {{- $context := . }}
 {{- if .Values.discovery.mlflow }}
-{{- with $secret := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow")) }}
-{{- $uri := (index $secret.data "uri" | default "") | b64dec }}
-{{- $mlflow_tracking_username := (index $secret.data "MLFLOW_TRACKING_USERNAME" | default "") | b64dec }}
-{{- $mlflow_tracking_password := (index $secret.data "MLFLOW_TRACKING_PASSWORD" | default "") | b64dec }}
+{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) -}}
+{{- $uri                      := $secretData.uri                      | default "" | b64dec }}
+{{- $mlflow_tracking_username := $secretData.MLFLOW_TRACKING_USERNAME | default "" | b64dec }}
+{{- $mlflow_tracking_password := $secretData.MLFLOW_TRACKING_PASSWORD | default "" | b64dec }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -196,11 +196,11 @@ metadata:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
 {{- if $uri }}
-  MLFLOW_TRACKING_URI: {{ printf "%s" $uri }}
+  MLFLOW_TRACKING_URI: {{ $uri | quote }}
 {{- end }}
 {{- if and $mlflow_tracking_username $mlflow_tracking_password }}
-  MLFLOW_TRACKING_USERNAME: {{ printf "%s" $mlflow_tracking_username }}
-  MLFLOW_TRACKING_PASSWORD: {{ printf "%s" $mlflow_tracking_password }}
+  MLFLOW_TRACKING_USERNAME: {{ $mlflow_tracking_username | quote }}
+  MLFLOW_TRACKING_PASSWORD: {{ $mlflow_tracking_password | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -210,51 +210,51 @@ stringData:
 {{- define "library-chart.coreSite" -}}
 {{ printf "<?xml version=\"1.0\"?>" }}
 {{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }}
-{{ printf "<configuration>"}}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.connection.ssl.enabled</name>" | indent 4}}
-{{ printf "<value>true</value>" | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.endpoint</name>" | indent 4}}
-{{ printf "<value>%s</value>" .Values.s3.endpoint | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.path.style.access</name>" | indent 4}}
-{{ printf "<value>true</value>" | indent 4}}
-{{ printf "</property>"}}
+{{ printf "<configuration>" }}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.connection.ssl.enabled</name>" | indent 4 }}
+{{ printf "<value>true</value>" | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.endpoint</name>" | indent 4 }}
+{{ printf "<value>%s</value>" .Values.s3.endpoint | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.path.style.access</name>" | indent 4 }}
+{{ printf "<value>true</value>" | indent 4 }}
+{{ printf "</property>" }}
 {{- if .Values.s3.sessionToken }}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4}}
-{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4}}
-{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.session.token</name>" | indent 4}}
-{{ printf "<value>%s</value>" .Values.s3.sessionToken | indent 4}}
-{{ printf "</property>"}}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4 }}
+{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4 }}
+{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.session.token</name>" | indent 4 }}
+{{ printf "<value>%s</value>" .Values.s3.sessionToken | indent 4 }}
+{{ printf "</property>" }}
 {{- else }}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4}}
-{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4}}
-{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4}}
-{{ printf "</property>"}}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4 }}
+{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4 }}
+{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4 }}
+{{ printf "</property>" }}
 {{- end }}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.access.key</name>" | indent 4}}
-{{ printf "<value>%s</value>" .Values.s3.accessKeyId | indent 4}}
-{{ printf "</property>"}}
-{{ printf "<property>"}}
-{{ printf "<name>fs.s3a.secret.key</name>" | indent 4}}
-{{ printf "<value>%s</value>" .Values.s3.secretAccessKey | indent 4}}
-{{ printf "</property>"}}
-{{ printf "</configuration>"}}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.access.key</name>" | indent 4 }}
+{{ printf "<value>%s</value>" .Values.s3.accessKeyId | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "<property>" }}
+{{ printf "<name>fs.s3a.secret.key</name>" | indent 4 }}
+{{ printf "<value>%s</value>" .Values.s3.secretAccessKey | indent 4 }}
+{{ printf "</property>" }}
+{{ printf "</configuration>" }}
 {{- end }}
 
 {{/* Create the name of the secret Coresite to use */}}
@@ -282,26 +282,10 @@ stringData:
 {{- end }}
 {{- end }}
 
-
-{{/* Secret for Hive Metastore */}}
-{{- define "hiveMetastore.secret" -}}
-{{- printf "<?xml version=\"1.0\"?>\n" }}
-{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n" }}
-{{- printf "<configuration>\n"}}
-{{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") }}
-{{- $service := (index $secret.data "hive-service" | default "") | b64dec  }}
-{{- printf "<property>\n"}}
-{{- printf "<name>hive.metastore.uris</name>\n" | indent 4}}
-{{- printf "<value>thrift://%s:9083</value>\n" $service | indent 4}}
-{{- printf "</property>\n"}}
-{{- end -}}
-{{- printf "</configuration>"}}
-{{- end }}
-
 {{/* Create the name of the secret Hive to use */}}
 {{- define "library-chart.secretNameHive" -}}
 {{- if .Values.discovery.hive }}
-{{- $name:= (printf "%s-secrethive" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secrethive" (include "library-chart.fullname" .) }}
 {{- default $name .Values.hive.secretName }}
 {{- else }}
 {{- default "default" .Values.hive.secretName }}
@@ -319,11 +303,18 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   hive-site.xml: |
-    {{- include "hiveMetastore.secret" . | nindent 17 }}
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+    {{- range $secretData := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") | fromJsonArray }}
+      <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://{{ index $secretData "hive-service" | default "" | b64dec }}:9083</value>
+      </property>
+    {{- end }}
+    </configuration>
 {{- end }}
 {{- end }}
-
-
 
 {{/* Secret for Ivy Settings (custom maven repository for Spark) */}}
 {{- define "library-chart.ivySettings" -}}
@@ -353,53 +344,46 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   ivysettings.xml: |
-  {{- include "library-chart.ivySettings" . | nindent 19 }}
+    {{- include "library-chart.ivySettings" . | nindent 19 }}
 {{- end }}
 {{- end }}
 
 
 {{/* Create the name of the secret Metaflow to use */}}
 {{- define "library-chart.secretNameMetaflow" -}}
-{{- $name:= (printf "%s-secretmetaflow" (include "library-chart.fullname" .)) }}
+{{- $name := printf "%s-secretmetaflow" (include "library-chart.fullname" .) }}
 {{- default $name .Values.metaflow.configMapName }}
 {{- end }}
 
-{{/* Secret for config.json for Metaflow */}}
-{{- define "library-chart.metaflow" -}}
-{{- $namespace:= .Release.Namespace -}}
-{{- printf "{" }}
-{{- printf "\"METAFLOW_DEFAULT_METADATA\": \"service\"," | indent 2 }}
-{{- printf "\"METAFLOW_KUBERNETES_SERVICE_ACCOUNT\": \"default\"," | indent 2 }}
-{{- printf "\"METAFLOW_S3_ENDPOINT_URL\": \"https://%s\"," (ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion ) .Values.s3.endpoint (eq .Values.s3.endpoint "s3.amazonaws.com") ) | indent 2 }}
-{{- if .Values.discovery.metaflow -}}
-{{- range $secret := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "metaflow") }}
-{{- $host := (index $secret.data "host" | default "") | b64dec  -}}
-{{- $s3Bucket := (index $secret.data "s3Bucket" | default "") | b64dec -}}
-{{- $s3Secret := (index $secret.data "s3Secret" | default "") | b64dec -}}
-{{- printf "\"METAFLOW_KUBERNETES_NAMESPACE\": \"%s\"," $namespace | indent 2 }}
-{{- printf "\"METAFLOW_SERVICE_URL\": \"%s\"," $host | indent 2 }}
-{{- printf "\"METAFLOW_KUBERNETES_SECRETS\": \"%s\"," $s3Secret | indent 2 }}
-{{- printf "\"METAFLOW_DATASTORE_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
-{{- printf "\"METAFLOW_DATATOOLS_SYSROOT_S3\": \"%s\"," $s3Bucket | indent 2 }}
-{{- end }}
-{{- end }}
-{{- printf "\"METAFLOW_DEFAULT_DATASTORE\": \"s3\"" | indent 2 }}
-{{- printf "}" }}
-{{- end }}
-
-
 {{/* Template to generate a Secret for Metaflow */}}
 {{- define "library-chart.secretMetaflow" -}}
-{{- $context:= . -}}
+{{- $namespace := .Release.Namespace -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameMetaflow" $context }}
+  name: {{ include "library-chart.secretNameMetaflow" . }}
   labels:
-    {{- include "library-chart.labels" $context | nindent 4 }}
+    {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   config.json: |
-  {{- include "library-chart.metaflow" . | nindent 15}}
+    {
+      "METAFLOW_DEFAULT_METADATA": "service",
+      "METAFLOW_KUBERNETES_SERVICE_ACCOUNT": "default",
+      "METAFLOW_S3_ENDPOINT_URL": "https://{{ eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint }}",
+{{- if .Values.discovery.metaflow }}
+{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "metaflow") | fromJsonArray) }}
+{{- $host     := $secretData.host     | default "" | b64dec }}
+{{- $s3Bucket := $secretData.s3Bucket | default "" | b64dec }}
+{{- $s3Secret := $secretData.s3Secret | default "" | b64dec }}
+      "METAFLOW_KUBERNETES_NAMESPACE": {{ $namespace | quote }},
+      "METAFLOW_SERVICE_URL": {{ $host | quote }},
+      "METAFLOW_KUBERNETES_SECRETS": {{ $s3Secret | quote }},
+      "METAFLOW_DATASTORE_SYSROOT_S3": {{ $s3Bucket | quote }},
+      "METAFLOW_DATATOOLS_SYSROOT_S3": {{ $s3Bucket | quote }},
+{{- end }}
+{{- end }}
+      "METAFLOW_DEFAULT_DATASTORE": "s3"
+    }
 {{- end }}
 
 {{/* Secret for SparkConf Metastore */}}
@@ -425,19 +409,19 @@ Flag to disable certificate checking for Spark
 {{- end }}
 
 {{- define "library-chart.sparkConf" -}}
-{{- $context:= .}}
-{{- range $key, $value := default dict .Values.spark.config }}
-{{- printf "%s %s\n" $key  (tpl $value  $context)}}
+{{- $context := . }}
+{{- range $key, $value := (.Values.spark).config | default dict }}
+{{- printf "%s %s\n" $key (tpl $value $context) }}
 {{- end }}
-{{- range $key, $value := default dict .Values.spark.userConfig }}
-{{- printf "%s %s\n" $key  (tpl $value  $context)}}
+{{- range $key, $value := (.Values.spark).userConfig | default dict }}
+{{- printf "%s %s\n" $key (tpl $value $context) }}
 {{- end }}
 {{- end }}
 
 {{/* Create the name of the secret Spark Conf to use */}}
 {{- define "library-chart.secretNameSparkConf" -}}
 {{- if .Values.spark.default -}}
-{{- $name:= (printf "%s-secretsparkconf" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretsparkconf" (include "library-chart.fullname" .) }}
 {{- default $name .Values.spark.secretName }}
 {{- else }}
 {{- default "default" .Values.spark.secretName }}
@@ -456,9 +440,9 @@ metadata:
 stringData:
   spark-defaults.conf: |
     {{- include "library-chart.sparkConf" . | nindent 4 }}
-    {{- if .Values.repository -}}
-    {{- if .Values.repository.mavenRepository -}}
-    {{ printf "spark.jars.ivySettings /opt/spark/conf/ivysettings.xml" }}
+    {{- if .Values.repository }}
+    {{- if .Values.repository.mavenRepository }}
+    spark.jars.ivySettings /opt/spark/conf/ivysettings.xml
     {{- end }}
     {{- end }}
 {{- end }}
@@ -468,7 +452,7 @@ stringData:
 {{/* Name of the CA certificates secret */}}
 {{- define "library-chart.secretNameCacerts" -}}
 {{- if .Values.certificates }}
-{{- $name:= (printf "%s-secretcacerts" (include "library-chart.fullname" .) )  }}
+{{- $name := printf "%s-secretcacerts" (include "library-chart.fullname" .) }}
 {{- default $name .Values.certificates.secretName }}
 {{- else }}
 {{- default "default" .Values.certificates.secretName }}
