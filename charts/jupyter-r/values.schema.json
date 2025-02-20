@@ -411,6 +411,30 @@
             "value": false,
             "path": "s3/enabled"
           }
+        },
+        "pathStyleAccess": {
+          "description": "S3 path style acces",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.pathStyleAccess}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "workingDirectoryPath": {
+          "description": "S3 working directory Path ",
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.workingDirectoryPath}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
         }
       }
     },

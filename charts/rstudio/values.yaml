@@ -47,6 +47,8 @@ s3:
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
+  pathStyleAcces: false
+  workingDirectoryPath: ""
 
 vault:
   # Specifies whether a config map should be created
