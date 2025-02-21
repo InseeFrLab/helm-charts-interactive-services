@@ -21,12 +21,12 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 type: Opaque
 stringData:
-  AWS_ACCESS_KEY_ID: "{{ .Values.s3.accessKeyId }}"
-  AWS_S3_ENDPOINT: "{{ .Values.s3.endpoint }}"
-  S3_ENDPOINT: "https://{{ .Values.s3.endpoint }}/"
-  AWS_DEFAULT_REGION: "{{ .Values.s3.defaultRegion }}"
-  AWS_SECRET_ACCESS_KEY: "{{ .Values.s3.secretAccessKey }}"
-  AWS_SESSION_TOKEN: "{{ .Values.s3.sessionToken }}"
+  AWS_ACCESS_KEY_ID: {{ .Values.s3.accessKeyId | quote }}
+  AWS_S3_ENDPOINT: {{ .Values.s3.endpoint | quote }}
+  S3_ENDPOINT: {{ printf "https://%s/" .Values.s3.endpoint | quote }}
+  AWS_DEFAULT_REGION: {{ .Values.s3.defaultRegion | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretAccessKey | quote }}
+  AWS_SESSION_TOKEN: {{ .Values.s3.sessionToken | quote }}
 {{- end }}
 {{- end }}
 
@@ -206,57 +206,6 @@ stringData:
 {{- end }}
 {{- end }}
 
-{{/* Secret for CoreSite.xml Metastore */}}
-{{- define "library-chart.coreSite" -}}
-{{ printf "<?xml version=\"1.0\"?>" }}
-{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>" }}
-{{ printf "<configuration>" }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.connection.ssl.enabled</name>" | indent 4 }}
-{{ printf "<value>true</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.endpoint</name>" | indent 4 }}
-{{ printf "<value>%s</value>" .Values.s3.endpoint | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.path.style.access</name>" | indent 4 }}
-{{ printf "<value>true</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{- if .Values.s3.sessionToken }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4 }}
-{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4 }}
-{{ printf "<value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.session.token</name>" | indent 4 }}
-{{ printf "<value>%s</value>" .Values.s3.sessionToken | indent 4 }}
-{{ printf "</property>" }}
-{{- else }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.aws.credentials.provider</name>" | indent 4 }}
-{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>trino.s3.credentials-provider</name>" | indent 4 }}
-{{ printf "<value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>" | indent 4 }}
-{{ printf "</property>" }}
-{{- end }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.access.key</name>" | indent 4 }}
-{{ printf "<value>%s</value>" .Values.s3.accessKeyId | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "<property>" }}
-{{ printf "<name>fs.s3a.secret.key</name>" | indent 4 }}
-{{ printf "<value>%s</value>" .Values.s3.secretAccessKey | indent 4 }}
-{{ printf "</property>" }}
-{{ printf "</configuration>" }}
-{{- end }}
-
 {{/* Create the name of the secret Coresite to use */}}
 {{- define "library-chart.secretNameCoreSite" -}}
 {{- if .Values.s3.enabled -}}
@@ -278,7 +227,53 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   core-site.xml: |
-    {{- include "library-chart.coreSite" . | nindent 17 }}
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+    <property>
+        <name>fs.s3a.connection.ssl.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>{{ .Values.s3.endpoint }}</value>
+    </property>
+    <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+    </property>
+{{- if .Values.s3.sessionToken }}
+    <property>
+        <name>fs.s3a.aws.credentials.provider</name>
+        <value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>
+    </property>
+    <property>
+        <name>trino.s3.credentials-provider</name>
+        <value>org.apache.hadoop.fs.s3a.TemporaryAWSCredentialsProvider</value>
+    </property>
+    <property>
+        <name>fs.s3a.session.token</name>
+        <value>{{ .Values.s3.sessionToken }}</value>
+    </property>
+{{- else }}
+    <property>
+        <name>fs.s3a.aws.credentials.provider</name>
+        <value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>
+    </property>
+    <property>
+        <name>trino.s3.credentials-provider</name>
+        <value>org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider</value>
+    </property>
+{{- end }}
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>{{ .Values.s3.accessKeyId }}</value>
+    </property>
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>{{ .Values.s3.secretAccessKey }}</value>
+    </property>
+    </configuration>
 {{- end }}
 {{- end }}
 
@@ -316,16 +311,6 @@ stringData:
 {{- end }}
 {{- end }}
 
-{{/* Secret for Ivy Settings (custom maven repository for Spark) */}}
-{{- define "library-chart.ivySettings" -}}
-{{ printf "<ivysettings>" }}
-{{ printf "<settings defaultResolver=\"custom_maven_repository\"/>" | indent 4 }}
-{{ printf "<resolvers>" | indent 4 }}
-{{ printf "<ibiblio name=\"custom_maven_repository\" m2compatible=\"true\" root=\"%s\"/>"  .Values.repository.mavenRepository | indent 8 }}
-{{ printf "</resolvers>" | indent 4 }}
-{{ printf "</ivysettings>" }}
-{{- end -}}
-
 {{/* Create the name of the secret Ivy Settings to use */}}
 {{- define "library-chart.secretNameIvySettings" -}}
 {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
@@ -344,10 +329,14 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   ivysettings.xml: |
-    {{- include "library-chart.ivySettings" . | nindent 19 }}
+    <ivysettings>
+        <settings defaultResolver="custom_maven_repository"/>
+        <resolvers>
+            <ibiblio name="custom_maven_repository" m2compatible="true" root={{ .Values.repository.mavenRepository | quote }}/>
+        </resolvers>
+    </ivysettings>
 {{- end }}
 {{- end }}
-
 
 {{/* Create the name of the secret Metaflow to use */}}
 {{- define "library-chart.secretNameMetaflow" -}}
