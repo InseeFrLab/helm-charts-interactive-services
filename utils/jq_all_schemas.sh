@@ -1,6 +1,13 @@
 #!/bin/bash
 
 # Applies the provided jq command to all 6 values.schema.json file and update them all in place
+# Examples:
+# # To set, or create, a field:
+# /utils/jq_all_schemas.sh '.properties.extraEnvVars.title = "Environment variables available within your service"'
+# # To delete a field (does nothing if field does not exist):
+# /utils/jq_all_schemas.sh 'del(.properties.extraEnvVars)'
+# # To create a new field in first position (does not set the value if the field already exists but does move it in first position)
+# /utils/jq_all_schemas.sh '.properties.extraEnvVars = ({"title": "Environment variables available within your service"} + .properties.extraEnvVars)'
 
 # Ensure correct usage
 if [ "$#" -ne 1 ]; then

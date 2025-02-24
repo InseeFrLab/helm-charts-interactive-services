@@ -3,16 +3,16 @@
   "type": "object",
   "properties": {
     "service": {
-      "description": "Service specific configuration",
+      "title": "Service",
       "type": "object",
       "properties": {
         "image": {
-          "description": "image docker",
+          "title": "Docker image",
           "type": "object",
           "properties": {
             "pullPolicy": {
+              "title": "Pull image from registry",
               "type": "string",
-              "description": "option when pulling the docker image",
               "default": "IfNotPresent",
               "enum": [
                 "IfNotPresent",
@@ -21,7 +21,7 @@
               ]
             },
             "version": {
-              "description": "vscode supported version",
+              "title": "Name of the service's Docker image",
               "type": "string",
               "default": "inseefrlab/onyxia-vscode-python:py3.12.7",
               "listEnum": [
@@ -35,20 +35,19 @@
               }
             },
             "custom": {
-              "description": "use a custom vscode docker image",
+              "title": "Custom image",
               "type": "object",
               "properties": {
                 "enabled": {
-                  "title": "custom image",
+                  "title": "Use a custom image instead",
                   "type": "boolean",
-                  "description": "use a custom vscode docker images",
                   "default": false,
                   "x-onyxia": {
                     "overwriteSchemaWith": "ide/customImage.json"
                   }
                 },
                 "version": {
-                  "description": "vscode unsupported version",
+                  "title": "Name of the custom image",
                   "type": "string",
                   "default": "inseefrlab/onyxia-vscode-python:py3.12.7",
                   "hidden": {
@@ -61,9 +60,8 @@
           }
         },
         "customPythonEnv": {
-          "title": "custom python environment",
+          "title": "Use a custom Python environment",
           "type": "boolean",
-          "description": "Use a custom python environment",
           "default": false
         }
       }
@@ -162,21 +160,19 @@
       }
     },
     "persistence": {
-      "description": "Configuration for persistence",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/persistence.json"
       },
       "properties": {
         "enabled": {
+          "title": "Create a persistent volume",
           "type": "boolean",
-          "description": "Create a persistent volume",
           "default": true
         },
         "size": {
-          "type": "string",
           "title": "Persistent volume size",
-          "description": "Size of the persistent volume",
+          "type": "string",
           "default": "10Gi",
           "form": true,
           "render": "slider",
@@ -196,7 +192,7 @@
       }
     },
     "init": {
-      "description": "Init parameters",
+      "title": "Initialization script",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/init.json"
@@ -221,19 +217,19 @@
           }
         },
         "personalInit": {
+          "title": "User initialization script",
           "type": "string",
-          "description": "user initialization script",
           "default": ""
         },
         "personalInitArgs": {
+          "title": "Arguments for user init script",
           "type": "string",
-          "description": "args for user initialization script",
           "default": ""
         }
       }
     },
     "extraEnvVars": {
-      "description": "environment variables available within your service",
+      "title": "Environment variables available within your service",
       "type": "array",
       "default": [],
       "x-onyxia": {
@@ -241,11 +237,12 @@
         "overwriteSchemaWith": "ide/extraenv.json"
       },
       "items": {
+        "title": "",
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "default": "",
+            "default": "VAR_NAME",
             "pattern": "^[a-zA-Z0-9_]+$"
           },
           "value": {
@@ -256,20 +253,21 @@
       }
     },
     "kubernetes": {
-      "description": "configuration of your kubernetes access",
+      "title": "Kubernetes permissions",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/role.json"
       },
       "properties": {
         "enabled": {
+          "title": "Allow your service to access Kubernetes resources",
+          "description": "access will be restricted to your own namespace",
           "type": "boolean",
-          "description": "allow your service to access your namespace ressources",
           "default": true
         },
         "role": {
+          "title": "Kubernetes role",
           "type": "string",
-          "description": "bind your service account to this kubernetes default role",
           "default": "view",
           "hidden": {
             "value": false,
@@ -312,19 +310,19 @@
       }
     },
     "vault": {
-      "description": "Configuration of vault client",
+      "title": "Vault access",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/vault.json"
       },
       "properties": {
         "enabled": {
+          "title": "Enable Vault access from within the service",
           "type": "boolean",
-          "description": "Add vault temporary identity inside your environment",
           "default": true
         },
         "token": {
-          "description": "token vault",
+          "title": "Vault token",
           "type": "string",
           "render": "password",
           "x-onyxia": {
@@ -336,7 +334,7 @@
           }
         },
         "url": {
-          "description": "url of vault server",
+          "title": "Vault server URL",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
@@ -347,7 +345,7 @@
           }
         },
         "mount": {
-          "description": "mount of the v2 secret engine",
+          "title": "Secret engine",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
@@ -358,7 +356,7 @@
           }
         },
         "directory": {
-          "description": "top level directory",
+          "title": "Top-level directory",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
@@ -369,7 +367,8 @@
           }
         },
         "secret": {
-          "description": "the path of the secret to convert into a list of environment variables",
+          "title": "Path to the secret to load",
+          "description": "The secret will be converted into a list of environment variables",
           "type": "string",
           "default": "",
           "hidden": {
@@ -380,19 +379,19 @@
       }
     },
     "s3": {
-      "description": "Configuration of temporary identity",
+      "title": "S3 object storage",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/s3.json"
       },
       "properties": {
         "enabled": {
+          "title": "Enable S3 access from within the service",
           "type": "boolean",
-          "description": "Add S3 temporary identity inside your environment",
           "default": true
         },
         "accessKeyId": {
-          "description": "AWS Access Key",
+          "title": "Access Key ID",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "s3.AWS_ACCESS_KEY_ID"
@@ -403,7 +402,7 @@
           }
         },
         "endpoint": {
-          "description": "AWS S3 Endpoint",
+          "title": "S3 endpoint URL",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
@@ -414,7 +413,7 @@
           }
         },
         "defaultRegion": {
-          "description": "AWS S3 default region",
+          "title": "Default region",
           "type": "string",
           "x-onyxia": {
             "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
@@ -425,7 +424,7 @@
           }
         },
         "secretAccessKey": {
-          "description": "AWS S3 secret access key",
+          "title": "Secret Access Key",
           "type": "string",
           "render": "password",
           "x-onyxia": {
@@ -437,7 +436,7 @@
           }
         },
         "sessionToken": {
-          "description": "AWS S3 session Token",
+          "title": "Session token",
           "type": "string",
           "render": "password",
           "x-onyxia": {
@@ -451,20 +450,20 @@
       }
     },
     "git": {
-      "description": "Git user configuration",
+      "title": "Git access",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/git.json"
       },
       "properties": {
         "enabled": {
+          "title": "Enable git access from within the service",
           "type": "boolean",
-          "description": "Add git config inside your environment",
           "default": true
         },
         "name": {
+          "title": "User name",
           "type": "string",
-          "description": "user name for git",
           "default": "",
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.name}}"
@@ -475,8 +474,8 @@
           }
         },
         "email": {
+          "title": "User email",
           "type": "string",
-          "description": "user email for git",
           "default": "",
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.email}}"
@@ -487,8 +486,9 @@
           }
         },
         "cache": {
+          "title": "Credentials caching duration",
+          "description": "(in seconds)",
           "type": "string",
-          "description": "duration in seconds of the credentials cache duration",
           "default": "",
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
@@ -499,8 +499,8 @@
           }
         },
         "token": {
+          "title": "Personal Access Token",
           "type": "string",
-          "description": "personal access token",
           "default": "",
           "render": "password",
           "x-onyxia": {
@@ -512,8 +512,9 @@
           }
         },
         "repository": {
+          "title": "Project repository",
+          "description": "cloned in service",
           "type": "string",
-          "description": "projet",
           "default": "",
           "x-onyxia": {
             "overwriteDefaultWith": "{{git.project}}"
@@ -524,8 +525,8 @@
           }
         },
         "branch": {
+          "title": "Specific branch to use",
           "type": "string",
-          "description": "Branch automatically checked out",
           "default": "",
           "hidden": {
             "value": "",
@@ -535,26 +536,24 @@
       }
     },
     "networking": {
+      "title": "Network access",
       "type": "object",
       "form": true,
-      "title": "Networking detail",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/networking.json"
       },
       "properties": {
         "user": {
+          "title": "Ports",
           "type": "object",
-          "description": "user defined port",
           "properties": {
             "enabled": {
+              "title": "Enable access to your service through specific ports",
               "type": "boolean",
-              "title": "Enable a custom service port",
-              "description": "Enable a custom service port",
               "default": false
             },
             "port": {
-              "title": "Custom service port",
-              "description": "Port number of a single custom service to expose",
+              "title": "Port number to expose",
               "type": "integer",
               "hidden": {
                 "value": false,
@@ -563,8 +562,7 @@
               "default": 5000
             },
             "ports": {
-              "title": "Custom service ports",
-              "description": "Port numbers of custom services to expose",
+              "title": "Port numbers to expose",
               "type": "array",
               "items": {
                 "type": "integer",
@@ -581,36 +579,33 @@
       }
     },
     "discovery": {
-      "description": "configure your service to autodetect some ressources.",
+      "title": "Third party services discovery",
       "type": "object",
       "properties": {
         "hive": {
+          "title": "Discover Hive Metastore services",
           "type": "boolean",
-          "title": "Enable hive metastore discovery",
-          "description": "discover your hive metastore service",
           "default": true
         },
         "mlflow": {
+          "title": "Discover MLflow services",
           "type": "boolean",
-          "title": "Enable mlflow discovery",
-          "description": "discover your mlflow service",
           "default": true
         },
         "metaflow": {
+          "title": "Discover Metaflow services",
           "type": "boolean",
-          "title": "Enable metaflow discovery",
-          "description": "discover your metaflow service",
           "default": true
         }
       }
     },
     "security": {
-      "description": "security specific configuration",
+      "title": "Security",
       "type": "object",
       "properties": {
         "password": {
+          "title": "Service password",
           "type": "string",
-          "description": "Password",
           "default": "changeme",
           "render": "password",
           "x-onyxia": {
@@ -619,16 +614,15 @@
           }
         },
         "networkPolicy": {
+          "title": "Network access policy",
           "type": "object",
-          "description": "Define access policy to the service",
           "x-onyxia": {
             "overwriteSchemaWith": "network-policy.json"
           },
           "properties": {
             "enabled": {
+              "title": "Only allow access from the same namespace",
               "type": "boolean",
-              "title": "Enable network policy",
-              "description": "Only pod from the same namespace will be allowed",
               "default": false,
               "x-onyxia": {
                 "overwriteDefaultWith": "region.defaultNetworkPolicy"
@@ -797,11 +791,26 @@
       "description": "Startup probe",
       "type": "object",
       "properties": {
-        "failureThreshold": { "type": "integer" },
-        "initialDelaySeconds": { "type": "integer" },
-        "periodSeconds": { "type": "integer" },
-        "successThreshold": { "type": "integer" },
-        "timeoutSeconds": { "type": "integer" }
+        "failureThreshold": {
+          "type": "integer",
+          "default": 60
+        },
+        "initialDelaySeconds": {
+          "type": "integer",
+          "default": 10
+        },
+        "periodSeconds": {
+          "type": "integer",
+          "default": 10
+        },
+        "successThreshold": {
+          "type": "integer",
+          "default": 1
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "default": 2
+        }
       },
       "default": {
         "failureThreshold": 60,
