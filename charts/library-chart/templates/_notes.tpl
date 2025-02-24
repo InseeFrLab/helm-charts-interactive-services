@@ -142,7 +142,7 @@ If you access these URL without starting the corresponding services you will get
 Votre répertoire de travail `/home/{{ .Values.environment.user }}/work`
 sera **immédiatement effacé** à la suppression de votre service {{ $serviceName }}.
 Assurez-vous de sauvegarder toutes vos ressources de travail sur des supports persistants :
-- Votre code peux être stocké dans une forge logicielle telle que git.
+- Votre code peut être archivé dans une forge logicielle telle que Github ou Gitlab.
 - Vos données et modèles peuvent être stockés dans un système de stockage objet tel que S3.
 
 Il est possible d'associer un script d'initialisation à votre service pour mettre en place un environnement de travail sur mesure
@@ -153,7 +153,7 @@ Il est possible d'associer un script d'initialisation à votre service pour mett
 Your work directory `/home/{{ .Values.environment.user }}/work`
 will be **immediately deleted** upon the termination of your {{ $serviceName }} service.
 Make sure to save all your work resources on persistent storage:
-- Your code can be stored in a version control system such as git.
+- Your code can be versioned with Git and pushed to Github or Gitlab servers for persistence.
 - Your data and models can be stored in an object storage system such as S3.
 
 It is possible to associate an initialization script with your service to set up a customized working environment

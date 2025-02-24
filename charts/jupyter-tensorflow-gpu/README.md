@@ -1,6 +1,6 @@
 # jupyter-tensorflow-gpu
 
-![Version: 2.1.24](https://img.shields.io/badge/Version-2.1.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.1.26](https://img.shields.io/badge/Version-2.1.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.42 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.44 |
 
 ## Values
 

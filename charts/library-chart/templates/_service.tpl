@@ -2,6 +2,7 @@
 
 {{/* Template to generate a Service */}}
 {{- define "library-chart.service" -}}
+{{- if or .Values.autoscaling.enabled (not (.Values.global).suspend) }}
 {{- $userPorts := list -}}
 {{- if and .Values.networking.user .Values.networking.user.enabled (or .Values.networking.user.ports .Values.networking.user.port) -}}
 {{- $userPorts = .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
@@ -40,4 +41,5 @@ spec:
     {{- end }}
   selector:
     {{- include "library-chart.selectorLabels" . | nindent 4 }}
+{{- end -}}
 {{- end }}
