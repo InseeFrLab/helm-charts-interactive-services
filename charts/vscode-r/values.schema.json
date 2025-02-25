@@ -615,7 +615,7 @@
           "render": "password",
           "x-onyxia": {
             "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password"
+            "overwriteSchemaWith": "ide/password.json"
           }
         },
         "networkPolicy": {
