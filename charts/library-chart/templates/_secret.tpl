@@ -178,8 +178,12 @@ stringData:
 
 {{/* Create the name of the secret MLFlow to use */}}
 {{- define "library-chart.secretNameMLFlow" -}}
+{{- if .Values.discovery.mlflow }}
 {{- $name := printf "%s-secretmlflow" (include "library-chart.fullname" .) }}
-{{- default $name .Values.mlflow.secretName }}
+{{- default $name (.Values.mlflow).secretName }}
+{{- else }}
+{{- default "default" (.Values.mlflow).secretName }}
+{{- end }}
 {{- end }}
 
 {{/* Secret for MLFlow */}}
@@ -208,13 +212,59 @@ stringData:
 {{- end }}
 {{- end }}
 
+{{/* Name of the ChromaDB secret used in services */}}
+{{- define "library-chart.secretNameChromaDB" -}}
+{{- if .Values.discovery.chromadb }}
+{{- $name := printf "%s-secretchromadb" (include "library-chart.fullname" .) }}
+{{- default $name (.Values.chromadb).secretName }}
+{{- else }}
+{{- default "default" (.Values.chromadb).secretName }}
+{{- end }}
+{{- end }}
+
+{{/* Secret for ChromaDB */}}
+{{- define "library-chart.secretChromaDB" }}
+{{- $context := . }}
+{{- $namespace := .Release.Namespace }}
+{{- if .Values.discovery.chromadb }}
+{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "chromadb") | fromJsonArray) -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameChromaDB" $context }}
+  labels:
+    {{- include "library-chart.labels" $context | nindent 4 }}
+stringData:
+  CHROMA_SERVER_HOST: {{ $secretData.CHROMA_SERVER_HOST | default "" | b64dec | quote }}
+  CHROMA_SERVER_HTTP_PORT: {{ $secretData.CHROMA_SERVER_HTTP_PORT | default "" | b64dec | quote }}
+  {{- with $secretData.CHROMA_CLIENT_AUTH_PROVIDER }}
+  CHROMA_CLIENT_AUTH_PROVIDER: {{ b64dec . | quote }}
+  {{- end }}
+  {{- with $secretData.CHROMA_AUTH_SECRET }}
+  {{- with lookup "v1" "Secret" $namespace (b64dec .) }}
+  {{- with .data }}
+  {{- if .header }}
+  CHROMA_AUTH_TOKEN_TRANSPORT_HEADER: {{ b64dec .header | quote }}
+  {{- end }}
+  {{- if .token }}
+  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ b64dec .token | quote }}
+  {{- else if and .username .password }}
+  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ printf "%s:%s" (b64dec .username) (b64dec .password) | quote }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
 {{/* Create the name of the secret Coresite to use */}}
 {{- define "library-chart.secretNameCoreSite" -}}
 {{- if .Values.s3.enabled -}}
 {{- $name := printf "%s-secretcoresite" (include "library-chart.fullname" .) }}
-{{- default $name .Values.coresite.secretName }}
+{{- default $name (.Values.coresite).secretName }}
 {{- else }}
-{{- default "default" .Values.coresite.secretName }}
+{{- default "default" (.Values.coresite).secretName }}
 {{- end }}
 {{- end }}
 
@@ -283,11 +333,11 @@ stringData:
 {{- define "library-chart.secretNameHive" -}}
 {{- if .Values.discovery.hive }}
 {{- $name := printf "%s-secrethive" (include "library-chart.fullname" .) }}
-{{- default $name .Values.hive.secretName }}
+{{- default $name (.Values.hive).secretName }}
 {{- else }}
-{{- default "default" .Values.hive.secretName }}
+{{- default "default" (.Values.hive).secretName }}
 {{- end }}
-{{- end }}
+{{- end -}}
 
 {{/* Template to generate a Secret for Hive */}}
 {{- define "library-chart.secretHive" -}}
@@ -311,7 +361,7 @@ stringData:
     {{- end }}
     </configuration>
 {{- end }}
-{{- end }}
+{{- end -}}
 
 {{/* Create the name of the secret Ivy Settings to use */}}
 {{- define "library-chart.secretNameIvySettings" -}}
@@ -342,8 +392,12 @@ stringData:
 
 {{/* Create the name of the secret Metaflow to use */}}
 {{- define "library-chart.secretNameMetaflow" -}}
+{{- if .Values.discovery.metaflow }}
 {{- $name := printf "%s-secretmetaflow" (include "library-chart.fullname" .) }}
-{{- default $name .Values.metaflow.configMapName }}
+{{- default $name (.Values.metaflow).secretName }}
+{{- else }}
+{{- default "default" (.Values.metaflow).secretName }}
+{{- end }}
 {{- end }}
 
 {{/* Template to generate a Secret for Metaflow */}}
@@ -413,9 +467,9 @@ Flag to disable certificate checking for Spark
 {{- define "library-chart.secretNameSparkConf" -}}
 {{- if .Values.spark.default -}}
 {{- $name := printf "%s-secretsparkconf" (include "library-chart.fullname" .) }}
-{{- default $name .Values.spark.secretName }}
+{{- default $name (.Values.spark).secretName }}
 {{- else }}
-{{- default "default" .Values.spark.secretName }}
+{{- default "default" (.Values.spark).secretName }}
 {{- end }}
 {{- end }}
 
