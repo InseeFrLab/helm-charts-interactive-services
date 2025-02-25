@@ -12,6 +12,7 @@ on:
 
 jobs:
   release:
+    if: github.repository == 'InseeFrLab/helm-charts-interactive-services'
     # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
     # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
     permissions:
