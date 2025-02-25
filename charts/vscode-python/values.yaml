@@ -11,6 +11,8 @@ service:
       version: "inseefrlab/onyxia-vscode-python:py3.12.7"
   customPythonEnv: false
 
+newvalue: toto
+
 security:
   password: "changeme"
   networkPolicy:
