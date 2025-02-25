@@ -613,7 +613,7 @@
           "render": "password",
           "x-onyxia": {
             "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password"
+            "overwriteSchemaWith": "ide/password.json"
           }
         },
         "networkPolicy": {
@@ -853,11 +853,21 @@
       "description": "Startup probe",
       "type": "object",
       "properties": {
-        "failureThreshold": { "type": "integer" },
-        "initialDelaySeconds": { "type": "integer" },
-        "periodSeconds": { "type": "integer" },
-        "successThreshold": { "type": "integer" },
-        "timeoutSeconds": { "type": "integer" }
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "successThreshold": {
+          "type": "integer"
+        },
+        "timeoutSeconds": {
+          "type": "integer"
+        }
       },
       "default": {
         "failureThreshold": 60,
