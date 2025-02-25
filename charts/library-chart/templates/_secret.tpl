@@ -27,6 +27,8 @@ stringData:
   AWS_DEFAULT_REGION: {{ .Values.s3.defaultRegion | quote }}
   AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretAccessKey | quote }}
   AWS_SESSION_TOKEN: {{ .Values.s3.sessionToken | quote }}
+  AWS_PATH_STYLE_ACCES: "{{ .Values.s3.pathStyleAcces }}"
+  AWS_WORKING_DIRECTORY_PATH: "{{ .Values.s3.workingDirectoryPath }}"
 {{- end }}
 {{- end }}
 
