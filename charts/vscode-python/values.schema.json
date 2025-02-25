@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "service": {
-      "description": "Service specific configuration",
+      "description": "Test de PR",
       "type": "object",
       "properties": {
         "image": {
