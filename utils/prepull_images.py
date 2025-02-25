@@ -297,7 +297,7 @@ if __name__ == "__main__":
         try:
             logging.info('FIRST BATCH : CPU IMAGES')
             prepull_images(namespace=NAMESPACE, image_type="cpu")
-            time.sleep(3660) # To avoid exceeding the Docker pull limit 
+            time.sleep(3660) # To avoid exceeding the Docker pull limit
             logging.info('SECOND BATCH : GPU IMAGES')
             prepull_images(namespace=NAMESPACE, image_type="gpu")
             logging.info('PRE-PULL PROCESS DONE')
