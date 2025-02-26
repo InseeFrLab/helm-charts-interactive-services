@@ -47,7 +47,7 @@ s3:
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
-  pathStyleAcces: false
+  pathStyleAccess: false
   workingDirectoryPath: ""
 
 vault:
