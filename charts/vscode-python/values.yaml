@@ -35,44 +35,23 @@ init:
 extraEnvVars: []
 
 s3:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
+  # Specifies whether S3 credentials should be made available
+  enabled: false
+  # The name of the secret storing the S3 credentials
   # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  secretName: ""
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
 
-discovery:
-  hive: true
-  mlflow: true
-  metaflow: true
-  chromadb: true
-
-hive:
-  configMapName: ""
-
-mlflow:
-  configMapName: ""
-
-coresite:
-  configMapName: ""
-
-metaflow:
-  configMapName: ""
-
-chromadb:
-  secretName: ""
-
 vault:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
+  # Specifies whether Vault credentials should be made available
+  enabled: false
+  # The name of the secret storing the Vault credentials
   # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  secretName: ""
   token: ""
   url: ""
   mount: ""
@@ -80,11 +59,11 @@ vault:
   directory: ""
 
 git:
-  # Specifies whether a config map should be created
+  # Specifies whether git credentials should be made available
   enabled: true
-  # The name of the configmap to use.
+  # The name of the secret storing the git credentials
   # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  secretName: ""
   name: ""
   email: ""
   cache: ""
@@ -94,6 +73,29 @@ repository:
   configMapName: ""
   pipRepository: ""
   condaRepository: ""
+
+# active ou non la recherche de secrets discovery dans le namespace
+# see secret-{service}.yaml
+discovery:
+  hive: true
+  mlflow: true
+  metaflow: true
+  chromadb: true
+
+hive:
+  secretName: ""
+
+mlflow:
+  secretName: ""
+
+metaflow:
+  secretName: ""
+
+chromadb:
+  secretName: ""
+
+coresite:
+  secretName: ""
 
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
