@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.1.23](https://img.shields.io/badge/Version-2.1.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.46 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.1 |
 
 ## Values
 
@@ -90,8 +90,10 @@ The RStudio IDE with a collection of standard data science packages.
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `true` |  |
 | s3.endpoint | string | `""` |  |
+| s3.pathStyleAcces | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
+| s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
 | security.allowlist.ip | string | `"0.0.0.0/0"` |  |
 | security.networkPolicy.enabled | bool | `false` |  |
