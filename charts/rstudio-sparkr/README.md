@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -97,7 +97,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `true` |  |
 | s3.endpoint | string | `""` |  |
-| s3.pathStyleAcces | bool | `false` |  |
+| s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
 | s3.workingDirectoryPath | string | `""` |  |

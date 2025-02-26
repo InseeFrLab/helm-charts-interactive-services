@@ -1,10 +1,10 @@
-# rstudio
+# vscode-tensorflow-gpu
 
 ![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The RStudio IDE with a collection of standard data science packages.
+The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
-**Homepage:** <https://www.rstudio.com/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
@@ -26,6 +26,11 @@ The RStudio IDE with a collection of standard data science packages.
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| certificates | object | `{}` |  |
+| coresite.configMapName | string | `""` |  |
+| discovery.hive | bool | `true` |  |
+| discovery.metaflow | bool | `true` |  |
+| discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
@@ -36,14 +41,14 @@ The RStudio IDE with a collection of standard data science packages.
 | git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
-| git.repository | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
+| hive.configMapName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
@@ -51,20 +56,24 @@ The RStudio IDE with a collection of standard data science packages.
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
 | kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
+| metaflow.configMapName | string | `""` |  |
+| mlflow.configMapName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
@@ -75,9 +84,9 @@ The RStudio IDE with a collection of standard data science packages.
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.packageManagerUrl | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -100,10 +109,11 @@ The RStudio IDE with a collection of standard data science packages.
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
+| service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.4.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.7-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.4.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.12.7-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
