@@ -2,7 +2,7 @@
 
 {{/* Create the name of the secret S3 to use */}}
 {{- define "library-chart.secretNameS3" -}}
-{{- if .Values.s3.enabled }}
+{{- if (.Values.s3).enabled }}
 {{- $name := printf "%s-secrets3" (include "library-chart.fullname" .) }}
 {{- default $name .Values.s3.secretName }}
 {{- else }}
@@ -12,7 +12,7 @@
 
 {{/* Template to generate a secret for S3 */}}
 {{- define "library-chart.secretS3" -}}
-{{- if .Values.s3.enabled -}}
+{{- if (.Values.s3).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -66,7 +66,7 @@ stringData:
 
 {{/* Create the name of the secret Vault to use */}}
 {{- define "library-chart.secretNameVault" -}}
-{{- if .Values.vault.enabled }}
+{{- if (.Values.vault).enabled }}
 {{- $name := printf "%s-secretvault" (include "library-chart.fullname" .) }}
 {{- default $name .Values.vault.secretName }}
 {{- else }}
@@ -76,7 +76,7 @@ stringData:
 
 {{/* Template to generate a secret for Vault */}}
 {{- define "library-chart.secretVault" -}}
-{{- if .Values.vault.enabled -}}
+{{- if (.Values.vault).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -94,7 +94,7 @@ stringData:
 
 {{/* Create the name of the secret Git to use */}}
 {{- define "library-chart.secretNameGit" -}}
-{{- if .Values.git.enabled }}
+{{- if (.Values.git).enabled }}
 {{- $name := printf "%s-secretgit" (include "library-chart.fullname" .) }}
 {{- default $name .Values.git.secretName }}
 {{- else }}
@@ -104,7 +104,7 @@ stringData:
 
 {{/* Template to generate a secret for git */}}
 {{- define "library-chart.secretGit" -}}
-{{- if .Values.git.enabled -}}
+{{- if (.Values.git).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -178,7 +178,7 @@ stringData:
 
 {{/* Create the name of the secret MLFlow to use */}}
 {{- define "library-chart.secretNameMLFlow" -}}
-{{- if .Values.discovery.mlflow }}
+{{- if (.Values.discovery).mlflow }}
 {{- $name := printf "%s-secretmlflow" (include "library-chart.fullname" .) }}
 {{- default $name (.Values.mlflow).secretName }}
 {{- else }}
@@ -188,8 +188,7 @@ stringData:
 
 {{/* Secret for MLFlow */}}
 {{- define "library-chart.secretMLFlow" }}
-{{- $context := . }}
-{{- if .Values.discovery.mlflow }}
+{{- if (.Values.discovery).mlflow }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) -}}
 {{- $uri                      := $secretData.uri                      | default "" | b64dec }}
 {{- $mlflow_tracking_username := $secretData.MLFLOW_TRACKING_USERNAME | default "" | b64dec }}
@@ -197,9 +196,9 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameMLFlow" $context }}
+  name: {{ include "library-chart.secretNameMLFlow" . }}
   labels:
-    {{- include "library-chart.labels" $context | nindent 4 }}
+    {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
 {{- if $uri }}
   MLFLOW_TRACKING_URI: {{ $uri | quote }}
@@ -214,7 +213,7 @@ stringData:
 
 {{/* Name of the ChromaDB secret used in services */}}
 {{- define "library-chart.secretNameChromaDB" -}}
-{{- if .Values.discovery.chromadb }}
+{{- if (.Values.discovery).chromadb }}
 {{- $name := printf "%s-secretchromadb" (include "library-chart.fullname" .) }}
 {{- default $name (.Values.chromadb).secretName }}
 {{- else }}
@@ -224,16 +223,15 @@ stringData:
 
 {{/* Secret for ChromaDB */}}
 {{- define "library-chart.secretChromaDB" }}
-{{- $context := . }}
 {{- $namespace := .Release.Namespace }}
-{{- if .Values.discovery.chromadb }}
+{{- if (.Values.discovery).chromadb }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "chromadb") | fromJsonArray) -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameChromaDB" $context }}
+  name: {{ include "library-chart.secretNameChromaDB" . }}
   labels:
-    {{- include "library-chart.labels" $context | nindent 4 }}
+    {{- include "library-chart.labels" . | nindent 4 }}
 stringData:
   CHROMA_SERVER_HOST: {{ $secretData.CHROMA_SERVER_HOST | default "" | b64dec | quote }}
   CHROMA_SERVER_HTTP_PORT: {{ $secretData.CHROMA_SERVER_HTTP_PORT | default "" | b64dec | quote }}
@@ -454,18 +452,17 @@ Flag to disable certificate checking for Spark
 {{- end }}
 
 {{- define "library-chart.sparkConf" -}}
-{{- $context := . }}
 {{- range $key, $value := (.Values.spark).config | default dict }}
-{{- printf "%s %s\n" $key (tpl $value $context) }}
+{{- printf "%s %s\n" $key (tpl $value .) }}
 {{- end }}
 {{- range $key, $value := (.Values.spark).userConfig | default dict }}
-{{- printf "%s %s\n" $key (tpl $value $context) }}
+{{- printf "%s %s\n" $key (tpl $value .) }}
 {{- end }}
 {{- end }}
 
 {{/* Create the name of the secret Spark Conf to use */}}
 {{- define "library-chart.secretNameSparkConf" -}}
-{{- if .Values.spark.default -}}
+{{- if (.Values.spark).default -}}
 {{- $name := printf "%s-secretsparkconf" (include "library-chart.fullname" .) }}
 {{- default $name (.Values.spark).secretName }}
 {{- else }}
@@ -475,7 +472,7 @@ Flag to disable certificate checking for Spark
 
 {{/* Template to generate a Secret for SparkConf */}}
 {{- define "library-chart.secretSparkConf" -}}
-{{- if .Values.spark.default -}}
+{{- if (.Values.spark).default -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -506,7 +503,7 @@ stringData:
 
 {{/* Template to generate a secret for CA certificates */}}
 {{- define "library-chart.secretCacerts" -}}
-{{- if and .Values.certificates .Values.certificates.cacerts }}
+{{- if (.Values.certificates).cacerts }}
 apiVersion: v1
 kind: Secret
 metadata:
