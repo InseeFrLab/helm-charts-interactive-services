@@ -31,6 +31,8 @@ s3:
   defaultRegion: ''
   secretAccessKey: ''
   sessionToken: ''
+  pathStyleAccess: false
+  workingDirectoryPath: ''
 discovery:
   hive: true
   mlflow: true

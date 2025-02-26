@@ -32,6 +32,8 @@ s3:
   defaultRegion: ''
   secretAccessKey: ''
   sessionToken: ''
+  pathStyleAccess: false
+  workingDirectoryPath: ''
 vault:
   enabled: true
   configMapName: ''

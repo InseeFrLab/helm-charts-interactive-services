@@ -45,6 +45,8 @@ s3:
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
+  pathStyleAccess: false
+  workingDirectoryPath: ""
 
 vault:
   # Specifies whether Vault credentials should be made available

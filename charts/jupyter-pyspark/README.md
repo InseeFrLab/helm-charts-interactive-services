@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 2.1.29](https://img.shields.io/badge/Version-2.1.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.46 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.1 |
 
 ## Values
 
@@ -100,8 +100,10 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
+| s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
+| s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
 | security.allowlist.ip | string | `"0.0.0.0/0"` |  |
 | security.networkPolicy.enabled | bool | `false` |  |
