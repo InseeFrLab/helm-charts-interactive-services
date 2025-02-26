@@ -38,8 +38,7 @@ s3:
   # Specifies whether S3 credentials should be made available
   enabled: false
   # The name of the secret storing the S3 credentials
-  # If not set and create is true, a name is generated using the fullname template
-  secretName: ""
+  secretName: "" # Generated based on the service's name if empty or not set
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
@@ -52,8 +51,7 @@ vault:
   # Specifies whether Vault credentials should be made available
   enabled: false
   # The name of the secret storing the Vault credentials
-  # If not set and create is true, a name is generated using the fullname template
-  secretName: ""
+  secretName: "" # Generated based on the service's name if empty or not set
   token: ""
   url: ""
   mount: ""
@@ -64,8 +62,7 @@ git:
   # Specifies whether git credentials should be made available
   enabled: true
   # The name of the secret storing the git credentials
-  # If not set and create is true, a name is generated using the fullname template
-  secretName: ""
+  secretName: "" # Generated based on the service's name if empty or not set
   name: ""
   email: ""
   cache: ""
