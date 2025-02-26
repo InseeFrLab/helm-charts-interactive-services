@@ -50,6 +50,7 @@ discovery:
   hive: true
   mlflow: true
   metaflow: true
+  chromadb: true
 
 hive:
   configMapName: ""
@@ -62,6 +63,9 @@ coresite:
 
 metaflow:
   configMapName: ""
+
+chromadb:
+  secretName: ""
 
 vault:
   # Specifies whether a config map should be created

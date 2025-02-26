@@ -23,14 +23,17 @@ spec:
         {{- if .Values.git.enabled }}
         checksum/git: {{ include (print $.Template.BasePath "/secret-git.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
+        {{- if not (empty (trim (include "library-chart.secretHive" .))) }}
         checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretMetaflow" .)))}}
+        {{- if not (empty (trim (include "library-chart.secretMetaflow" .))) }}
         checksum/metaflow: {{ include (print $.Template.BasePath "/secret-metaflow.yaml") . | sha256sum }}
         {{- end }}
-        {{- if and .Values.discovery.mlflow (not (empty (trim (include "library-chart.secretMLFlow" .)))) }}
+        {{- if not (empty (trim (include "library-chart.secretMLFlow" .))) }}
         checksum/mlflow: {{ include (print $.Template.BasePath "/secret-mlflow.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretChromaDB" .))) }}
+        checksum/chromadb: {{ include (print $.Template.BasePath "/secret-chromadb.yaml") . | sha256sum }}
         {{- end }}
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
@@ -200,13 +203,17 @@ spec:
             - secretRef:
                 name: {{ include "library-chart.secretNameGit" . }}
             {{- end }}
-            {{- if (include "library-chart.repository.enabled"  .) }}
+            {{- if (include "library-chart.repository.enabled" .) }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
             {{- end }}
-            {{- if not (empty (trim (include "library-chart.secretMLFlow" .)))}}
+            {{- if not (empty (trim (include "library-chart.secretMLFlow" .))) }}
             - secretRef:
                 name: {{ include "library-chart.secretNameMLFlow" . }}
+            {{- end }}
+            {{- if not (empty (trim (include "library-chart.secretChromaDB" .))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameChromaDB" . }}
             {{- end }}
             {{- if .Values.extraEnvVars }}
             - secretRef:
