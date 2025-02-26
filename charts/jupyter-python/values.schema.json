@@ -435,7 +435,7 @@
             "value": false,
             "path": "s3/enabled"
           }
-        }    
+        }
       }
     },
     "git": {
