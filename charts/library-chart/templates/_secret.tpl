@@ -188,6 +188,7 @@ stringData:
 
 {{/* Secret for MLFlow */}}
 {{- define "library-chart.secretMLFlow" }}
+{{- $context := . }}
 {{- if (.Values.discovery).mlflow }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) -}}
 {{- $uri                      := $secretData.uri                      | default "" | b64dec }}
@@ -196,9 +197,9 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameMLFlow" . }}
+  name: {{ include "library-chart.secretNameMLFlow" $context }}
   labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
+    {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
 {{- if $uri }}
   MLFLOW_TRACKING_URI: {{ $uri | quote }}
@@ -223,15 +224,16 @@ stringData:
 
 {{/* Secret for ChromaDB */}}
 {{- define "library-chart.secretChromaDB" }}
+{{- $context := . }}
 {{- $namespace := .Release.Namespace }}
 {{- if (.Values.discovery).chromadb }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "chromadb") | fromJsonArray) -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameChromaDB" . }}
+  name: {{ include "library-chart.secretNameChromaDB" $context }}
   labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
+    {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
   CHROMA_SERVER_HOST: {{ $secretData.CHROMA_SERVER_HOST | default "" | b64dec | quote }}
   CHROMA_SERVER_HTTP_PORT: {{ $secretData.CHROMA_SERVER_HTTP_PORT | default "" | b64dec | quote }}
@@ -452,11 +454,12 @@ Flag to disable certificate checking for Spark
 {{- end }}
 
 {{- define "library-chart.sparkConf" -}}
+{{- $context := . }}
 {{- range $key, $value := (.Values.spark).config | default dict }}
-{{- printf "%s %s\n" $key (tpl $value .) }}
+{{- printf "%s %s\n" $key (tpl $value $context) }}
 {{- end }}
 {{- range $key, $value := (.Values.spark).userConfig | default dict }}
-{{- printf "%s %s\n" $key (tpl $value .) }}
+{{- printf "%s %s\n" $key (tpl $value $context) }}
 {{- end }}
 {{- end }}
 
