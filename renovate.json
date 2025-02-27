@@ -5,6 +5,7 @@
   "prHourlyLimit": 40,
   "prConcurrentLimit": 100,
   "helmv3": {
-    "enabled": true
+    "enabled": true,
+    "fileMatch": ["^charts/(library-chart|jupyter-python|jupyter-pyspark|rstudio|rstudio-sparkr|vscode-python|vscode-pyspark)/Chart\\.ya?ml$"]
   }
 }
