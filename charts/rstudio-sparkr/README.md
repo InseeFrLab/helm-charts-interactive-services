@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.2](https://img.shields.io/badge/Version-2.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.1 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.4 |
 
 ## Values
 
@@ -27,7 +27,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| coresite.configMapName | string | `""` |  |
+| coresite.secretName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.root | bool | `true` |  |
@@ -36,14 +36,14 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
+| git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
-| hive.configMapName | string | `""` |  |
+| hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -93,12 +93,12 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
 | s3.accessKeyId | string | `""` |  |
-| s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
-| s3.enabled | bool | `true` |  |
+| s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
 | s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
+| s3.secretName | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
 | s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
@@ -141,11 +141,11 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
-| vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
-| vault.enabled | bool | `true` |  |
+| vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
+| vault.secretName | string | `""` |  |
 | vault.token | string | `""` |  |
 | vault.url | string | `""` |  |
 
