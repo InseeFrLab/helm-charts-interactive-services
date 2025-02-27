@@ -37,11 +37,10 @@ environment:
   group: users
 
 s3:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether S3 credentials should be made available
+  enabled: false
+  # The name of the secret storing the S3 credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
@@ -51,11 +50,10 @@ s3:
   workingDirectoryPath: ""
 
 vault:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether Vault credentials should be made available
+  enabled: false
+  # The name of the secret storing the Vault credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   token: ""
   url: ""
   mount: ""
@@ -63,11 +61,10 @@ vault:
   directory: ""
 
 git:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether git credentials should be made available
+  enabled: false
+  # The name of the secret storing the git credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   name: ""
   email: ""
   cache: ""
@@ -75,8 +72,11 @@ git:
   repository: ""
   branch: ""
 
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+repository:
+  configMapName: ""
+  packageManagerUrl: ""
+  rRepository: ""
+
 replicaCount: 1
 
 imagePullSecrets: []
@@ -197,11 +197,6 @@ startupProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 2
-
-repository:
-  configMapName: ""
-  packageManagerUrl: ""
-  rRepository: ""
 
 userPreferences:
   darkMode: false

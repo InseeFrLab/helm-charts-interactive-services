@@ -20,28 +20,28 @@ spec:
   template:
     metadata:
       annotations:
-        {{- if .Values.git.enabled }}
+        {{- if (.Values.git).enabled }}
         checksum/git: {{ include (print $.Template.BasePath "/secret-git.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretHive" .)))}}
-        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretIvySettings" .)))}}
-        checksum/ivysettings: {{ include (print $.Template.BasePath "/secret-ivysettings.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.s3.enabled }}
+        {{- if (.Values.s3).enabled }}
         checksum/s3: {{ include (print $.Template.BasePath "/secret-s3.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not (empty (trim (include "library-chart.secretSparkConf" .)))}}
-        checksum/sparkconf: {{ include (print $.Template.BasePath "/secret-sparkconf.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.vault.enabled }}
+        {{- if (.Values.vault).enabled }}
         checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretHive" .))) }}
+        checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretIvySettings" .))) }}
+        checksum/ivysettings: {{ include (print $.Template.BasePath "/secret-ivysettings.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretSparkConf" .))) }}
+        checksum/sparkconf: {{ include (print $.Template.BasePath "/secret-sparkconf.yaml") . | sha256sum }}
         {{- end }}
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
-        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        {{- if (.Values.certificates).cacerts }}
         checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
@@ -64,7 +64,7 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 10Gi
-        {{- if .Values.s3.enabled }}
+        {{- if (.Values.s3).enabled }}
         - name: secret-coresite
           secret:
             secretName: {{ include "library-chart.secretNameCoreSite" . }}
@@ -74,22 +74,22 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameProxy" . }}
         {{- end }}
-        {{- if .Values.spark.default }}
+        {{- if (.Values.spark).default }}
         - name: secret-sparkconf
           secret:
             secretName: {{ include "library-chart.secretNameSparkConf" . }}
         {{- end }}
-        {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
+        {{- if and (.Values.spark).default (.Values.repository).mavenRepository }}
         - name: secret-ivysettings
           secret:
             secretName: {{ include "library-chart.secretNameIvySettings" . }}
         {{- end }}
-        {{- if .Values.discovery.hive }}
+        {{- if (.Values.discovery).hive }}
         - name: secret-hive
           secret:
             secretName: {{ include "library-chart.secretNameHive" . }}
         {{- end }}
-        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        {{- if (.Values.certificates).cacerts }}
         - name: cacerts
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
@@ -218,17 +218,17 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
-            {{- if .Values.s3.enabled }}
+            {{- if (.Values.git).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameGit" . }}
+            {{- end }}
+            {{- if (.Values.s3).enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
             {{- end }}
-            {{- if .Values.vault.enabled }}
+            {{- if (.Values.vault).enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameVault" . }}
-            {{- end }}
-            {{- if .Values.git.enabled }}
-            - secretRef:
-                name: {{ include "library-chart.secretNameGit" . }}
             {{- end }}
             {{- if (.Values.proxy).enabled }}
             - secretRef:
