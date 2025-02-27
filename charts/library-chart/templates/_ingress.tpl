@@ -15,13 +15,13 @@ Usage:
 
 {{/* Ingress annotations */}}
 {{- define "library-chart.ingress.annotations" -}}
-{{- with .Values.ingress.annotations }}
-    {{- toYaml . }}
+{{- with (.Values.ingress).annotations }}
+{{- toYaml . }}
 {{- end }}
-{{- if .Values.security.allowlist.enabled }}
+{{- if ((.Values.security).allowlist).enabled }}
 nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlist.ip }}
 {{- end }}
-{{- if .Values.ingress.useCertManager }}
+{{- if (.Values.ingress).useCertManager }}
 cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer }}
 acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }}
 {{- end }}
@@ -29,16 +29,16 @@ acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }
 
 {{/* Ingress hostname */}}
 {{- define "library-chart.ingress.hostname" -}}
-{{- if .Values.ingress.generate }}
-{{- printf "%s" .Values.ingress.userHostname }}
+{{- if (.Values.ingress).generate }}
+{{- .Values.ingress.userHostname }}
 {{- else }}
-{{- printf "%s" .Values.ingress.hostname }}
+{{- .Values.ingress.hostname }}
 {{- end }}
 {{- end }}
 
 {{/* Template to generate a standard Ingress */}}
 {{- define "library-chart.ingress" -}}
-{{- if .Values.ingress.enabled -}}
+{{- if (.Values.ingress).enabled -}}
 {{- if or (.Values.autoscaling).enabled (not (.Values.global).suspend) }}
 {{- $fullName := include "library-chart.fullname" . -}}
 {{- $svcPort := .Values.networking.service.port -}}
@@ -79,9 +79,9 @@ spec:
 
 {{/* Template to generate a custom Ingress */}}
 {{- define "library-chart.ingressUser" -}}
-{{- if .Values.ingress.enabled -}}
+{{- if (.Values.ingress).enabled -}}
 {{- if or (.Values.autoscaling).enabled (not (.Values.global).suspend) }}
-{{- if and .Values.networking.user .Values.networking.user.enabled -}}
+{{- if ((.Values.networking).user).enabled -}}
 {{- $userPorts := list -}}
 {{- if or .Values.networking.user.ports .Values.networking.user.port -}}
 {{- $userPorts = .Values.networking.user.ports | default (list .Values.networking.user.port) -}}
@@ -141,8 +141,7 @@ spec:
 
 {{/* Template to generate an Ingress for the Spark UI */}}
 {{- define "library-chart.ingressSpark" -}}
-{{- if .Values.ingress.enabled -}}
-{{- if .Values.spark.sparkui -}}
+{{- if and (.Values.ingress).enabled (.Values.spark).sparkui -}}
 {{- $fullName := include "library-chart.fullname" . -}}
 {{- $svcPort := .Values.networking.sparkui.port -}}
 apiVersion: networking.k8s.io/v1
@@ -176,6 +175,5 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-{{- end }}
 {{- end }}
 {{- end }}

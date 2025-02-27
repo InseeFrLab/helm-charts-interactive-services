@@ -2,7 +2,7 @@
 
 {{/* Template to generate a NetworkPolicy */}}
 {{- define "library-chart.networkPolicy" -}}
-{{- if .Values.security.networkPolicy.enabled -}}
+{{- if ((.Values.security).networkPolicy).enabled -}}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -21,8 +21,7 @@ spec:
 
 {{/* Template to generate a NetworkPolicy for an Ingress */}}
 {{- define "library-chart.networkPolicyIngress" -}}
-{{- if .Values.security.networkPolicy.enabled -}}
-{{- if .Values.ingress.enabled -}}
+{{- if and ((.Values.security).networkPolicy).enabled (.Values.ingress).enabled -}}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -38,6 +37,5 @@ spec:
   {{- end }}
   policyTypes:
   - Ingress
-{{- end }}
 {{- end }}
 {{- end }}

@@ -2,7 +2,7 @@
 
 {{/* Template to generate a PVC */}}
 {{- define "library-chart.persistentVolumeClaim" -}}
-{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+{{- if and (.Values.persistence).enabled (not .Values.persistence.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
