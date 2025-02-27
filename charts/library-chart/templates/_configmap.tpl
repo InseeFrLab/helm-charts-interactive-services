@@ -8,9 +8,9 @@
 {{- define "library-chart.configMapNameRepository" -}}
 {{- if (include "library-chart.repository.enabled" .) }}
 {{- $name := printf "%s-configmaprepository" (include "library-chart.fullname" .) }}
-{{- default $name .Values.repository.configMapName }}
+{{- default $name (.Values.repository).configMapName }}
 {{- else }}
-{{- default "default" .Values.repository.configMapName }}
+{{- default "default" (.Values.repository).configMapName }}
 {{- end }}
 {{- end -}}
 
