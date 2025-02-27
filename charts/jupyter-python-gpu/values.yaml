@@ -27,7 +27,7 @@ environment:
   group: users
 s3:
   enabled: false
-  configMapName: ''
+  secretName: ''
   accessKeyId: ''
   endpoint: ''
   defaultRegion: ''
@@ -37,7 +37,7 @@ s3:
   workingDirectoryPath: ''
 vault:
   enabled: false
-  configMapName: ''
+  secretName: ''
   token: ''
   url: ''
   mount: ''
@@ -45,7 +45,7 @@ vault:
   directory: ''
 git:
   enabled: false
-  configMapName: ''
+  secretName: ''
   name: ''
   email: ''
   cache: ''
@@ -60,14 +60,17 @@ discovery:
   hive: true
   mlflow: true
   metaflow: true
+  chromadb: true
 hive:
-  configMapName: ''
+  secretName: ''
 mlflow:
-  configMapName: ''
-coresite:
-  configMapName: ''
+  secretName: ''
 metaflow:
-  configMapName: ''
+  secretName: ''
+chromadb:
+  secretName: ''
+coresite:
+  secretName: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''

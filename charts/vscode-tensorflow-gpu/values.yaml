@@ -24,8 +24,8 @@ init:
   personalInitArgs: ''
 extraEnvVars: []
 s3:
-  enabled: true
-  configMapName: ''
+  enabled: false
+  secretName: ''
   accessKeyId: ''
   endpoint: ''
   defaultRegion: ''
@@ -33,21 +33,9 @@ s3:
   sessionToken: ''
   pathStyleAccess: false
   workingDirectoryPath: ''
-discovery:
-  hive: true
-  mlflow: true
-  metaflow: true
-hive:
-  configMapName: ''
-mlflow:
-  configMapName: ''
-coresite:
-  configMapName: ''
-metaflow:
-  configMapName: ''
 vault:
-  enabled: true
-  configMapName: ''
+  enabled: false
+  secretName: ''
   token: ''
   url: ''
   mount: ''
@@ -55,7 +43,7 @@ vault:
   directory: ''
 git:
   enabled: true
-  configMapName: ''
+  secretName: ''
   name: ''
   email: ''
   cache: ''
@@ -64,6 +52,21 @@ repository:
   configMapName: ''
   pipRepository: ''
   condaRepository: ''
+discovery:
+  hive: true
+  mlflow: true
+  metaflow: true
+  chromadb: true
+hive:
+  secretName: ''
+mlflow:
+  secretName: ''
+metaflow:
+  secretName: ''
+chromadb:
+  secretName: ''
+coresite:
+  secretName: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''
