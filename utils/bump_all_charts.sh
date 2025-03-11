@@ -8,7 +8,7 @@ for CHART_NAME in $(ls "$CHART_DIR"); do
         if [[ -z "$(git diff $CHART_DIR/$CHART_NAME/Chart.yaml | grep +version)" ]]; then
             OLD_VERSION=$(grep '^version:' $CHART_DIR/$CHART_NAME/Chart.yaml | awk '{print $2}' | cut -d. -f3)
             NEW_VERSION=$(($OLD_VERSION+1))
-            echo "Upgrading $CHART_NAME from version $OLD_VERSION to $NEW_VERSION"
+            echo "Upgrading $CHART_NAME from minor version $OLD_VERSION to $NEW_VERSION"
             sed -i -E 's/^(version: [0-9]+\.[0-9]+\.)[0-9]+/\1'$NEW_VERSION'/' $CHART_DIR/$CHART_NAME/Chart.yaml
         fi
     fi
