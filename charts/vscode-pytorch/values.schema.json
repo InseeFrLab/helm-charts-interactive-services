@@ -689,9 +689,12 @@
       }
     },
     "ingress": {
+      "title": "Ingress Details",
       "type": "object",
       "form": true,
-      "title": "Ingress Details",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/ingress.json"
+      },
       "properties": {
         "enabled": {
           "description": "Enable Ingress",
