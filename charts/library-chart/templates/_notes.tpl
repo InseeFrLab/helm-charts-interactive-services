@@ -10,6 +10,15 @@
 {{- end -}}
 
 
+{{- define "library-chart.notes-access-title" -}}
+{{- if eq .Values.userPreferences.language "fr" }}
+### Accès au service
+{{ else }}
+### Service access
+{{ end -}}
+{{- end -}}
+
+
 {{/*
   Generate NOTES about connection to the service.
 
@@ -137,7 +146,7 @@ If you access these URL without starting the corresponding services you will get
 {{- with .context -}}
 {{- if not (and (.Values.persistence).enabled .Values.persistence.existingClaim) -}}
 {{- if eq .Values.userPreferences.language "fr" }}
-**REMARQUES concernant la suppression :**
+### Sauvegarde
 
 Votre répertoire de travail `/home/{{ .Values.environment.user }}/work`
 sera **immédiatement effacé** à la suppression de votre service {{ $serviceName }}.
@@ -148,7 +157,7 @@ Assurez-vous de sauvegarder toutes vos ressources de travail sur des supports pe
 Il est possible d'associer un script d'initialisation à votre service pour mettre en place un environnement de travail sur mesure
 (télécharger vos ressources, installer les bibliothèques et outils dont vous avez besoin, configurer votre service, etc.)
 {{ else }}
-**NOTES about deletion:**
+### Save
 
 Your work directory `/home/{{ .Values.environment.user }}/work`
 will be **immediately deleted** upon the termination of your {{ $serviceName }} service.
@@ -164,6 +173,46 @@ It is possible to associate an initialization script with your service to set up
 {{- end -}}
 
 {{/*
+  Generate NOTES about service deletion.
+
+  Usage:
+    {{ include "library-chart.notes-deletion" (dict "serviceName" "Visual Studio Code" "context" $) }}
+
+  Params:
+    - serviceName - String - Optional. The human readable name of the service.
+    - context - Dict - Required. The context for the template evaluation.
+*/}}
+{{- define "library-chart.notes-discovery" -}}
+{{- if eq .Values.userPreferences.language "fr" }}
+### Connexion à des services tiers
+{{ else }}
+### Connection to third-party services
+{{ end -}}
+
+{{- with (include "library-chart.mlflow-discovery-help" .) }}
+<details>
+  <summary>Mlflow</summary>
+{{ . }}
+</details>
+{{ end -}}
+
+{{- with (include "library-chart.metaflow-discovery-help" .) }}
+<details>
+  <summary>Metaflow</summary>
+{{ . }}
+</details>
+{{ end -}}
+
+{{- with (include "library-chart.hive-discovery-help" .) }}
+<details>
+  <summary>Hive Metastore</summary>
+{{ . }}
+</details>
+{{ end -}}
+{{ end -}}
+
+
+{{/*
   Prints out all NOTES.
 
   Usage:
@@ -175,8 +224,13 @@ It is possible to associate an initialization script with your service to set up
 */}}
 {{- define "library-chart.notes" -}}
 {{- template "library-chart.general-message" .context -}}
+
+{{- template "library-chart.notes-access-title" .context -}}
 {{- template "library-chart.notes-connection" . -}}
 {{- template "library-chart.notes-sparkui" .context -}}
 {{- template "library-chart.notes-custom-ports" .context -}}
+
 {{- template "library-chart.notes-deletion" . -}}
+
+{{- template "library-chart.notes-discovery" .context -}}
 {{- end -}}
