@@ -644,7 +644,7 @@
       "type": "object",
       "form": true,
       "x-onyxia": {
-        "overwriteSchemaWith": "ide/ingress.json"
+        "overwriteSchemaWith": "ide/ingress-spark.json"
       },
       "properties": {
         "enabled": {
