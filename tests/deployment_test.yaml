@@ -28,11 +28,11 @@ tests:
     set:
       service:
         image:
-          version: "inseefrlab/onyxia-jupyter-python:py3.11.6"
+          version: "inseefrlab/onyxia-jupyter-python:py3.12.9"
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: "inseefrlab/onyxia-jupyter-python:py3.11.6"
+          value: "inseefrlab/onyxia-jupyter-python:py3.12.9"
         template: statefulset.yaml
 
   - it: should render right if s3 enabled
