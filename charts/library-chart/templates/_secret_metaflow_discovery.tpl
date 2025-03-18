@@ -8,6 +8,7 @@
 {{- end }}
 {{- end }}
 
+
 {{/* Template to generate a Secret for Metaflow */}}
 {{- define "library-chart.secretMetaflow" -}}
 {{- $namespace := .Release.Namespace -}}

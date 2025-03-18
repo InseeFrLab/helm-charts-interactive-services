@@ -8,6 +8,7 @@
 {{- end }}
 {{- end -}}
 
+
 {{/* Template to generate a Secret for Hive */}}
 {{- define "library-chart.secretHive" -}}
 {{- if (.Values.discovery).hive -}}
@@ -44,6 +45,7 @@ A Spark session can be configured to use Hive:
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.enableHiveSupport().getOrCreate()
 ```
+To learn more about using Hive tables with Spark, read [the full documentation](https://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html).
 {{- else }}
 You may install the `hive-metastore-client`
 and configure the connection to the Hive Metastore using environment variables.
@@ -58,10 +60,12 @@ import os
 from hive_metastore_client.builders import DatabaseBuilder
 from hive_metastore_client import HiveMetastoreClient
 
-database = DatabaseBuilder(name='new_db').build()
 with HiveMetastoreClient(os.getenv('HIVE_URI'), os.getenv('HIVE_PORT')) as hive_metastore_client:
+    database = DatabaseBuilder(name='new_db').build()
     hive_metastore_client.create_database(database)
+    ...
 ```
+To learn more about using Hive tables with `hive-metastore-client`, read [their documentation](https://hive-metastore-client.readthedocs.io/en/latest/).
 {{- end }}
 {{- else }}
 There is no well-supported Hive Metastore client for R yet.
