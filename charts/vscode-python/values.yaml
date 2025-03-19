@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-vscode-python:py3.12.7"
+    version: "inseefrlab/onyxia-vscode-python:py3.12.9"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-python:py3.12.7"
+      version: "inseefrlab/onyxia-vscode-python:py3.12.9"
   customPythonEnv: false
 
 security:

@@ -1,6 +1,6 @@
 # jupyter-python-gpu
 
-![Version: 2.2.3](https://img.shields.io/badge/Version-2.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.4](https://img.shields.io/badge/Version-2.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -115,9 +115,9 @@ The JupyterLab IDE with Python, Julia, and a collection of standard data science
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.9-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.7-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.9-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
