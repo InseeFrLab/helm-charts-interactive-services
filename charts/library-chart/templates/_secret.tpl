@@ -176,42 +176,6 @@ stringData:
 {{- toJson $discoverySecrets -}}
 {{- end -}}
 
-{{/* Create the name of the secret MLFlow to use */}}
-{{- define "library-chart.secretNameMLFlow" -}}
-{{- if (.Values.discovery).mlflow }}
-{{- $name := printf "%s-secretmlflow" (include "library-chart.fullname" .) }}
-{{- default $name (.Values.mlflow).secretName }}
-{{- else }}
-{{- default "default" (.Values.mlflow).secretName }}
-{{- end }}
-{{- end }}
-
-{{/* Secret for MLFlow */}}
-{{- define "library-chart.secretMLFlow" }}
-{{- $context := . }}
-{{- if (.Values.discovery).mlflow }}
-{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) -}}
-{{- $uri                      := $secretData.uri                      | default "" | b64dec }}
-{{- $mlflow_tracking_username := $secretData.MLFLOW_TRACKING_USERNAME | default "" | b64dec }}
-{{- $mlflow_tracking_password := $secretData.MLFLOW_TRACKING_PASSWORD | default "" | b64dec }}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameMLFlow" $context }}
-  labels:
-    {{- include "library-chart.labels" $context | nindent 4 }}
-stringData:
-{{- if $uri }}
-  MLFLOW_TRACKING_URI: {{ $uri | quote }}
-{{- end }}
-{{- if and $mlflow_tracking_username $mlflow_tracking_password }}
-  MLFLOW_TRACKING_USERNAME: {{ $mlflow_tracking_username | quote }}
-  MLFLOW_TRACKING_PASSWORD: {{ $mlflow_tracking_password | quote }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-
 {{/* Name of the ChromaDB secret used in services */}}
 {{- define "library-chart.secretNameChromaDB" -}}
 {{- if (.Values.discovery).chromadb }}
@@ -329,40 +293,6 @@ stringData:
 {{- end }}
 {{- end }}
 
-{{/* Create the name of the secret Hive to use */}}
-{{- define "library-chart.secretNameHive" -}}
-{{- if .Values.discovery.hive }}
-{{- $name := printf "%s-secrethive" (include "library-chart.fullname" .) }}
-{{- default $name (.Values.hive).secretName }}
-{{- else }}
-{{- default "default" (.Values.hive).secretName }}
-{{- end }}
-{{- end -}}
-
-{{/* Template to generate a Secret for Hive */}}
-{{- define "library-chart.secretHive" -}}
-{{- if .Values.discovery.hive -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameHive" . }}
-  labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
-stringData:
-  hive-site.xml: |
-    <?xml version="1.0"?>
-    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-    <configuration>
-    {{- range $secretData := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") | fromJsonArray }}
-      <property>
-        <name>hive.metastore.uris</name>
-        <value>thrift://{{ index $secretData "hive-service" | default "" | b64dec }}:9083</value>
-      </property>
-    {{- end }}
-    </configuration>
-{{- end }}
-{{- end -}}
-
 {{/* Create the name of the secret Ivy Settings to use */}}
 {{- define "library-chart.secretNameIvySettings" -}}
 {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
@@ -388,47 +318,6 @@ stringData:
         </resolvers>
     </ivysettings>
 {{- end }}
-{{- end }}
-
-{{/* Create the name of the secret Metaflow to use */}}
-{{- define "library-chart.secretNameMetaflow" -}}
-{{- if .Values.discovery.metaflow }}
-{{- $name := printf "%s-secretmetaflow" (include "library-chart.fullname" .) }}
-{{- default $name (.Values.metaflow).secretName }}
-{{- else }}
-{{- default "default" (.Values.metaflow).secretName }}
-{{- end }}
-{{- end }}
-
-{{/* Template to generate a Secret for Metaflow */}}
-{{- define "library-chart.secretMetaflow" -}}
-{{- $namespace := .Release.Namespace -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameMetaflow" . }}
-  labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
-stringData:
-  config.json: |
-    {
-      "METAFLOW_DEFAULT_METADATA": "service",
-      "METAFLOW_KUBERNETES_SERVICE_ACCOUNT": "default",
-      "METAFLOW_S3_ENDPOINT_URL": "https://{{ eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint }}",
-{{- if .Values.discovery.metaflow }}
-{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "metaflow") | fromJsonArray) }}
-{{- $host     := $secretData.host     | default "" | b64dec }}
-{{- $s3Bucket := $secretData.s3Bucket | default "" | b64dec }}
-{{- $s3Secret := $secretData.s3Secret | default "" | b64dec }}
-      "METAFLOW_KUBERNETES_NAMESPACE": {{ $namespace | quote }},
-      "METAFLOW_SERVICE_URL": {{ $host | quote }},
-      "METAFLOW_KUBERNETES_SECRETS": {{ $s3Secret | quote }},
-      "METAFLOW_DATASTORE_SYSROOT_S3": {{ $s3Bucket | quote }},
-      "METAFLOW_DATATOOLS_SYSROOT_S3": {{ $s3Bucket | quote }},
-{{- end }}
-{{- end }}
-      "METAFLOW_DEFAULT_DATASTORE": "s3"
-    }
 {{- end }}
 
 {{/* Secret for SparkConf Metastore */}}
@@ -521,8 +410,6 @@ stringData:
   {{- end }}
 {{- end }}
 {{- end }}
-
-
 
 {{/* Name of the extraEnv secret */}}
 {{- define "library-chart.secretNameExtraEnv" -}}
