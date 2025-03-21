@@ -192,7 +192,7 @@
       }
     },
     "init": {
-      "title": "Initialization script",
+      "title": "Initialization scripts",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/init.json"
@@ -217,12 +217,12 @@
           }
         },
         "personalInit": {
-          "title": "User initialization script",
+          "title": "Use a custom script (URL)",
           "type": "string",
           "default": ""
         },
         "personalInitArgs": {
-          "title": "Arguments for user init script",
+          "title": "Arguments for the custom script",
           "type": "string",
           "default": ""
         }
@@ -260,13 +260,13 @@
       },
       "properties": {
         "enabled": {
-          "title": "Allow your service to access Kubernetes resources",
-          "description": "access will be restricted to your own namespace",
+          "title": "Enable Kubernetes access from within the service",
           "type": "boolean",
           "default": true
         },
         "role": {
           "title": "Kubernetes role",
+          "description": "access is restricted to your own namespace",
           "type": "string",
           "default": "view",
           "hidden": {
@@ -448,7 +448,7 @@
           }
         },
         "pathStyleAccess": {
-          "description": "S3 path style acces",
+          "title": "Path-style access",
           "type": "boolean",
           "default": false,
           "x-onyxia": {
@@ -460,7 +460,7 @@
           }
         },
         "workingDirectoryPath": {
-          "description": "S3 working directory Path ",
+          "title": "Working directory path",
           "type": "string",
           "default": "",
           "x-onyxia": {
