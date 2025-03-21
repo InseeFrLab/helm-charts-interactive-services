@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.2.5](https://img.shields.io/badge/Version-2.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.6](https://img.shields.io/badge/Version-2.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -121,8 +121,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
 | spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
 | spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.configMapName | string | `""` |  |
 | spark.default | bool | `true` |  |
+| spark.disabledCertChecking | bool | `false` |  |
+| spark.secretName | string | `""` |  |
 | spark.sparkui | bool | `false` |  |
 | spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
 | spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
