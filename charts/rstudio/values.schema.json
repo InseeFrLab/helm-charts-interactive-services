@@ -52,7 +52,8 @@
                   "default": "inseefrlab/onyxia-rstudio:r4.4.2",
                   "hidden": {
                     "value": false,
-                    "path": "service/image/custom/enabled"
+                    "path": "enabled",
+                    "isPathRelative": true
                   }
                 }
               }
@@ -181,7 +182,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "persistence/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         }
       }
@@ -289,7 +291,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "vault/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "url": {
@@ -300,7 +303,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "vault/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "mount": {
@@ -311,7 +315,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "vault/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "directory": {
@@ -322,7 +327,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "vault/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "secret": {
@@ -332,7 +338,8 @@
           "default": "",
           "hidden": {
             "value": false,
-            "path": "vault/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         }
       }
@@ -357,7 +364,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "endpoint": {
@@ -368,7 +376,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "defaultRegion": {
@@ -379,7 +388,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "secretAccessKey": {
@@ -391,7 +401,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "sessionToken": {
@@ -403,7 +414,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "pathStyleAccess": {
@@ -415,7 +427,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "workingDirectoryPath": {
@@ -427,7 +440,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "s3/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         }
       }
@@ -453,7 +467,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "git/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "email": {
@@ -465,7 +480,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "git/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "cache": {
@@ -478,7 +494,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "git/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "token": {
@@ -491,7 +508,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "git/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "repository": {
@@ -504,7 +522,8 @@
           },
           "hidden": {
             "value": false,
-            "path": "git/enabled"
+            "path": "enabled",
+            "isPathRelative": true
           }
         },
         "branch": {
@@ -512,8 +531,9 @@
           "type": "string",
           "default": "",
           "hidden": {
-            "value": "",
-            "path": "git/repository"
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
           }
         }
       }
