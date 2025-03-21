@@ -24,15 +24,15 @@
               "description": "supported versions",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.12.7-gpu",
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.11.10-gpu"
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.12.9-gpu",
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.11.11-gpu"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.7-gpu"
+              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.9-gpu"
             },
             "custom": {
               "description": "use a custom jupyter docker image",
@@ -50,7 +50,7 @@
                 "version": {
                   "description": "jupyter unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.7-gpu",
+                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.12.9-gpu",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -425,6 +425,30 @@
             "value": false,
             "path": "s3/enabled"
           }
+        },
+        "pathStyleAccess": {
+          "description": "S3 path style acces",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.pathStyleAccess}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "workingDirectoryPath": {
+          "description": "S3 working directory Path ",
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.workingDirectoryPath}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
         }
       }
     },
@@ -593,7 +617,7 @@
           "render": "password",
           "x-onyxia": {
             "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password"
+            "overwriteSchemaWith": "ide/password.json"
           }
         },
         "networkPolicy": {
@@ -666,9 +690,12 @@
       }
     },
     "ingress": {
+      "title": "Ingress Details",
       "type": "object",
       "form": true,
-      "title": "Ingress Details",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/ingress.json"
+      },
       "properties": {
         "enabled": {
           "description": "Enable Ingress",

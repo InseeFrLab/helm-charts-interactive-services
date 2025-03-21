@@ -61,33 +61,24 @@ environment:
   user: onyxia
   group: users
 
-discovery:
-  hive: true
-
-hive:
-  configMapName: ""
-
-coresite:
-  configMapName: ""
-
 s3:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether S3 credentials should be made available
+  enabled: false
+  # The name of the secret storing the S3 credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
+  pathStyleAccess: false
+  workingDirectoryPath: ""
 
 vault:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether Vault credentials should be made available
+  enabled: false
+  # The name of the secret storing the Vault credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   token: ""
   url: ""
   mount: ""
@@ -95,11 +86,9 @@ vault:
   directory: ""
 
 git:
-  # Specifies whether a config map should be created
-  enabled: true
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # Specifies whether git credentials should be made available
+  enabled: false
+  secretName: ""  # Generated based on the service's name if empty or not set
   name: ""
   email: ""
   cache: ""
@@ -107,8 +96,15 @@ git:
   repository: ""
   branch: ""
 
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+discovery:
+  hive: true
+
+hive:
+  secretName: ""
+
+coresite:
+  secretName: ""
+
 replicaCount: 1
 
 imagePullSecrets: []
@@ -121,7 +117,7 @@ serviceAccount:
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # If empty or not set and create is true, a name is generated using the fullname template
   name: ""
 
 kubernetes:

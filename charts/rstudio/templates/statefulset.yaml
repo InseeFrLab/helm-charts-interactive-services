@@ -32,7 +32,7 @@ spec:
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
-        {{- if and .Values.certificates .Values.certificates.cacerts }}
+        {{- if (.Values.certificates).cacerts }}
         checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
@@ -151,21 +151,21 @@ spec:
               value: "true"
             {{- end }}
           envFrom:
-            {{- if .Values.s3.enabled }}
+            {{- if (.Values.git).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameGit" . }}
+            {{- end }}
+            {{- if (.Values.s3).enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameS3" . }}
+            {{- end }}
+            {{- if (.Values.vault).enabled }}
+            - secretRef:
+                name: {{ include "library-chart.secretNameVault" . }}
             {{- end }}
             {{- if (.Values.proxy).enabled }}
             - secretRef:
                 name: {{ include "library-chart.secretNameProxy" . }}
-            {{- end }}
-            {{- if .Values.vault.enabled }}
-            - secretRef:
-                name: {{ include "library-chart.secretNameVault" . }}
-            {{- end }}
-            {{- if .Values.git.enabled }}
-            - secretRef:
-                name: {{ include "library-chart.secretNameGit" . }}
             {{- end }}
             {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:

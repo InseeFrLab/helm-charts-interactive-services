@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.1.28](https://img.shields.io/badge/Version-2.1.28-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.6](https://img.shields.io/badge/Version-2.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.44 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.8 |
 
 ## Values
 
@@ -27,7 +27,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| coresite.configMapName | string | `""` |  |
+| chromadb.secretName | string | `""` |  |
+| coresite.secretName | string | `""` |  |
+| discovery.chromadb | bool | `true` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
@@ -37,14 +39,14 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
+| git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
-| hive.configMapName | string | `""` |  |
+| hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -63,8 +65,8 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
-| metaflow.configMapName | string | `""` |  |
-| mlflow.configMapName | string | `""` |  |
+| metaflow.secretName | string | `""` |  |
+| mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
 | networking.service.port | int | `8080` |  |
@@ -96,12 +98,14 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
 | s3.accessKeyId | string | `""` |  |
-| s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
+| s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
+| s3.secretName | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
+| s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
 | security.allowlist.ip | string | `"0.0.0.0/0"` |  |
 | security.networkPolicy.enabled | bool | `false` |  |
@@ -110,9 +114,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.7-spark3.5.4"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.7-spark3.5.4"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
@@ -123,9 +127,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
 | spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
 | spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.configMapName | string | `""` |  |
 | spark.default | bool | `true` |  |
 | spark.disabledCertChecking | bool | `false` |  |
+| spark.secretName | string | `""` |  |
 | spark.sparkui | bool | `false` |  |
 | spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
 | spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
@@ -144,11 +148,11 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
-| vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
+| vault.secretName | string | `""` |  |
 | vault.token | string | `""` |  |
 | vault.url | string | `""` |  |
 

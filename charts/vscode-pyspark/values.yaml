@@ -4,16 +4,16 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-vscode-pyspark:py3.12.7-spark3.5.4"
+    version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-pyspark:py3.12.7-spark3.5.4"
+      version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"
   customPythonEnv: false
 
 spark:
   sparkui: false
-  configMapName: ""
+  secretName: ""
   default: true
   disabledCertChecking: false
   config:
@@ -62,24 +62,23 @@ environment:
   group: users
 
 s3:
-  # Specifies whether a config map should be created
+  # Specifies whether S3 credentials should be made available
   enabled: false
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # The name of the secret storing the S3 credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
   secretAccessKey: ""
   sessionToken: ""
-
+  pathStyleAccess: false
+  workingDirectoryPath: ""
 
 vault:
-  # Specifies whether a config map should be created
+  # Specifies whether Vault credentials should be made available
   enabled: false
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # The name of the secret storing the Vault credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   token: ""
   url: ""
   mount: ""
@@ -87,11 +86,10 @@ vault:
   directory: ""
 
 git:
-  # Specifies whether a config map should be created
+  # Specifies whether git credentials should be made available
   enabled: false
-  # The name of the configmap to use.
-  # If not set and create is true, a name is generated using the fullname template
-  configMapName: ""
+  # The name of the secret storing the git credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
   name: ""
   email: ""
   cache: ""
@@ -111,26 +109,29 @@ repository:
   condaRepository: ""
   mavenRepository: ""
 
-# active ou non la recherche d'un hiveMetastore dans le namespace
-# see configmap-hive.yaml et helpers template
+# active ou non la recherche de secrets discovery dans le namespace
+# see secret-{service}.yaml
 discovery:
   hive: true
   mlflow: true
   metaflow: true
+  chromadb: true
 
 hive:
-  configMapName: ""
+  secretName: ""
 
 mlflow:
-  configMapName: ""
-
-coresite:
-  configMapName: ""
+  secretName: ""
 
 metaflow:
-  configMapName: ""
-  # This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+  secretName: ""
+
+chromadb:
+  secretName: ""
+
+coresite:
+  secretName: ""
+
 replicaCount: 1
 
 imagePullSecrets: []

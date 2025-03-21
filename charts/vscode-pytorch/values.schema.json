@@ -23,10 +23,10 @@
             "version": {
               "description": "vscode supported version",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.7",
+              "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.9",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-pytorch:py3.12.7",
-                "inseefrlab/onyxia-vscode-pytorch:py3.11.10"
+                "inseefrlab/onyxia-vscode-pytorch:py3.12.9",
+                "inseefrlab/onyxia-vscode-pytorch:py3.11.11"
               ],
               "render": "list",
               "hidden": {
@@ -50,7 +50,7 @@
                 "version": {
                   "description": "vscode unsupported version",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.7",
+                  "default": "inseefrlab/onyxia-vscode-pytorch:py3.12.9",
                   "hidden": {
                     "value": false,
                     "path": "service/image/custom/enabled"
@@ -447,6 +447,30 @@
             "value": false,
             "path": "s3/enabled"
           }
+        },
+        "pathStyleAccess": {
+          "description": "S3 path style acces",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.pathStyleAccess}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
+        },
+        "workingDirectoryPath": {
+          "description": "S3 working directory Path ",
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{s3.workingDirectoryPath}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "s3/enabled"
+          }
         }
       }
     },
@@ -615,7 +639,7 @@
           "render": "password",
           "x-onyxia": {
             "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password"
+            "overwriteSchemaWith": "ide/password.json"
           }
         },
         "networkPolicy": {
@@ -665,9 +689,12 @@
       }
     },
     "ingress": {
+      "title": "Ingress Details",
       "type": "object",
       "form": true,
-      "title": "Ingress Details",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/ingress.json"
+      },
       "properties": {
         "enabled": {
           "description": "Enable Ingress",

@@ -1,6 +1,6 @@
 # jupyter-r
 
-![Version: 2.1.26](https://img.shields.io/badge/Version-2.1.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.5](https://img.shields.io/badge/Version-2.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with R and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.44 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.8 |
 
 ## Values
 
@@ -27,7 +27,9 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| coresite.configMapName | string | `""` |  |
+| chromadb.secretName | string | `""` |  |
+| coresite.secretName | string | `""` |  |
+| discovery.chromadb | bool | `true` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
@@ -37,14 +39,14 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
 | git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
+| git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
-| hive.configMapName | string | `""` |  |
+| hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -63,8 +65,8 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
-| metaflow.configMapName | string | `""` |  |
-| mlflow.configMapName | string | `""` |  |
+| metaflow.secretName | string | `""` |  |
+| mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
 | networking.service.port | int | `8888` |  |
@@ -97,12 +99,14 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
 | s3.accessKeyId | string | `""` |  |
-| s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
+| s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
+| s3.secretName | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
+| s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
 | security.allowlist.ip | string | `"0.0.0.0/0"` |  |
 | security.networkPolicy.enabled | bool | `false` |  |
@@ -125,11 +129,11 @@ The JupyterLab IDE with R and a collection of standard data science packages.
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
-| vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
 | vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
+| vault.secretName | string | `""` |  |
 | vault.token | string | `""` |  |
 | vault.url | string | `""` |  |
 

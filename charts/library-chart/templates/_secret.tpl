@@ -2,7 +2,7 @@
 
 {{/* Create the name of the secret S3 to use */}}
 {{- define "library-chart.secretNameS3" -}}
-{{- if .Values.s3.enabled }}
+{{- if (.Values.s3).enabled }}
 {{- $name := printf "%s-secrets3" (include "library-chart.fullname" .) }}
 {{- default $name .Values.s3.secretName }}
 {{- else }}
@@ -12,7 +12,7 @@
 
 {{/* Template to generate a secret for S3 */}}
 {{- define "library-chart.secretS3" -}}
-{{- if .Values.s3.enabled -}}
+{{- if (.Values.s3).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -27,6 +27,8 @@ stringData:
   AWS_DEFAULT_REGION: {{ .Values.s3.defaultRegion | quote }}
   AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretAccessKey | quote }}
   AWS_SESSION_TOKEN: {{ .Values.s3.sessionToken | quote }}
+  AWS_PATH_STYLE_ACCESS: "{{ .Values.s3.pathStyleAccess }}"
+  AWS_WORKING_DIRECTORY_PATH: "{{ .Values.s3.workingDirectoryPath }}"
 {{- end }}
 {{- end }}
 
@@ -64,7 +66,7 @@ stringData:
 
 {{/* Create the name of the secret Vault to use */}}
 {{- define "library-chart.secretNameVault" -}}
-{{- if .Values.vault.enabled }}
+{{- if (.Values.vault).enabled }}
 {{- $name := printf "%s-secretvault" (include "library-chart.fullname" .) }}
 {{- default $name .Values.vault.secretName }}
 {{- else }}
@@ -74,7 +76,7 @@ stringData:
 
 {{/* Template to generate a secret for Vault */}}
 {{- define "library-chart.secretVault" -}}
-{{- if .Values.vault.enabled -}}
+{{- if (.Values.vault).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -92,7 +94,7 @@ stringData:
 
 {{/* Create the name of the secret Git to use */}}
 {{- define "library-chart.secretNameGit" -}}
-{{- if .Values.git.enabled }}
+{{- if (.Values.git).enabled }}
 {{- $name := printf "%s-secretgit" (include "library-chart.fullname" .) }}
 {{- default $name .Values.git.secretName }}
 {{- else }}
@@ -102,7 +104,7 @@ stringData:
 
 {{/* Template to generate a secret for git */}}
 {{- define "library-chart.secretGit" -}}
-{{- if .Values.git.enabled -}}
+{{- if (.Values.git).enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -174,34 +176,48 @@ stringData:
 {{- toJson $discoverySecrets -}}
 {{- end -}}
 
-{{/* Create the name of the secret MLFlow to use */}}
-{{- define "library-chart.secretNameMLFlow" -}}
-{{- $name := printf "%s-secretmlflow" (include "library-chart.fullname" .) }}
-{{- default $name .Values.mlflow.secretName }}
+{{/* Name of the ChromaDB secret used in services */}}
+{{- define "library-chart.secretNameChromaDB" -}}
+{{- if (.Values.discovery).chromadb }}
+{{- $name := printf "%s-secretchromadb" (include "library-chart.fullname" .) }}
+{{- default $name (.Values.chromadb).secretName }}
+{{- else }}
+{{- default "default" (.Values.chromadb).secretName }}
+{{- end }}
 {{- end }}
 
-{{/* Secret for MLFlow */}}
-{{- define "library-chart.secretMLFlow" }}
+{{/* Secret for ChromaDB */}}
+{{- define "library-chart.secretChromaDB" }}
 {{- $context := . }}
-{{- if .Values.discovery.mlflow }}
-{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) -}}
-{{- $uri                      := $secretData.uri                      | default "" | b64dec }}
-{{- $mlflow_tracking_username := $secretData.MLFLOW_TRACKING_USERNAME | default "" | b64dec }}
-{{- $mlflow_tracking_password := $secretData.MLFLOW_TRACKING_PASSWORD | default "" | b64dec }}
+{{- $namespace := .Release.Namespace }}
+{{- if (.Values.discovery).chromadb }}
+{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "chromadb") | fromJsonArray) -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "library-chart.secretNameMLFlow" $context }}
+  name: {{ include "library-chart.secretNameChromaDB" $context }}
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
-{{- if $uri }}
-  MLFLOW_TRACKING_URI: {{ $uri | quote }}
-{{- end }}
-{{- if and $mlflow_tracking_username $mlflow_tracking_password }}
-  MLFLOW_TRACKING_USERNAME: {{ $mlflow_tracking_username | quote }}
-  MLFLOW_TRACKING_PASSWORD: {{ $mlflow_tracking_password | quote }}
-{{- end }}
+  CHROMA_SERVER_HOST: {{ $secretData.CHROMA_SERVER_HOST | default "" | b64dec | quote }}
+  CHROMA_SERVER_HTTP_PORT: {{ $secretData.CHROMA_SERVER_HTTP_PORT | default "" | b64dec | quote }}
+  {{- with $secretData.CHROMA_CLIENT_AUTH_PROVIDER }}
+  CHROMA_CLIENT_AUTH_PROVIDER: {{ b64dec . | quote }}
+  {{- end }}
+  {{- with $secretData.CHROMA_AUTH_SECRET }}
+  {{- with lookup "v1" "Secret" $namespace (b64dec .) }}
+  {{- with .data }}
+  {{- if .header }}
+  CHROMA_AUTH_TOKEN_TRANSPORT_HEADER: {{ b64dec .header | quote }}
+  {{- end }}
+  {{- if .token }}
+  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ b64dec .token | quote }}
+  {{- else if and .username .password }}
+  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ printf "%s:%s" (b64dec .username) (b64dec .password) | quote }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -210,9 +226,9 @@ stringData:
 {{- define "library-chart.secretNameCoreSite" -}}
 {{- if .Values.s3.enabled -}}
 {{- $name := printf "%s-secretcoresite" (include "library-chart.fullname" .) }}
-{{- default $name .Values.coresite.secretName }}
+{{- default $name (.Values.coresite).secretName }}
 {{- else }}
-{{- default "default" .Values.coresite.secretName }}
+{{- default "default" (.Values.coresite).secretName }}
 {{- end }}
 {{- end }}
 
@@ -277,40 +293,6 @@ stringData:
 {{- end }}
 {{- end }}
 
-{{/* Create the name of the secret Hive to use */}}
-{{- define "library-chart.secretNameHive" -}}
-{{- if .Values.discovery.hive }}
-{{- $name := printf "%s-secrethive" (include "library-chart.fullname" .) }}
-{{- default $name .Values.hive.secretName }}
-{{- else }}
-{{- default "default" .Values.hive.secretName }}
-{{- end }}
-{{- end }}
-
-{{/* Template to generate a Secret for Hive */}}
-{{- define "library-chart.secretHive" -}}
-{{- if .Values.discovery.hive -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameHive" . }}
-  labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
-stringData:
-  hive-site.xml: |
-    <?xml version="1.0"?>
-    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-    <configuration>
-    {{- range $secretData := include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") | fromJsonArray }}
-      <property>
-        <name>hive.metastore.uris</name>
-        <value>thrift://{{ index $secretData "hive-service" | default "" | b64dec }}:9083</value>
-      </property>
-    {{- end }}
-    </configuration>
-{{- end }}
-{{- end }}
-
 {{/* Create the name of the secret Ivy Settings to use */}}
 {{- define "library-chart.secretNameIvySettings" -}}
 {{- if and (.Values.spark.default) (.Values.repository.mavenRepository) }}
@@ -336,43 +318,6 @@ stringData:
         </resolvers>
     </ivysettings>
 {{- end }}
-{{- end }}
-
-{{/* Create the name of the secret Metaflow to use */}}
-{{- define "library-chart.secretNameMetaflow" -}}
-{{- $name := printf "%s-secretmetaflow" (include "library-chart.fullname" .) }}
-{{- default $name .Values.metaflow.configMapName }}
-{{- end }}
-
-{{/* Template to generate a Secret for Metaflow */}}
-{{- define "library-chart.secretMetaflow" -}}
-{{- $namespace := .Release.Namespace -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameMetaflow" . }}
-  labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
-stringData:
-  config.json: |
-    {
-      "METAFLOW_DEFAULT_METADATA": "service",
-      "METAFLOW_KUBERNETES_SERVICE_ACCOUNT": "default",
-      "METAFLOW_S3_ENDPOINT_URL": "https://{{ eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint }}",
-{{- if .Values.discovery.metaflow }}
-{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "metaflow") | fromJsonArray) }}
-{{- $host     := $secretData.host     | default "" | b64dec }}
-{{- $s3Bucket := $secretData.s3Bucket | default "" | b64dec }}
-{{- $s3Secret := $secretData.s3Secret | default "" | b64dec }}
-      "METAFLOW_KUBERNETES_NAMESPACE": {{ $namespace | quote }},
-      "METAFLOW_SERVICE_URL": {{ $host | quote }},
-      "METAFLOW_KUBERNETES_SECRETS": {{ $s3Secret | quote }},
-      "METAFLOW_DATASTORE_SYSROOT_S3": {{ $s3Bucket | quote }},
-      "METAFLOW_DATATOOLS_SYSROOT_S3": {{ $s3Bucket | quote }},
-{{- end }}
-{{- end }}
-      "METAFLOW_DEFAULT_DATASTORE": "s3"
-    }
 {{- end }}
 
 {{/* Secret for SparkConf Metastore */}}
@@ -409,17 +354,17 @@ Flag to disable certificate checking for Spark
 
 {{/* Create the name of the secret Spark Conf to use */}}
 {{- define "library-chart.secretNameSparkConf" -}}
-{{- if .Values.spark.default -}}
+{{- if (.Values.spark).default -}}
 {{- $name := printf "%s-secretsparkconf" (include "library-chart.fullname" .) }}
-{{- default $name .Values.spark.secretName }}
+{{- default $name (.Values.spark).secretName }}
 {{- else }}
-{{- default "default" .Values.spark.secretName }}
+{{- default "default" (.Values.spark).secretName }}
 {{- end }}
 {{- end }}
 
 {{/* Template to generate a Secret for SparkConf */}}
 {{- define "library-chart.secretSparkConf" -}}
-{{- if .Values.spark.default -}}
+{{- if (.Values.spark).default -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -429,10 +374,8 @@ metadata:
 stringData:
   spark-defaults.conf: |
     {{- include "library-chart.sparkConf" . | nindent 4 }}
-    {{- if .Values.repository }}
-    {{- if .Values.repository.mavenRepository }}
+    {{- if (.Values.repository).mavenRepository }}
     spark.jars.ivySettings /opt/spark/conf/ivysettings.xml
-    {{- end }}
     {{- end }}
 {{- end }}
 {{- end }}
@@ -450,7 +393,7 @@ stringData:
 
 {{/* Template to generate a secret for CA certificates */}}
 {{- define "library-chart.secretCacerts" -}}
-{{- if and .Values.certificates .Values.certificates.cacerts }}
+{{- if (.Values.certificates).cacerts }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -467,8 +410,6 @@ stringData:
   {{- end }}
 {{- end }}
 {{- end }}
-
-
 
 {{/* Name of the extraEnv secret */}}
 {{- define "library-chart.secretNameExtraEnv" -}}

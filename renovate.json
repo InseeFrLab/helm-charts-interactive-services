@@ -5,6 +5,15 @@
   "prHourlyLimit": 40,
   "prConcurrentLimit": 100,
   "helmv3": {
-    "enabled": true
+    "enabled": true,
+    "includePaths": [
+      "charts/library-chart/**",
+      "charts/jupyter-python/**",
+      "charts/jupyter-pyspark/**",
+      "charts/rstudio/**",
+      "charts/rstudio-sparkr/**",
+      "charts/vscode-python/**",
+      "charts/vscode-pyspark/**"
+    ]
   }
 }

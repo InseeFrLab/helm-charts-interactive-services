@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.7
+    version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.9
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.7
+      version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.9
   customPythonEnv: false
 security:
   password: changeme
@@ -27,15 +27,17 @@ environment:
   group: users
 s3:
   enabled: false
-  configMapName: ''
+  secretName: ''
   accessKeyId: ''
   endpoint: ''
   defaultRegion: ''
   secretAccessKey: ''
   sessionToken: ''
+  pathStyleAccess: false
+  workingDirectoryPath: ''
 vault:
   enabled: false
-  configMapName: ''
+  secretName: ''
   token: ''
   url: ''
   mount: ''
@@ -43,7 +45,7 @@ vault:
   directory: ''
 git:
   enabled: false
-  configMapName: ''
+  secretName: ''
   name: ''
   email: ''
   cache: ''
@@ -58,14 +60,17 @@ discovery:
   hive: true
   mlflow: true
   metaflow: true
+  chromadb: true
 hive:
-  configMapName: ''
+  secretName: ''
 mlflow:
-  configMapName: ''
-coresite:
-  configMapName: ''
+  secretName: ''
 metaflow:
-  configMapName: ''
+  secretName: ''
+chromadb:
+  secretName: ''
+coresite:
+  secretName: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''

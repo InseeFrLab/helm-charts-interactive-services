@@ -25,30 +25,36 @@ environment:
   user: onyxia
   group: users
 s3:
-  enabled: true
-  configMapName: ''
+  enabled: false
+  secretName: ''
   accessKeyId: ''
   endpoint: ''
   defaultRegion: ''
   secretAccessKey: ''
   sessionToken: ''
+  pathStyleAccess: false
+  workingDirectoryPath: ''
 vault:
-  enabled: true
-  configMapName: ''
+  enabled: false
+  secretName: ''
   token: ''
   url: ''
   mount: ''
   secret: ''
   directory: ''
 git:
-  enabled: true
-  configMapName: ''
+  enabled: false
+  secretName: ''
   name: ''
   email: ''
   cache: ''
   token: ''
   repository: ''
   branch: ''
+repository:
+  configMapName: ''
+  packageManagerUrl: ''
+  rRepository: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''
@@ -111,10 +117,6 @@ startupProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 2
-repository:
-  configMapName: ''
-  packageManagerUrl: ''
-  rRepository: ''
 userPreferences:
   darkMode: false
   language: en

@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.1.21](https://img.shields.io/badge/Version-2.1.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.4](https://img.shields.io/badge/Version-2.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.5.44 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.8 |
 
 ## Values
 
@@ -32,11 +32,11 @@ The RStudio IDE with a collection of standard data science packages.
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.configMapName | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
 | git.repository | string | `""` |  |
+| git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -86,12 +86,14 @@ The RStudio IDE with a collection of standard data science packages.
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
 | s3.accessKeyId | string | `""` |  |
-| s3.configMapName | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
-| s3.enabled | bool | `true` |  |
+| s3.enabled | bool | `false` |  |
 | s3.endpoint | string | `""` |  |
+| s3.pathStyleAccess | bool | `false` |  |
 | s3.secretAccessKey | string | `""` |  |
+| s3.secretName | string | `""` |  |
 | s3.sessionToken | string | `""` |  |
+| s3.workingDirectoryPath | string | `""` |  |
 | security.allowlist.enabled | bool | `false` |  |
 | security.allowlist.ip | string | `"0.0.0.0/0"` |  |
 | security.networkPolicy.enabled | bool | `false` |  |
@@ -113,11 +115,11 @@ The RStudio IDE with a collection of standard data science packages.
 | tolerations | list | `[]` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
-| vault.configMapName | string | `""` |  |
 | vault.directory | string | `""` |  |
-| vault.enabled | bool | `true` |  |
+| vault.enabled | bool | `false` |  |
 | vault.mount | string | `""` |  |
 | vault.secret | string | `""` |  |
+| vault.secretName | string | `""` |  |
 | vault.token | string | `""` |  |
 | vault.url | string | `""` |  |
 

@@ -2,21 +2,21 @@
 
 {{/* Create the name of the config map repository to use */}}
 {{- define "library-chart.repository.enabled" -}}
-{{- default "" (or (or (or .Values.repository.pipRepository .Values.repository.condaRepository) .Values.repository.rRepository) .Values.repository.packageManagerUrl) }}
-{{- end }}
+{{- or .Values.repository.pipRepository .Values.repository.condaRepository .Values.repository.rRepository .Values.repository.packageManagerUrl | default "" }}
+{{- end -}}
 
 {{- define "library-chart.configMapNameRepository" -}}
-{{- if (include "library-chart.repository.enabled"  .) }}
-{{- $name:= (printf "%s-configmaprepository" (include "library-chart.fullname" .) )  }}
-{{- default $name .Values.repository.configMapName }}
+{{- if (include "library-chart.repository.enabled" .) }}
+{{- $name := printf "%s-configmaprepository" (include "library-chart.fullname" .) }}
+{{- default $name (.Values.repository).configMapName }}
 {{- else }}
-{{- default "default" .Values.repository.configMapName }}
+{{- default "default" (.Values.repository).configMapName }}
 {{- end }}
-{{- end }}
+{{- end -}}
 
 {{/* Template to generate a ConfigMap for repositories */}}
 {{- define "library-chart.configMapRepository" -}}
-{{- if (include "library-chart.repository.enabled"  .) }}
+{{- if (include "library-chart.repository.enabled" .) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -37,4 +37,4 @@ data:
   PACKAGE_MANAGER_URL: "{{ .Values.repository.packageManagerUrl }}"
   {{- end }}
 {{- end }}
-{{- end }}
+{{- end -}}
