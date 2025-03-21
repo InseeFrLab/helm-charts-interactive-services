@@ -12,7 +12,7 @@ service:
   customPythonEnv: false
 spark:
   sparkui: false
-  configMapName: ""
+  secretName: ""
   default: true
   disabledCertChecking: false
   config:

@@ -12,8 +12,9 @@ service:
 
 spark:
   sparkui: false
-  configMapName: ""
+  secretName: ""
   default: true
+  disabledCertChecking: false
   config:
     spark.master: k8s://https://kubernetes.default.svc:443
     spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'
@@ -32,7 +33,6 @@ spark:
     spark.dynamicAllocation.executorAllocationRatio: "1"
     spark.dynamicAllocation.shuffleTracking.enabled: "true"
     spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled: "true"
-
 
 security:
   password: "changeme"

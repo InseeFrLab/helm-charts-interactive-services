@@ -67,7 +67,7 @@
       }
     },
     "resources": {
-      "description": "Your service will have at least the requested resources and never more than its limits. No limit for a resource and you can consume everything left on the host machine.",
+      "title": "Resources (CPU/RAM)",
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "ide/resources.json"
@@ -78,7 +78,7 @@
           "type": "object",
           "properties": {
             "cpu": {
-              "description": "The amount of cpu guaranteed",
+              "description": "Guaranteed CPU allocation",
               "title": "CPU",
               "type": "string",
               "default": "100m",
@@ -96,7 +96,7 @@
               }
             },
             "memory": {
-              "description": "The amount of memory guaranteed",
+              "description": "Guaranteed memory allocation",
               "title": "memory",
               "type": "string",
               "default": "2Gi",
@@ -120,7 +120,7 @@
           "type": "object",
           "properties": {
             "cpu": {
-              "description": "The maximum amount of cpu",
+              "description": "Maximum CPU allocation",
               "title": "CPU",
               "type": "string",
               "default": "30000m",
@@ -138,7 +138,7 @@
               }
             },
             "memory": {
-              "description": "The maximum amount of memory",
+              "description": "Maximum memory allocation",
               "title": "Memory",
               "type": "string",
               "default": "50Gi",
