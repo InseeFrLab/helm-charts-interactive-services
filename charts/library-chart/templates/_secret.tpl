@@ -462,5 +462,6 @@ stringData:
       model: {{ .Values.userPreferences.aiAssistant.model | quote }}
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
       apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
+      useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint }}
 {{- end }}
 {{- end }}
