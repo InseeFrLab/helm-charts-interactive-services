@@ -452,7 +452,7 @@ metadata:
   name: {{ include "library-chart.secretNameAssistant" . }}
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
-stringData: 
+stringData:
   config.yaml: |
     name: config
     version: 0.0.1
@@ -462,7 +462,5 @@ stringData:
       model: {{ .Values.userPreferences.aiAssistant.model | quote }}
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
       apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
-  
 {{- end }}
 {{- end }}
-
