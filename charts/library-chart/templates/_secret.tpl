@@ -432,3 +432,37 @@ stringData:
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{/* Create the name of the secret AI Assistant to use */}}
+{{- define "library-chart.secretNameAssistant" -}}
+{{- if (.Values.userPreferences.aiAssistant).enabled }}
+{{- $name := printf "%s-secretassistant" (include "library-chart.fullname" .) }}
+{{- default $name .Values.userPreferences.aiAssistant.secretName }}
+{{- else }}
+{{- default "default" .Values.userPreferences.aiAssistant.secretName }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a secret for AI Assistant */}}
+{{- define "library-chart.secretAssistant" -}}
+{{- if (.Values.userPreferences.aiAssistant).enabled -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameAssistant" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+stringData: 
+  config.yaml: |
+    name: config
+    version: 0.0.1
+    models:
+    - name: {{ .Values.userPreferences.aiAssistant.model | quote }}
+      provider: {{ .Values.userPreferences.aiAssistant.provider | quote }}
+      model: {{ .Values.userPreferences.aiAssistant.model | quote }}
+      apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
+      apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
+  
+{{- end }}
+{{- end }}
+
