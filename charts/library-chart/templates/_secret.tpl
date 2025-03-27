@@ -463,5 +463,28 @@ stringData:
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
       apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
       useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint }}
+    context:
+      - provider: problems
+      - provider: debugger
+        params:
+          stackDepth: 3
+      - provider: tree
+      - provider: clipboard
+      - provider: url
+      - provider: search
+      - provider: folder
+      - provider: codebase
+      - provider: web
+        params:
+          n: 5
+      - provider: open
+        params:
+          onlyPinned: true
+      - provider: docs
+      - provider: terminal
+      - provider: currentFile
+      - provider: diff
+      - provider: code
+      - provider: file
 {{- end }}
 {{- end }}
