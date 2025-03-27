@@ -550,3 +550,4 @@ You can use a configuration with a master local for example.
 - [CODE_OF_CONDUCT.md](https://github.com/InseeFrLab/onyxia/blob/main/CODE_OF_CONDUCT.md)
 - [ROADMAP.md](https://github.com/InseeFrLab/onyxia/blob/main/ROADMAP.md)
 - [SECURITY.md](https://github.com/InseeFrLab/onyxia/blob/main/SECURITY.md)
+- [CONTRIBUTING.md](https://github.com/InseeFrLab/helm-charts-interactive-services/blob/main/.github/CONTRIBUTING.md)
