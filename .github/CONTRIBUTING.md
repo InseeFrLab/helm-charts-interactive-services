@@ -1,4 +1,4 @@
-# 🛠️ Contributor Guide 
+# 🛠️ Contributor Guide
 
 Thanks for contributing to helm-charts-interactive-services! This guide outlines key conventions and practices to follow when contributing to the charts.
 
@@ -7,7 +7,7 @@ Thanks for contributing to helm-charts-interactive-services! This guide outlines
 
 ## 📝 PR naming
 
-Use the following format when naming your pull requests:  
+Use the following format when naming your pull requests:
 [chart-name] Short description of what the PR does
 
 
@@ -38,7 +38,7 @@ pre-commit run
 
 ## ⚙️ Auto-Generated Charts
 
-Some charts are automatically generated, so there is no need to modify them. 
+Some charts are automatically generated, so there is no need to modify them.
 
 The 'children charts' are built from
 - vscode-python
@@ -46,18 +46,18 @@ The 'children charts' are built from
 - jupyter-python
 - jupyter-pyspark
 - rstudio
-- rstudio-sparkr  
+- rstudio-sparkr
 
-Hence, only the above charts should be edited. 
+Hence, only the above charts should be edited.
 
-Do not edit children charts directly, your modification could be erased in later releases.  
+Do not edit children charts directly, your modification could be erased in later releases.
 
 You can refer to [a diagram to see the link between the charts](https://github.com/InseeFrLab/helm-charts-interactive-services/blob/main/utils/charts-inheritance.yaml) or [consult the code](https://github.com/InseeFrLab/helm-charts-interactive-services/blob/main/utils/generate-children-charts.py).
 
 
 ## 🚀 You're Ready!
 
-Feel free to fork the repo, create a feature branch, and submit your pull request.  
+Feel free to fork the repo, create a feature branch, and submit your pull request.
 If you're unsure about something, open an issue or start a discussion first — we’re happy to help!
 
 
