@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xe
 
 kubectl delete deployments.apps --ignore-not-found=true prepull-cpu prepull-gpu
 kubectl delete daemonsets.apps --ignore-not-found=true prepull-cpu prepull-gpu
