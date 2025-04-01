@@ -17,6 +17,7 @@
 {{- $uri                      := $secretData.uri                      | default "" | b64dec }}
 {{- $mlflow_tracking_username := $secretData.MLFLOW_TRACKING_USERNAME | default "" | b64dec }}
 {{- $mlflow_tracking_password := $secretData.MLFLOW_TRACKING_PASSWORD | default "" | b64dec }}
+{{- $mlflow_s3_endpoint_url := $secretData.MLFLOW_S3_ENDPOINT_URL | default "" | b64dec }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -31,6 +32,7 @@ stringData:
   MLFLOW_TRACKING_USERNAME: {{ $mlflow_tracking_username | quote }}
   MLFLOW_TRACKING_PASSWORD: {{ $mlflow_tracking_password | quote }}
 {{- end }}
+  MLFLOW_S3_ENDPOINT_URL: {{ $mlflow_s3_endpoint_url | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
