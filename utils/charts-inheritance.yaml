@@ -1,6 +1,6 @@
 jupyter-python:
   jupyter-python-gpu:
-    description: The JupyterLab IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
+    description: The JupyterLab IDE with Python, and a collection of standard data science packages, with GPU support.
   jupyter-pytorch:
     description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
   jupyter-pytorch-gpu:
@@ -14,6 +14,10 @@ jupyter-python:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
   jupyter-tensorflow-gpu:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+  jupyter-r-python-julia:
+    description: The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
+    images:
+      - inseefrlab/onyxia-jupyter-r-python-julia:r4.4.2-py3.12.9-dev
 
 jupyter-pyspark: []
 
