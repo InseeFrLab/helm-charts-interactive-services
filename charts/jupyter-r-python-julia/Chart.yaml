@@ -1,7 +1,7 @@
 apiVersion: v2
-name: jupyter-python-gpu
-description: The JupyterLab IDE with Python, and a collection of standard data science
-  packages, with GPU support.
+name: jupyter-r-python-julia
+description: The JupyterLab IDE with Python, R, Julia, and a collection of standard
+  data science packages
 icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
 keywords:
 - Jupyter
