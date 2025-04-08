@@ -11,7 +11,7 @@ sources:
 - https://github.com/InseeFrLab/images-datascience
 - https://github.com/InseeFrLab/helm-charts-interactive-services
 type: application
-version: 2.2.6
+version: 2.2.7
 dependencies:
 - name: library-chart
   version: 1.6.8
