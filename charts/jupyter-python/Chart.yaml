@@ -1,6 +1,6 @@
 apiVersion: v2
 name: jupyter-python
-description: The JupyterLab IDE with Python, Julia, and a collection of standard data science packages.
+description: The JupyterLab IDE with Python and a collection of standard data science packages.
 icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
 keywords:
   - Jupyter
@@ -22,7 +22,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.2.6
+version: 2.2.7
 dependencies:
   - name: library-chart
     version: 1.6.8
