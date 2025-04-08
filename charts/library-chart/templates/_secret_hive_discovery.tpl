@@ -37,7 +37,9 @@ stringData:
 {{- define "library-chart.hive-discovery-help" }}
 {{- if (.Values.discovery).hive }}
 {{- with first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") | fromJsonArray) }}
-{{- if hasKey (($.Values).service | default dict) "customPythonEnv" -}}
+{{- if regexMatch "^r|r$" .Chart.Name -}}
+There is no well-supported Hive Metastore client for R yet.
+{{- else }}
 {{- if hasKey $.Values "spark" }}
 The connection to your Hive Metastore is already preconfigured in your service.
 A Spark session can be configured to use Hive:
@@ -67,8 +69,6 @@ with HiveMetastoreClient(os.getenv('HIVE_URI'), os.getenv('HIVE_PORT')) as hive_
 ```
 To learn more about using Hive tables with `hive-metastore-client`, read [their documentation](https://hive-metastore-client.readthedocs.io/en/latest/).
 {{- end }}
-{{- else }}
-There is no well-supported Hive Metastore client for R yet.
 {{- end }}
 {{- end }}
 {{- end }}

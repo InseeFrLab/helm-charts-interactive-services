@@ -47,7 +47,7 @@ stringData:
 The connection to your [MetaFlow](https://metaflow.org/) service is already preconfigured in your service.
 All MetaFlow objects (flows, runs, tasks, projects, etc.) created using this interactive service
 are tracked and can directly be browsed from your MetaFlow user interface.
-{{- if hasKey .Values.service "customPythonEnv" }}
+{{- if not (regexMatch "^r|r$" .Chart.Name) }}
 
 For instance, using Python, start by installing MetaFlow with `pip install metaflow`.
 Then the following script can be executed with `python helloflow.py run`:

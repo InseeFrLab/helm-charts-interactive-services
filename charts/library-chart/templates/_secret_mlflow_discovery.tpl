@@ -42,7 +42,9 @@ stringData:
 {{- if (.Values.discovery).mlflow }}
 {{- if first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "mlflow") | fromJsonArray) }}
 The connection to your MLflow service is already preconfigured in your service.
-{{- if hasKey .Values.service "customPythonEnv" }}
+{{- if regexMatch "^r|r$" .Chart.Name }}
+There is no well-supported MLflow client for R yet.
+{{- else }}
 A client can be created in a Python script or interactive console:
 ```python
 import mlflow
@@ -61,8 +63,6 @@ client.create_model_version("TestModel", ...)
 ```
 To learn more about integrating MLflow, read [the full documentation](https://mlflow.org/docs/latest/api_reference/python_api/index.html).
 {{- end }}
-{{- else }}
-There is no well-supported MLflow client for R yet.
 {{- end }}
 {{- end }}
 {{- end -}}
