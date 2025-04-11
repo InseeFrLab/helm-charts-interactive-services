@@ -11,8 +11,8 @@
 
 {{/* Secret for Milvus */}}
 {{- define "library-chart.secretMilvus" }}
-{{- $context := . }}
 {{- if (.Values.discovery).milvus }}
+{{- $context := . }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "milvus") | fromJsonArray) -}}
 apiVersion: v1
 kind: Secret
@@ -44,7 +44,7 @@ pip3 install pymilvus
 ```
 
 A client can then be created in a Python script or interactive console:
-```py
+```python
 import os
 from pymilvus import MilvusClient
 
