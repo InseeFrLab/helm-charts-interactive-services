@@ -176,52 +176,6 @@ stringData:
 {{- toJson $discoverySecrets -}}
 {{- end -}}
 
-{{/* Name of the ChromaDB secret used in services */}}
-{{- define "library-chart.secretNameChromaDB" -}}
-{{- if (.Values.discovery).chromadb }}
-{{- $name := printf "%s-secretchromadb" (include "library-chart.fullname" .) }}
-{{- default $name (.Values.chromadb).secretName }}
-{{- else }}
-{{- default "default" (.Values.chromadb).secretName }}
-{{- end }}
-{{- end }}
-
-{{/* Secret for ChromaDB */}}
-{{- define "library-chart.secretChromaDB" }}
-{{- $context := . }}
-{{- $namespace := .Release.Namespace }}
-{{- if (.Values.discovery).chromadb }}
-{{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "chromadb") | fromJsonArray) -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameChromaDB" $context }}
-  labels:
-    {{- include "library-chart.labels" $context | nindent 4 }}
-stringData:
-  CHROMA_SERVER_HOST: {{ $secretData.CHROMA_SERVER_HOST | default "" | b64dec | quote }}
-  CHROMA_SERVER_HTTP_PORT: {{ $secretData.CHROMA_SERVER_HTTP_PORT | default "" | b64dec | quote }}
-  {{- with $secretData.CHROMA_CLIENT_AUTH_PROVIDER }}
-  CHROMA_CLIENT_AUTH_PROVIDER: {{ b64dec . | quote }}
-  {{- end }}
-  {{- with $secretData.CHROMA_AUTH_SECRET }}
-  {{- with lookup "v1" "Secret" $namespace (b64dec .) }}
-  {{- with .data }}
-  {{- if .header }}
-  CHROMA_AUTH_TOKEN_TRANSPORT_HEADER: {{ b64dec .header | quote }}
-  {{- end }}
-  {{- if .token }}
-  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ b64dec .token | quote }}
-  {{- else if and .username .password }}
-  CHROMA_CLIENT_AUTH_CREDENTIALS: {{ printf "%s:%s" (b64dec .username) (b64dec .password) | quote }}
-  {{- end }}
-  {{- end }}
-  {{- end }}
-  {{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-
 {{/* Create the name of the secret Coresite to use */}}
 {{- define "library-chart.secretNameCoreSite" -}}
 {{- if .Values.s3.enabled -}}
