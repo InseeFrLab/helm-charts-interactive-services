@@ -209,6 +209,13 @@ It is possible to associate an initialization script with your service to set up
 {{ . }}
 </details>
 {{ end -}}
+
+{{- with (include "library-chart.milvus-discovery-help" .) }}
+<details>
+  <summary>Milvus</summary>
+{{ . }}
+</details>
+{{ end -}}
 {{ end -}}
 
 
