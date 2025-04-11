@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"
+    version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.4"
+      version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5"
   customPythonEnv: false
 
 spark:
