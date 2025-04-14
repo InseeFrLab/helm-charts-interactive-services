@@ -130,10 +130,9 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
-            {{ if (.Values.userPreferences.aiAssistant).enabled }}
-            - mountPath: /home/{{ .Values.environment.user }}/.continue
-              subPath: continue
-              name: config-files
+            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            - name: secret-assistant
+              mountPath: /src/continue
             {{- end }}
             - name: config-files
               mountPath: /dest
@@ -258,6 +257,11 @@ spec:
               name: home
             - mountPath: /dev/shm
               name: dshm
+            {{ if (.Values.userPreferences.aiAssistant).enabled }}
+            - mountPath: /home/{{ .Values.environment.user }}/.continue
+              subPath: continue
+              name: config-files
+            {{- end }}
             {{- if (.Values.discovery).hive }}
             - name: config-files
               mountPath: /opt/hive/conf/hive-site.xml
