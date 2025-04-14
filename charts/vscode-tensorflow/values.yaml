@@ -134,6 +134,14 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: en
+  aiAssistant:
+    enabled: false
+    model: ''
+    provider: ''
+    apiBase: ''
+    apiKey: ''
+    secretName: ''
+    useLegacyCompletionsEndpoint: false
 openshiftSCC:
   enabled: false
   scc: ''

@@ -907,6 +907,63 @@
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
           }
+        },
+        "aiAssistant": {
+          "type": "object",
+          "description": "Configure Continue, an extension to use custom AI code assistants",
+          "x-onyxia": {
+            "overwriteSchemaWith": "aiAssistant.json"
+          },
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
+              }
+            },
+            "model": {
+              "type": "string",
+              "default": "",
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.model"
+              }
+            },
+            "provider": {
+              "type": "string",
+              "default": "",
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.provider"
+              }
+            },
+            "apiBase": {
+              "type": "string",
+              "default": "",
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
+              }
+            },
+            "apiKey": {
+              "type": "string",
+              "default": "",
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
+              }
+            },
+            "useLegacyCompletionsEndpoint": {
+              "type": "boolean",
+              "default": true,
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.useLegacyCompletionsEndpoint"
+              }
+            }
+          }
         }
       }
     },
