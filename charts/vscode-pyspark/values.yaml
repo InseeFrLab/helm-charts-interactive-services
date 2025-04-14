@@ -258,6 +258,14 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: "en"
+  aiAssistant:
+    enabled: false
+    model: ""
+    provider: ""
+    apiBase: ""
+    apiKey: ""
+    secretName: ""  # Generated based on the service's name if empty or not set
+    useLegacyCompletionsEndpoint: false
 
 certificates: {}
   # pathToCaBundle: /usr/local/share/ca-certificates/

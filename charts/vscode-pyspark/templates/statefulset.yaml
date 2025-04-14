@@ -111,6 +111,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
+        {{- if (.Values.userPreferences.aiAssistant).enabled }}
+        - name: secret-assistant
+          secret:
+            secretName: {{ include "library-chart.secretNameAssistant" . }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -127,6 +132,10 @@ spec:
             - -c
             - |
               echo 'initContainer make-secrets-writable is started';
+              {{ if (.Values.userPreferences.aiAssistant).enabled }}
+              mkdir /dest/continue
+              cp /src/continue/config.yaml /dest/continue/config.yaml
+              {{- end }}
               {{- if .Values.s3.enabled }}
               mkdir /dest/coresite;
               cp /src/coresite/core-site.xml /dest/coresite/core-site.xml;
@@ -157,6 +166,11 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
+            {{ if (.Values.userPreferences.aiAssistant).enabled }}
+            - mountPath: /home/{{ .Values.environment.user }}/.continue
+              subPath: continue
+              name: config-files
+            {{- end }}
             - name: config-files
               mountPath: /dest
             {{- if (.Values.certificates).cacerts }}
