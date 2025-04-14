@@ -940,7 +940,7 @@
       }
     },
     "userPreferences": {
-      "description": "User Preferences",
+      "title": "User Preferences",
       "type": "object",
       "properties": {
         "darkMode": {
@@ -962,6 +962,7 @@
           }
         },
         "aiAssistant":{
+          "title": "AI Assistant",
           "type": "object",
           "description": "Configure Continue, an extension to use custom AI code assistants",
           "x-onyxia": {
@@ -979,7 +980,11 @@
             "model": {
               "type": "string",
               "default":"",
-              "hidden": true,
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
               "x-onyxia": {
                 "overwriteDefaultWith": "user.profile.aiAssistant.model"
               }
@@ -987,7 +992,11 @@
             "provider": {
               "type": "string",
               "default": "",
-              "hidden": true,
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
               "x-onyxia": {
                 "overwriteDefaultWith": "user.profile.aiAssistant.provider"
               }
@@ -995,7 +1004,11 @@
             "apiBase":{
               "type": "string",
               "default": "",
-              "hidden": true,
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
               "x-onyxia": {
                 "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
               }
@@ -1003,15 +1016,24 @@
             "apiKey":{
               "type": "string",
               "default": "",
-              "hidden": true,
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
               "x-onyxia": {
                 "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
               }
             },
             "useLegacyCompletionsEndpoint":{
+              "title": "use legacy completions endpoint",
               "type": "boolean",
               "default": true,
-              "hidden": true,
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
               "x-onyxia": {
                 "overwriteDefaultWith": "user.profile.aiAssistant.useLegacyCompletionsEndpoint"
               }
