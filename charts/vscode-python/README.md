@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.2.9](https://img.shields.io/badge/Version-2.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.10](https://img.shields.io/badge/Version-2.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -125,6 +125,13 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.aiAssistant.apiBase | string | `""` |  |
+| userPreferences.aiAssistant.apiKey | string | `""` |  |
+| userPreferences.aiAssistant.enabled | bool | `false` |  |
+| userPreferences.aiAssistant.model | string | `""` |  |
+| userPreferences.aiAssistant.provider | string | `""` |  |
+| userPreferences.aiAssistant.secretName | string | `""` |  |
+| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
