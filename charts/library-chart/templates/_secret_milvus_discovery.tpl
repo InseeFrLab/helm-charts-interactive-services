@@ -40,7 +40,7 @@ There is no well-supported Milvus client for R yet.
 {{- else }}
 Install the `pymilvus` package first:
 ```bash
-pip3 install pymilvus
+uv pip install pymilvus
 ```
 
 A client can then be created in a Python script or interactive console:
