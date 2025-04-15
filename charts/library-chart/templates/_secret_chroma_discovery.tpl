@@ -50,8 +50,8 @@ stringData:
 {{- end }}
 
 
-{{- define "library-chart.chroma-discovery-help" -}}
-{{- if (.Values.discovery).chroma }}
+{{- define "library-chart.chromadb-discovery-help" -}}
+{{- if (.Values.discovery).chromadb }}
 {{- if first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "chromadb") | fromJsonArray) }}
 The connection to your ChromaDB service is already preconfigured in your service.
 {{- if regexMatch "^r|r$" .Chart.Name }}

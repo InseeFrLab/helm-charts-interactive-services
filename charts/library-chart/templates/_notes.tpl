@@ -210,9 +210,9 @@ It is possible to associate an initialization script with your service to set up
 </details>
 {{ end -}}
 
-{{- with (include "library-chart.chroma-discovery-help" .) }}
+{{- with (include "library-chart.chromadb-discovery-help" .) }}
 <details>
-  <summary>Chroma</summary>
+  <summary>ChromaDB</summary>
 {{ . }}
 </details>
 {{ end -}}
