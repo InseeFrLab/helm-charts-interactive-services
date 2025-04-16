@@ -411,12 +411,24 @@ stringData:
     name: config
     version: 0.0.1
     models:
+    {{- if .Values.userPreferences.aiAssistant.model }}
     - name: {{ .Values.userPreferences.aiAssistant.model | quote }}
+    {{- end }}
+    {{- if .Values.userPreferences.aiAssistant.provider }}
       provider: {{ .Values.userPreferences.aiAssistant.provider | quote }}
+    {{- end }}
+    {{- if .Values.userPreferences.aiAssistant.model }}
       model: {{ .Values.userPreferences.aiAssistant.model | quote }}
+    {{- end }}
+    {{- if .Values.userPreferences.aiAssistant.apiBase }}
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
+    {{- end }}
+    {{- if .Values.userPreferences.aiAssistant.apiKey }}
       apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
+    {{- end }}
+    {{- if .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint }}
       useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint }}
+    {{- end }}
     context:
       - provider: problems
       - provider: debugger
