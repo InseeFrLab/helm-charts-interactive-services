@@ -420,7 +420,7 @@ stringData:
     {{- if .Values.userPreferences.aiAssistant.model }}
       model: {{ .Values.userPreferences.aiAssistant.model | quote }}
     {{- end }}
-    {{- if {{ .Values.userPreferences.aiAssistant.apiBase | quote }} }}
+    {{- if .Values.userPreferences.aiAssistant.apiBase | quote }}
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
     {{- end }}
     {{- if .Values.userPreferences.aiAssistant.apiKey }}
