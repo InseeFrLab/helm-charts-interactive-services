@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.2.12](https://img.shields.io/badge/Version-2.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.2.13](https://img.shields.io/badge/Version-2.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.16 |
 
 ## Values
 
