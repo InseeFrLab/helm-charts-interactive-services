@@ -234,6 +234,10 @@ startupProbe:
   successThreshold: 1
   timeoutSeconds: 2
 
+openshiftSCC:
+  enabled: false
+  scc: ""
+
 proxy:
   enabled: false
   noProxy: ""
