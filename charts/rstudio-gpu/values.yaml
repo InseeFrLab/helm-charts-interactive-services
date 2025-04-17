@@ -120,6 +120,9 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: en
+openshiftSCC:
+  enabled: false
+  scc: ""
 proxy:
   enabled: false
   noProxy: ''

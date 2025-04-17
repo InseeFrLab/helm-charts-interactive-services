@@ -267,6 +267,10 @@ userPreferences:
     secretName: ""  # Generated based on the service's name if empty or not set
     useLegacyCompletionsEndpoint: false
 
+openshiftSCC:
+  enabled: false
+  scc: ""
+
 certificates: {}
   # pathToCaBundle: /usr/local/share/ca-certificates/
   # cacerts: ""
@@ -274,3 +278,4 @@ certificates: {}
 message:
   fr: ""
   en: ""
+
