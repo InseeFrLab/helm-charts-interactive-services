@@ -23,10 +23,10 @@
             "version": {
               "title": "Name of the service's Docker image",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-r:r4.4.2",
+              "default": "inseefrlab/onyxia-vscode-r:r4.5.0",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-r:r4.4.2",
-                "inseefrlab/onyxia-vscode-r:r4.3.3"
+                "inseefrlab/onyxia-vscode-r:r4.5.0",
+                "inseefrlab/onyxia-vscode-r:r4.4.3"
               ],
               "render": "list",
               "hidden": {
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-r:r4.4.2",
+                  "default": "inseefrlab/onyxia-vscode-r:r4.5.0",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
