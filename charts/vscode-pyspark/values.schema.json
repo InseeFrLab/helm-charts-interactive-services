@@ -25,7 +25,7 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5",
-                "inseefrlab/onyxia-vscode-pyspark:py3.11.11-spark3.5.5"
+                "inseefrlab/onyxia-vscode-pyspark:py3.11.12-spark3.5.5"
               ],
               "render": "list",
               "hidden": {
