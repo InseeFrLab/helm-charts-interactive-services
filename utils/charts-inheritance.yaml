@@ -36,6 +36,6 @@ vscode-python:
   vscode-r-python-julia:
     description: The VSCode IDE with minimal installations of R, Python and Julia.
     images:
-      - inseefrlab/onyxia-vscode-r-python-julia:r4.5.0
+      - inseefrlab/onyxia-vscode-r-python-julia:r4.5.0-py3.12.9
 
 vscode-pyspark: []
