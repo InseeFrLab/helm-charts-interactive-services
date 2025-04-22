@@ -640,6 +640,33 @@
         "overwriteSchemaWith": "nodeSelector.json"
       }
     },
+    "openshiftSCC": {
+      "description": "configuration for openshift compatibility",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/openshiftSCC.json"
+      },
+      "properties": {
+        "enabled": {
+          "description": "enable rolebinding with openshift scc",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.enabled"
+          }
+        },
+        "scc": {
+          "type": "string",
+          "description": "name of scc for rolebinding",
+          "default": "anyuid",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.scc"
+          }
+        }
+      }
+    },
     "ingress": {
       "title": "Ingress Details",
       "type": "object",

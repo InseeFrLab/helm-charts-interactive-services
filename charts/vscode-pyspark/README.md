@@ -76,6 +76,8 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
