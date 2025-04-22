@@ -1,6 +1,6 @@
 # jupyter-python-gpu
 
-![Version: 2.2.12](https://img.shields.io/badge/Version-2.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, and a collection of standard data science packages, with GPU support.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python, and a collection of standard data science packag
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.17 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.0 |
 
 ## Values
 

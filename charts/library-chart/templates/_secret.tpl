@@ -329,7 +329,7 @@ stringData:
   spark-defaults.conf: |
     {{- include "library-chart.sparkConf" . | nindent 4 }}
     {{- if (.Values.repository).mavenRepository }}
-    spark.jars.ivySettings /opt/spark/conf/ivysettings.xml
+    spark.jars.ivySettings /usr/local/lib/spark/conf/ivysettings.xml
     {{- end }}
 {{- end }}
 {{- end }}

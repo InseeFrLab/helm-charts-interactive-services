@@ -25,7 +25,7 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-python:py3.12.9",
-                "inseefrlab/onyxia-jupyter-python:py3.11.11"
+                "inseefrlab/onyxia-jupyter-python:py3.11.12"
               ],
               "render": "list",
               "hidden": {
