@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-rstudio:r4.4.2"
+    version: "inseefrlab/onyxia-rstudio:r4.5.0"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio:r4.4.2"
+      version: "inseefrlab/onyxia-rstudio:r4.5.0"
 
 security:
   password: "changeme"
@@ -201,6 +201,10 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: "en"
+
+openshiftSCC:
+  enabled: false
+  scc: ""
 
 proxy:
   enabled: false

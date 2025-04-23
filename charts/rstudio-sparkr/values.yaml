@@ -4,11 +4,11 @@ global:
 
 service:
   image:
-    version: "inseefrlab/onyxia-rstudio-sparkr:r4.4.2-spark3.5.5"
+    version: "inseefrlab/onyxia-rstudio-sparkr:r4.5.0-spark3.5.5"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio-sparkr:r4.4.2-spark3.5.5"
+      version: "inseefrlab/onyxia-rstudio-sparkr:r4.5.0-spark3.5.5"
 
 spark:
   sparkui: false
@@ -233,6 +233,10 @@ startupProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 2
+
+openshiftSCC:
+  enabled: false
+  scc: ""
 
 proxy:
   enabled: false

@@ -1,6 +1,6 @@
 # jupyter-r-python-julia
 
-![Version: 2.2.10](https://img.shields.io/badge/Version-2.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python, R, Julia, and a collection of standard data scie
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.0 |
 
 ## Values
 
@@ -115,9 +115,9 @@ The JupyterLab IDE with Python, R, Julia, and a collection of standard data scie
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.4.2-py3.12.9-dev"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.0-py3.12.9"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.4.2-py3.12.9-dev"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.0-py3.12.9"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

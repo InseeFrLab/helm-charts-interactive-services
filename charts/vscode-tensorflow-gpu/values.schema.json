@@ -26,7 +26,7 @@
               "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.9-gpu",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-tensorflow:py3.12.9-gpu",
-                "inseefrlab/onyxia-vscode-tensorflow:py3.11.11-gpu"
+                "inseefrlab/onyxia-vscode-tensorflow:py3.11.12-gpu"
               ],
               "render": "list",
               "hidden": {

@@ -1,6 +1,6 @@
 # vscode-r-python-julia
 
-![Version: 2.2.12](https://img.shields.io/badge/Version-2.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with minimal installations of R, Python and Julia.
 
@@ -15,7 +15,7 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.0 |
 
 ## Values
 
@@ -113,9 +113,9 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 | securityContext | object | `{}` |  |
 | service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.4.2"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.0-py3.12.9"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.4.2"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.0-py3.12.9"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

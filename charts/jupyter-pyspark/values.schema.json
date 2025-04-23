@@ -25,7 +25,7 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.12.9-spark3.5.5",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.11.11-spark3.5.5"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.11.12-spark3.5.5"
               ],
               "render": "list",
               "hidden": {
@@ -721,6 +721,33 @@
         "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector",
         "overwriteSchemaWith": "nodeSelector.json"
+      }
+    },
+    "openshiftSCC": {
+      "description": "configuration for openshift compatibility",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/openshiftSCC.json"
+      },
+      "properties": {
+        "enabled": {
+          "description": "enable rolebinding with openshift scc",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.enabled"
+          }
+        },
+        "scc": {
+          "type": "string",
+          "description": "name of scc for rolebinding",
+          "default": "anyuid",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.scc"
+          }
+        }
       }
     },
     "ingress": {

@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.2.8](https://img.shields.io/badge/Version-2.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.1](https://img.shields.io/badge/Version-2.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.6.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.0 |
 
 ## Values
 
@@ -71,6 +71,8 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
+| openshiftSCC.enabled | bool | `false` |  |
+| openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
@@ -108,9 +110,9 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.2-spark3.5.5"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.5.0-spark3.5.5"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.4.2-spark3.5.5"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio-sparkr:r4.5.0-spark3.5.5"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

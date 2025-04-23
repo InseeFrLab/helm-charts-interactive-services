@@ -262,6 +262,10 @@ userPreferences:
   darkMode: false
   language: "en"
 
+openshiftSCC:
+  enabled: false
+  scc: ""
+
 certificates: {}
   # pathToCaBundle: /usr/local/share/ca-certificates/
   # cacerts: ""

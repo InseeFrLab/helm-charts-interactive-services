@@ -26,7 +26,7 @@
               "default": "inseefrlab/onyxia-vscode-tensorflow:py3.12.9",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-tensorflow:py3.12.9",
-                "inseefrlab/onyxia-vscode-tensorflow:py3.11.11"
+                "inseefrlab/onyxia-vscode-tensorflow:py3.11.12"
               ],
               "render": "list",
               "hidden": {
