@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -116,7 +116,6 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
-| service.customPythonEnv | bool | `false` |  |
 | service.image.custom.enabled | bool | `false` |  |
 | service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.12.9-spark3.5.5"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
