@@ -9,7 +9,6 @@ service:
     custom:
       enabled: false
       version: "inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5"
-  customPythonEnv: false
 
 spark:
   sparkui: false

@@ -9,7 +9,6 @@ service:
     custom:
       enabled: false
       version: "inseefrlab/onyxia-jupyter-python:py3.12.9"
-  customPythonEnv: false
 
 security:
   password: "changeme"
