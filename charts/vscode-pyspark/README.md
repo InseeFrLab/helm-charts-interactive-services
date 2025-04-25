@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.3.1](https://img.shields.io/badge/Version-2.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.2](https://img.shields.io/badge/Version-2.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -32,6 +32,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | discovery.chromadb | bool | `true` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
+| discovery.milvus | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
@@ -66,6 +67,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
 | metaflow.secretName | string | `""` |  |
+| milvus.secretName | string | `""` |  |
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |

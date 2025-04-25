@@ -1,6 +1,6 @@
 # vscode-python-gpu
 
-![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.4](https://img.shields.io/badge/Version-2.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
@@ -32,6 +32,7 @@ The VSCOde IDE with Python, Julia, and a collection of standard data science pac
 | discovery.chromadb | bool | `true` |  |
 | discovery.hive | bool | `true` |  |
 | discovery.metaflow | bool | `true` |  |
+| discovery.milvus | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
@@ -65,6 +66,7 @@ The VSCOde IDE with Python, Julia, and a collection of standard data science pac
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
 | metaflow.secretName | string | `""` |  |
+| milvus.secretName | string | `""` |  |
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
