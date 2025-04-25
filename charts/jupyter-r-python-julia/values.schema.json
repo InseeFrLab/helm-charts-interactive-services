@@ -58,11 +58,6 @@
               }
             }
           }
-        },
-        "customPythonEnv": {
-          "title": "Use a custom Python environment",
-          "type": "boolean",
-          "default": false
         }
       }
     },

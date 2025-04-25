@@ -7,7 +7,6 @@ service:
     custom:
       enabled: false
       version: inseefrlab/onyxia-vscode-tensorflow:py3.12.9-gpu
-  customPythonEnv: false
 security:
   password: changeme
   networkPolicy:
