@@ -651,6 +651,16 @@
           "title": "Discover Metaflow services",
           "type": "boolean",
           "default": true
+        },
+        "chromadb": {
+          "title": "Discover ChromaDB services",
+          "type": "boolean",
+          "default": true
+        },
+        "milvus": {
+          "title": "Discover Milvus services",
+          "type": "boolean",
+          "default": true
         }
       }
     },

@@ -115,6 +115,7 @@ discovery:
   mlflow: true
   metaflow: true
   chromadb: true
+  milvus: true
 
 hive:
   secretName: ""
@@ -126,6 +127,9 @@ metaflow:
   secretName: ""
 
 chromadb:
+  secretName: ""
+
+milvus:
   secretName: ""
 
 coresite:
