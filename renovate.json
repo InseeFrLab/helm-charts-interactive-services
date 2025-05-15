@@ -9,11 +9,18 @@
     "includePaths": [
       "charts/library-chart/**/*.yaml",
       "charts/jupyter-python/**/*.yaml",
-      "charts/jupyter-pyspark/**",
-      "charts/rstudio/**",
-      "charts/rstudio-sparkr/**",
+      "charts/jupyter-pyspark/**/*.yaml",
+      "charts/rstudio/**/**.yaml",
+      "charts/rstudio-sparkr/**/*.yaml",
       "charts/vscode-python/**/*.yaml",
-      "charts/vscode-pyspark/**"
+      "charts/vscode-pyspark/**/*.yaml",
+      "charts/jupyter-python/**/*.json",
+      "charts/jupyter-pyspark/**/*.json",
+      "charts/rstudio/**/*.json",
+      "charts/rstudio-sparkr/**/*.json",
+      "charts/vscode-python/**/*.json",
+      "charts/vscode-pyspark/**/*.json"
+
     ]
   }
 }
