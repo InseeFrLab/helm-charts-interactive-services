@@ -7,12 +7,12 @@
   "helmv3": {
     "enabled": true,
     "includePaths": [
-      "charts/library-chart/**",
-      "charts/jupyter-python/**",
+      "charts/library-chart/**/*.yaml",
+      "charts/jupyter-python/**/*.yaml",
       "charts/jupyter-pyspark/**",
       "charts/rstudio/**",
       "charts/rstudio-sparkr/**",
-      "charts/vscode-python/**",
+      "charts/vscode-python/**/*.yaml",
       "charts/vscode-pyspark/**"
     ]
   }
