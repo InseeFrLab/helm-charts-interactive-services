@@ -23,6 +23,7 @@ type: Opaque
 stringData:
   AWS_ACCESS_KEY_ID: {{ .Values.s3.accessKeyId | quote }}
   AWS_S3_ENDPOINT: {{ .Values.s3.endpoint | quote }}
+  AWS_ENDPOINT_URL: {{ printf "https://%s/" .Values.s3.endpoint | quote }}
   S3_ENDPOINT: {{ printf "https://%s/" .Values.s3.endpoint | quote }}
   AWS_DEFAULT_REGION: {{ .Values.s3.defaultRegion | quote }}
   AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretAccessKey | quote }}
