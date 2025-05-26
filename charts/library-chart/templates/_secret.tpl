@@ -427,9 +427,7 @@ stringData:
     {{- if .Values.userPreferences.aiAssistant.apiKey }}
       apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
     {{- end }}
-    {{- if ne .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint "" }}
-      useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint }}
-    {{- end }}
+      useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint | default false }}
     context:
       - provider: problems
       - provider: debugger
