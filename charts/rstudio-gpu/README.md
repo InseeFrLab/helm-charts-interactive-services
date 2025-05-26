@@ -1,10 +1,10 @@
-# vscode-pyspark
+# rstudio-gpu
 
-![Version: 2.3.6](https://img.shields.io/badge/Version-2.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.3](https://img.shields.io/badge/Version-2.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
+The RStudio IDE with a collection of standard data science packages, with GPU support.
 
-**Homepage:** <https://code.visualstudio.com/>
+**Homepage:** <https://www.rstudio.com/>
 
 ## Source Code
 
@@ -26,14 +26,6 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| certificates | object | `{}` |  |
-| chromadb.secretName | string | `""` |  |
-| coresite.secretName | string | `""` |  |
-| discovery.chromadb | bool | `true` |  |
-| discovery.hive | bool | `true` |  |
-| discovery.metaflow | bool | `true` |  |
-| discovery.milvus | bool | `true` |  |
-| discovery.mlflow | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
@@ -47,13 +39,11 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
-| hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
-| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
@@ -62,16 +52,13 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
-| metaflow.secretName | string | `""` |  |
-| milvus.secretName | string | `""` |  |
-| mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8080` |  |
+| networking.service.port | int | `8787` |  |
 | networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
@@ -90,10 +77,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
-| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.mavenRepository | string | `""` |  |
-| repository.pipRepository | string | `""` |  |
+| repository.packageManagerUrl | string | `""` |  |
+| repository.rRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -117,45 +103,18 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.5.0-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.12.9-spark3.5.5"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.5.0-gpu"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
-| spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
-| spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
-| spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
-| spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.default | bool | `true` |  |
-| spark.disabledCertChecking | bool | `false` |  |
-| spark.secretName | string | `""` |  |
-| spark.sparkui | bool | `false` |  |
-| spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.initialExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.maxExecutors" | string | `"10"` |  |
-| spark.userConfig."spark.dynamicAllocation.minExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.shuffleTracking.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.executor.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled" | string | `"true"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
-| userPreferences.aiAssistant.apiBase | string | `""` |  |
-| userPreferences.aiAssistant.apiKey | string | `""` |  |
-| userPreferences.aiAssistant.enabled | bool | `false` |  |
-| userPreferences.aiAssistant.model | string | `""` |  |
-| userPreferences.aiAssistant.provider | string | `""` |  |
-| userPreferences.aiAssistant.secretName | string | `""` |  |
-| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
