@@ -169,8 +169,6 @@ spec:
               {{- else }}
               value: "{{ .Values.service.image.version }}"
               {{- end }}
-            - name: NB_USER
-              value: {{ .Values.environment.user }}
             - name: PROJECT_USER
               value: {{ .Values.environment.user }}
             - name: PROJECT_GROUP
