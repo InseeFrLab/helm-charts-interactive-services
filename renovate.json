@@ -7,13 +7,20 @@
   "helmv3": {
     "enabled": true,
     "includePaths": [
-      "charts/library-chart/**",
-      "charts/jupyter-python/**",
-      "charts/jupyter-pyspark/**",
-      "charts/rstudio/**",
-      "charts/rstudio-sparkr/**",
-      "charts/vscode-python/**",
-      "charts/vscode-pyspark/**"
+      "charts/library-chart/**/*.yaml",
+      "charts/jupyter-python/**/*.yaml",
+      "charts/jupyter-pyspark/**/*.yaml",
+      "charts/rstudio/**/**.yaml",
+      "charts/rstudio-sparkr/**/*.yaml",
+      "charts/vscode-python/**/*.yaml",
+      "charts/vscode-pyspark/**/*.yaml",
+      "charts/jupyter-python/**/*.json",
+      "charts/jupyter-pyspark/**/*.json",
+      "charts/rstudio/**/*.json",
+      "charts/rstudio-sparkr/**/*.json",
+      "charts/vscode-python/**/*.json",
+      "charts/vscode-pyspark/**/*.json"
+
     ]
   }
 }

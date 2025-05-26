@@ -1,6 +1,6 @@
 # vscode-tensorflow-gpu
 
-![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.6](https://img.shields.io/badge/Version-2.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.0 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.1 |
 
 ## Values
 
