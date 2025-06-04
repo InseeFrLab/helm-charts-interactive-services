@@ -773,7 +773,7 @@
           "type": "string",
           "default": "",
           "x-onyxia": {
-            "hiddent": true
+            "hidden": true
           }
         }
       }
