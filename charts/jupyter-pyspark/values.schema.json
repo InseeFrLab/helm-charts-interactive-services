@@ -825,6 +825,13 @@
           "x-onyxia": {
             "hidden": true
           }
+        },
+        "tlsSecretName":{
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "hiddent": true
+          }
         }
       }
     },
