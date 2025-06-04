@@ -106,6 +106,7 @@ ingress:
   useCertManager: false
   certManagerClusterIssuer: ''
   useTlsSecret: false
+  tlsSecretName: ''
 route:
   enabled: false
   annotations: []
