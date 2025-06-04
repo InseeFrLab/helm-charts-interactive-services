@@ -160,7 +160,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.sparkHostname | quote }}
-    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
+    {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+    {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
