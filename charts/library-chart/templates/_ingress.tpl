@@ -58,7 +58,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
-    {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret}}
+    {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+    {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
 {{- end }}
@@ -110,7 +112,9 @@ spec:
         - {{ regexReplaceAll "([^\\.]+)\\.(.*)" $.Values.ingress.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
         {{- end }}
       {{- end }}
-      {{- if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
+      {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+      {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
       {{- end }}
 {{- end }}
