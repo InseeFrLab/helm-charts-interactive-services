@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 2.3.11](https://img.shields.io/badge/Version-2.3.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.12](https://img.shields.io/badge/Version-2.3.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and a collection of standard data science packages.
 
@@ -117,9 +117,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.9"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.11"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.9"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.12.11"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
