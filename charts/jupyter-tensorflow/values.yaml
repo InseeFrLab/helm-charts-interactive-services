@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.9
+    version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.11
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.9
+      version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.11
 security:
   password: changeme
   networkPolicy:

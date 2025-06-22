@@ -23,10 +23,10 @@
             "version": {
               "title": "Name of the service's Docker image",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-python:py3.12.9-gpu",
+              "default": "inseefrlab/onyxia-vscode-python:py3.12.11-gpu",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-python:py3.12.9-gpu",
-                "inseefrlab/onyxia-vscode-python:py3.11.12-gpu"
+                "inseefrlab/onyxia-vscode-python:py3.12.11-gpu",
+                "inseefrlab/onyxia-vscode-python:py3.11.13-gpu"
               ],
               "render": "list",
               "hidden": {
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-python:py3.12.9-gpu",
+                  "default": "inseefrlab/onyxia-vscode-python:py3.12.11-gpu",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
