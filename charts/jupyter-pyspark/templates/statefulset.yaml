@@ -244,6 +244,8 @@ spec:
             - name: DARK_MODE
               value: "true"
             {{- end }}
+            - name: UV_CACHE_DIR
+              value: /home/{{ .Values.environment.user }}/work/.cache/uv
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
