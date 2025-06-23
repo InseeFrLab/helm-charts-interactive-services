@@ -7,8 +7,12 @@ jupyter-python:
     description: The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
   jupyter-tensorflow:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
+    images:
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.13.5
   jupyter-tensorflow-gpu:
     description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+    images:
+      - inseefrlab/onyxia-jupyter-tensorflow:py3.13.5-gpu
   jupyter-r-python-julia:
     description: The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
     images:
@@ -31,8 +35,12 @@ vscode-python:
     description: The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU support.
   vscode-tensorflow:
     description: The VSCode IDE with Python and the deep-learning framework TensorFlow.
+    images:
+      - inseefrlab/onyxia-vscode-tensorflow:py3.13.5
   vscode-tensorflow-gpu:
     description: The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
+    images:
+      - inseefrlab/onyxia-vscode-tensorflow:py3.13.5-gpu
   vscode-r-python-julia:
     description: The VSCode IDE with minimal installations of R, Python and Julia.
     images:
