@@ -1,0 +1,18 @@
+apiVersion: v2
+name: rstudio-r-python-julia
+description: The RStudio IDE with Python, R, Julia, and a collection of standard data
+  science packages
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+keywords:
+- RStudio
+- R
+home: https://www.rstudio.com/
+sources:
+- https://github.com/InseeFrLab/images-datascience
+- https://github.com/InseeFrLab/helm-charts-interactive-services
+type: application
+version: 2.3.7
+dependencies:
+- name: library-chart
+  version: 1.7.5
+  repository: https://inseefrlab.github.io/helm-charts-interactive-services

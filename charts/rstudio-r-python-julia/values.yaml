@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.5
+    version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.5
+      version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5
 security:
   password: changeme
   networkPolicy:
@@ -53,26 +53,8 @@ git:
   branch: ''
 repository:
   configMapName: ''
-  pipRepository: ''
-  condaRepository: ''
-discovery:
-  hive: true
-  mlflow: true
-  metaflow: true
-  chromadb: true
-  milvus: true
-hive:
-  secretName: ''
-mlflow:
-  secretName: ''
-metaflow:
-  secretName: ''
-chromadb:
-  secretName: ''
-milvus:
-  secretName: ''
-coresite:
-  secretName: ''
+  packageManagerUrl: ''
+  rRepository: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''
@@ -82,7 +64,7 @@ serviceAccount:
   annotations: {}
   name: ''
 kubernetes:
-  enabled: false
+  enabled: true
   role: view
 podAnnotations: {}
 podSecurityContext:
@@ -92,7 +74,7 @@ networking:
   type: ClusterIP
   clusterIP: None
   service:
-    port: 8888
+    port: 8787
   sparkui:
     port: 4040
   user:
@@ -102,7 +84,6 @@ networking:
 ingress:
   enabled: false
   tls: true
-  ingressClassName: ''
   annotations: []
   hostname: chart-example.local
   userHostname: chart-example-user.local
@@ -120,7 +101,7 @@ route:
   wildcardPolicy: None
 resources: {}
 persistence:
-  enabled: false
+  enabled: true
   accessMode: ReadWriteOnce
   size: 10Gi
 autoscaling:
@@ -148,7 +129,6 @@ proxy:
   noProxy: ''
   httpProxy: ''
   httpsProxy: ''
-certificates: {}
 message:
   fr: ''
   en: ''

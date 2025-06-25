@@ -23,15 +23,15 @@
             "version": {
               "title": "Name of the service's Docker image",
               "type": "string",
-              "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5",
               "listEnum": [
-                "inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5"
+                "inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
-              }
+              },
+              "default": "inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5"
             },
             "custom": {
               "title": "Custom image",
@@ -48,7 +48,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5",
+                  "default": "inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
@@ -203,15 +203,6 @@
             "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
           }
         },
-        "regionInitCheckSum": {
-          "type": "string",
-          "description": "region initialization script",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.initScriptCheckSum}}"
-          }
-        },
         "personalInit": {
           "title": "Use a custom script (URL)",
           "type": "string",
@@ -275,33 +266,6 @@
             "admin"
           ],
           "render": "list"
-        }
-      }
-    },
-    "openshiftSCC": {
-      "description": "configuration for openshift compatibility",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/openshiftSCC.json"
-      },
-      "properties": {
-        "enabled": {
-          "description": "enable rolebinding with openshift scc",
-          "type": "boolean",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "region.openshiftSCC.enabled"
-          }
-        },
-        "scc": {
-          "type": "string",
-          "description": "name of scc for rolebinding",
-          "default": "anyuid",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "region.openshiftSCC.scc"
-          }
         }
       }
     },
@@ -395,7 +359,7 @@
           "title": "Access Key ID",
           "type": "string",
           "x-onyxia": {
-            "overwriteDefaultWith": "s3.AWS_ACCESS_KEY_ID"
+            "overwriteDefaultWith": "{{s3.AWS_ACCESS_KEY_ID}}"
           },
           "hidden": {
             "value": false,
@@ -616,37 +580,6 @@
         }
       }
     },
-    "discovery": {
-      "title": "Third party services discovery",
-      "type": "object",
-      "properties": {
-        "hive": {
-          "title": "Discover Hive Metastore services",
-          "type": "boolean",
-          "default": true
-        },
-        "mlflow": {
-          "title": "Discover MLflow services",
-          "type": "boolean",
-          "default": true
-        },
-        "metaflow": {
-          "title": "Discover Metaflow services",
-          "type": "boolean",
-          "default": true
-        },
-        "chromadb": {
-          "title": "Discover ChromaDB services",
-          "type": "boolean",
-          "default": true
-        },
-        "milvus": {
-          "title": "Discover Milvus services",
-          "type": "boolean",
-          "default": true
-        }
-      }
-    },
     "security": {
       "title": "Security",
       "type": "object",
@@ -704,6 +637,33 @@
         "hidden": false,
         "overwriteDefaultWith": "region.nodeSelector",
         "overwriteSchemaWith": "nodeSelector.json"
+      }
+    },
+    "openshiftSCC": {
+      "description": "configuration for openshift compatibility",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/openshiftSCC.json"
+      },
+      "properties": {
+        "enabled": {
+          "description": "enable rolebinding with openshift scc",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.enabled"
+          }
+        },
+        "scc": {
+          "type": "string",
+          "description": "name of scc for rolebinding",
+          "default": "anyuid",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "region.openshiftSCC.scc"
+          }
+        }
       }
     },
     "ingress": {
@@ -822,25 +782,25 @@
       }
     },
     "repository": {
-      "description": "python repositories for pip and conda",
+      "description": "r repository (eg : cran mirrors or proxy caches)",
       "type": "object",
       "properties": {
-        "pipRepository": {
+        "rRepository": {
           "type": "string",
-          "description": "python repository for pip",
+          "description": "r repository",
           "default": "",
           "x-onyxia": {
             "hidden": true,
-            "overwriteDefaultWith": "{{packageRepositoryInjection.pypiProxyUrl}}"
+            "overwriteDefaultWith": "{{packageRepositoryInjection.cranProxyUrl}}"
           }
         },
-        "condaRepository": {
+        "packageManagerUrl": {
           "type": "string",
-          "description": "python repository for pip",
+          "description": "Posit Package Manager URL",
           "default": "",
           "x-onyxia": {
             "hidden": true,
-            "overwriteDefaultWith": "{{packageRepositoryInjection.condaProxyUrl}}"
+            "overwriteDefaultWith": "{{packageRepositoryInjection.packageManagerUrl}}"
           }
         }
       }
@@ -898,7 +858,7 @@
       }
     },
     "userPreferences": {
-      "title": "User Preferences",
+      "description": "User Preferences",
       "type": "object",
       "properties": {
         "darkMode": {
@@ -917,85 +877,6 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
-          }
-        },
-        "aiAssistant": {
-          "title": "AI Assistant",
-          "type": "object",
-          "description": "Configure Continue, an extension to use custom AI code assistants",
-          "x-onyxia": {
-            "overwriteSchemaWith": "aiAssistant.json"
-          },
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "default": false,
-              "hidden": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
-              }
-            },
-            "model": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.model"
-              }
-            },
-            "provider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.provider"
-              }
-            },
-            "apiBase": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
-              }
-            },
-            "apiKey": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
-              }
-            },
-            "useLegacyCompletionsEndpoint": {
-              "title": "use legacy completions endpoint",
-              "type": "boolean",
-              "default": true,
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.useLegacyCompletionsEndpoint"
-              }
-            }
           }
         }
       }
@@ -1051,32 +932,6 @@
           "hidden": {
             "value": false,
             "path": "proxy/enabled"
-          }
-        }
-      }
-    },
-    "certificates": {
-      "description": "It can be used to inject certificate authority into the services, if the Helm chart in the catalog allows it you can bind this value to the Helm chart value to add some certificate authorities in the pod.",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "certificates.json"
-      },
-      "default": {},
-      "properties": {
-        "cacerts": {
-          "type": "string",
-          "description": "String of concatenated CA certificates. Alternatively a target URL can be provided.",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true
-          }
-        },
-        "pathToCaBundle": {
-          "type": "string",
-          "description": "String path where a bundle is made or injected by third party solution",
-          "default": "/usr/local/share/ca-certificates/",
-          "x-onyxia": {
-            "hidden": true
           }
         }
       }

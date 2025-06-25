@@ -2,11 +2,11 @@ global:
   suspend: false
 service:
   image:
-    version: inseefrlab/onyxia-vscode-r-python-julia:r4.5.0-py3.13.5
+    version: inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-r-python-julia:r4.5.0-py3.13.5
+      version: inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5
 security:
   password: changeme
   networkPolicy:
