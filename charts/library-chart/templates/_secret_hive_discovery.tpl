@@ -37,7 +37,7 @@ stringData:
 {{- define "library-chart.hive-discovery-help" }}
 {{- if (.Values.discovery).hive }}
 {{- with first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "hive") | fromJsonArray) }}
-{{- if regexMatch "^r|r$" .Chart.Name -}}
+{{- if regexMatch "^r|r$" $.Chart.Name -}}
 There is no well-supported Hive Metastore client for R yet.
 {{- else }}
 {{- if hasKey $.Values "spark" }}
