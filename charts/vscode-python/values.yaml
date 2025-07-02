@@ -80,6 +80,7 @@ discovery:
   metaflow: true
   chromadb: true
   milvus: true
+  postgresql: true
 
 hive:
   secretName: ""
@@ -97,6 +98,9 @@ milvus:
   secretName: ""
 
 coresite:
+  secretName: ""
+
+postgresql:
   secretName: ""
 
 # This is a YAML-formatted file.

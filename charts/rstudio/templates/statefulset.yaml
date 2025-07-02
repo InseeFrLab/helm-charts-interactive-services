@@ -29,6 +29,9 @@ spec:
         {{- if .Values.vault.enabled }}
         checksum/vault: {{ include (print $.Template.BasePath "/secret-vault.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+        checksum/postgresql: {{ include (print $.Template.BasePath "/secret-postgresql.yaml") . | sha256sum }}
+        {{- end }}
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
         {{- end }}
@@ -170,6 +173,10 @@ spec:
             {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
+            {{- end }}
+            {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNamePostgreSQL" . }}
             {{- end }}
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}

@@ -98,8 +98,12 @@ git:
 
 discovery:
   hive: true
+  postgresql: true
 
 hive:
+  secretName: ""
+
+postgresql:
   secretName: ""
 
 coresite:
