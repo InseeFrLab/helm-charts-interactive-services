@@ -196,6 +196,13 @@ It is possible to associate an initialization script with your service to set up
 </details>
 {{ end -}}
 
+{{- with (include "library-chart.postgresql-discovery-help" .) }}
+<details>
+  <summary>PostgreSQL</summary>
+{{ . }}
+</details>
+{{ end -}}
+
 {{- with (include "library-chart.metaflow-discovery-help" .) }}
 <details>
   <summary>Metaflow</summary>
