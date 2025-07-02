@@ -15,7 +15,7 @@
 {{- if (.Values.discovery).postgresql }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgres") | fromJsonArray) -}}
 {{- $pg_service  := index $secretData "postgres-service"  | default "" | b64dec }}
-{{- $pg_port     := index $secretData "postgres-port"     | default "" | b64dec }}
+{{- $pg_port     := index $secretData "postgres-port"     | default ""          }}
 {{- $pg_database := index $secretData "postgres-database" | default "" | b64dec }}
 {{- $pg_username := index $secretData "postgres-username" | default "" | b64dec }}
 {{- $pg_password := index $secretData "password"          | default "" | b64dec }}
