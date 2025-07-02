@@ -26,7 +26,7 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
-  PGHOST: "http://{{ $pg_service }}.{{ $.Release.Namespace }}"
+  PGHOST: {{ $pg_service | quote }}
   PGPORT: {{ $pg_port | quote }}
   PGDATABASE: {{ $pg_database | quote }}
   PGUSER: {{ $pg_username | quote }}
