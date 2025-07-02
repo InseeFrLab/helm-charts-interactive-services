@@ -1,6 +1,6 @@
 # rstudio-r-python-julia
 
-![Version: 2.3.8](https://img.shields.io/badge/Version-2.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.9](https://img.shields.io/badge/Version-2.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with Python, R, Julia, and a collection of standard data science packages
 
@@ -15,7 +15,7 @@ The RStudio IDE with Python, R, Julia, and a collection of standard data science
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.5 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.6 |
 
 ## Values
 
