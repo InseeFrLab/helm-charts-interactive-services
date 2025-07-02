@@ -27,9 +27,5 @@ type: application
 version: 2.3.14
 dependencies:
   - name: library-chart
-<<<<<<< HEAD
     version: 1.7.7
-=======
-    version: 1.7.6
->>>>>>> 0f10d4d5 (Update Helm release library-chart to v1.7.6 (#243))
     repository: https://inseefrlab.github.io/helm-charts-interactive-services
