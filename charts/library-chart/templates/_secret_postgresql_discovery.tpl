@@ -41,6 +41,7 @@ stringData:
 {{- if first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgres") | fromJsonArray) }}
 The connection to your PostgreSQL service is already preconfigured in your service.
 {{- if regexMatch "^r|r$" .Chart.Name }}
+Install the `RPostgres` package using `install.packages("RPostgres")`, then:
 ```r
 library(DBI)
 conn <- dbConnect(RPostgres::Postgres())
