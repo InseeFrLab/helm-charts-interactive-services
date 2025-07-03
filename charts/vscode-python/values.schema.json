@@ -645,6 +645,11 @@
           "title": "Discover Milvus services",
           "type": "boolean",
           "default": true
+        },
+        "postgresql": {
+          "title": "Discover PostgreSQL services",
+          "type": "boolean",
+          "default": true
         }
       }
     },

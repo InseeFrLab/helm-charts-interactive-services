@@ -45,10 +45,13 @@ spec:
         checksum/mlflow: {{ include (print $.Template.BasePath "/secret-mlflow.yaml") . | sha256sum }}
         {{- end }}
         {{- if not (empty (trim (include "library-chart.secretChromaDB" .))) }}
-        checksum/mlflow: {{ include (print $.Template.BasePath "/secret-chromadb.yaml") . | sha256sum }}
+        checksum/chromadb: {{ include (print $.Template.BasePath "/secret-chromadb.yaml") . | sha256sum }}
         {{- end }}
         {{- if not (empty (trim (include "library-chart.secretMilvus" .))) }}
         checksum/milvus: {{ include (print $.Template.BasePath "/secret-milvus.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+        checksum/postgresql: {{ include (print $.Template.BasePath "/secret-postgresql.yaml") . | sha256sum }}
         {{- end }}
         {{- if (include "library-chart.repository.enabled"  .) }}
         checksum/repository: {{ include (print $.Template.BasePath "/configmap-repository.yaml") . | sha256sum }}
@@ -282,6 +285,10 @@ spec:
             {{- if not (empty (trim (include "library-chart.secretMLFlow" .))) }}
             - secretRef:
                 name: {{ include "library-chart.secretNameMLFlow" . }}
+            {{- end }}
+            {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNamePostgreSQL" . }}
             {{- end }}
             {{- if not (empty (trim (include "library-chart.secretChromaDB" .))) }}
             - secretRef:
