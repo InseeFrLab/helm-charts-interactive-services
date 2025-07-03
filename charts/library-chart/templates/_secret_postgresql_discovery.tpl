@@ -15,7 +15,7 @@
 {{- if (.Values.discovery).postgresql }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgres") | fromJsonArray) -}}
 {{- $pg_service  := index $secretData "postgres-service"  | default "" | b64dec }}
-{{- $pg_port     := index $secretData "postgres-port"     | default "" | b64dec }}
+{{- $pg_port     := index $secretData "postgres-port"     | default ""          }}
 {{- $pg_database := index $secretData "postgres-database" | default "" | b64dec }}
 {{- $pg_username := index $secretData "postgres-username" | default "" | b64dec }}
 {{- $pg_password := index $secretData "password"          | default "" | b64dec }}
@@ -26,7 +26,7 @@ metadata:
   labels:
     {{- include "library-chart.labels" $context | nindent 4 }}
 stringData:
-  PGHOST: "http://{{ $pg_service }}"
+  PGHOST: {{ $pg_service | quote }}
   PGPORT: {{ $pg_port | quote }}
   PGDATABASE: {{ $pg_database | quote }}
   PGUSER: {{ $pg_username | quote }}
@@ -41,6 +41,7 @@ stringData:
 {{- if first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgres") | fromJsonArray) }}
 The connection to your PostgreSQL service is already preconfigured in your service.
 {{- if regexMatch "^r|r$" .Chart.Name }}
+Install the `RPostgres` package using `install.packages("RPostgres")`, then:
 ```r
 library(DBI)
 conn <- dbConnect(RPostgres::Postgres())
