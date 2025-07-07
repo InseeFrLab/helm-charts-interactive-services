@@ -57,6 +57,7 @@ discovery:
   metaflow: true
   chromadb: true
   milvus: true
+  postgresql: true
 hive:
   secretName: ''
 mlflow:
@@ -68,6 +69,8 @@ chromadb:
 milvus:
   secretName: ''
 coresite:
+  secretName: ''
+postgresql:
   secretName: ''
 replicaCount: 1
 imagePullSecrets: []

@@ -580,6 +580,17 @@
         }
       }
     },
+    "discovery": {
+      "title": "Third party services discovery",
+      "type": "object",
+      "properties": {
+        "postgresql": {
+          "title": "Discover PostgreSQL services",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
     "security": {
       "title": "Security",
       "type": "object",

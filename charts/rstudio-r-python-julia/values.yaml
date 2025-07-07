@@ -55,6 +55,10 @@ repository:
   configMapName: ''
   packageManagerUrl: ''
   rRepository: ''
+discovery:
+  postgresql: true
+postgresql:
+  secretName: ''
 replicaCount: 1
 imagePullSecrets: []
 nameOverride: ''
