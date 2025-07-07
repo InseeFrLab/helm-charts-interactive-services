@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.3.9](https://img.shields.io/badge/Version-2.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.10](https://img.shields.io/badge/Version-2.3.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.6 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
 
 ## Values
 
@@ -26,6 +26,7 @@ The RStudio IDE with a collection of standard data science packages.
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
@@ -73,6 +74,7 @@ The RStudio IDE with a collection of standard data science packages.
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
+| postgresql.secretName | string | `""` |  |
 | proxy.enabled | bool | `false` |  |
 | proxy.httpProxy | string | `""` |  |
 | proxy.httpsProxy | string | `""` |  |

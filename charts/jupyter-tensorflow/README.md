@@ -1,8 +1,8 @@
-# jupyter-python
+# jupyter-tensorflow
 
 ![Version: 2.3.16](https://img.shields.io/badge/Version-2.3.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python and a collection of standard data science packages.
+The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
 
 **Homepage:** <https://jupyter.org/>
 
@@ -119,9 +119,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.5"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.12.11"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.5"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.12.11"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.3.15](https://img.shields.io/badge/Version-2.3.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.16](https://img.shields.io/badge/Version-2.3.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.6 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
 
 ## Values
 
@@ -34,6 +34,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | discovery.metaflow | bool | `true` |  |
 | discovery.milvus | bool | `true` |  |
 | discovery.mlflow | bool | `true` |  |
+| discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
@@ -84,6 +85,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
+| postgresql.secretName | string | `""` |  |
 | proxy.enabled | bool | `false` |  |
 | proxy.httpProxy | string | `""` |  |
 | proxy.httpsProxy | string | `""` |  |

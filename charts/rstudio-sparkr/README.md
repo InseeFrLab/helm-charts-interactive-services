@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.3.8](https://img.shields.io/badge/Version-2.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.9](https://img.shields.io/badge/Version-2.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.6 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
 
 ## Values
 
@@ -29,6 +29,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | certificates | object | `{}` |  |
 | coresite.secretName | string | `""` |  |
 | discovery.hive | bool | `true` |  |
+| discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.root | bool | `true` |  |
 | environment.user | string | `"onyxia"` |  |
@@ -79,6 +80,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
+| postgresql.secretName | string | `""` |  |
 | proxy.enabled | bool | `false` |  |
 | proxy.httpProxy | string | `""` |  |
 | proxy.httpsProxy | string | `""` |  |
