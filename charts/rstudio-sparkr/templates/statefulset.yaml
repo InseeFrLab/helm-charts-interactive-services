@@ -32,6 +32,9 @@ spec:
         {{- if not (empty (trim (include "library-chart.secretHive" .))) }}
         checksum/hive: {{ include (print $.Template.BasePath "/secret-hive.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+        checksum/postgresql: {{ include (print $.Template.BasePath "/secret-postgresql.yaml") . | sha256sum }}
+        {{- end }}
         {{- if not (empty (trim (include "library-chart.secretIvySettings" .))) }}
         checksum/ivysettings: {{ include (print $.Template.BasePath "/secret-ivysettings.yaml") . | sha256sum }}
         {{- end }}
@@ -237,6 +240,10 @@ spec:
             {{- if (include "library-chart.repository.enabled"  .) }}
             - configMapRef:
                 name: {{ include "library-chart.configMapNameRepository" . }}
+            {{- end }}
+            {{- if not (empty (trim (include "library-chart.secretPostgreSQL" .))) }}
+            - secretRef:
+                name: {{ include "library-chart.secretNamePostgreSQL" . }}
             {{- end }}
             {{- if .Values.extraEnvVars }}
             - secretRef:

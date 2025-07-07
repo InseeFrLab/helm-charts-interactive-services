@@ -85,6 +85,7 @@ discovery:
   metaflow: true
   chromadb: true
   milvus: true
+  postgresql: true
 
 hive:
   secretName: ""
@@ -99,6 +100,9 @@ chromadb:
   secretName: ""
 
 milvus:
+  secretName: ""
+
+postgresql:
   secretName: ""
 
 coresite:
