@@ -41,7 +41,7 @@ stringData:
 {{- if first (include "library-chart.getOnyxiaDiscoverySecrets" (list .Release.Namespace "postgres") | fromJsonArray) }}
 The connection to your PostgreSQL service is already preconfigured in your service.
 {{- if regexMatch "^r|r$" .Chart.Name }}
-Install the `RPostgres` package using `install.packages("RPostgres")`, then:
+Install the `RPostgres` package using `install.packages("RPostgres")`, then a client can be created in a R script or interactive console:
 ```r
 library(DBI)
 conn <- dbConnect(RPostgres::Postgres())
@@ -49,7 +49,7 @@ print(dbGetQuery(conn, "SELECT version();"))
 dbDisconnect(conn)
 ```
 {{- else }}
-A client can be created in a Python script or interactive console:
+Install the `psycopg` package using `pip install psycopg`, then a client can be created in a Python script or interactive console:
 ```python
 import psycopg
 conn = psycopg.connect()
@@ -58,6 +58,12 @@ with conn.cursor() as cur:
 conn.close()
 ```
 {{- end }}
-{{- end }}
+
+Or using `duckdb`:
+```duckdb
+ATTACH '' AS postgres(TYPE postgres);
+SHOW ALL TABLES;
+```
+{{ end }}
 {{- end }}
 {{- end -}}
