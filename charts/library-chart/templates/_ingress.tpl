@@ -68,7 +68,7 @@ spec:
     - host: {{ .Values.ingress.hostname | quote }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.path | default "/" }}
             pathType: Prefix
             backend:
               service:
@@ -128,7 +128,7 @@ spec:
     {{- end }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.userPath | default "/" }}
             pathType: Prefix
             backend:
               service:
@@ -174,7 +174,7 @@ spec:
     - host: {{ .Values.ingress.sparkHostname | quote }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.sparkPath | default "/" }}
             pathType: Prefix
             backend:
               service:

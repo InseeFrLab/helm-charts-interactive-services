@@ -34,7 +34,7 @@ metadata:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
   host: {{ .Values.route.hostname | quote }}
-  path: /
+  path: {{ .Values.route.path | default "/" }}
   to:
     kind: Service
     name: {{ $fullName }}
@@ -83,7 +83,7 @@ spec:
 {{- else }}
   host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.route.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
 {{- end }}
-  path: /
+  path: {{ .Values.route.userPath | default "/" }}
   to:
     kind: Service
     name: {{ $fullName }}
@@ -130,7 +130,7 @@ metadata:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
   host: {{ .Values.route.sparkHostname | quote }}
-  path: /
+  path: {{ .Values.route.sparkPath | default "/" }}
   to:
     kind: Service
     name: {{ $fullName }}
