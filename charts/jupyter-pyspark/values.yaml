@@ -195,6 +195,10 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local
   userHostname: chart-example-user.local
+  sparkHostname: chart-example-spark.local
+  path: /
+  userPath: /
+  sparkPath: /
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
@@ -209,6 +213,7 @@ route:
     # route.openshift.io/termination: "reencrypt"
   hostname: chart-example.local
   userHostname: chart-example-user.local
+  sparkHostname: chart-example-spark.local
   tls:
     termination: edge
     # key:
