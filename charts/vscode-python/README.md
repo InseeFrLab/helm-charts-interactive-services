@@ -1,6 +1,6 @@
 # vscode-python
 
-![Version: 2.3.16](https://img.shields.io/badge/Version-2.3.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.17](https://img.shields.io/badge/Version-2.3.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.12 |
 
 ## Values
 
@@ -53,11 +53,13 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
+| ingress.path | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
+| ingress.userPath | string | `"/"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |

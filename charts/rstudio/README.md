@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.3.10](https://img.shields.io/badge/Version-2.3.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.11](https://img.shields.io/badge/Version-2.3.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.12 |
 
 ## Values
 
@@ -45,11 +45,13 @@ The RStudio IDE with a collection of standard data science packages.
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
+| ingress.path | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
+| ingress.userPath | string | `"/"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |

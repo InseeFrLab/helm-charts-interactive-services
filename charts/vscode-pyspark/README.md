@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.3.14](https://img.shields.io/badge/Version-2.3.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.15](https://img.shields.io/badge/Version-2.3.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.12 |
 
 ## Values
 
@@ -55,11 +55,15 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
+| ingress.path | string | `"/"` |  |
+| ingress.sparkHostname | string | `"chart-example-spark.local"` |  |
+| ingress.sparkPath | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
+| ingress.userPath | string | `"/"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |

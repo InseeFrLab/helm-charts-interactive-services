@@ -1,6 +1,6 @@
 # jupyter-pyspark
 
-![Version: 2.3.14](https://img.shields.io/badge/Version-2.3.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.15](https://img.shields.io/badge/Version-2.3.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.12 |
 
 ## Values
 
@@ -55,11 +55,15 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
+| ingress.path | string | `"/"` |  |
+| ingress.sparkHostname | string | `"chart-example-spark.local"` |  |
+| ingress.sparkPath | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
+| ingress.userPath | string | `"/"` |  |
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
@@ -101,6 +105,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
 | route.hostname | string | `"chart-example.local"` |  |
+| route.sparkHostname | string | `"chart-example-spark.local"` |  |
 | route.tls.termination | string | `"edge"` |  |
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
