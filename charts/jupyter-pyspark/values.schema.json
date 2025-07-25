@@ -25,7 +25,8 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-pyspark:py3.13.5-spark3.5.5",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.11-spark3.5.5"
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.11-spark3.5.5",
+                "inseefrlab/trevas-jupyter:0.8.0"
               ],
               "render": "list",
               "hidden": {
@@ -831,7 +832,7 @@
             "hidden": true
           }
         },
-        "tlsSecretName":{
+        "tlsSecretName": {
           "type": "string",
           "default": "",
           "x-onyxia": {
