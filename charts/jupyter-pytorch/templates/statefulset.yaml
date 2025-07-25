@@ -104,8 +104,8 @@ spec:
       hostname: jupyter
       initContainers:
         - name: make-secrets-writable
-          image: inseefrlab/onyxia-base:latest
-          imagePullPolicy: IfNotPresent
+          image: {{ .Values.service.initContainer.image }}
+          imagePullPolicy: {{ .Values.service.initContainer.pullPolicy }}
           command:
             - sh
             - -c
