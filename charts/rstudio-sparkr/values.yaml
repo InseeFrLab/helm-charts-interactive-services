@@ -3,6 +3,9 @@ global:
   suspend: false
 
 service:
+  initContainer:
+    image: "inseefrlab/onyxia-base:latest"
+    pullPolicy: IfNotPresent
   image:
     version: "inseefrlab/onyxia-rstudio-sparkr:r4.5.0-spark3.5.5"
     pullPolicy: IfNotPresent

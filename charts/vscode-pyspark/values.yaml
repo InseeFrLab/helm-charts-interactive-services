@@ -3,6 +3,9 @@ global:
   suspend: false
 
 service:
+  initContainer:
+    image: "inseefrlab/onyxia-base:latest"
+    pullPolicy: IfNotPresent
   image:
     version: "inseefrlab/onyxia-vscode-pyspark:py3.13.5-spark3.5.5"
     pullPolicy: IfNotPresent
