@@ -1,9 +1,6 @@
 global:
   suspend: false
 service:
-  initContainer:
-    image: "inseefrlab/onyxia-base:latest"
-    pullPolicy: IfNotPresent
   image:
     version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.11
     pullPolicy: IfNotPresent

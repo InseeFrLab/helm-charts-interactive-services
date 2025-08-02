@@ -1,9 +1,6 @@
 global:
   suspend: false
 service:
-  initContainer:
-    image: "inseefrlab/onyxia-base:latest"
-    pullPolicy: IfNotPresent
   image:
     version: inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.5
     pullPolicy: IfNotPresent
