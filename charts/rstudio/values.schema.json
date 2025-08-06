@@ -6,21 +6,6 @@
       "title": "Service",
       "type": "object",
       "properties": {
-        "initContainer": {
-            "title": "Docker image for initcontainer",
-            "type": "object",
-            "hidden" : true,
-            "properties": {
-              "image" : {
-                "default" : "inseefrlab/onyxia-base:latest",
-                "type" : "string"
-              },
-              "pullPolicy" : {
-                "default" : "IfNotPresent",
-                "type" : "string"
-              }
-            }
-        },
         "image": {
           "title": "Docker image",
           "type": "object",
