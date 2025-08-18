@@ -1,8 +1,8 @@
-# jupyter-python
+# jupyter-pytorch-gpu
 
 ![Version: 2.3.18](https://img.shields.io/badge/Version-2.3.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python and a collection of standard data science packages.
+The JupyterLab IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
 **Homepage:** <https://jupyter.org/>
 
@@ -121,9 +121,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.5"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pytorch:py3.13.5-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.5"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-pytorch:py3.13.5-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
