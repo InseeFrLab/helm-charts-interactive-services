@@ -1,6 +1,9 @@
 global:
   suspend: false
 service:
+  initContainer:
+    image: inseefrlab/onyxia-base:latest
+    pullPolicy: IfNotPresent
   image:
     version: inseefrlab/onyxia-jupyter-python:py3.13.5-gpu
     pullPolicy: IfNotPresent

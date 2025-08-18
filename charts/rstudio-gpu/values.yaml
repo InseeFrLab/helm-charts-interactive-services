@@ -1,6 +1,9 @@
 global:
   suspend: false
 service:
+  initContainer:
+    image: inseefrlab/onyxia-base:latest
+    pullPolicy: IfNotPresent
   image:
     version: inseefrlab/onyxia-rstudio:r4.5.0-gpu
     pullPolicy: IfNotPresent
