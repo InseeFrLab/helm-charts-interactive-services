@@ -5,11 +5,11 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: inseefrlab/onyxia-jupyter-pytorch:py3.13.5
+    version: inseefrlab/onyxia-jupyter-pytorch:py3.13.7
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-pytorch:py3.13.5
+      version: inseefrlab/onyxia-jupyter-pytorch:py3.13.7
 security:
   password: changeme
   networkPolicy:

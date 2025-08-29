@@ -24,7 +24,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pytorch:py3.13.5",
+                "inseefrlab/onyxia-jupyter-pytorch:py3.13.7",
                 "inseefrlab/onyxia-jupyter-pytorch:py3.12.11"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.13.5"
+              "default": "inseefrlab/onyxia-jupyter-pytorch:py3.13.7"
             },
             "custom": {
               "title": "Custom image",
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pytorch:py3.13.5",
+                  "default": "inseefrlab/onyxia-jupyter-pytorch:py3.13.7",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
