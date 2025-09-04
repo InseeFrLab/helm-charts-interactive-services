@@ -24,7 +24,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:7-spark3.5.6",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.13.7-spark3.5.6",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.12.11-spark3.5.6"
               ],
               "render": "list",
