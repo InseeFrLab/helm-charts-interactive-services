@@ -60,6 +60,8 @@ spec:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
       volumes:
+        - name: jupyter-local
+          emptyDir: {}
         - name: home
         {{- if (.Values.persistence).enabled }}
           persistentVolumeClaim:
@@ -93,6 +95,11 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
+        {{- if (.Values.userPreferences.aiAssistant).enabled }}
+        - name: secret-assistant
+          secret:
+            secretName: {{ include "library-chart.secretNameAssistantJupyter" . }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -111,6 +118,10 @@ spec:
             - -c
             - |
               echo 'initContainer make-secrets-writable is started';
+              {{ if (.Values.userPreferences.aiAssistant).enabled }}
+              mkdir /dest/jupyter-ai
+              cp /src/jupyter-ai/config.json /dest/jupyter-ai/config.json
+              {{- end }}
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
               cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
@@ -129,6 +140,10 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
+            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            - name: secret-assistant
+              mountPath: /src/jupyter-ai
+            {{- end }}
             - name: config-files
               mountPath: /dest
             {{- if (.Values.certificates).cacerts }}
@@ -200,6 +215,14 @@ spec:
             {{- end }}
             - name: UV_CACHE_DIR
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
+            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            - name: OPENAI_API_KEY
+              value: {{ .Values.userPreferences.aiAssistant.apiKey }}
+            - name: OPENAI_BASE_URL
+              value: {{ .Values.userPreferences.aiAssistant.apiBase }}
+            - name: ENABLE_JUPYTER_AI_EXTENSION
+              value: "{{ .Values.userPreferences.aiAssistant.enabled }}"
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
@@ -263,6 +286,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            - name: jupyter-local
+              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter
+            {{ if (.Values.userPreferences.aiAssistant).enabled }}
+            - mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai
+              subPath: jupyter-ai
+              name: config-files
+            {{- end }}
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
               name: home

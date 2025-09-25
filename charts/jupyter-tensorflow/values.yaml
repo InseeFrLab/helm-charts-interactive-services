@@ -148,6 +148,13 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: en
+  aiAssistant:
+    enabled: false
+    modelProvider: ''
+    embeddingsProvider: ''
+    apiBase: ''
+    apiKey: ''
+    secretName: ''
 openshiftSCC:
   enabled: false
   scc: ''
