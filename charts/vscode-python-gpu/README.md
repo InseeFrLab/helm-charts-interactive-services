@@ -1,10 +1,10 @@
-# jupyter-python
+# vscode-python-gpu
 
-![Version: 2.3.20](https://img.shields.io/badge/Version-2.3.20-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.19](https://img.shields.io/badge/Version-2.3.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with Python and a collection of standard data science packages.
+The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
-**Homepage:** <https://jupyter.org/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and a collection of standard data science package
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.13 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.12 |
 
 ## Values
 
@@ -42,11 +42,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `false` |  |
+| git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
-| git.repository | string | `""` |  |
 | git.secretName | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -65,8 +63,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -75,8 +74,7 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8888` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -85,7 +83,7 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `false` |  |
+| persistence.enabled | bool | `true` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -121,9 +119,9 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.7"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.7-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.7"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.7-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
@@ -137,10 +135,11 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | tolerations | list | `[]` |  |
 | userPreferences.aiAssistant.apiBase | string | `""` |  |
 | userPreferences.aiAssistant.apiKey | string | `""` |  |
-| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
 | userPreferences.aiAssistant.enabled | bool | `false` |  |
-| userPreferences.aiAssistant.modelProvider | string | `""` |  |
+| userPreferences.aiAssistant.model | string | `""` |  |
+| userPreferences.aiAssistant.provider | string | `""` |  |
 | userPreferences.aiAssistant.secretName | string | `""` |  |
+| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
