@@ -453,3 +453,72 @@ stringData:
       - provider: file
 {{- end }}
 {{- end }}
+
+
+{{/* Create the name of the secret AI Assistant to use */}}
+{{- define "library-chart.secretNameAssistantJupyter" -}}
+{{- if (.Values.userPreferences.aiAssistant).enabled }}
+{{- $name := printf "%s-secretassistant" (include "library-chart.fullname" .) }}
+{{- default $name .Values.userPreferences.aiAssistant.secretName }}
+{{- else }}
+{{- default "default" .Values.userPreferences.aiAssistant.secretName }}
+{{- end }}
+{{- end }}
+
+{{/* Template to generate a secret for AI Assistant */}}
+{{- define "library-chart.secretAssistantJupyter" -}}
+{{- if .Values.userPreferences.aiAssistant.enabled -}}
+{{- $modelProvider       := .Values.userPreferences.aiAssistant.modelProvider -}}
+{{- $embeddingsProvider  := .Values.userPreferences.aiAssistant.embeddingsProvider -}}
+{{- $model               := .Values.userPreferences.aiAssistant.model -}}
+{{- $apiBase             := .Values.userPreferences.aiAssistant.apiBase -}}
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "library-chart.secretNameAssistantJupyter" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+stringData:
+  config.json: |
+    {
+{{- if and $modelProvider $model }}
+      "model_provider_id": {{ printf "%s:%s" $modelProvider $model | quote }},
+{{- else }}
+      "model_provider_id": null,
+{{- end }}
+{{- if and $embeddingsProvider $model }}
+      "embeddings_provider_id": {{ printf "%s:%s" $embeddingsProvider $model | quote }},
+{{- else }}
+      "embeddings_provider_id": null,
+{{- end }}
+      "send_with_shift_enter": false,
+      "fields": {
+{{- if and $modelProvider $apiBase }}
+        {{ printf "%s:" $modelProvider | quote }}: {
+          "openai_api_base": {{ $apiBase | quote }}
+        }{{- if $model }},{{ end }}
+{{-   if $model }}
+        {{ printf "%s:%s" $modelProvider $model | quote }}: {
+          "openai_api_base": {{ $apiBase | quote }}
+        }
+{{-   end }}
+{{- end }}
+      },
+      "api_keys": {
+{{- if .Values.userPreferences.aiAssistant.apiKey }}
+        "OPENAI_API_KEY": {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
+{{- end }}
+      },
+      "completions_model_provider_id": null,
+      "completions_fields": {},
+      "embeddings_fields": {
+{{- if and $embeddingsProvider $model }}
+        {{ printf "%s:%s" $embeddingsProvider $model | quote }}: {
+          "openai_api_base": {{ $apiBase | quote }}
+        }
+{{- end }}
+      }
+    }
+{{- end }}
+{{- end }}
