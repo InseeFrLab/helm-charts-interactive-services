@@ -453,7 +453,7 @@ stringData:
       - provider: file
     mcpServers:
       - name: DuckDB
-        command: uvx 
+        command: uvx
         args:
           - mcp-server-motherduck
           - "--db-path"
