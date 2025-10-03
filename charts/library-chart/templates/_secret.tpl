@@ -451,6 +451,15 @@ stringData:
       - provider: diff
       - provider: code
       - provider: file
+    mcpServers:
+      - name: DuckDB
+        command: uvx 
+        args:
+          - mcp-server-motherduck
+          - "--db-path"
+          - ":memory:"
+          - "--home-dir"
+          - "/home/{{ .Values.environment.user }}"
 {{- end }}
 {{- end }}
 
