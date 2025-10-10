@@ -1,8 +1,8 @@
-# jupyter-pyspark
+# jupyter-python-gpu
 
-![Version: 2.3.24](https://img.shields.io/badge/Version-2.3.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.21](https://img.shields.io/badge/Version-2.3.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
+The JupyterLab IDE with Python, and a collection of standard data science packages, with GPU support.
 
 **Homepage:** <https://jupyter.org/>
 
@@ -56,8 +56,6 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.ingressClassName | string | `""` |  |
 | ingress.path | string | `"/"` |  |
-| ingress.sparkHostname | string | `"chart-example-spark.local"` |  |
-| ingress.sparkPath | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
@@ -87,7 +85,7 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `true` |  |
+| persistence.enabled | bool | `false` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -99,13 +97,11 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | replicaCount | int | `1` |  |
 | repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.mavenRepository | string | `""` |  |
 | repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
 | route.hostname | string | `"chart-example.local"` |  |
-| route.sparkHostname | string | `"chart-example-spark.local"` |  |
 | route.tls.termination | string | `"edge"` |  |
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
@@ -125,34 +121,14 @@ The JupyterLab IDE with PySpark, an interface to use Apache Spark from Python.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.13.7-spark3.5.7"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.7-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-pyspark:py3.13.7-spark3.5.7"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-python:py3.13.7-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
-| spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
-| spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
-| spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
-| spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.default | bool | `true` |  |
-| spark.disabledCertChecking | bool | `false` |  |
-| spark.secretName | string | `""` |  |
-| spark.sparkui | bool | `false` |  |
-| spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.initialExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.maxExecutors" | string | `"10"` |  |
-| spark.userConfig."spark.dynamicAllocation.minExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.shuffleTracking.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.executor.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled" | string | `"true"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
