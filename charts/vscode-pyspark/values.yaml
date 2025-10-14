@@ -7,11 +7,11 @@ service:
     image: "inseefrlab/onyxia-base:latest"
     pullPolicy: IfNotPresent
   image:
-    version: "inseefrlab/onyxia-vscode-pyspark:py3.13.7-spark3.5.7"
+    version: "inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark3.5.7"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-pyspark:py3.13.7-spark3.5.7"
+      version: "inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark3.5.7"
 
 spark:
   sparkui: false
