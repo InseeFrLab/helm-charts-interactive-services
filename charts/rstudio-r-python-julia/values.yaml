@@ -5,11 +5,11 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.8
+    version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.8
+      version: inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.5
 security:
   password: changeme
   networkPolicy:
