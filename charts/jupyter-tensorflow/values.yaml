@@ -5,11 +5,11 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.11
+    version: inseefrlab/onyxia-jupyter-tensorflow:py3.13.8
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-jupyter-tensorflow:py3.12.11
+      version: inseefrlab/onyxia-jupyter-tensorflow:py3.13.8
 security:
   password: changeme
   networkPolicy:
