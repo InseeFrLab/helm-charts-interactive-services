@@ -1,8 +1,8 @@
-# rstudio
+# rstudio-r-python-julia
 
 ![Version: 2.3.17](https://img.shields.io/badge/Version-2.3.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The RStudio IDE with a collection of standard data science packages.
+The RStudio IDE with Python, R, Julia, and a collection of standard data science packages
 
 **Homepage:** <https://www.rstudio.com/>
 
@@ -108,9 +108,9 @@ The RStudio IDE with a collection of standard data science packages.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.5.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.8"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.5.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio-r-python-julia:r4.5.1-py3.13.8"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
