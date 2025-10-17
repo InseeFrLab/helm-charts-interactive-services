@@ -30,7 +30,7 @@ spec:
       name: {{ printf "user-%d" (int $userPort) | quote }}
     {{- end }}
     {{ if .Values.spark }}
-    {{ if .Values.spark.sparkui }}
+    {{ if .Values.spark.ui }}
     {{ if .Values.networking.sparkui }}
     - port: {{ .Values.networking.sparkui.port }}
       targetPort: {{ .Values.networking.sparkui.port }}
