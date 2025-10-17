@@ -117,7 +117,7 @@ spec:
 {{/* Template to generate a Route for the Spark UI */}}
 {{- define "library-chart.routeSpark" -}}
 {{- if .Values.route.enabled -}}
-{{- if .Values.spark.sparkui -}}
+{{- if .Values.spark.ui -}}
 {{- $fullName := include "library-chart.fullname" . -}}
 {{- $svcPort := .Values.networking.sparkui.port -}}
 apiVersion: route.openshift.io/v1
@@ -129,8 +129,8 @@ metadata:
   annotations:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
-  host: {{ .Values.route.sparkHostname | quote }}
-  path: {{ .Values.route.sparkPath | default "/" }}
+  host: {{ .Values.spark.hostname | quote }}
+  path: {{ .Values.spark.path | default "/" }}
   to:
     kind: Service
     name: {{ $fullName }}
