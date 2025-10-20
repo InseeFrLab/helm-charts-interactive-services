@@ -67,7 +67,7 @@ and then use the following URL with your browser: `http://localhost:<local-port>
   Generate NOTES about connection to the Spark UI (if enabled).
 */}}
 {{- define "library-chart.notes-sparkui" -}}
-{{- if (.Values.spark).sparkui -}}
+{{- if (.Values.spark).ui -}}
 {{- if eq .Values.userPreferences.language "fr" -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled -}}
 - Lorsque le driver Spark est en cours d'exécution, vous pouvez vous connecter à l'interface Spark depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.sparkui-url" . }}).

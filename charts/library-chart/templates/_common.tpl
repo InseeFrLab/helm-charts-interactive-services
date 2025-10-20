@@ -20,11 +20,11 @@
   Return the URL at which the service can be accessed
 */}}
 {{- define "library-chart.sparkui-url" -}}
-  {{- if (.Values.spark).sparkui -}}
+  {{- if (.Values.spark).ui -}}
     {{- if (.Values.ingress).enabled -}}
-      {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.sparkHostname -}}
+      {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.spark.hostname -}}
     {{- else if (.Values.route).enabled -}}
-      {{- printf "https://%s" .Values.route.sparkHostname -}}
+      {{- printf "https://%s" .Values.spark.hostname -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

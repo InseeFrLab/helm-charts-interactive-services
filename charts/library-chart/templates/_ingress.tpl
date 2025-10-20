@@ -145,7 +145,7 @@ spec:
 
 {{/* Template to generate an Ingress for the Spark UI */}}
 {{- define "library-chart.ingressSpark" -}}
-{{- if and (.Values.ingress).enabled (.Values.spark).sparkui -}}
+{{- if and (.Values.ingress).enabled (.Values.spark).ui -}}
 {{- $fullName := include "library-chart.fullname" . -}}
 {{- $svcPort := .Values.networking.sparkui.port -}}
 apiVersion: networking.k8s.io/v1
@@ -163,7 +163,7 @@ spec:
 {{- if .Values.ingress.tls }}
   tls:
     - hosts:
-        - {{ .Values.ingress.sparkHostname | quote }}
+        - {{ .Values.spark.hostname | quote }}
     {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
       secretName: {{ .Values.ingress.tlsSecretName }}
     {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
@@ -171,10 +171,10 @@ spec:
     {{- end }}
 {{- end }}
   rules:
-    - host: {{ .Values.ingress.sparkHostname | quote }}
+    - host: {{ .Values.spark.hostname | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.sparkPath | default "/" }}
+          - path: {{ .Values.spark.path | default "/" }}
             pathType: Prefix
             backend:
               service:
