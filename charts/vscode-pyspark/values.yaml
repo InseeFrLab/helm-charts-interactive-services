@@ -98,6 +98,7 @@ git:
   token: ""
   repository: ""
   branch: ""
+  asCodeServerRoot: false
 
 proxy:
   enabled: false

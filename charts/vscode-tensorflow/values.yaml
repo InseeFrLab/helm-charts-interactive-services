@@ -50,6 +50,7 @@ git:
   email: ''
   cache: ''
   branch: ''
+  asCodeServerRoot: false
 repository:
   configMapName: ''
   pipRepository: ''
