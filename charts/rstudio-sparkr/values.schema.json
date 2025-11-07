@@ -69,10 +69,19 @@
         "overwriteSchemaWith": "spark.json"
       },
       "properties": {
-        "sparkui": {
+        "ui": {
           "title": "Enable monitoring interface",
           "type": "boolean",
           "default": true
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
+          }
         },
         "default": {
           "title": "Create a Spark configuration",
@@ -713,7 +722,7 @@
       "type": "object",
       "form": true,
       "x-onyxia": {
-        "overwriteSchemaWith": "ide/ingress-spark.json"
+        "overwriteSchemaWith": "ide/ingress.json"
       },
       "properties": {
         "enabled": {
@@ -732,15 +741,6 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
-          }
-        },
-        "sparkHostname": {
-          "type": "string",
-          "form": true,
-          "title": "Hostname",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
           }
         },
         "userHostname": {
