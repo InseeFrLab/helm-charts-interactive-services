@@ -1097,7 +1097,7 @@
       "type": "object",
       "x-onyxia": {
         "overwriteSchemaWith": "repository.json"
-      },      
+      },
       "properties": {
         "pipRepository": {
           "type": "string",
