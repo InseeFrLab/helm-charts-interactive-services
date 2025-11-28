@@ -1,6 +1,6 @@
 # jupyter-r-python-julia
 
-![Version: 2.3.23](https://img.shields.io/badge/Version-2.3.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.24](https://img.shields.io/badge/Version-2.3.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
 

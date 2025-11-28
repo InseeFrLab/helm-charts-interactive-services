@@ -806,6 +806,9 @@
     "repository": {
       "description": "r repository (eg : cran mirrors or proxy caches)",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "repository.json"
+      },
       "properties": {
         "rRepository": {
           "type": "string",
