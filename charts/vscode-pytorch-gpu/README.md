@@ -1,8 +1,8 @@
-# vscode-python
+# vscode-pytorch-gpu
 
 ![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The Visual Studio Code IDE with Python, Julia, and a collection of standard data science packages.
+The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
 **Homepage:** <https://code.visualstudio.com/>
 
@@ -120,9 +120,9 @@ The Visual Studio Code IDE with Python, Julia, and a collection of standard data
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pytorch:py3.13.8-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-pytorch:py3.13.8-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
