@@ -1,12 +1,16 @@
-# EOStat - Earth Observation Statistics
+# eostat
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-JupyterLab environment for Earth Observation Statistics with R, Python, and comprehensive geospatial libraries.
-
-Designed for the UN Handbook on Remote Sensing for Agricultural Statistics and general Earth Observation workflows.
+JupyterLab environment for Earth Observation Statistics with R, Python, and geospatial libraries
 
 **Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| UN Global Platform | <lovells@un.org> |  |
 
 ## Source Code
 
@@ -39,7 +43,17 @@ Designed for the UN Handbook on Remote Sensing for Agricultural Statistics and g
 | discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
-| extraEnvVars | list | `[]` |  |
+| eostat.chapterName | string | `"ct_chile"` |  |
+| eostat.enabled | bool | `true` |  |
+| eostat.initScript | string | `"/opt/onyxia-eostat-init.sh"` |  |
+| eostat.repoBranch | string | `"main"` |  |
+| eostat.repoUrl | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
+| extraEnvVars[0].name | string | `"REPO_URL"` |  |
+| extraEnvVars[0].value | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
+| extraEnvVars[1].name | string | `"REPO_BRANCH"` |  |
+| extraEnvVars[1].value | string | `"main"` |  |
+| extraEnvVars[2].name | string | `"CHAPTER_NAME"` |  |
+| extraEnvVars[2].value | string | `"ct_chile"` |  |
 | fullnameOverride | string | `""` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
@@ -123,9 +137,9 @@ Designed for the UN Handbook on Remote Sensing for Agricultural Statistics and g
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"` |  |
+| service.image.custom.version | string | `"ghcr.io/unglobalplatform/onyxia-eostat:latest"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"` |  |
+| service.image.version | string | `"ghcr.io/unglobalplatform/onyxia-eostat:latest"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
