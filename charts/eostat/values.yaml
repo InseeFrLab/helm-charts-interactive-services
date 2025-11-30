@@ -62,14 +62,15 @@ vault:
   secret: ''
   directory: ''
 git:
-  enabled: false
+  enabled: true
   secretName: ''
-  name: ''
-  email: ''
+  name: 'UN Handbook User'
+  email: 'handbook@un.org'
   cache: ''
   token: ''
-  repository: ''
-  branch: ''
+  # Repository and branch set via schema overwriteDefaultWith from chapter.*
+  repository: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
+  branch: "main"
 repository:
   configMapName: ''
   pipRepository: ''

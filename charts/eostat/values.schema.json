@@ -1,577 +1,136 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EOStat - Earth Observation Statistics",
+  "description": "JupyterLab environment for Earth Observation workflows. Configuration comes from reproducible extension deep-link.",
   "type": "object",
   "properties": {
-    "service": {
-      "title": "Service",
-      "type": "object",
-      "properties": {
-        "image": {
-          "title": "Docker image",
-          "type": "object",
-          "properties": {
-            "pullPolicy": {
-              "title": "Pull image from registry",
-              "type": "string",
-              "default": "IfNotPresent",
-              "enum": [
-                "IfNotPresent",
-                "Always",
-                "Never"
-              ]
-            },
-            "version": {
-              "title": "Name of the service's Docker image",
-              "type": "string",
-              "listEnum": [
-                "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"
-              ],
-              "render": "list",
-              "hidden": {
-                "value": true,
-                "path": "service/image/custom/enabled"
-              },
-              "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"
-            },
-            "custom": {
-              "title": "Custom image",
-              "type": "object",
-              "properties": {
-                "enabled": {
-                  "title": "Use a custom image instead",
-                  "type": "boolean",
-                  "default": false,
-                  "x-onyxia": {
-                    "overwriteSchemaWith": "ide/customImage.json"
-                  }
-                },
-                "version": {
-                  "title": "Name of the custom image",
-                  "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8",
-                  "hidden": {
-                    "value": false,
-                    "path": "enabled",
-                    "isPathRelative": true
-                  }
-                }
-              }
-            }
-          }
-        }
+    "tier": {
+      "type": "string",
+      "title": "Resource Tier",
+      "description": "Computational resources for this session",
+      "default": "medium",
+      "enum": ["light", "medium", "heavy", "gpu"],
+      "x-onyxia": {
+        "overwriteDefaultWith": null,
+        "hidden": false
       }
     },
-    "resources": {
-      "title": "Resources (CPU/RAM)",
-      "type": "object",
+    "imageFlavor": {
+      "type": "string",
+      "title": "Image Variant",
+      "description": "Container image flavor",
+      "default": "base",
+      "enum": ["base", "gpu"],
       "x-onyxia": {
-        "overwriteSchemaWith": "ide/resources.json"
-      },
-      "properties": {
-        "requests": {
-          "description": "Guaranteed resources",
-          "type": "object",
-          "properties": {
-            "cpu": {
-              "description": "Guaranteed CPU allocation",
-              "title": "CPU",
-              "type": "string",
-              "default": "100m",
-              "render": "slider",
-              "sliderMin": 50,
-              "sliderMax": 40000,
-              "sliderStep": 50,
-              "sliderUnit": "m",
-              "sliderExtremity": "down",
-              "sliderExtremitySemantic": "guaranteed",
-              "sliderRangeId": "cpu",
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.resources.cpuRequest",
-                "useRegionSliderConfig": "cpu"
-              }
-            },
-            "memory": {
-              "description": "Guaranteed memory allocation",
-              "title": "memory",
-              "type": "string",
-              "default": "2Gi",
-              "render": "slider",
-              "sliderMin": 1,
-              "sliderMax": 200,
-              "sliderStep": 1,
-              "sliderUnit": "Gi",
-              "sliderExtremity": "down",
-              "sliderExtremitySemantic": "guaranteed",
-              "sliderRangeId": "memory",
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.resources.memoryRequest",
-                "useRegionSliderConfig": "memory"
-              }
-            }
-          }
-        },
-        "limits": {
-          "description": "max resources",
-          "type": "object",
-          "properties": {
-            "cpu": {
-              "description": "Maximum CPU allocation",
-              "title": "CPU",
-              "type": "string",
-              "default": "30000m",
-              "render": "slider",
-              "sliderMin": 50,
-              "sliderMax": 40000,
-              "sliderStep": 50,
-              "sliderUnit": "m",
-              "sliderExtremity": "up",
-              "sliderExtremitySemantic": "Maximum",
-              "sliderRangeId": "cpu",
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.resources.cpuLimit",
-                "useRegionSliderConfig": "cpu"
-              }
-            },
-            "memory": {
-              "description": "Maximum memory allocation",
-              "title": "Memory",
-              "type": "string",
-              "default": "50Gi",
-              "render": "slider",
-              "sliderMin": 1,
-              "sliderMax": 200,
-              "sliderStep": 1,
-              "sliderUnit": "Gi",
-              "sliderExtremity": "up",
-              "sliderExtremitySemantic": "Maximum",
-              "sliderRangeId": "memory",
-              "x-onyxia": {
-                "overwriteDefaultWith": "region.resources.memoryLimit",
-                "useRegionSliderConfig": "memory"
-              }
-            }
-          }
-        }
+        "overwriteDefaultWith": null,
+        "hidden": true
       }
     },
-    "persistence": {
+    "chapter": {
       "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/persistence.json"
-      },
+      "title": "Chapter Configuration",
+      "description": "UN Handbook chapter to load",
       "properties": {
-        "enabled": {
-          "title": "Create a persistent volume",
-          "type": "boolean",
-          "default": true
-        },
-        "size": {
-          "title": "Persistent volume size",
+        "name": {
           "type": "string",
-          "default": "10Gi",
-          "form": true,
-          "render": "slider",
-          "sliderMin": 1,
-          "sliderMax": 100,
-          "sliderStep": 1,
-          "sliderUnit": "Gi",
+          "title": "Chapter Name",
+          "description": "Chapter identifier (e.g., ct_chile)",
+          "default": "ct_chile",
           "x-onyxia": {
-            "overwriteDefaultWith": "region.resources.disk",
-            "useRegionSliderConfig": "disk"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "overwriteDefaultWith": null,
+            "hidden": false
           }
-        }
-      }
-    },
-    "init": {
-      "title": "Initialization scripts",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/init.json"
-      },
-      "properties": {
-        "regionInit": {
+        },
+        "version": {
           "type": "string",
-          "description": "region initialization script",
-          "default": "",
+          "title": "Chapter Version",
+          "description": "Git branch or tag",
+          "default": "main",
           "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.initScriptUrl}}"
+            "overwriteDefaultWith": null,
+            "hidden": true
           }
         },
-        "personalInit": {
-          "title": "Use a custom script (URL)",
+        "repository": {
           "type": "string",
-          "default": ""
-        },
-        "personalInitArgs": {
-          "title": "Arguments for the custom script",
-          "type": "string",
-          "default": ""
-        }
-      }
-    },
-    "extraEnvVars": {
-      "title": "Environment variables available within your service",
-      "type": "array",
-      "default": [],
-      "x-onyxia": {
-        "hidden": true,
-        "overwriteSchemaWith": "ide/extraenv.json"
-      },
-      "items": {
-        "title": "",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "default": "VAR_NAME",
-            "pattern": "^[a-zA-Z0-9_]+$"
-          },
-          "value": {
-            "type": "string",
-            "default": ""
-          }
-        }
-      }
-    },
-    "kubernetes": {
-      "title": "Kubernetes permissions",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/role.json"
-      },
-      "properties": {
-        "enabled": {
-          "title": "Enable Kubernetes access from within the service",
-          "type": "boolean",
-          "default": true
-        },
-        "role": {
-          "title": "Kubernetes role",
-          "description": "access is restricted to your own namespace",
-          "type": "string",
-          "default": "view",
-          "hidden": {
-            "value": false,
-            "path": "kubernetes/enabled"
-          },
-          "listEnum": [
-            "view",
-            "edit",
-            "admin"
-          ],
-          "render": "list"
-        }
-      }
-    },
-    "vault": {
-      "title": "Vault access",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/vault.json"
-      },
-      "properties": {
-        "enabled": {
-          "title": "Enable Vault access from within the service",
-          "type": "boolean",
-          "default": true
-        },
-        "token": {
-          "title": "Vault token",
-          "type": "string",
-          "render": "password",
+          "title": "Repository URL",
+          "default": "https://github.com/FAO-EOSTAT/UN-Handbook.git",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{vault.VAULT_TOKEN}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "hidden": true
           }
         },
-        "url": {
-          "title": "Vault server URL",
+        "storageSize": {
           "type": "string",
+          "title": "Storage Size",
+          "description": "Ephemeral storage for session",
+          "default": "20Gi",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{vault.VAULT_ADDR}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "mount": {
-          "title": "Secret engine",
-          "type": "string",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{vault.VAULT_MOUNT}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "directory": {
-          "title": "Top-level directory",
-          "type": "string",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{vault.VAULT_TOP_DIR}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "secret": {
-          "title": "Path to the secret to load",
-          "description": "The secret will be converted into a list of environment variables",
-          "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        }
-      }
-    },
-    "s3": {
-      "title": "S3 object storage",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/s3.json"
-      },
-      "properties": {
-        "enabled": {
-          "title": "Enable S3 access from within the service",
-          "type": "boolean",
-          "default": true
-        },
-        "accessKeyId": {
-          "title": "Access Key ID",
-          "type": "string",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.AWS_ACCESS_KEY_ID}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "endpoint": {
-          "title": "S3 endpoint URL",
-          "type": "string",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.AWS_S3_ENDPOINT}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "defaultRegion": {
-          "title": "Default region",
-          "type": "string",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.AWS_DEFAULT_REGION}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "secretAccessKey": {
-          "title": "Secret Access Key",
-          "type": "string",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.AWS_SECRET_ACCESS_KEY}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "sessionToken": {
-          "title": "Session token",
-          "type": "string",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.AWS_SESSION_TOKEN}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "pathStyleAccess": {
-          "title": "Path-style access",
-          "type": "boolean",
-          "default": false,
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.pathStyleAccess}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "workingDirectoryPath": {
-          "title": "Working directory path",
-          "type": "string",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{s3.workingDirectoryPath}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "overwriteDefaultWith": null,
+            "hidden": true
           }
         }
       }
     },
     "git": {
-      "title": "Git access",
       "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/git.json"
-      },
+      "title": "Git Repository",
+      "description": "Automatically clone UN Handbook repository",
       "properties": {
         "enabled": {
-          "title": "Enable git access from within the service",
           "type": "boolean",
-          "default": true
-        },
-        "name": {
-          "title": "User name",
-          "type": "string",
-          "default": "",
+          "const": true,
           "x-onyxia": {
-            "overwriteDefaultWith": "{{git.name}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "email": {
-          "title": "User email",
-          "type": "string",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.email}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "cache": {
-          "title": "Credentials caching duration",
-          "description": "(in seconds)",
-          "type": "string",
-          "default": "",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.credentials_cache_duration}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          }
-        },
-        "token": {
-          "title": "Personal Access Token",
-          "type": "string",
-          "default": "",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{git.token}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "hidden": true
           }
         },
         "repository": {
-          "title": "Project repository",
-          "description": "cloned in service",
           "type": "string",
-          "default": "",
+          "default": "https://github.com/FAO-EOSTAT/UN-Handbook.git",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{git.project}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "hidden": true,
+            "overwriteDefaultWith": "{{chapter.repository}}"
           }
         },
         "branch": {
-          "title": "Specific branch to use",
           "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+          "default": "main",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{chapter.version}}"
+          }
+        },
+        "name": {
+          "type": "string",
+          "const": "UN Handbook User",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "email": {
+          "type": "string",
+          "const": "handbook@un.org",
+          "x-onyxia": {
+            "hidden": true
           }
         }
       }
     },
-    "networking": {
-      "title": "Network access",
+    "service": {
       "type": "object",
-      "form": true,
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/networking.json"
-      },
       "properties": {
-        "user": {
-          "title": "Ports",
+        "image": {
           "type": "object",
           "properties": {
-            "enabled": {
-              "title": "Enable access to your service through specific ports",
-              "type": "boolean",
-              "default": false
+            "version": {
+              "type": "string",
+              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:latest",
+              "x-onyxia": {
+                "hidden": true
+              }
             },
-            "port": {
-              "title": "Port number to expose",
-              "type": "integer",
-              "hidden": {
-                "value": false,
-                "path": "networking/user/enabled"
-              },
-              "default": 5000
-            },
-            "ports": {
-              "title": "Port numbers to expose",
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "uniqueItems": true,
-                "default": 5000
-              },
-              "default": [],
+            "pullPolicy": {
+              "type": "string",
+              "const": "IfNotPresent",
               "x-onyxia": {
                 "hidden": true
               }
@@ -580,522 +139,71 @@
         }
       }
     },
-    "discovery": {
-      "title": "Third party services discovery",
-      "type": "object",
-      "properties": {
-        "hive": {
-          "title": "Discover Hive Metastore services",
-          "type": "boolean",
-          "default": true
-        },
-        "mlflow": {
-          "title": "Discover MLflow services",
-          "type": "boolean",
-          "default": true
-        },
-        "metaflow": {
-          "title": "Discover Metaflow services",
-          "type": "boolean",
-          "default": true
-        },
-        "chromadb": {
-          "title": "Discover ChromaDB services",
-          "type": "boolean",
-          "default": true
-        },
-        "milvus": {
-          "title": "Discover Milvus services",
-          "type": "boolean",
-          "default": true
-        },
-        "postgresql": {
-          "title": "Discover PostgreSQL services",
-          "type": "boolean",
-          "default": true
-        }
-      }
-    },
     "security": {
-      "title": "Security",
       "type": "object",
       "properties": {
         "password": {
-          "title": "Service password",
           "type": "string",
           "default": "changeme",
-          "render": "password",
           "x-onyxia": {
-            "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password.json"
+            "hidden": true
+          }
+        },
+        "allowlist": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "x-onyxia": {
+                "hidden": true
+              }
+            }
           }
         },
         "networkPolicy": {
-          "title": "Network access policy",
           "type": "object",
-          "x-onyxia": {
-            "overwriteSchemaWith": "network-policy.json"
-          },
           "properties": {
             "enabled": {
-              "title": "Only allow access from the same namespace",
               "type": "boolean",
               "default": false,
               "x-onyxia": {
-                "overwriteDefaultWith": "region.defaultNetworkPolicy"
-              }
-            },
-            "from": {
-              "description": "Array of sources allowed to have network access to your service",
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": true
-              },
-              "default": [],
-              "x-onyxia": {
-                "hidden": true,
-                "overwriteDefaultWith": "region.from"
+                "hidden": true
               }
             }
           }
         }
       }
     },
-    "nodeSelector": {
-      "title": "Node selector",
+    "persistence": {
       "type": "object",
-      "default": {},
-      "additionalProperties": {
-        "type": "string"
-      },
-      "x-onyxia": {
-        "hidden": false,
-        "overwriteDefaultWith": "region.nodeSelector",
-        "overwriteSchemaWith": "nodeSelector.json"
-      }
-    },
-    "openshiftSCC": {
-      "description": "configuration for openshift compatibility",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/openshiftSCC.json"
-      },
       "properties": {
         "enabled": {
-          "description": "enable rolebinding with openshift scc",
           "type": "boolean",
           "default": false,
           "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "region.openshiftSCC.enabled"
-          }
-        },
-        "scc": {
-          "type": "string",
-          "description": "name of scc for rolebinding",
-          "default": "anyuid",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "region.openshiftSCC.scc"
+            "hidden": true
           }
         }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Resources are computed from tier. See tier dropdown above.",
+      "properties": {},
+      "x-onyxia": {
+        "hidden": true
       }
     },
     "ingress": {
-      "title": "Ingress Details",
       "type": "object",
-      "form": true,
-      "x-onyxia": {
-        "overwriteSchemaWith": "ide/ingress.json"
-      },
-      "properties": {
-        "enabled": {
-          "description": "Enable Ingress",
-          "type": "boolean",
-          "default": true,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "k8s.ingress"
-          }
-        },
-        "hostname": {
-          "type": "string",
-          "form": true,
-          "title": "Hostname",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
-          }
-        },
-        "userHostname": {
-          "type": "string",
-          "form": true,
-          "title": "Hostname",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
-          }
-        },
-        "ingressClassName": {
-          "type": "string",
-          "form": true,
-          "title": "ingressClassName",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{k8s.ingressClassName}}"
-          }
-        },
-        "useCertManager": {
-          "type": "boolean",
-          "description": "Whether CertManager should be used to generate a certificate",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "k8s.useCertManager"
-          }
-        },
-        "certManagerClusterIssuer": {
-          "type": "string",
-          "description": "certManager cluster issuer",
-          "title": "CertManager Cluster Issuer",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
-          }
-        },
-        "useTlsSecret": {
-          "type": "boolean",
-          "description": "Whether you want to use the specified secretName in ingress tls",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true
-          }
-        },
-        "tlsSecretName": {
-          "type": "string",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true
-          }
-        }
-      }
-    },
-    "route": {
-      "type": "object",
-      "form": true,
-      "title": "Route details",
-      "properties": {
-        "enabled": {
-          "description": "Enable route",
-          "type": "boolean",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "k8s.route"
-          }
-        },
-        "hostname": {
-          "type": "string",
-          "form": true,
-          "title": "Hostname",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
-          }
-        },
-        "userHostname": {
-          "type": "string",
-          "form": true,
-          "title": "Hostname",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
-          }
-        }
-      }
-    },
-    "repository": {
-      "description": "python repositories for pip and conda",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "repository.json"
-      },
-      "properties": {
-        "pipRepository": {
-          "type": "string",
-          "description": "python repository for pip",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{packageRepositoryInjection.pypiProxyUrl}}"
-          }
-        },
-        "condaRepository": {
-          "type": "string",
-          "description": "python repository for pip",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{packageRepositoryInjection.condaProxyUrl}}"
-          }
-        }
-      }
-    },
-    "startupProbe": {
-      "description": "Startup probe",
-      "type": "object",
-      "properties": {
-        "failureThreshold": {
-          "type": "integer",
-          "default": 60
-        },
-        "initialDelaySeconds": {
-          "type": "integer",
-          "default": 10
-        },
-        "periodSeconds": {
-          "type": "integer",
-          "default": 10
-        },
-        "successThreshold": {
-          "type": "integer",
-          "default": 1
-        },
-        "timeoutSeconds": {
-          "type": "integer",
-          "default": 2
-        }
-      },
-      "default": {
-        "failureThreshold": 60,
-        "initialDelaySeconds": 10,
-        "periodSeconds": 10,
-        "successThreshold": 1,
-        "timeoutSeconds": 2
-      },
-      "x-onyxia": {
-        "hidden": true,
-        "overwriteDefaultWith": "region.startupProbe",
-        "overwriteSchemaWith": "ide/startupProbe.json"
-      }
-    },
-    "tolerations": {
-      "description": "Array of tolerations",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": true
-      },
-      "default": [],
-      "x-onyxia": {
-        "hidden": true,
-        "overwriteDefaultWith": "region.tolerations",
-        "overwriteSchemaWith": "tolerations.json"
-      }
-    },
-    "userPreferences": {
-      "description": "User Preferences",
-      "type": "object",
-      "properties": {
-        "darkMode": {
-          "type": "boolean",
-          "description": "dark mode is or is not enabled",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "user.darkMode"
-          }
-        },
-        "language": {
-          "type": "string",
-          "description": "Preferred language",
-          "default": "en",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "user.lang"
-          }
-        },
-        "aiAssistant": {
-          "title": "AI Assistant",
-          "type": "object",
-          "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
-          "x-onyxia": {
-            "overwriteSchemaWith": "aiAssistant-jupyter.json"
-          },
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "default": false,
-              "hidden": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
-              }
-            },
-            "model": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.model"
-              }
-            },
-            "modelProvider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.modelProvider"
-              }
-            },
-            "embeddingsProvider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.embeddingsProvider"
-              }
-            },
-            "apiBase": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
-              }
-            },
-            "apiKey": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
-              }
-            }
-          }
-        }
-      }
-    },
-    "global": {
-      "description": "Suspend",
-      "type": "object",
-      "properties": {
-        "suspend": {
-          "type": "boolean",
-          "description": "Suspend this service",
-          "default": false,
-          "x-onyxia": {
-            "hidden": true
-          }
-        }
-      }
-    },
-    "proxy": {
-      "description": "It can be used to inject proxy settings in the services",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "proxy.json"
-      },
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "Inject proxy settings",
-          "default": false
-        },
-        "httpProxy": {
-          "type": "string",
-          "description": "URL of the enterprise proxy for the region for HTTP.",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "proxy/enabled"
-          }
-        },
-        "httpsProxy": {
-          "type": "string",
-          "description": "URL of the enterprise proxy for the region for HTTPS.",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "proxy/enabled"
-          }
-        },
-        "noProxy": {
-          "type": "string",
-          "description": "enterprise local domain that should not take proxy comma separated",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "proxy/enabled"
-          }
-        }
-      }
-    },
-    "certificates": {
-      "description": "It can be used to inject certificate authority into the services, if the Helm chart in the catalog allows it you can bind this value to the Helm chart value to add some certificate authorities in the pod.",
-      "type": "object",
-      "x-onyxia": {
-        "overwriteSchemaWith": "certificates.json"
-      },
-      "default": {},
-      "properties": {
-        "cacerts": {
-          "type": "string",
-          "description": "String of concatenated CA certificates. Alternatively a target URL can be provided.",
-          "default": "",
+          "default": false,
           "x-onyxia": {
             "hidden": true
           }
-        },
-        "pathToCaBundle": {
-          "type": "string",
-          "description": "String path where a bundle is made or injected by third party solution",
-          "default": "/usr/local/share/ca-certificates/",
-          "x-onyxia": {
-            "hidden": true
-          }
-        }
-      }
-    },
-    "message": {
-      "type": "object",
-      "description": "Warning message",
-      "x-onyxia": {
-        "hidden": true,
-        "overwriteSchemaWith": "ide/message.json"
-      },
-      "properties": {
-        "fr": {
-          "type": "string",
-          "description": "message \u00e0 ajouter dans les notes",
-          "default": ""
-        },
-        "en": {
-          "type": "string",
-          "description": "message to add in notes",
-          "default": ""
         }
       }
     }
