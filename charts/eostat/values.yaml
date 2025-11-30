@@ -36,7 +36,8 @@ security:
 init:
   standardInitPath: /opt/onyxia-init.sh
   regionInit: ''
-  personalInit: ''
+  # Personal init converts chapter to notebook after git clone
+  personalInit: /opt/eostat/convert-chapter-to-notebook.sh
   personalInitArgs: ''
 # Environment variables set directly in statefulset template
 # (chapter.* values are injected via env section, not extraEnvVars)
