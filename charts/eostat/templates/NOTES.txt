@@ -1,1 +1,1 @@
-{{- template "library-chart.notes" (dict "serviceName" "Jupyter (Python)" "context" $) -}}
+{{- template "library-chart.notes" (dict "serviceName" "EOStat - Earth Observation Statistics" "context" $) -}}

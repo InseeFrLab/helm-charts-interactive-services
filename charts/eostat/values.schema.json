@@ -133,9 +133,13 @@
       "properties": {
         "password": {
           "type": "string",
+          "title": "Service password",
+          "description": "Password for JupyterLab",
           "default": "changeme",
+          "render": "password",
           "x-onyxia": {
-            "hidden": true
+            "overwriteDefaultWith": "{{service.oneTimePassword}}",
+            "overwriteSchemaWith": "ide/password.json"
           }
         },
         "allowlist": {
@@ -186,12 +190,38 @@
     },
     "ingress": {
       "type": "object",
+      "title": "Ingress Details",
+      "form": true,
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/ingress.json"
+      },
       "properties": {
         "enabled": {
           "type": "boolean",
-          "default": false,
+          "description": "Enable Ingress",
+          "default": true,
           "x-onyxia": {
-            "hidden": true
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.ingress"
+          }
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+          }
+        },
+        "ingressClassName": {
+          "type": "string",
+          "form": true,
+          "title": "ingressClassName",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.ingressClassName}}"
           }
         }
       }
