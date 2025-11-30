@@ -20,12 +20,12 @@ service:
   image:
     # EOStat image built and pushed to ECR via GitHub Actions
     # Using immutable tag (ECR has fully immutable tags)
-    # CRITICAL FIXES: WORKDIR /home/onyxia/work, quarto convert, all tests passing
-    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-99557816
+    # v0.2.10: Files in PERSISTENT ~/work/ directory, WORKDIR fixed, quarto convert
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-90f105ce
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-99557816
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-90f105ce
 security:
   password: changeme
   networkPolicy:

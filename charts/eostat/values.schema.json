@@ -112,7 +112,7 @@
           "properties": {
             "version": {
               "type": "string",
-              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-99557816",
+              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-90f105ce",
               "x-onyxia": {
                 "hidden": true
               }
