@@ -1,21 +1,15 @@
-# eostat
+# jupyter-r-python-julia
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.24](https://img.shields.io/badge/Version-2.3.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-JupyterLab environment for Earth Observation Statistics with R, Python, and geospatial libraries
+The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
 
-**Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| UN Global Platform | <lovells@un.org> |  |
+**Homepage:** <https://jupyter.org/>
 
 ## Source Code
 
-* <https://github.com/UNGlobalPlatform/images-datascience>
-* <https://github.com/UNGlobalPlatform/helm-charts-interactive-services>
+* <https://github.com/InseeFrLab/images-datascience>
+* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 
@@ -33,10 +27,6 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| chapter.name | string | `"ct_chile"` |  |
-| chapter.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
-| chapter.storageSize | string | `"20Gi"` |  |
-| chapter.version | string | `"main"` |  |
 | chromadb.secretName | string | `""` |  |
 | coresite.secretName | string | `""` |  |
 | discovery.chromadb | bool | `true` |  |
@@ -59,7 +49,6 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
-| imageFlavor | string | `"base"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -97,7 +86,7 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `false` |  |
-| persistence.size | string | `"20Gi"` |  |
+| persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
 | postgresql.secretName | string | `""` |  |
@@ -132,9 +121,9 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:latest"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:latest"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
@@ -145,7 +134,6 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
-| tier | string | `"medium"` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.aiAssistant.apiBase | string | `""` |  |
 | userPreferences.aiAssistant.apiKey | string | `""` |  |
