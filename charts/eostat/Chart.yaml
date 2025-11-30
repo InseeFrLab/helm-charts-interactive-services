@@ -1,0 +1,24 @@
+apiVersion: v2
+name: eostat
+description: JupyterLab environment for Earth Observation Statistics with R, Python, and geospatial libraries
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+keywords:
+- Jupyter
+- Earth Observation
+- Remote Sensing
+- Geospatial
+- R
+- Python
+home: https://fao-eostat.github.io/UN-Handbook/
+sources:
+- https://github.com/UNGlobalPlatform/images-datascience
+- https://github.com/UNGlobalPlatform/helm-charts-interactive-services
+maintainers:
+- name: UN Global Platform
+  email: lovells@un.org
+type: application
+version: 0.1.0
+dependencies:
+- name: library-chart
+  version: 1.7.14
+  repository: https://inseefrlab.github.io/helm-charts-interactive-services
