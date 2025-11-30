@@ -17,7 +17,7 @@ maintainers:
 - name: UN Global Platform
   email: lovells@un.org
 type: application
-version: 0.2.7
+version: 0.2.8
 dependencies:
 - name: library-chart
   version: 1.7.14
