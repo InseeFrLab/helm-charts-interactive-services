@@ -1,5 +1,18 @@
 global:
   suspend: false
+
+# Reproducible extension parameters
+# Passed via Onyxia deep-link URL
+tier: "medium"           # light | medium | heavy | gpu
+imageFlavor: "base"      # base | gpu
+
+# Chapter configuration
+chapter:
+  name: "ct_chile"       # Chapter identifier (from filename)
+  version: "main"        # Git branch/tag/commit
+  repository: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
+  storageSize: "20Gi"    # PVC size request
+
 service:
   initContainer:
     image: inseefrlab/onyxia-base:latest
@@ -24,20 +37,9 @@ init:
   regionInit: ''
   personalInit: ''
   personalInitArgs: ''
-# Additional init for eostat (runs after standard init)
-eostat:
-  enabled: true
-  initScript: /opt/onyxia-eostat-init.sh
-  repoUrl: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
-  repoBranch: "main"
-  chapterName: "ct_chile"
-extraEnvVars:
-  - name: REPO_URL
-    value: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
-  - name: REPO_BRANCH
-    value: "main"
-  - name: CHAPTER_NAME
-    value: "ct_chile"
+# Environment variables set directly in statefulset template
+# (chapter.* values are injected via env section, not extraEnvVars)
+extraEnvVars: []
 environment:
   user: onyxia
   group: users
@@ -140,11 +142,15 @@ route:
   tls:
     termination: edge
   wildcardPolicy: None
+# Resource limits computed from tier in statefulset template
+# Override only if you need non-standard allocation
 resources: {}
+
 persistence:
   enabled: false
   accessMode: ReadWriteOnce
-  size: 10Gi
+  # Size dynamically set from chapter.storageSize in template
+  size: 20Gi
 autoscaling:
   enabled: false
   minReplicas: 1

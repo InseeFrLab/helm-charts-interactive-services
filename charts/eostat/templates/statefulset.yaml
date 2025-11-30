@@ -1,3 +1,21 @@
+{{- /* Tier-based resource mappings - Single Source of Truth */}}
+{{- $resourceTiers := dict
+      "light"  (dict "cpu" "2000m"  "memory" "8Gi"   "storage" "10Gi")
+      "medium" (dict "cpu" "6000m"  "memory" "24Gi"  "storage" "20Gi")
+      "heavy"  (dict "cpu" "10000m" "memory" "48Gi"  "storage" "50Gi")
+      "gpu"    (dict "cpu" "8000m"  "memory" "32Gi"  "storage" "50Gi")
+    -}}
+{{- $tier := .Values.tier | default "medium" -}}
+{{- $tierConfig := index $resourceTiers $tier -}}
+
+{{- /* Compute final resources: explicit override or tier-based */}}
+{{- $cpuLimit := $tierConfig.cpu -}}
+{{- $memLimit := $tierConfig.memory -}}
+{{- if and .Values.resources .Values.resources.limits -}}
+  {{- $cpuLimit = .Values.resources.limits.cpu | default $tierConfig.cpu -}}
+  {{- $memLimit = .Values.resources.limits.memory | default $tierConfig.memory -}}
+{{- end -}}
+
 {{- $fullName := include "library-chart.fullname" . -}}
 apiVersion: apps/v1
 kind: StatefulSet
@@ -193,6 +211,15 @@ spec:
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
+            # EOStat chapter-specific environment variables
+            - name: REPO_URL
+              value: {{ .Values.chapter.repository | quote }}
+            - name: REPO_BRANCH
+              value: {{ .Values.chapter.version | quote }}
+            - name: CHAPTER_NAME
+              value: {{ .Values.chapter.name | quote }}
+            - name: TIER
+              value: {{ .Values.tier | quote }}
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
               value: {{ .Values.init.regionInit }}
@@ -284,7 +311,15 @@ spec:
             {{- toYaml .Values.startupProbe | nindent 12 }}
           {{- end }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            requests:
+              cpu: {{ $cpuLimit }}
+              memory: {{ $memLimit }}
+            limits:
+              cpu: {{ $cpuLimit }}
+              memory: {{ $memLimit }}
+              {{- if eq $tier "gpu" }}
+              nvidia.com/gpu: "1"
+              {{- end }}
           volumeMounts:
             - name: jupyter-local
               mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter
@@ -321,7 +356,14 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if eq .Values.tier "gpu" }}
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      {{- else }}
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- end }}
