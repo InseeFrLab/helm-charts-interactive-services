@@ -5,11 +5,12 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: ghcr.io/unglobalplatform/onyxia-eostat:latest
+    # EOStat image built and pushed to ECR via GitHub Actions
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:latest
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: ghcr.io/unglobalplatform/onyxia-eostat:latest
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:latest
 security:
   password: changeme
   networkPolicy:
