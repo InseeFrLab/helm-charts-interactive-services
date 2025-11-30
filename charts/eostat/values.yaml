@@ -41,7 +41,7 @@ init:
 # (chapter.* values are injected via env section, not extraEnvVars)
 extraEnvVars: []
 environment:
-  user: onyxia
+  user: jovyan
   group: users
 s3:
   enabled: false

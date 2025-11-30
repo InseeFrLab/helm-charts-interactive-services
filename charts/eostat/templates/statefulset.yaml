@@ -211,6 +211,8 @@ spec:
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
+            - name: WORKSPACE_DIR
+              value: /home/{{ .Values.environment.user }}/work
             # EOStat chapter-specific environment variables
             - name: REPO_URL
               value: {{ .Values.chapter.repository | quote }}
