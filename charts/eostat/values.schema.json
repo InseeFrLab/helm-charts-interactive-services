@@ -9,11 +9,7 @@
       "title": "Resource Tier",
       "description": "Computational resources for this session",
       "default": "medium",
-      "enum": ["light", "medium", "heavy", "gpu"],
-      "x-onyxia": {
-        "overwriteDefaultWith": null,
-        "hidden": false
-      }
+      "enum": ["light", "medium", "heavy", "gpu"]
     },
     "imageFlavor": {
       "type": "string",
@@ -22,7 +18,6 @@
       "default": "base",
       "enum": ["base", "gpu"],
       "x-onyxia": {
-        "overwriteDefaultWith": null,
         "hidden": true
       }
     },
@@ -35,11 +30,7 @@
           "type": "string",
           "title": "Chapter Name",
           "description": "Chapter identifier (e.g., ct_chile)",
-          "default": "ct_chile",
-          "x-onyxia": {
-            "overwriteDefaultWith": null,
-            "hidden": false
-          }
+          "default": "ct_chile"
         },
         "version": {
           "type": "string",
@@ -47,7 +38,6 @@
           "description": "Git branch or tag",
           "default": "main",
           "x-onyxia": {
-            "overwriteDefaultWith": null,
             "hidden": true
           }
         },
@@ -65,7 +55,6 @@
           "description": "Ephemeral storage for session",
           "default": "20Gi",
           "x-onyxia": {
-            "overwriteDefaultWith": null,
             "hidden": true
           }
         }
