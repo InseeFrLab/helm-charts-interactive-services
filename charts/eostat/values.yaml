@@ -20,12 +20,12 @@ service:
   image:
     # EOStat image built and pushed to ECR via GitHub Actions
     # Using immutable tag (ECR has fully immutable tags)
-    # Image includes: IRkernel, fixed conversion script (preserves cells), all R packages
-    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-02436223
+    # CRITICAL FIXES: WORKDIR /home/onyxia/work, quarto convert, all tests passing
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-99557816
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-02436223
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251130-99557816
 security:
   password: changeme
   networkPolicy:
