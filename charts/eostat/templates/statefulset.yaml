@@ -17,9 +17,9 @@
 {{- end -}}
 
 {{- /* Auto-shutdown configuration */}}
-{{- $maxDurationHours := .Values.session.maxDurationHours | default 0 -}}
+{{- $maxDurationHours := .Values.session.maxDurationHours | default 0 | float64 -}}
 {{- $activeDeadlineSeconds := 0 -}}
-{{- if gt $maxDurationHours 0 -}}
+{{- if gt $maxDurationHours 0.0 -}}
   {{- $activeDeadlineSeconds = mul $maxDurationHours 3600 | int -}}
 {{- end -}}
 

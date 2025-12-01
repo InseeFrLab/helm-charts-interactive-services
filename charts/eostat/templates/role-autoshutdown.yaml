@@ -1,4 +1,4 @@
-{{- if gt (.Values.session.maxDurationHours | default 0) 0 }}
+{{- if gt (.Values.session.maxDurationHours | default 0 | float64) 0.0 }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
