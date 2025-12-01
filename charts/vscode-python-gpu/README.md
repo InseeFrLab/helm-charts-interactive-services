@@ -1,21 +1,15 @@
-# eostat
+# vscode-python-gpu
 
-![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-JupyterLab environment for Earth Observation Statistics with R, Python, and geospatial libraries
+The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
-**Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| UN Global Platform | <lovells@un.org> |  |
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
-* <https://github.com/UNGlobalPlatform/images-datascience>
-* <https://github.com/UNGlobalPlatform/helm-charts-interactive-services>
+* <https://github.com/InseeFrLab/images-datascience>
+* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 
@@ -33,10 +27,6 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| chapter.name | string | `"ct_chile"` |  |
-| chapter.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
-| chapter.storageSize | string | `"20Gi"` |  |
-| chapter.version | string | `"main"` |  |
 | chromadb.secretName | string | `""` |  |
 | coresite.secretName | string | `""` |  |
 | discovery.chromadb | bool | `true` |  |
@@ -49,17 +39,15 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| git.branch | string | `"main"` |  |
+| git.asCodeServerRoot | bool | `false` |  |
+| git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.email | string | `"handbook@un.org"` |  |
+| git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
-| git.name | string | `"UN Handbook User"` |  |
-| git.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
+| git.name | string | `""` |  |
 | git.secretName | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
-| imageFlavor | string | `"base"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -73,11 +61,12 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | ingress.userPath | string | `"/"` |  |
-| init.personalInit | string | `"/opt/eostat/convert-chapter-to-notebook.sh"` |  |
+| init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -86,8 +75,7 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8888` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -96,8 +84,8 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `false` |  |
-| persistence.size | string | `"20Gi"` |  |
+| persistence.enabled | bool | `true` |  |
+| persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
 | postgresql.secretName | string | `""` |  |
@@ -132,29 +120,27 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| session.maxDurationHours | int | `8` |  |
-| session.terminationGracePeriodSeconds | int | `300` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
-| tier | string | `"medium"` |  |
 | tolerations | list | `[]` |  |
 | userPreferences.aiAssistant.apiBase | string | `""` |  |
 | userPreferences.aiAssistant.apiKey | string | `""` |  |
-| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
 | userPreferences.aiAssistant.enabled | bool | `false` |  |
-| userPreferences.aiAssistant.modelProvider | string | `""` |  |
+| userPreferences.aiAssistant.model | string | `""` |  |
+| userPreferences.aiAssistant.provider | string | `""` |  |
 | userPreferences.aiAssistant.secretName | string | `""` |  |
+| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
