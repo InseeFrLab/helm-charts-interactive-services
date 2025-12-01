@@ -1,0 +1,34 @@
+{{- if gt (.Values.session.maxDurationHours | default 0) 0 }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "library-chart.fullname" . }}-autoshutdown
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+rules:
+  # Helm releases are stored as Secrets with label owner=helm
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "create", "update", "patch"]
+    # Allow access to Helm release secrets only
+  # Also need StatefulSet access for helm to reconcile
+  - apiGroups: ["apps"]
+    resources: ["statefulsets"]
+    verbs: ["get", "list", "patch", "update"]
+    resourceNames:
+      - {{ include "library-chart.fullname" . }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "library-chart.fullname" . }}-autoshutdown
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "library-chart.fullname" . }}-autoshutdown
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "library-chart.serviceAccountName" . }}
+{{- end }}
