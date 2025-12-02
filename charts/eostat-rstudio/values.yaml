@@ -20,11 +20,11 @@ service:
   image:
     # EOStat RStudio image built and pushed to ECR via GitHub Actions
     # Using immutable tag (ECR has fully immutable tags)
-    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08
 security:
   password: changeme
   networkPolicy:
