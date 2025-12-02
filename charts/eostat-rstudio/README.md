@@ -1,8 +1,8 @@
-# eostat
+# eostat-rstudio
 
-![Version: 0.2.14](https://img.shields.io/badge/Version-0.2.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-JupyterLab environment for Earth Observation Statistics with R, Python, and geospatial libraries
+RStudio environment for Earth Observation Statistics with R and geospatial libraries
 
 **Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
 
@@ -73,7 +73,7 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | ingress.useTlsSecret | bool | `false` |  |
 | ingress.userHostname | string | `"chart-example-user.local"` |  |
 | ingress.userPath | string | `"/"` |  |
-| init.personalInit | string | `"/opt/eostat/convert-chapter-to-notebook.sh"` |  |
+| init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
@@ -86,7 +86,7 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8888` |  |
+| networking.service.port | int | `8787` |  |
 | networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
@@ -106,9 +106,8 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
-| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.pipRepository | string | `""` |  |
+| repository.rRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -132,9 +131,9 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d"` |  |
+| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d"` |  |
+| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
@@ -147,12 +146,6 @@ JupyterLab environment for Earth Observation Statistics with R, Python, and geos
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tier | string | `"medium"` |  |
 | tolerations | list | `[]` |  |
-| userPreferences.aiAssistant.apiBase | string | `""` |  |
-| userPreferences.aiAssistant.apiKey | string | `""` |  |
-| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
-| userPreferences.aiAssistant.enabled | bool | `false` |  |
-| userPreferences.aiAssistant.modelProvider | string | `""` |  |
-| userPreferences.aiAssistant.secretName | string | `""` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
