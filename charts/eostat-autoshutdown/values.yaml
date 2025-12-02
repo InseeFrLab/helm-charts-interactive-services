@@ -6,9 +6,11 @@ session:
   # Maximum session age in hours before auto-suspension
   maxAgeHours: 8
 
-  # Namespace prefixes to monitor (comma-separated)
+  # Namespace prefixes to monitor (array)
   # Scans all namespaces matching these prefixes for EOStat sessions
-  namespacePrefixes: "user-,project-"
+  namespacePrefixes:
+    - "user-"
+    - "project-"
 
   # Label selector for EOStat releases
   labelSelector: "app.kubernetes.io/name=eostat"

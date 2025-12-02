@@ -35,7 +35,7 @@ spec:
                 - name: MAX_AGE_HOURS
                   value: {{ .Values.session.maxAgeHours | quote }}
                 - name: NAMESPACE_PREFIXES
-                  value: {{ .Values.session.namespacePrefixes | quote }}
+                  value: {{ .Values.session.namespacePrefixes | join " " | quote }}
                 - name: LABEL_SELECTOR
                   value: {{ .Values.session.labelSelector | quote }}
                 - name: HELM_REPO

@@ -5,7 +5,8 @@
 set -euo pipefail
 
 MAX_AGE_HOURS=${MAX_AGE_HOURS:-8}
-NAMESPACE_PREFIXES=${NAMESPACE_PREFIXES:-"user-,project-"}
+# NAMESPACE_PREFIXES comes as space-separated from Helm array (e.g., "user- project-")
+NAMESPACE_PREFIXES=${NAMESPACE_PREFIXES:-"user- project-"}
 LABEL_SELECTOR=${LABEL_SELECTOR:-"app.kubernetes.io/name=eostat"}
 HELM_REPO=${HELM_REPO:-"unglobalplatform"}
 CHART_NAME=${CHART_NAME:-"eostat"}
@@ -21,15 +22,22 @@ helm repo update >/dev/null 2>&1 || true
 CUTOFF_TIME=$(($(date +%s) - (MAX_AGE_HOURS * 3600)))
 
 # Get all namespaces matching prefixes
-IFS=',' read -ra PREFIX_ARRAY <<< "$NAMESPACE_PREFIXES"
+# PREFIX_ARRAY is now space-separated
+read -ra PREFIX_ARRAY <<< "$NAMESPACE_PREFIXES"
 NAMESPACES=""
 
-for PREFIX in "${PREFIX_ARRAY[@]}"; do
-  PREFIX=$(echo "$PREFIX" | xargs)  # Trim whitespace
-  NS_LIST=$(kubectl get namespaces -o jsonpath="{.items[?(@.metadata.name matches '^${PREFIX}')].metadata.name}" 2>/dev/null || true)
-  if [ -n "$NS_LIST" ]; then
-    NAMESPACES="$NAMESPACES $NS_LIST"
-  fi
+# Get all namespace names
+ALL_NAMESPACES=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}')
+
+# Filter by prefixes
+for NS in $ALL_NAMESPACES; do
+  for PREFIX in "${PREFIX_ARRAY[@]}"; do
+    PREFIX=$(echo "$PREFIX" | xargs)  # Trim whitespace
+    if [[ "$NS" == ${PREFIX}* ]]; then
+      NAMESPACES="$NAMESPACES $NS"
+      break
+    fi
+  done
 done
 
 if [ -z "$NAMESPACES" ]; then
