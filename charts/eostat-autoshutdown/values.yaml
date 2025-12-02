@@ -12,8 +12,11 @@ session:
     - "user-"
     - "project-"
 
-  # Label selector for EOStat releases
-  labelSelector: "app.kubernetes.io/name=eostat"
+  # Label selectors for EOStat releases (matches both jupyter and rstudio variants)
+  # Uses label "app.kubernetes.io/name" with values in this list
+  appNames:
+    - "eostat-jupyter"
+    - "eostat-rstudio"
 
 # Image for CronJob container (Alpine-based with kubectl + helm + python3)
 image:

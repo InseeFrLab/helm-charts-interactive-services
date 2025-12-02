@@ -36,12 +36,10 @@ spec:
                   value: {{ .Values.session.maxAgeHours | quote }}
                 - name: NAMESPACE_PREFIXES
                   value: {{ .Values.session.namespacePrefixes | join " " | quote }}
-                - name: LABEL_SELECTOR
-                  value: {{ .Values.session.labelSelector | quote }}
+                - name: APP_NAMES
+                  value: {{ .Values.session.appNames | join " " | quote }}
                 - name: HELM_REPO
                   value: "unglobalplatform"
-                - name: CHART_NAME
-                  value: "eostat"
               volumeMounts:
                 - name: scripts
                   mountPath: /scripts
