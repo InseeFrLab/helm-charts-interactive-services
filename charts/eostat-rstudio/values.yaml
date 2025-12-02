@@ -1,0 +1,184 @@
+global:
+  suspend: false
+
+# Reproducible extension parameters
+# Passed via Onyxia deep-link URL
+tier: "medium"           # light | medium | heavy | gpu
+imageFlavor: "base"      # base | gpu
+
+# Chapter configuration
+chapter:
+  name: "ct_chile"       # Chapter identifier (from filename)
+  version: "main"        # Git branch/tag/commit
+  repository: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
+  storageSize: "20Gi"    # PVC size request
+
+service:
+  initContainer:
+    image: inseefrlab/onyxia-base:latest
+    pullPolicy: IfNotPresent
+  image:
+    # EOStat RStudio image built and pushed to ECR via GitHub Actions
+    # Using immutable tag (ECR has fully immutable tags)
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0
+    pullPolicy: IfNotPresent
+    custom:
+      enabled: false
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0
+security:
+  password: changeme
+  networkPolicy:
+    enabled: false
+    from: []
+  allowlist:
+    enabled: false
+    ip: 0.0.0.0/0
+init:
+  standardInitPath: /opt/onyxia-init.sh
+  regionInit: ''
+  # RStudio has native Quarto support - no conversion needed
+  personalInit: ''
+  personalInitArgs: ''
+# Environment variables set directly in statefulset template
+# (chapter.* values are injected via env section, not extraEnvVars)
+extraEnvVars: []
+environment:
+  user: onyxia
+  group: users
+s3:
+  enabled: false
+  secretName: ''
+  accessKeyId: ''
+  endpoint: ''
+  defaultRegion: ''
+  secretAccessKey: ''
+  sessionToken: ''
+  pathStyleAccess: false
+  workingDirectoryPath: ''
+vault:
+  enabled: false
+  secretName: ''
+  token: ''
+  url: ''
+  mount: ''
+  secret: ''
+  directory: ''
+git:
+  enabled: true
+  secretName: ''
+  name: 'UN Handbook User'
+  email: 'handbook@un.org'
+  cache: ''
+  token: ''
+  # Repository and branch set via schema overwriteDefaultWith from chapter.*
+  repository: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
+  branch: "main"
+repository:
+  configMapName: ''
+  rRepository: ''
+discovery:
+  hive: true
+  mlflow: true
+  metaflow: true
+  chromadb: true
+  milvus: true
+  postgresql: true
+hive:
+  secretName: ''
+mlflow:
+  secretName: ''
+metaflow:
+  secretName: ''
+chromadb:
+  secretName: ''
+milvus:
+  secretName: ''
+postgresql:
+  secretName: ''
+coresite:
+  secretName: ''
+replicaCount: 1
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: ''
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ''
+kubernetes:
+  enabled: false
+  role: view
+podAnnotations: {}
+podSecurityContext:
+  fsGroup: 100
+securityContext: {}
+networking:
+  type: ClusterIP
+  clusterIP: None
+  service:
+    port: 8787
+  sparkui:
+    port: 4040
+  user:
+    enabled: false
+    port: 5000
+    ports: []
+ingress:
+  enabled: false
+  tls: true
+  ingressClassName: ''
+  annotations: []
+  hostname: chart-example.local
+  userHostname: chart-example-user.local
+  path: /
+  userPath: /
+  useCertManager: false
+  certManagerClusterIssuer: ''
+  useTlsSecret: false
+  tlsSecretName: ''
+route:
+  enabled: false
+  annotations: []
+  hostname: chart-example.local
+  userHostname: chart-example-user.local
+  tls:
+    termination: edge
+  wildcardPolicy: None
+# Resource limits computed from tier in statefulset template
+# Override only if you need non-standard allocation
+resources: {}
+
+persistence:
+  enabled: false
+  accessMode: ReadWriteOnce
+  # Size dynamically set from chapter.storageSize in template
+  size: 20Gi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+startupProbe:
+  failureThreshold: 60
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+userPreferences:
+  darkMode: false
+  language: en
+openshiftSCC:
+  enabled: false
+  scc: ''
+proxy:
+  enabled: false
+  noProxy: ''
+  httpProxy: ''
+  httpsProxy: ''
+certificates: {}
+message:
+  fr: ''
+  en: ''

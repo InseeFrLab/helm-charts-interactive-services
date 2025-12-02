@@ -18,14 +18,13 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    # EOStat image built and pushed to ECR via GitHub Actions
+    # EOStat JupyterLab image built and pushed to ECR via GitHub Actions
     # Using immutable tag (ECR has fully immutable tags)
-    # v0.2.11: Quarto JupyterLab extension for native .qmd editing
-    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d
+    version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-jupyter:0.1.0-20251201-01cb092d
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d
+      version: 142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-jupyter:0.1.0-20251201-01cb092d
 security:
   password: changeme
   networkPolicy:

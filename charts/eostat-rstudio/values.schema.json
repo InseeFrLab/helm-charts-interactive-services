@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EOStat RStudio - Earth Observation Statistics",
+  "description": "RStudio environment for Earth Observation workflows. Configuration comes from reproducible extension deep-link.",
+  "type": "object",
+  "properties": {
+    "tier": {
+      "type": "string",
+      "title": "Resource Tier",
+      "description": "Computational resources for this session",
+      "default": "medium",
+      "enum": ["light", "medium", "heavy", "gpu"]
+    },
+    "imageFlavor": {
+      "type": "string",
+      "title": "Image Variant",
+      "description": "Container image flavor",
+      "default": "base",
+      "enum": ["base", "gpu"],
+      "x-onyxia": {
+        "hidden": true
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "title": "Chapter Configuration",
+      "description": "UN Handbook chapter to load",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Chapter Name",
+          "description": "Chapter identifier (e.g., ct_chile)",
+          "default": "ct_chile"
+        },
+        "version": {
+          "type": "string",
+          "title": "Chapter Version",
+          "description": "Git branch or tag",
+          "default": "main",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "repository": {
+          "type": "string",
+          "title": "Repository URL",
+          "default": "https://github.com/FAO-EOSTAT/UN-Handbook.git",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "storageSize": {
+          "type": "string",
+          "title": "Storage Size",
+          "description": "Ephemeral storage for session",
+          "default": "20Gi",
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
+    },
+    "git": {
+      "type": "object",
+      "title": "Git Repository",
+      "description": "Automatically clone UN Handbook repository",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "const": true,
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "repository": {
+          "type": "string",
+          "default": "https://github.com/FAO-EOSTAT/UN-Handbook.git",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{chapter.repository}}"
+          }
+        },
+        "branch": {
+          "type": "string",
+          "default": "main",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{chapter.version}}"
+          }
+        },
+        "name": {
+          "type": "string",
+          "const": "UN Handbook User",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "email": {
+          "type": "string",
+          "const": "handbook@un.org",
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0",
+              "x-onyxia": {
+                "hidden": true
+              }
+            },
+            "pullPolicy": {
+              "type": "string",
+              "const": "IfNotPresent",
+              "x-onyxia": {
+                "hidden": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "title": "Service password",
+          "description": "Password for RStudio",
+          "default": "changeme",
+          "render": "password",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{service.oneTimePassword}}",
+            "overwriteSchemaWith": "ide/password.json"
+          }
+        },
+        "allowlist": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "x-onyxia": {
+                "hidden": true
+              }
+            }
+          }
+        },
+        "networkPolicy": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "x-onyxia": {
+                "hidden": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "persistence": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "description": "Resources are computed from tier. See tier dropdown above.",
+      "properties": {},
+      "x-onyxia": {
+        "hidden": true
+      }
+    },
+    "ingress": {
+      "type": "object",
+      "title": "Ingress Details",
+      "form": true,
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/ingress.json"
+      },
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable Ingress",
+          "default": true,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.ingress"
+          }
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+          }
+        },
+        "ingressClassName": {
+          "type": "string",
+          "form": true,
+          "title": "ingressClassName",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.ingressClassName}}"
+          }
+        }
+      }
+    }
+  }
+}
