@@ -16,13 +16,6 @@
   {{- $memLimit = .Values.resources.limits.memory | default $tierConfig.memory -}}
 {{- end -}}
 
-{{- /* Auto-shutdown configuration */}}
-{{- $maxDurationHours := .Values.session.maxDurationHours | default 0 | float64 -}}
-{{- $activeDeadlineSeconds := 0 -}}
-{{- if gt $maxDurationHours 0.0 -}}
-  {{- $activeDeadlineSeconds = mul $maxDurationHours 3600 | int -}}
-{{- end -}}
-
 {{- $fullName := include "library-chart.fullname" . -}}
 apiVersion: apps/v1
 kind: StatefulSet
@@ -84,13 +77,6 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if gt $activeDeadlineSeconds 0 }}
-      # Kubernetes-enforced auto-shutdown (tamper-proof)
-      # Pod will be terminated after this duration
-      activeDeadlineSeconds: {{ $activeDeadlineSeconds }}
-      {{- end }}
-      # Grace period for saving work before forceful termination
-      terminationGracePeriodSeconds: {{ .Values.session.terminationGracePeriodSeconds | default 300 }}
       volumes:
         - name: jupyter-local
           emptyDir: {}
@@ -208,38 +194,6 @@ spec:
           command: ["/bin/sh","-c"]
           args: ["{{ .Values.init.standardInitPath }} jupyter lab --no-browser --ip '0.0.0.0' --LabApp.token='$(PASSWORD)' --ContentsManager.allow_hidden=True"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
-          {{- if gt $activeDeadlineSeconds 0 }}
-          lifecycle:
-            preStop:
-              exec:
-                command:
-                  - /bin/bash
-                  - -c
-                  - |
-                    echo "[$(date -Iseconds)] Auto-shutdown: Saving work and suspending StatefulSet..." >&2
-
-                    # Create termination marker
-                    echo "Session terminated at $(date) due to auto-shutdown" > /home/${PROJECT_USER}/SESSION_ENDED.txt
-
-                    # Attempt to trigger JupyterLab checkpoint save
-                    curl -X POST http://localhost:8888/api/contents/checkpoint \
-                      -H "Authorization: token ${PASSWORD}" 2>/dev/null || true
-
-                    # Suspend the Helm release to prevent restart loop
-                    # This updates global.suspend=true in Helm values
-                    # Onyxia UI will see the service as "Suspended"
-                    RELEASE_NAME=$(echo $HOSTNAME | sed 's/-[0-9]*$//')
-
-                    # Use helm upgrade to set global.suspend=true
-                    helm upgrade "${RELEASE_NAME}" \
-                      --reuse-values \
-                      --set global.suspend=true \
-                      --namespace="${KUBERNETES_NAMESPACE}" \
-                      >/dev/null 2>&1 || \
-                      echo "Warning: Could not suspend Helm release" >&2
-
-                    sleep 5
-          {{- end }}
           env:
             - name: KUBERNETES_POD_NAME
               valueFrom:
@@ -268,10 +222,6 @@ spec:
               value: {{ .Values.chapter.name | quote }}
             - name: TIER
               value: {{ .Values.tier | quote }}
-            - name: KUBERNETES_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
               value: {{ .Values.init.regionInit }}

@@ -13,14 +13,6 @@ chapter:
   repository: "https://github.com/FAO-EOSTAT/UN-Handbook.git"
   storageSize: "20Gi"    # PVC size request
 
-# Session lifecycle configuration
-session:
-  # Maximum session duration in hours (0 = unlimited)
-  # Enforced by Kubernetes activeDeadlineSeconds (tamper-proof)
-  maxDurationHours: 8
-  # Grace period for saving work before forceful termination (seconds)
-  terminationGracePeriodSeconds: 300
-
 service:
   initContainer:
     image: inseefrlab/onyxia-base:latest

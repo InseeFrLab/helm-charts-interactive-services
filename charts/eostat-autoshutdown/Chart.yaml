@@ -1,0 +1,16 @@
+apiVersion: v2
+name: eostat-autoshutdown
+description: Auto-shutdown manager for EOStat sessions - suspends sessions older than threshold
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+keywords:
+- automation
+- cost-optimization
+- session-management
+home: https://fao-eostat.github.io/UN-Handbook/
+sources:
+- https://github.com/UNGlobalPlatform/helm-charts-interactive-services
+maintainers:
+- name: UN Global Platform
+  email: lovells@un.org
+type: application
+version: 0.1.0

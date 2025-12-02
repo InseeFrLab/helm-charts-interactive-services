@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "eostat-autoshutdown.fullname" . }}
+  labels:
+    {{- include "eostat-autoshutdown.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        metadata:
+          labels:
+            app: eostat-autoshutdown
+        spec:
+          serviceAccountName: {{ include "eostat-autoshutdown.serviceAccountName" . }}
+          restartPolicy: OnFailure
+          containers:
+            - name: suspend-old-sessions
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command: ["/bin/bash", "/scripts/suspend-old-sessions.sh"]
+              env:
+                - name: MAX_AGE_HOURS
+                  value: {{ .Values.session.maxAgeHours | quote }}
+                - name: NAMESPACE
+                  value: {{ .Values.session.namespace | default .Release.Namespace | quote }}
+                - name: LABEL_SELECTOR
+                  value: {{ .Values.session.labelSelector | quote }}
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+                  readOnly: true
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+          volumes:
+            - name: scripts
+              configMap:
+                name: {{ include "eostat-autoshutdown.fullname" . }}-scripts
+                defaultMode: 0755

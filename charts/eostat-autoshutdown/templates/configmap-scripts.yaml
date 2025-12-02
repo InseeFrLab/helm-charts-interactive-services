@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "eostat-autoshutdown.fullname" . }}-scripts
+  labels:
+    {{- include "eostat-autoshutdown.labels" . | nindent 4 }}
+data:
+  suspend-old-sessions.sh: |
+{{ .Files.Get "scripts/suspend-old-sessions.sh" | indent 4 }}

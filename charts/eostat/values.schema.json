@@ -21,32 +21,6 @@
         "hidden": true
       }
     },
-    "session": {
-      "type": "object",
-      "title": "Session Lifecycle",
-      "description": "Auto-shutdown configuration",
-      "properties": {
-        "maxDurationHours": {
-          "type": "number",
-          "title": "Maximum Session Duration (hours)",
-          "description": "Session will automatically terminate after this period",
-          "default": 8,
-          "minimum": 0,
-          "maximum": 72,
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "region.sessionMaxDuration"
-          }
-        },
-        "terminationGracePeriodSeconds": {
-          "type": "number",
-          "default": 300,
-          "x-onyxia": {
-            "hidden": true
-          }
-        }
-      }
-    },
     "chapter": {
       "type": "object",
       "title": "Chapter Configuration",

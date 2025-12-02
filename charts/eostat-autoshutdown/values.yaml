@@ -1,0 +1,33 @@
+# CronJob schedule (every 15 minutes)
+schedule: "*/15 * * * *"
+
+# Session timeout configuration
+session:
+  # Maximum session age in hours before auto-suspension
+  maxAgeHours: 8
+
+  # Namespace to monitor (empty = current namespace)
+  namespace: ""
+
+  # Label selector for EOStat releases
+  labelSelector: "app.kubernetes.io/name=eostat"
+
+# Image for CronJob container (Alpine-based with kubectl + helm)
+image:
+  repository: alpine/k8s
+  tag: "1.31.2"
+  pullPolicy: IfNotPresent
+
+# Resources for CronJob
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 64Mi
+
+# ServiceAccount configuration
+serviceAccount:
+  create: true
+  name: ""
