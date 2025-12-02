@@ -23,14 +23,25 @@ spec:
             - name: suspend-old-sessions
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
-              command: ["/bin/bash", "/scripts/suspend-old-sessions.sh"]
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  # Install python3 for date parsing (Alpine busybox date doesn't support -d)
+                  apk add --no-cache python3 >/dev/null 2>&1 || echo "Warning: Could not install python3"
+                  # Run suspension script
+                  /bin/bash /scripts/suspend-old-sessions.sh
               env:
                 - name: MAX_AGE_HOURS
                   value: {{ .Values.session.maxAgeHours | quote }}
-                - name: NAMESPACE
-                  value: {{ .Values.session.namespace | default .Release.Namespace | quote }}
+                - name: NAMESPACE_PREFIXES
+                  value: {{ .Values.session.namespacePrefixes | quote }}
                 - name: LABEL_SELECTOR
                   value: {{ .Values.session.labelSelector | quote }}
+                - name: HELM_REPO
+                  value: "unglobalplatform"
+                - name: CHART_NAME
+                  value: "eostat"
               volumeMounts:
                 - name: scripts
                   mountPath: /scripts

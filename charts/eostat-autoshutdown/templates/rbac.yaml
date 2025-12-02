@@ -6,35 +6,40 @@ metadata:
     {{- include "eostat-autoshutdown.labels" . | nindent 4 }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: {{ include "eostat-autoshutdown.fullname" . }}
   labels:
     {{- include "eostat-autoshutdown.labels" . | nindent 4 }}
 rules:
-  # Read pods to check age
+  # Read pods to check age (across all namespaces)
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "list"]
-  # Read and update Helm release secrets
+  # Read namespaces to filter by prefix
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list"]
+  # Read and update Helm release secrets (across namespaces)
   - apiGroups: [""]
     resources: ["secrets"]
     verbs: ["get", "list", "create", "update", "patch"]
-  # Update StatefulSets for helm to reconcile
+  # Update StatefulSets for helm to reconcile (across namespaces)
   - apiGroups: ["apps"]
     resources: ["statefulsets"]
     verbs: ["get", "list", "patch", "update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: {{ include "eostat-autoshutdown.fullname" . }}
   labels:
     {{- include "eostat-autoshutdown.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: {{ include "eostat-autoshutdown.fullname" . }}
 subjects:
   - kind: ServiceAccount
     name: {{ include "eostat-autoshutdown.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
