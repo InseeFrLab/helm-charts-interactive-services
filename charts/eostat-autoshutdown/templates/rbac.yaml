@@ -28,9 +28,9 @@ rules:
   - apiGroups: [""]
     resources: ["serviceaccounts", "services", "configmaps"]
     verbs: ["get", "list"]
-  # Read Ingresses for Helm upgrade verification
+  # Read Ingresses and NetworkPolicies for Helm upgrade verification
   - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses"]
+    resources: ["ingresses", "networkpolicies"]
     verbs: ["get", "list"]
   # Update StatefulSets for helm to reconcile (across namespaces)
   - apiGroups: ["apps"]
