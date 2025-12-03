@@ -4,7 +4,7 @@ schedule: "*/15 * * * *"
 # Session timeout configuration
 session:
   # Maximum session age in hours before auto-suspension
-  maxAgeHours: 8
+  maxAgeHours: 2
 
   # Namespace prefixes to monitor (array)
   # Scans all namespaces matching these prefixes for EOStat sessions
@@ -18,13 +18,13 @@ session:
     - "eostat-jupyter"
     - "eostat-rstudio"
 
-# Image for CronJob container (Alpine-based with kubectl + helm + python3)
+# Image for CronJob container (Alpine-based with kubectl + helm + jq)
 image:
   repository: alpine/k8s
   tag: "1.31.2"
   pullPolicy: IfNotPresent
   # Additional packages to install at runtime
-  additionalPackages: "python3"
+  additionalPackages: "jq"
 
 # Resources for CronJob
 resources:

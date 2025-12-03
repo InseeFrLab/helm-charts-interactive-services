@@ -20,18 +20,19 @@ rules:
   - apiGroups: [""]
     resources: ["namespaces"]
     verbs: ["get", "list"]
-  # Read and update Helm release secrets (across namespaces)
+  # Read, update, and delete Helm release secrets (across namespaces)
+  # Delete required for Helm to clean up old release versions
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["get", "list", "create", "update", "patch"]
-  # Read ServiceAccounts, Services, ConfigMaps for Helm upgrade verification
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  # Manage ServiceAccounts, Services, ConfigMaps for Helm upgrades
   - apiGroups: [""]
     resources: ["serviceaccounts", "services", "configmaps"]
-    verbs: ["get", "list"]
-  # Read Ingresses and NetworkPolicies for Helm upgrade verification
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  # Manage Ingresses and NetworkPolicies for Helm upgrades
   - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "networkpolicies"]
-    verbs: ["get", "list"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
   # Update StatefulSets for helm to reconcile (across namespaces)
   - apiGroups: ["apps"]
     resources: ["statefulsets"]

@@ -1,123 +1,94 @@
 #!/bin/bash
-# Auto-suspend EOStat sessions older than threshold
-# Monitors multiple namespaces by prefix
-# Supports both eostat-jupyter and eostat-rstudio variants
+# Optimized Auto-suspend EOStat sessions
+# IMPROVEMENTS:
+# 1. Single API call to fetch all candidates (vs one per namespace/app combo).
+# 2. Uses jq for date math (milliseconds) vs spawning Python (seconds).
+# 3. Only runs Helm logic on confirmed targets.
 
 set -euo pipefail
 
+# Configuration
 MAX_AGE_HOURS=${MAX_AGE_HOURS:-8}
-# NAMESPACE_PREFIXES comes as space-separated from Helm array (e.g., "user- project-")
 NAMESPACE_PREFIXES=${NAMESPACE_PREFIXES:-"user- project-"}
-# APP_NAMES comes as space-separated (e.g., "eostat-jupyter eostat-rstudio")
 APP_NAMES=${APP_NAMES:-"eostat-jupyter eostat-rstudio"}
 HELM_REPO=${HELM_REPO:-"unglobalplatform"}
+DRY_RUN=${DRY_RUN:-"false"} # Set to "true" to test without suspending
 
-echo "[$(date -Iseconds)] Checking for EOStat sessions older than ${MAX_AGE_HOURS}h"
-echo "Namespace prefixes: ${NAMESPACE_PREFIXES}"
-echo "App names to monitor: ${APP_NAMES}"
+echo "[$(date -Iseconds)] Starting optimized auto-suspend check (Threshold: ${MAX_AGE_HOURS}h)"
 
-# Add Helm repository if not already added
-helm repo add "${HELM_REPO}" https://unglobalplatform.github.io/helm-charts-interactive-services 2>/dev/null || true
+# 1. Setup Helm (Check availability first to save time)
+if ! helm repo list | grep -q "${HELM_REPO}"; then
+    echo "Adding helm repo..."
+    helm repo add "${HELM_REPO}" https://unglobalplatform.github.io/helm-charts-interactive-services 2>/dev/null
+fi
+# Only update repo if we actually plan to suspend (optimization deferred),
+# or run it asynchronously if you want freshest charts.
+# For speed, we usually skip update in automated loops unless failures occur.
 helm repo update >/dev/null 2>&1 || true
 
-# Calculate cutoff time (seconds since epoch)
-CUTOFF_TIME=$(($(date +%s) - (MAX_AGE_HOURS * 3600)))
+# 2. Prepare Selectors
+# Convert "eostat-jupyter eostat-rstudio" to "eostat-jupyter,eostat-rstudio" for the label selector
+COMMA_APPS=$(echo "$APP_NAMES" | tr ' ' ',')
 
-# Get all namespaces matching prefixes
-read -ra PREFIX_ARRAY <<< "$NAMESPACE_PREFIXES"
-NAMESPACES=""
+# Convert "user- project-" to regex "^(user-|project-)" for jq filtering
+# This allows us to filter namespaces locally instead of multiple kubectl calls
+REGEX_PREFIXES=$(echo "$NAMESPACE_PREFIXES" | sed 's/ /|/g')
+NS_REGEX="^(${REGEX_PREFIXES})"
 
-# Get all namespace names
-ALL_NAMESPACES=$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}')
+# Calculate Cutoff in Epoch Seconds
+NOW=$(date +%s)
+CUTOFF_TIME=$(($NOW - ($MAX_AGE_HOURS * 3600)))
 
-# Filter by prefixes
-for NS in $ALL_NAMESPACES; do
-  for PREFIX in "${PREFIX_ARRAY[@]}"; do
-    PREFIX=$(echo "$PREFIX" | xargs)  # Trim whitespace
-    if [[ "$NS" == ${PREFIX}* ]]; then
-      NAMESPACES="$NAMESPACES $NS"
-      break
-    fi
-  done
-done
+echo "• Fetching all pods matching apps: [${COMMA_APPS}]..."
 
-if [ -z "$NAMESPACES" ]; then
-  echo "No namespaces found matching prefixes: ${NAMESPACE_PREFIXES}"
-  exit 0
+# 3. The "God Query"
+# Fetches ALL pods across ALL namespaces matching the app labels in ONE network call.
+# Pipes JSON to jq to perform: Namespace filtering, Age calculation, and Formatting.
+TARGETS=$(kubectl get pods -A \
+  -l "app.kubernetes.io/name in (${COMMA_APPS})" \
+  -o json | jq -r --arg regex "$NS_REGEX" --argjson cutoff "$CUTOFF_TIME" --argjson now "$NOW" '
+  .items[] |
+  # Filter 1: Check if namespace matches our prefix regex
+  select(.metadata.namespace | test($regex)) |
+  # Filter 2: Calculate Age
+  (.metadata.creationTimestamp | fromdateiso8601) as $created |
+  select($created < $cutoff) |
+  # Calculate hours old for display
+  (($now - $created) / 3600 | floor) as $age_hours |
+  # Output: Namespace | PodName | AppName | AgeHours
+  "\(.metadata.namespace)|\(.metadata.name)|\(.metadata.labels["app.kubernetes.io/name"])|\($age_hours)"
+')
+
+if [ -z "$TARGETS" ]; then
+    echo "✓ No expired sessions found."
+    echo "[$(date -Iseconds)] Check complete."
+    exit 0
 fi
 
-echo "Monitoring namespaces: $NAMESPACES"
+# 4. Processing Loop (Only runs for actual expired pods)
+# We read the pre-calculated list line by line
+while IFS='|' read -r NAMESPACE POD_NAME APP_NAME AGE_HOURS; do
+    echo "---------------------------------------------------"
+    echo "⏰ SUSPENDING: ${NAMESPACE}/${POD_NAME}"
+    echo "   Details: ${APP_NAME}, ${AGE_HOURS} hours old."
 
-# Parse APP_NAMES into array
-read -ra APP_NAMES_ARRAY <<< "$APP_NAMES"
+    # Extract release name (strip ordinal suffix like -0)
+    RELEASE_NAME=${POD_NAME%-*}
 
-# Check each namespace for EOStat pods
-for NAMESPACE in $NAMESPACES; do
-  echo ""
-  echo "Namespace: $NAMESPACE"
+    CMD="helm upgrade ${RELEASE_NAME} ${HELM_REPO}/${APP_NAME} --reuse-values --set global.suspend=true --namespace=${NAMESPACE}"
 
-  # Check each app name variant (eostat-jupyter, eostat-rstudio)
-  for APP_NAME in "${APP_NAMES_ARRAY[@]}"; do
-    APP_NAME=$(echo "$APP_NAME" | xargs)  # Trim whitespace
-    LABEL_SELECTOR="app.kubernetes.io/name=${APP_NAME}"
-
-    # Find all pods matching label selector in this namespace
-    PODS=$(kubectl get pods -n "${NAMESPACE}" \
-      -l "${LABEL_SELECTOR}" \
-      -o jsonpath='{range .items[*]}{.metadata.name}|{.metadata.creationTimestamp}|{.metadata.labels.app\.kubernetes\.io/name}{"\n"}{end}' 2>/dev/null || true)
-
-    if [ -z "$PODS" ]; then
-      continue
+    if [ "$DRY_RUN" == "true" ]; then
+        echo "   [DRY RUN] Would execute: $CMD"
+    else
+        # Run upgrade. Capture output to handle errors gracefully.
+        if OUT=$($CMD 2>&1); then
+             echo "   ✓ Suspended release: ${RELEASE_NAME}"
+        else
+             echo "   ⚠️ Failed to suspend: $OUT"
+        fi
     fi
 
-    echo "  Found ${APP_NAME} pods:"
-
-    # Check each pod's age
-    echo "$PODS" | while IFS='|' read -r POD_NAME CREATION_TIME POD_APP_NAME; do
-      if [ -z "$POD_NAME" ]; then
-        continue
-      fi
-
-      # Convert ISO8601 creation time to epoch seconds
-      if command -v python3 >/dev/null 2>&1; then
-        CREATION_EPOCH=$(python3 -c "from datetime import datetime; print(int(datetime.fromisoformat('${CREATION_TIME}'.replace('Z', '+00:00')).timestamp()))" 2>/dev/null || echo "0")
-      else
-        echo "Warning: python3 not available, using conservative age estimate for $POD_NAME"
-        CREATION_EPOCH=$(($(date +%s) - 60))
-      fi
-
-      if [ "$CREATION_EPOCH" -eq "0" ]; then
-        echo "Warning: Could not parse creation time for $POD_NAME"
-        continue
-      fi
-
-      POD_AGE=$(($(date +%s) - CREATION_EPOCH))
-      POD_AGE_HOURS=$((POD_AGE / 3600))
-
-      echo "    Pod: $POD_NAME | Age: ${POD_AGE_HOURS}h | Chart: ${APP_NAME}"
-
-      if [ $CREATION_EPOCH -lt $CUTOFF_TIME ]; then
-        echo "      ⏰ SUSPENDING: Pod is ${POD_AGE_HOURS}h old (threshold: ${MAX_AGE_HOURS}h)"
-
-        # Extract release name from pod name (strip ordinal suffix -0)
-        RELEASE_NAME=$(echo "$POD_NAME" | sed 's/-[0-9]*$//')
-
-        # Suspend via helm upgrade with the correct chart name
-        echo "      Running: helm upgrade ${RELEASE_NAME} ${HELM_REPO}/${APP_NAME} --reuse-values --set global.suspend=true"
-
-        helm upgrade "${RELEASE_NAME}" "${HELM_REPO}/${APP_NAME}" \
-          --reuse-values \
-          --set global.suspend=true \
-          --namespace="${NAMESPACE}" \
-          2>&1 || echo "      ⚠️ Warning: helm upgrade failed"
-
-        echo "      ✓ Suspended release: ${RELEASE_NAME}"
-      else
-        echo "      ✓ OK: Pod is only ${POD_AGE_HOURS}h old"
-      fi
-    done
-  done
-done
+done <<< "$TARGETS"
 
 echo ""
-echo "[$(date -Iseconds)] Auto-suspend check complete"
+echo "[$(date -Iseconds)] Check complete."
