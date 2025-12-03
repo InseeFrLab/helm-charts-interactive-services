@@ -6,6 +6,12 @@ global:
 tier: "medium"           # light | medium | heavy | gpu
 imageFlavor: "base"      # base | gpu
 
+# Security Profile
+# none = current behavior (no hardening)
+# baseline = standard hardening (non-root, no privilege escalation, drop capabilities)
+# restricted = maximum security (read-only filesystem, network policies)
+securityProfile: "none"
+
 # Chapter configuration
 chapter:
   name: "ct_chile"       # Chapter identifier (from filename)

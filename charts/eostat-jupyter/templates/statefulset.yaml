@@ -16,6 +16,37 @@
   {{- $memLimit = .Values.resources.limits.memory | default $tierConfig.memory -}}
 {{- end -}}
 
+{{- /* Security Profile Configuration */}}
+{{- $securityProfile := .Values.securityProfile | default "none" -}}
+
+{{- /* "none" profile uses existing .Values.securityContext (empty by default) */}}
+{{- $noneSecurityContext := .Values.securityContext | default dict -}}
+
+{{- /* "baseline" profile: standard hardening */}}
+{{- $baselineSecurityContext := dict
+      "runAsNonRoot" true
+      "runAsUser" 1000
+      "allowPrivilegeEscalation" false
+      "capabilities" (dict "drop" (list "ALL"))
+-}}
+
+{{- /* "restricted" profile: maximum security */}}
+{{- $restrictedSecurityContext := dict
+      "runAsNonRoot" true
+      "runAsUser" 1000
+      "allowPrivilegeEscalation" false
+      "readOnlyRootFilesystem" true
+      "capabilities" (dict "drop" (list "ALL"))
+-}}
+
+{{- /* Select effective security context based on profile */}}
+{{- $effectiveSecurityContext := $noneSecurityContext -}}
+{{- if eq $securityProfile "baseline" -}}
+  {{- $effectiveSecurityContext = $baselineSecurityContext -}}
+{{- else if eq $securityProfile "restricted" -}}
+  {{- $effectiveSecurityContext = $restrictedSecurityContext -}}
+{{- end -}}
+
 {{- $fullName := include "library-chart.fullname" . -}}
 apiVersion: apps/v1
 kind: StatefulSet
@@ -118,6 +149,19 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameAssistantJupyter" . }}
         {{- end }}
+        {{- /* Additional volumes for restricted security profile */}}
+        {{- if eq $securityProfile "restricted" }}
+        - name: tmp
+          emptyDir: {}
+        - name: var-tmp
+          emptyDir: {}
+        - name: var-run
+          emptyDir: {}
+        - name: user-cache
+          emptyDir: {}
+        - name: jupyter-config
+          emptyDir: {}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -180,12 +224,16 @@ spec:
             limits:
               cpu: 50m
               memory: 50Mi
+          {{- if $effectiveSecurityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml $effectiveSecurityContext | nindent 12 }}
+          {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- if $effectiveSecurityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml $effectiveSecurityContext | nindent 12 }}
+          {{- end }}
           {{- if .Values.service.image.custom.enabled }}
           image: "{{ .Values.service.image.custom.version }}"
           {{- else }}
@@ -349,6 +397,19 @@ spec:
             - name: config-files
               mountPath: {{ .Values.certificates.pathToCaBundle }}
               subPath: cacerts
+            {{- end }}
+            {{- /* Additional volumeMounts for restricted security profile */}}
+            {{- if eq $securityProfile "restricted" }}
+            - name: tmp
+              mountPath: /tmp
+            - name: var-tmp
+              mountPath: /var/tmp
+            - name: var-run
+              mountPath: /var/run
+            - name: user-cache
+              mountPath: /home/{{ .Values.environment.user }}/.cache
+            - name: jupyter-config
+              mountPath: /home/{{ .Values.environment.user }}/.jupyter
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

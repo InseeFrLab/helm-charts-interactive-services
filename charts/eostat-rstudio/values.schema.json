@@ -21,6 +21,13 @@
         "hidden": true
       }
     },
+    "securityProfile": {
+      "type": "string",
+      "title": "Security Profile",
+      "description": "Security hardening level. 'none' = current behavior, 'baseline' = standard hardening (non-root, no privilege escalation), 'restricted' = maximum security (read-only filesystem, network policies)",
+      "default": "none",
+      "enum": ["none", "baseline", "restricted"]
+    },
     "chapter": {
       "type": "object",
       "title": "Chapter Configuration",

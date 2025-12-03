@@ -1,0 +1,40 @@
+{{- /* Egress NetworkPolicy for restricted security profile */}}
+{{- if eq (.Values.securityProfile | default "none") "restricted" -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "library-chart.fullname" . }}-egress
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "library-chart.selectorLabels" . | nindent 6 }}
+  egress:
+    # DNS resolution (required for any network access)
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # HTTPS for external data sources (CRAN, PyPI, GitHub, S3, geospatial APIs)
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8       # Private networks
+              - 172.16.0.0/12    # Private networks
+              - 192.168.0.0/16   # Private networks
+      ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 80
+    # All traffic within the namespace (for service discovery, internal services)
+    - to:
+        - podSelector: {}
+  policyTypes:
+    - Egress
+{{- end }}

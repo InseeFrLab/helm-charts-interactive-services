@@ -21,6 +21,13 @@
         "hidden": true
       }
     },
+    "securityProfile": {
+      "type": "string",
+      "title": "Security Profile",
+      "description": "Security hardening level. 'none' = current behavior, 'baseline' = standard hardening (non-root, no privilege escalation), 'restricted' = maximum security (read-only filesystem, network policies)",
+      "default": "none",
+      "enum": ["none", "baseline", "restricted"]
+    },
     "chapter": {
       "type": "object",
       "title": "Chapter Configuration",
@@ -112,7 +119,7 @@
           "properties": {
             "version": {
               "type": "string",
-              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/onyxia-eostat:0.1.0-20251201-01cb092d",
+              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-jupyter:0.1.0-20251201-01cb092d",
               "x-onyxia": {
                 "hidden": true
               }
