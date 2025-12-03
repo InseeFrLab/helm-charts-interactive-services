@@ -1,6 +1,6 @@
 # eostat-rstudio
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 RStudio environment for Earth Observation Statistics with R and geospatial libraries
 
@@ -130,6 +130,7 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
+| securityProfile | string | `"none"` |  |
 | service.image.custom.enabled | bool | `false` |  |
 | service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
