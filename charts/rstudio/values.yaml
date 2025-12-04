@@ -7,11 +7,11 @@ service:
     image: "inseefrlab/onyxia-base:latest"
     pullPolicy: IfNotPresent
   image:
-    version: "inseefrlab/onyxia-rstudio:r4.5.1"
+    version: "inseefrlab/onyxia-rstudio:r4.5.2"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-rstudio:r4.5.1"
+      version: "inseefrlab/onyxia-rstudio:r4.5.2"
 
 security:
   password: "changeme"
