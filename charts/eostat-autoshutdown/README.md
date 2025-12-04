@@ -1,6 +1,6 @@
 # eostat-autoshutdown
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Auto-shutdown manager for EOStat sessions - suspends sessions older than threshold
 
@@ -20,7 +20,7 @@ Auto-shutdown manager for EOStat sessions - suspends sessions older than thresho
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image.additionalPackages | string | `"python3"` |  |
+| image.additionalPackages | string | `"jq"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"alpine/k8s"` |  |
 | image.tag | string | `"1.31.2"` |  |
@@ -33,7 +33,7 @@ Auto-shutdown manager for EOStat sessions - suspends sessions older than thresho
 | serviceAccount.name | string | `""` |  |
 | session.appNames[0] | string | `"eostat-jupyter"` |  |
 | session.appNames[1] | string | `"eostat-rstudio"` |  |
-| session.maxAgeHours | int | `8` |  |
+| session.maxAgeHours | int | `2` |  |
 | session.namespacePrefixes[0] | string | `"user-"` |  |
 | session.namespacePrefixes[1] | string | `"project-"` |  |
 
