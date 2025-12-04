@@ -188,18 +188,16 @@
         },
         "issuerUrl": {
           "type": "string",
-          "default": "",
+          "default": "https://id.officialstatistics.org/realms/ungp",
           "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{region.services.customValues.oidc.issuerUrl}}"
+            "hidden": true
           }
         },
         "clientId": {
           "type": "string",
-          "default": "",
+          "default": "datalab",
           "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{region.services.customValues.oidc.clientId}}"
+            "hidden": true
           }
         },
         "cookieSecret": {
