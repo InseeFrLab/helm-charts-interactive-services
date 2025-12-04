@@ -102,6 +102,10 @@ spec:
         {{- if (.Values.certificates).cacerts }}
         checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
         {{- end }}
+        {{- if (.Values.oidc).enabled }}
+        checksum/oidc: {{ include (print $.Template.BasePath "/secret-oidc.yaml") . | sha256sum }}
+        checksum/oidc-allowed-users: {{ include (print $.Template.BasePath "/configmap-oidc-allowed-users.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -160,6 +164,11 @@ spec:
           emptyDir: {}
         - name: user-cache
           emptyDir: {}
+        {{- end }}
+        {{- if (.Values.oidc).enabled }}
+        - name: oidc-allowed-users
+          configMap:
+            name: {{ include "library-chart.fullname" . }}-oidc-allowed-users
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -277,6 +286,10 @@ spec:
             - name: GRANT_SUDO
               value: "yes"
             {{- end }}
+            {{- if (.Values.oidc).enabled }}
+            - name: DISABLE_AUTH
+              value: "true"
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "library-chart.secretNameToken" . }}
@@ -387,6 +400,70 @@ spec:
             - name: user-cache
               mountPath: /home/{{ .Values.environment.user }}/.cache
             {{- end }}
+        {{- if (.Values.oidc).enabled }}
+        - name: oauth2-proxy
+          image: {{ .Values.oidc.image }}
+          imagePullPolicy: {{ .Values.oidc.imagePullPolicy }}
+          args:
+            - --http-address=0.0.0.0:4180
+            - --upstream=http://localhost:8787
+            - --provider={{ .Values.oidc.provider }}
+            - --oidc-issuer-url={{ .Values.oidc.issuerUrl }}
+            - --client-id={{ .Values.oidc.clientId }}
+            - --client-secret=
+            - --code-challenge-method=S256
+            - --cookie-name={{ .Values.oidc.cookieName }}
+            - --cookie-secure={{ .Values.oidc.cookieSecure }}
+            - --cookie-expire=12h
+            - --cookie-refresh=1h
+            - --email-domain=*
+            - --skip-provider-button=true
+            - --reverse-proxy=true
+            - --silence-ping-logging=true
+            - --oidc-email-claim=url_safe_handle
+            - --authenticated-emails-file=/etc/oauth2-proxy/allowed-users.txt
+            {{- range .Values.oidc.extraArgs }}
+            - {{ . }}
+            {{- end }}
+          env:
+            - name: OAUTH2_PROXY_REDIRECT_URL
+              value: "https://{{ .Values.ingress.hostname }}/oauth2/callback"
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "library-chart.fullname" . }}-oidc
+                  key: OAUTH2_PROXY_COOKIE_SECRET
+            - name: OAUTH2_PROXY_PASS_ACCESS_TOKEN
+              value: "true"
+            - name: OAUTH2_PROXY_SET_XAUTHREQUEST
+              value: "true"
+          volumeMounts:
+            - name: oidc-allowed-users
+              mountPath: /etc/oauth2-proxy
+              readOnly: true
+          ports:
+            - name: oauth2-proxy
+              containerPort: 4180
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 4180
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.oidc.resources | nindent 12 }}
+          {{- if $effectiveSecurityContext }}
+          securityContext:
+            {{- toYaml $effectiveSecurityContext | nindent 12 }}
+          {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

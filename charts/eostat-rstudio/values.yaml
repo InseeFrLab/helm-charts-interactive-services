@@ -39,6 +39,32 @@ security:
   allowlist:
     enabled: false
     ip: 0.0.0.0/0
+
+# OIDC Authentication via oauth2-proxy sidecar
+# Uses Onyxia's platform OIDC configuration - no secrets stored here
+oidc:
+  enabled: false
+  image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+  imagePullPolicy: IfNotPresent
+  provider: keycloak-oidc
+  # Injected from Onyxia platform config
+  issuerUrl: ""
+  clientId: ""
+  # Cookie secret auto-generated
+  cookieSecret: ""
+  # Deploying user's url_safe_handle - only this user can access
+  userIdentifier: ""
+  cookieName: "_oauth2_proxy"
+  cookieSecure: true
+  extraArgs: []
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
 init:
   standardInitPath: /opt/onyxia-init.sh
   regionInit: ''

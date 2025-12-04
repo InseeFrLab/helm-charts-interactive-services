@@ -1,1 +1,41 @@
-{{ include "library-chart.ingress" . }}
+{{- if (.Values.ingress).enabled -}}
+{{- if or (.Values.autoscaling).enabled (not (.Values.global).suspend) }}
+{{- $svcPort := .Values.networking.service.port -}}
+{{- if (.Values.oidc).enabled }}
+{{- $svcPort = 4180 -}}
+{{- end }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "library-chart.fullname" . }}-ui
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    {{- include "library-chart.ingress.annotations" . | nindent 4 }}
+spec:
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname | quote }}
+      {{- if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+      {{- else if or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
+      secretName: tls-cert-{{ include "library-chart.fullname" . }}
+      {{- end }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.hostname | quote }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path | default "/" }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "library-chart.fullname" . }}
+                port:
+                  number: {{ $svcPort }}
+{{- end }}
+{{- end }}

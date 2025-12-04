@@ -1,0 +1,12 @@
+{{- if .Values.oidc.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "library-chart.fullname" . }}-oidc-allowed-users
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+data:
+  # Only this user (by url_safe_handle) can access the service
+  allowed-users.txt: |
+    {{ .Values.oidc.userIdentifier }}
+{{- end }}

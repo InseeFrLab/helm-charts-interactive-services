@@ -175,6 +175,52 @@
         }
       }
     },
+    "oidc": {
+      "type": "object",
+      "title": "OIDC Authentication",
+      "description": "Protect service with Keycloak SSO (uses PKCE, no secrets stored)",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable OIDC Protection",
+          "description": "When enabled, only the deploying user can access via Keycloak SSO",
+          "default": false
+        },
+        "issuerUrl": {
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{region.customValues.oidc.issuerUrl}}"
+          }
+        },
+        "clientId": {
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{region.customValues.oidc.clientId}}"
+          }
+        },
+        "cookieSecret": {
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{service.oneTimePassword}}"
+          }
+        },
+        "userIdentifier": {
+          "type": "string",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{user.idep}}"
+          },
+          "description": "Username (url_safe_handle) of the deploying user - only this user can access"
+        }
+      }
+    },
     "persistence": {
       "type": "object",
       "properties": {

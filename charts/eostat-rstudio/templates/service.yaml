@@ -1,1 +1,33 @@
-{{ include "library-chart.service" . }}
+{{- if or .Values.autoscaling.enabled (not (.Values.global).suspend) }}
+{{- $svcPort := .Values.networking.service.port -}}
+{{- if (.Values.oidc).enabled }}
+{{- $svcPort = 4180 -}}
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "library-chart.fullname" . }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.networking.type }}
+  {{- if .Values.networking.clusterIP }}
+  clusterIP: {{ .Values.networking.clusterIP }}
+  {{- end }}
+  ports:
+    - port: {{ $svcPort }}
+      targetPort: {{ $svcPort }}
+      protocol: TCP
+      name: main
+    {{- if and .Values.networking.user .Values.networking.user.enabled }}
+    {{- $userPorts := .Values.networking.user.ports | default (list .Values.networking.user.port) }}
+    {{- range $userPort := $userPorts }}
+    - port: {{ $userPort }}
+      targetPort: {{ $userPort }}
+      protocol: TCP
+      name: {{ printf "user-%d" (int $userPort) }}
+    {{- end }}
+    {{- end }}
+  selector:
+    {{- include "library-chart.selectorLabels" . | nindent 4 }}
+{{- end }}
