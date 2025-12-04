@@ -171,6 +171,9 @@ spec:
         - name: oidc-allowed-users
           configMap:
             name: {{ include "library-chart.fullname" . }}-oidc-allowed-users
+        - name: oidc-empty-secret
+          configMap:
+            name: {{ include "library-chart.fullname" . }}-oidc-empty-secret
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -414,7 +417,7 @@ spec:
             - --provider={{ .Values.oidc.provider }}
             - --oidc-issuer-url={{ .Values.oidc.issuerUrl }}
             - --client-id={{ .Values.oidc.clientId }}
-            - --client-secret=
+            - --client-secret-file=/etc/oauth2-proxy-secret/client-secret
             - --code-challenge-method=S256
             - --cookie-name={{ .Values.oidc.cookieName }}
             - --cookie-secure={{ .Values.oidc.cookieSecure }}
@@ -444,6 +447,9 @@ spec:
           volumeMounts:
             - name: oidc-allowed-users
               mountPath: /etc/oauth2-proxy
+              readOnly: true
+            - name: oidc-empty-secret
+              mountPath: /etc/oauth2-proxy-secret
               readOnly: true
           ports:
             - name: oauth2-proxy
