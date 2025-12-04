@@ -160,9 +160,11 @@ spec:
           emptyDir: {}
         - name: var-log
           emptyDir: {}
-        - name: r-user-library
+        - name: home-user
           emptyDir: {}
-        - name: user-cache
+        - name: r-etc
+          emptyDir: {}
+        - name: var-run-s6
           emptyDir: {}
         {{- end }}
         {{- if (.Values.oidc).enabled }}
@@ -395,10 +397,12 @@ spec:
               mountPath: /var/lib/rstudio-server
             - name: var-log
               mountPath: /var/log
-            - name: r-user-library
-              mountPath: /home/{{ .Values.environment.user }}/R
-            - name: user-cache
-              mountPath: /home/{{ .Values.environment.user }}/.cache
+            - name: home-user
+              mountPath: /home/{{ .Values.environment.user }}
+            - name: r-etc
+              mountPath: /usr/local/lib/R/etc
+            - name: var-run-s6
+              mountPath: /var/run/s6
             {{- end }}
         {{- if (.Values.oidc).enabled }}
         - name: oauth2-proxy
