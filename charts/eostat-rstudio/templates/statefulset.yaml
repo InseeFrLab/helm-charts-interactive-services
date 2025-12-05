@@ -103,7 +103,6 @@ spec:
         checksum/cacerts: {{ .Values.certificates.cacerts | sha256sum }}
         {{- end }}
         {{- if (.Values.oidc).enabled }}
-        checksum/oidc: {{ include (print $.Template.BasePath "/secret-oidc.yaml") . | sha256sum }}
         checksum/oidc-allowed-users: {{ include (print $.Template.BasePath "/configmap-oidc-allowed-users.yaml") . | sha256sum }}
         {{- end }}
         {{- with .Values.podAnnotations }}
@@ -414,36 +413,23 @@ spec:
           args:
             - --http-address=0.0.0.0:4180
             - --upstream=http://localhost:8787
+            # JWT validation mode - APISIX injects Bearer token
+            - --skip-jwt-bearer-tokens=true
+            - --extra-jwt-issuers={{ .Values.oidc.issuerUrl }}={{ .Values.oidc.clientId }}
+            # OIDC config (required for JWT validation)
             - --provider={{ .Values.oidc.provider }}
             - --oidc-issuer-url={{ .Values.oidc.issuerUrl }}
             - --client-id={{ .Values.oidc.clientId }}
             - --client-secret-file=/etc/oauth2-proxy-secret/client-secret
-            - --code-challenge-method=S256
-            - --cookie-name={{ .Values.oidc.cookieName }}
-            - --cookie-secure={{ .Values.oidc.cookieSecure }}
-            - --cookie-expire=12h
-            - --cookie-refresh=1h
-            - --email-domain=*
+            # User restriction via url_safe_handle claim
+            - --oidc-email-claim=url_safe_handle
+            - --email-domain=
+            - --authenticated-emails-file=/etc/oauth2-proxy/allowed-users.txt
+            # Skip login flow - APISIX handles that
             - --skip-provider-button=true
+            # Standard settings
             - --reverse-proxy=true
             - --silence-ping-logging=true
-            - --oidc-email-claim=url_safe_handle
-            - --authenticated-emails-file=/etc/oauth2-proxy/allowed-users.txt
-            {{- range .Values.oidc.extraArgs }}
-            - {{ . }}
-            {{- end }}
-          env:
-            - name: OAUTH2_PROXY_REDIRECT_URL
-              value: "https://{{ .Values.ingress.hostname }}/oauth2/callback"
-            - name: OAUTH2_PROXY_COOKIE_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "library-chart.fullname" . }}-oidc
-                  key: OAUTH2_PROXY_COOKIE_SECRET
-            - name: OAUTH2_PROXY_PASS_ACCESS_TOKEN
-              value: "true"
-            - name: OAUTH2_PROXY_SET_XAUTHREQUEST
-              value: "true"
           volumeMounts:
             - name: oidc-allowed-users
               mountPath: /etc/oauth2-proxy

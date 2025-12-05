@@ -1,0 +1,24 @@
+{{- if and (.Values.ingress).enabled (.Values.oidc).enabled -}}
+{{- if or (.Values.autoscaling).enabled (not (.Values.global).suspend) }}
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: {{ include "library-chart.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  http:
+    - name: {{ include "library-chart.fullname" . }}
+      match:
+        hosts:
+          - {{ .Values.ingress.hostname | quote }}
+        paths:
+          - "/*"
+      plugin_config_name: global-sso-policy
+      plugin_config_namespace: apisix-system
+      backends:
+        - serviceName: {{ include "library-chart.fullname" . }}
+          servicePort: {{ .Values.networking.service.port }}
+{{- end }}
+{{- end }}

@@ -178,7 +178,7 @@
     "oidc": {
       "type": "object",
       "title": "OIDC Authentication",
-      "description": "Protect service with Keycloak SSO (uses PKCE, no secrets stored)",
+      "description": "Protect service with Keycloak SSO via APISIX",
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -195,17 +195,9 @@
         },
         "clientId": {
           "type": "string",
-          "default": "datalab",
+          "default": "apisix-dev-services",
           "x-onyxia": {
             "hidden": true
-          }
-        },
-        "cookieSecret": {
-          "type": "string",
-          "default": "",
-          "x-onyxia": {
-            "hidden": true,
-            "overwriteDefaultWith": "{{service.oneTimePassword}}"
           }
         },
         "userIdentifier": {
