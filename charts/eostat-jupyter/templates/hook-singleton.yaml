@@ -1,0 +1,177 @@
+{{- if .Values.singleton.enabled }}
+---
+# ServiceAccount for the pre-install hook
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "library-chart.fullname" . }}-singleton
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-10"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+---
+# Role with namespace-scoped permissions for Helm operations
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "library-chart.fullname" . }}-singleton
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-10"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+rules:
+  # Read/write Helm release secrets (type: helm.sh/release.v1)
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  # Manage resources that Helm needs to reconcile during upgrade
+  - apiGroups: [""]
+    resources: ["serviceaccounts", "services", "configmaps"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses", "networkpolicies"]
+    verbs: ["get", "list", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["statefulsets"]
+    verbs: ["get", "list", "patch", "update"]
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "library-chart.fullname" . }}-singleton
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-10"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "library-chart.fullname" . }}-singleton
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "library-chart.fullname" . }}-singleton
+    namespace: {{ .Release.Namespace }}
+---
+# ConfigMap containing the suspend script
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "library-chart.fullname" . }}-singleton-script
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+data:
+  suspend-siblings.sh: |
+    #!/bin/bash
+    set -uo pipefail
+
+    NAMESPACE="${NAMESPACE:-default}"
+    CURRENT_RELEASE="${CURRENT_RELEASE:-}"
+    CHART_NAME="${CHART_NAME:-}"
+    HELM_REPO="${HELM_REPO:-unglobalplatform}"
+
+    echo "[singleton] Starting - Release: ${CURRENT_RELEASE}, Chart: ${CHART_NAME}, Namespace: ${NAMESPACE}"
+
+    # Setup Helm repo
+    helm repo add "${HELM_REPO}" https://unglobalplatform.github.io/helm-charts-interactive-services 2>/dev/null || true
+    helm repo update >/dev/null 2>&1 || true
+
+    # Find sibling releases (same chart, different release name, deployed status)
+    SIBLINGS=$(helm list -n "${NAMESPACE}" -o json 2>/dev/null | jq -r --arg chart "${CHART_NAME}" --arg self "${CURRENT_RELEASE}" '
+      .[] |
+      select(.chart | startswith($chart + "-")) |
+      select(.name != $self) |
+      select(.status == "deployed") |
+      .name
+    ' 2>/dev/null || echo "")
+
+    if [ -z "$SIBLINGS" ]; then
+        echo "[singleton] No sibling releases found. Done."
+        exit 0
+    fi
+
+    echo "[singleton] Found siblings to suspend: $SIBLINGS"
+
+    # Suspend each sibling (continue on failure - non-blocking)
+    echo "$SIBLINGS" | while read -r RELEASE_NAME; do
+        [ -z "$RELEASE_NAME" ] && continue
+        echo "[singleton] Suspending: ${RELEASE_NAME}..."
+        if helm upgrade "${RELEASE_NAME}" "${HELM_REPO}/${CHART_NAME}" \
+            --namespace="${NAMESPACE}" \
+            --reuse-values \
+            --set global.suspend=true \
+            --timeout 60s 2>&1; then
+            echo "[singleton] Suspended: ${RELEASE_NAME}"
+        else
+            echo "[singleton] WARNING: Failed to suspend ${RELEASE_NAME} - continuing"
+        fi
+    done
+
+    echo "[singleton] Complete."
+    exit 0  # Always exit 0 (non-blocking)
+---
+# Pre-install/pre-upgrade Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "library-chart.fullname" . }}-singleton
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+spec:
+  ttlSecondsAfterFinished: 120
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: {{ include "library-chart.fullname" . }}-singleton
+    spec:
+      serviceAccountName: {{ include "library-chart.fullname" . }}-singleton
+      restartPolicy: Never
+      containers:
+        - name: suspend-siblings
+          image: {{ .Values.singleton.image | default "alpine/k8s:1.31.2" }}
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash", "/scripts/suspend-siblings.sh"]
+          env:
+            - name: NAMESPACE
+              value: {{ .Release.Namespace | quote }}
+            - name: CURRENT_RELEASE
+              value: {{ .Release.Name | quote }}
+            - name: CHART_NAME
+              value: {{ .Chart.Name | quote }}
+            - name: HELM_REPO
+              value: "unglobalplatform"
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "library-chart.fullname" . }}-singleton-script
+            defaultMode: 0755
+{{- end }}

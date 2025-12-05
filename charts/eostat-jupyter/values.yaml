@@ -1,6 +1,13 @@
 global:
   suspend: false
 
+# Singleton mode - suspend other instances when launching new one
+# When enabled, deploying a new instance will suspend all other
+# instances of the same chart type in the same namespace
+singleton:
+  enabled: false
+  image: "alpine/k8s:1.31.2"
+
 # Reproducible extension parameters
 # Passed via Onyxia deep-link URL
 tier: "medium"           # light | medium | heavy | gpu
