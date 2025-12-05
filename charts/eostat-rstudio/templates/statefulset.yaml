@@ -148,6 +148,13 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
+        {{- /* S3-backed R package cache volume */}}
+        {{- if (.Values.eostatCache).enabled }}
+        - name: eostat-cache
+          persistentVolumeClaim:
+            claimName: {{ .Values.eostatCache.pvcName }}
+            readOnly: true
+        {{- end }}
         {{- /* Additional volumes for restricted security profile */}}
         {{- if eq $securityProfile "restricted" }}
         - name: tmp
@@ -275,6 +282,10 @@ spec:
               value: {{ .Values.chapter.name | quote }}
             - name: TIER
               value: {{ .Values.tier | quote }}
+            {{- if (.Values.eostatCache).enabled }}
+            - name: EOSTAT_CACHE_MOUNT
+              value: {{ .Values.eostatCache.mountPath | quote }}
+            {{- end }}
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
               value: {{ .Values.init.regionInit }}
@@ -389,6 +400,12 @@ spec:
             - name: config-files
               mountPath: {{ .Values.certificates.pathToCaBundle }}
               subPath: cacerts
+            {{- end }}
+            {{- /* S3-backed R package cache mount */}}
+            {{- if (.Values.eostatCache).enabled }}
+            - name: eostat-cache
+              mountPath: {{ .Values.eostatCache.mountPath }}
+              readOnly: true
             {{- end }}
             {{- /* Additional volumeMounts for restricted security profile */}}
             {{- if eq $securityProfile "restricted" }}

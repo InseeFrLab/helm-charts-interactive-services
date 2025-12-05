@@ -186,6 +186,15 @@ persistence:
   accessMode: ReadWriteOnce
   # Size dynamically set from chapter.storageSize in template
   size: 20Gi
+
+# S3-backed R package cache for faster startup
+# Mounts pre-installed R packages (sitsdata, torch backend) from S3
+eostatCache:
+  enabled: false
+  mountPath: /mnt/eostat-cache
+  pvcName: eostat-handbook-cache-pvc
+  pvName: eostat-handbook-cache-pv
+  storageSize: 10Gi
 autoscaling:
   enabled: false
   minReplicas: 1

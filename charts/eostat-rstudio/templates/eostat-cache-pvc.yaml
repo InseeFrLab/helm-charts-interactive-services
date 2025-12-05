@@ -1,0 +1,19 @@
+{{- if .Values.eostatCache.enabled }}
+{{- if or (.Values.autoscaling).enabled (not (.Values.global).suspend) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.eostatCache.pvcName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: {{ .Values.eostatCache.storageSize }}
+  volumeName: {{ .Values.eostatCache.pvName }}
+{{- end }}
+{{- end }}

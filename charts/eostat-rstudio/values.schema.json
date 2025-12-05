@@ -297,6 +297,47 @@
           }
         }
       }
+    },
+    "eostatCache": {
+      "type": "object",
+      "title": "R Package Cache",
+      "description": "S3-backed cache for pre-installed R packages (sitsdata, torch). Provides faster startup times.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Package Cache",
+          "description": "Mount S3-backed R package cache for faster startup. Includes sitsdata (~500MB) and torch backend (~2GB).",
+          "default": false
+        },
+        "mountPath": {
+          "type": "string",
+          "default": "/mnt/eostat-cache",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "pvcName": {
+          "type": "string",
+          "default": "eostat-handbook-cache-pvc",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "pvName": {
+          "type": "string",
+          "default": "eostat-handbook-cache-pv",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "storageSize": {
+          "type": "string",
+          "default": "10Gi",
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
     }
   }
 }
