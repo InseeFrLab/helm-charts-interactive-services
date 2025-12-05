@@ -246,6 +246,29 @@
           }
         }
       }
+    },
+    "singleton": {
+      "type": "object",
+      "title": "Singleton Mode",
+      "description": "Suspend other instances when launching new one",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enable Singleton Mode",
+          "description": "When enabled, deploying a new instance will suspend all other instances of the same chart type in the same namespace",
+          "default": true,
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "image": {
+          "type": "string",
+          "default": "alpine/k8s:1.31.2",
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
     }
   }
 }
