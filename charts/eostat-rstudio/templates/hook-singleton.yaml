@@ -1,4 +1,4 @@
-{{- if .Values.singleton.enabled }}
+{{- if and .Values.singleton .Values.singleton.enabled }}
 ---
 # ServiceAccount for the pre-install hook
 apiVersion: v1
