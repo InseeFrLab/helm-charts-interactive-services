@@ -16,7 +16,7 @@ spec:
         paths:
           - "/*"
       plugin_config_name: global-sso-policy
-      plugin_config_namespace: apisix-system
+      plugin_config_namespace: ingress-apisix
       backends:
         - serviceName: {{ include "library-chart.fullname" . }}
           servicePort: {{ .Values.networking.service.port }}
