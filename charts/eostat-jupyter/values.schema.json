@@ -119,7 +119,7 @@
           "properties": {
             "version": {
               "type": "string",
-              "const": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-jupyter:0.1.0-20251201-01cb092d",
+              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-jupyter:0.1.0-20251201-01cb092d",
               "x-onyxia": {
                 "hidden": true
               }
