@@ -430,6 +430,9 @@ spec:
             # Standard settings
             - --reverse-proxy=true
             - --silence-ping-logging=true
+          env:
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              value: {{ randAlphaNum 32 | b64enc | quote }}
           volumeMounts:
             - name: oidc-allowed-users
               mountPath: /etc/oauth2-proxy
