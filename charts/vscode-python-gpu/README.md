@@ -1,21 +1,15 @@
-# eostat-rstudio
+# vscode-python-gpu
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-RStudio environment for Earth Observation Statistics with R and geospatial libraries
+The VSCOde IDE with Python, Julia, and a collection of standard data science packages, with GPU support.
 
-**Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| UN Global Platform | <lovells@un.org> |  |
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
-* <https://github.com/UNGlobalPlatform/images-datascience>
-* <https://github.com/UNGlobalPlatform/helm-charts-interactive-services>
+* <https://github.com/InseeFrLab/images-datascience>
+* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 
@@ -33,10 +27,6 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| chapter.name | string | `"ct_chile"` |  |
-| chapter.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
-| chapter.storageSize | string | `"20Gi"` |  |
-| chapter.version | string | `"main"` |  |
 | chromadb.secretName | string | `""` |  |
 | coresite.secretName | string | `""` |  |
 | discovery.chromadb | bool | `true` |  |
@@ -49,17 +39,15 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| git.branch | string | `"main"` |  |
+| git.asCodeServerRoot | bool | `false` |  |
+| git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.email | string | `"handbook@un.org"` |  |
+| git.email | string | `""` |  |
 | git.enabled | bool | `true` |  |
-| git.name | string | `"UN Handbook User"` |  |
-| git.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
+| git.name | string | `""` |  |
 | git.secretName | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
-| imageFlavor | string | `"base"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -76,8 +64,9 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -86,29 +75,17 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
-| networking.sparkui.port | int | `4040` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
-| oidc.clientId | string | `"apisix-dev-services"` |  |
-| oidc.enabled | bool | `true` |  |
-| oidc.image | string | `"quay.io/oauth2-proxy/oauth2-proxy:v7.6.0"` |  |
-| oidc.imagePullPolicy | string | `"IfNotPresent"` |  |
-| oidc.issuerUrl | string | `"https://id.officialstatistics.org/realms/ungp"` |  |
-| oidc.provider | string | `"keycloak-oidc"` |  |
-| oidc.resources.limits.cpu | string | `"100m"` |  |
-| oidc.resources.limits.memory | string | `"128Mi"` |  |
-| oidc.resources.requests.cpu | string | `"50m"` |  |
-| oidc.resources.requests.memory | string | `"64Mi"` |  |
-| oidc.userIdentifier | string | `""` |  |
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `false` |  |
-| persistence.size | string | `"20Gi"` |  |
+| persistence.enabled | bool | `true` |  |
+| persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
 | postgresql.secretName | string | `""` |  |
@@ -117,8 +94,9 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -141,11 +119,10 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
-| securityProfile | string | `"none"` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-python:py3.13.8-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
@@ -156,8 +133,14 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
-| tier | string | `"medium"` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.aiAssistant.apiBase | string | `""` |  |
+| userPreferences.aiAssistant.apiKey | string | `""` |  |
+| userPreferences.aiAssistant.enabled | bool | `false` |  |
+| userPreferences.aiAssistant.model | string | `""` |  |
+| userPreferences.aiAssistant.provider | string | `""` |  |
+| userPreferences.aiAssistant.secretName | string | `""` |  |
+| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
