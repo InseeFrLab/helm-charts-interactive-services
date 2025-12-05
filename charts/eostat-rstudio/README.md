@@ -1,6 +1,6 @@
 # eostat-rstudio
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 RStudio environment for Earth Observation Statistics with R and geospatial libraries
 
@@ -143,14 +143,16 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | securityContext | object | `{}` |  |
 | securityProfile | string | `"none"` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08"` |  |
+| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-74ba240"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251202-41fd9f08"` |  |
+| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-74ba240"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
+| singleton.enabled | bool | `false` |  |
+| singleton.image | string | `"alpine/k8s:1.31.2"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
