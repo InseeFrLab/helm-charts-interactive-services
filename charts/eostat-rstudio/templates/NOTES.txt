@@ -11,7 +11,7 @@
 {{- if (.Values.oidc).enabled }}
 - Authentification: Keycloak SSO (connexion automatique)
 {{ end -}}
-- **Note:** Ce service s'arretera automatiquement apres 2 heures d'utilisation.
+- **Note:** Ce service sera automatiquement mis en pause apres 2 heures d'utilisation. Vos donnees ne seront **pas** supprimees et votre service peut etre redemarre si necessaire.
 {{ else -}}
 {{- if or (.Values.ingress).enabled (.Values.route).enabled }}
 - You can connect to {{ $serviceName }} with your browser using [this link]({{ include "library-chart.service-url" . }}).
@@ -21,7 +21,7 @@
 {{- if (.Values.oidc).enabled }}
 - Authentication: Keycloak SSO (automatic login)
 {{ end -}}
-- **Note:** This service will automatically shut down after 2 hours of usage.
+- **Note:** This service will automatically pause after 2 hours of usage. When paused, your data will **not** be deleted and your service can be restarted when needed.
 {{ end -}}
 
 {{- template "library-chart.notes-deletion" (dict "serviceName" $serviceName "context" $) -}}
