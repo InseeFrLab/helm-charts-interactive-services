@@ -2,7 +2,7 @@
 {{- $resourceTiers := dict
       "light"  (dict "cpu" "2000m"  "memory" "8Gi"   "storage" "10Gi")
       "medium" (dict "cpu" "6000m"  "memory" "24Gi"  "storage" "20Gi")
-      "heavy"  (dict "cpu" "10000m" "memory" "48Gi"  "storage" "50Gi")
+      "heavy"  (dict "cpu" "10000m" "memory" "48Gi"  "storage" "100Gi")
       "gpu"    (dict "cpu" "8000m"  "memory" "32Gi"  "storage" "50Gi")
     -}}
 {{- $tier := .Values.tier | default "medium" -}}
@@ -11,6 +11,7 @@
 {{- /* Compute final resources: explicit override or tier-based */}}
 {{- $cpuLimit := $tierConfig.cpu -}}
 {{- $memLimit := $tierConfig.memory -}}
+{{- $storageLimit := $tierConfig.storage -}}
 {{- if and .Values.resources .Values.resources.limits -}}
   {{- $cpuLimit = .Values.resources.limits.cpu | default $tierConfig.cpu -}}
   {{- $memLimit = .Values.resources.limits.memory | default $tierConfig.memory -}}
@@ -358,9 +359,11 @@ spec:
             requests:
               cpu: {{ $cpuLimit }}
               memory: {{ $memLimit }}
+              ephemeral-storage: {{ $storageLimit }}
             limits:
               cpu: {{ $cpuLimit }}
               memory: {{ $memLimit }}
+              ephemeral-storage: {{ $storageLimit }}
               {{- if eq $tier "gpu" }}
               nvidia.com/gpu: "1"
               {{- end }}
