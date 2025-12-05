@@ -19,6 +19,6 @@ spec:
       plugin_config_namespace: ingress-apisix
       backends:
         - serviceName: {{ include "library-chart.fullname" . }}
-          servicePort: {{ .Values.networking.service.port }}
+          servicePort: 4180
 {{- end }}
 {{- end }}
