@@ -138,17 +138,6 @@
     "security": {
       "type": "object",
       "properties": {
-        "password": {
-          "type": "string",
-          "title": "Service password",
-          "description": "Password for RStudio",
-          "default": "changeme",
-          "render": "password",
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{service.oneTimePassword}}",
-            "overwriteSchemaWith": "ide/password.json"
-          }
-        },
         "allowlist": {
           "type": "object",
           "properties": {
@@ -184,7 +173,10 @@
           "type": "boolean",
           "title": "Enable OIDC Protection",
           "description": "When enabled, only the deploying user can access via Keycloak SSO",
-          "default": false
+          "default": true,
+          "x-onyxia": {
+            "hidden": true
+          }
         },
         "issuerUrl": {
           "type": "string",

@@ -1,1 +1,27 @@
-{{- template "library-chart.notes" (dict "serviceName" "EOStat - Earth Observation Statistics" "context" $) -}}
+{{- $serviceName := "EOStat - Earth Observation Statistics" -}}
+{{- template "library-chart.general-message" . -}}
+
+{{- template "library-chart.notes-access-title" . -}}
+{{- if eq .Values.userPreferences.language "fr" -}}
+{{- if or (.Values.ingress).enabled (.Values.route).enabled }}
+- Vous pouvez vous connecter a {{ $serviceName }} depuis votre navigateur en utilisant [ce lien]({{ include "library-chart.service-url" . }}).
+{{ else }}
+- Votre service {{ $serviceName }} n'est pas directement expose sur internet.
+{{ end -}}
+{{- if (.Values.oidc).enabled }}
+- Authentification: Keycloak SSO (connexion automatique)
+{{ end -}}
+- **Note:** Ce service s'arretera automatiquement apres 2 heures d'utilisation.
+{{ else -}}
+{{- if or (.Values.ingress).enabled (.Values.route).enabled }}
+- You can connect to {{ $serviceName }} with your browser using [this link]({{ include "library-chart.service-url" . }}).
+{{ else }}
+- Your service {{ $serviceName }} is not exposed on the internet.
+{{ end -}}
+{{- if (.Values.oidc).enabled }}
+- Authentication: Keycloak SSO (automatic login)
+{{ end -}}
+- **Note:** This service will automatically shut down after 2 hours of usage.
+{{ end -}}
+
+{{- template "library-chart.notes-deletion" (dict "serviceName" $serviceName "context" $) -}}

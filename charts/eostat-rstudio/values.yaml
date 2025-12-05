@@ -43,7 +43,7 @@ security:
 # OIDC Authentication via APISIX forward-auth + JWT validation sidecar
 # APISIX handles Keycloak SSO login, sidecar validates Bearer token and enforces user restriction
 oidc:
-  enabled: false
+  enabled: true
   image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
   imagePullPolicy: IfNotPresent
   provider: keycloak-oidc
