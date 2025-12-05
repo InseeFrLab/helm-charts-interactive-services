@@ -119,7 +119,7 @@
           "properties": {
             "version": {
               "type": "string",
-              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-74ba240",
+              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-74ba2404",
               "x-onyxia": {
                 "hidden": true
               }
