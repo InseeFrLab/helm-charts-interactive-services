@@ -24,14 +24,14 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"
+                "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.2-py3.13.8"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8"
+              "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.2-py3.13.8"
             },
             "custom": {
               "title": "Custom image",
@@ -48,7 +48,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.1-py3.13.8",
+                  "default": "inseefrlab/onyxia-jupyter-r-python-julia:r4.5.2-py3.13.8",
                   "hidden": {
                     "value": false,
                     "path": "enabled",

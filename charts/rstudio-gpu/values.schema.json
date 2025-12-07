@@ -24,7 +24,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-rstudio:r4.5.1-gpu",
+                "inseefrlab/onyxia-rstudio:r4.5.2-gpu",
                 "inseefrlab/onyxia-rstudio:r4.4.3-gpu"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-rstudio:r4.5.1-gpu"
+              "default": "inseefrlab/onyxia-rstudio:r4.5.2-gpu"
             },
             "custom": {
               "title": "Custom image",
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-rstudio:r4.5.1-gpu",
+                  "default": "inseefrlab/onyxia-rstudio:r4.5.2-gpu",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
