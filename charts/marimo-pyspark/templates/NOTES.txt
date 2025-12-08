@@ -1,0 +1,1 @@
+{{- template "library-chart.notes" (dict "serviceName" "Visual Studio Code (Python + Spark)" "context" $) -}}
