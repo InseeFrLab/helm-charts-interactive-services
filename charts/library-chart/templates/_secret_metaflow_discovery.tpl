@@ -35,9 +35,9 @@ stringData:
       "METAFLOW_DATASTORE_SYSROOT_S3": {{ $s3Bucket | quote }},
       "METAFLOW_DATATOOLS_SYSROOT_S3": {{ $s3Bucket | quote }},
 {{- end }}
-{{- end }}
       "METAFLOW_DEFAULT_DATASTORE": "s3"
     }
+{{- end }}
 {{- end }}
 
 
