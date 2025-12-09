@@ -14,7 +14,9 @@ service:
       version: "inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark4.0.1"
 
 spark:
-  sparkui: false
+  ui: false
+  hostname: chart-example-spark.local
+  path: /
   secretName: ""
   default: true
   disabledCertChecking: false
@@ -199,10 +201,8 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hostname: chart-example.local
   userHostname: chart-example-user.local
-  sparkHostname: chart-example-spark.local
   path: /
   userPath: /
-  sparkPath: /
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
