@@ -425,7 +425,7 @@ stringData:
       apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
     {{- end }}
     {{- if .Values.userPreferences.aiAssistant.apiKey }}
-      apiKey: {{ .Values.userPreferences.aiAssistant.apiKey | quote }}
+      apiKey: {{ .Values.userPreferences.aiAssistant.apiKey }}
     {{- end }}
       useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint | default false }}
     context:
