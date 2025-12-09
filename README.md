@@ -500,13 +500,22 @@ You can use a configuration with a master local for example.
     "type": "object",
     "description": "spark specific configuration",
     "properties": {
-        "sparkui": {
+        "ui": {
             "type": "boolean",
             "title": "SparkUI",
             "description": "Enable Spark monitoring interface",
             "const": true,
             "x-onyxia": {
                 "hidden": true
+            }
+        },
+        "hostname": {
+            "type": "string",
+            "title": "Hostname",
+            "pattern": "^([a-zA-Z0-9-]+\.)*mydomain\.com$",
+            "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.mydomain.com"
             }
         },
         "disabledCertChecking": {
