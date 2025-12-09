@@ -1,6 +1,6 @@
 # rstudio-sparkr
 
-![Version: 2.3.18](https://img.shields.io/badge/Version-2.3.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages. It includes SparkR, an R package that provides an interface to use Apache Spark from R.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages. It includes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.2 |
 
 ## Values
 
@@ -51,8 +51,6 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
 | ingress.path | string | `"/"` |  |
-| ingress.sparkHostname | string | `"chart-example-spark.local"` |  |
-| ingress.sparkPath | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
 | ingress.useCertManager | bool | `false` |  |
@@ -134,8 +132,10 @@ The RStudio IDE with a collection of standard data science packages. It includes
 | spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
 | spark.default | bool | `true` |  |
 | spark.disabledCertChecking | bool | `false` |  |
+| spark.hostname | string | `"chart-example-spark.local"` |  |
+| spark.path | string | `"/"` |  |
 | spark.secretName | string | `""` |  |
-| spark.sparkui | bool | `false` |  |
+| spark.ui | bool | `false` |  |
 | spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
 | spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
 | spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
