@@ -12,6 +12,7 @@
 {{/* Template to generate a Secret for Metaflow */}}
 {{- define "library-chart.secretMetaflow" -}}
 {{- $namespace := .Release.Namespace -}}
+{{- if (.Values.discovery).metaflow }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -24,7 +25,6 @@ stringData:
       "METAFLOW_DEFAULT_METADATA": "service",
       "METAFLOW_KUBERNETES_SERVICE_ACCOUNT": "default",
       "METAFLOW_S3_ENDPOINT_URL": "https://{{ eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint }}",
-{{- if (.Values.discovery).metaflow }}
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "metaflow") | fromJsonArray) }}
 {{- $host     := $secretData.host     | default "" | b64dec }}
 {{- $s3Bucket := $secretData.s3Bucket | default "" | b64dec }}
@@ -35,9 +35,9 @@ stringData:
       "METAFLOW_DATASTORE_SYSROOT_S3": {{ $s3Bucket | quote }},
       "METAFLOW_DATATOOLS_SYSROOT_S3": {{ $s3Bucket | quote }},
 {{- end }}
-{{- end }}
       "METAFLOW_DEFAULT_DATASTORE": "s3"
     }
+{{- end }}
 {{- end }}
 
 

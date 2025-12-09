@@ -1,6 +1,6 @@
 # vscode-r-python-julia
 
-![Version: 2.3.23](https://img.shields.io/badge/Version-2.3.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.2](https://img.shields.io/badge/Version-2.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with minimal installations of R, Python and Julia.
 
@@ -15,7 +15,7 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.2 |
 
 ## Values
 
@@ -39,6 +39,7 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
+| git.asCodeServerRoot | bool | `false` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
@@ -119,9 +120,9 @@ The VSCode IDE with minimal installations of R, Python and Julia.
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.8"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.8"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.1-py3.13.8"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.8"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |

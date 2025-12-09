@@ -1,6 +1,6 @@
 # rstudio-gpu
 
-![Version: 2.3.17](https://img.shields.io/badge/Version-2.3.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.21](https://img.shields.io/badge/Version-2.3.21-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages, with GPU support.
 
@@ -15,7 +15,7 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.2 |
 
 ## Values
 
@@ -108,9 +108,9 @@ The RStudio IDE with a collection of standard data science packages, with GPU su
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.5.1-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio:r4.5.2-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.5.1-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio:r4.5.2-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |

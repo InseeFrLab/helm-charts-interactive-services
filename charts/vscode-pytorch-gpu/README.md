@@ -1,6 +1,6 @@
 # vscode-pytorch-gpu
 
-![Version: 2.3.23](https://img.shields.io/badge/Version-2.3.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.2](https://img.shields.io/badge/Version-2.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU support.
 
@@ -15,7 +15,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU sup
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 1.7.14 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.2 |
 
 ## Values
 
@@ -39,6 +39,7 @@ The VSCode IDE with Python and the deep-learning framework PyTorch, with GPU sup
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
+| git.asCodeServerRoot | bool | `false` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |

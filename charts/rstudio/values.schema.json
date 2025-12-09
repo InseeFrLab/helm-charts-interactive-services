@@ -24,7 +24,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-rstudio:r4.5.1",
+                "inseefrlab/onyxia-rstudio:r4.5.2",
                 "inseefrlab/onyxia-rstudio:r4.4.3"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-rstudio:r4.5.1"
+              "default": "inseefrlab/onyxia-rstudio:r4.5.2"
             },
             "custom": {
               "title": "Custom image",
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-rstudio:r4.5.1",
+                  "default": "inseefrlab/onyxia-rstudio:r4.5.2",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
@@ -796,6 +796,9 @@
     "repository": {
       "description": "r repository (eg : cran mirrors or proxy caches)",
       "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "repository.json"
+      },
       "properties": {
         "rRepository": {
           "type": "string",

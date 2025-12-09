@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 2.3.22](https://img.shields.io/badge/Version-2.3.22-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.1](https://img.shields.io/badge/Version-2.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -39,6 +39,7 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
+| git.asCodeServerRoot | bool | `false` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
@@ -124,9 +125,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark3.5.7"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark4.0.1"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark3.5.7"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark4.0.1"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
