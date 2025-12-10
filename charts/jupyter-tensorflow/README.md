@@ -1,21 +1,15 @@
-# eostat-rstudio
+# jupyter-tensorflow
 
-![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.24](https://img.shields.io/badge/Version-2.3.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-RStudio environment for Earth Observation Statistics with R and geospatial libraries
+The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
 
-**Homepage:** <https://fao-eostat.github.io/UN-Handbook/>
-
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| UN Global Platform | <lovells@un.org> |  |
+**Homepage:** <https://jupyter.org/>
 
 ## Source Code
 
-* <https://github.com/UNGlobalPlatform/images-datascience>
-* <https://github.com/UNGlobalPlatform/helm-charts-interactive-services>
+* <https://github.com/InseeFrLab/images-datascience>
+* <https://github.com/InseeFrLab/helm-charts-interactive-services>
 
 ## Requirements
 
@@ -33,10 +27,6 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | certificates | object | `{}` |  |
-| chapter.name | string | `"ct_chile"` |  |
-| chapter.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
-| chapter.storageSize | string | `"20Gi"` |  |
-| chapter.version | string | `"main"` |  |
 | chromadb.secretName | string | `""` |  |
 | coresite.secretName | string | `""` |  |
 | discovery.chromadb | bool | `true` |  |
@@ -47,24 +37,18 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
-| eostatCache.enabled | bool | `false` |  |
-| eostatCache.mountPath | string | `"/mnt/eostat-cache"` |  |
-| eostatCache.pvName | string | `"eostat-handbook-cache-pv"` |  |
-| eostatCache.pvcName | string | `"eostat-handbook-cache-pvc"` |  |
-| eostatCache.storageSize | string | `"10Gi"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| git.branch | string | `"main"` |  |
+| git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
-| git.email | string | `"handbook@un.org"` |  |
-| git.enabled | bool | `true` |  |
-| git.name | string | `"UN Handbook User"` |  |
-| git.repository | string | `"https://github.com/FAO-EOSTAT/UN-Handbook.git"` |  |
+| git.email | string | `""` |  |
+| git.enabled | bool | `false` |  |
+| git.name | string | `""` |  |
+| git.repository | string | `""` |  |
 | git.secretName | string | `""` |  |
 | git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
-| imageFlavor | string | `"base"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
@@ -91,29 +75,18 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `8787` |  |
+| networking.service.port | int | `8888` |  |
 | networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
 | networking.user.ports | list | `[]` |  |
 | nodeSelector | object | `{}` |  |
-| oidc.clientId | string | `"apisix-dev-services"` |  |
-| oidc.enabled | bool | `true` |  |
-| oidc.image | string | `"quay.io/oauth2-proxy/oauth2-proxy:v7.6.0"` |  |
-| oidc.imagePullPolicy | string | `"IfNotPresent"` |  |
-| oidc.issuerUrl | string | `"https://id.officialstatistics.org/realms/ungp"` |  |
-| oidc.provider | string | `"keycloak-oidc"` |  |
-| oidc.resources.limits.cpu | string | `"100m"` |  |
-| oidc.resources.limits.memory | string | `"128Mi"` |  |
-| oidc.resources.requests.cpu | string | `"50m"` |  |
-| oidc.resources.requests.memory | string | `"64Mi"` |  |
-| oidc.userIdentifier | string | `""` |  |
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.enabled | bool | `false` |  |
-| persistence.size | string | `"100Gi"` |  |
+| persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
 | postgresql.secretName | string | `""` |  |
@@ -122,8 +95,9 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
+| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.rRepository | string | `""` |  |
+| repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -146,25 +120,27 @@ RStudio environment for Earth Observation Statistics with R and geospatial libra
 | security.networkPolicy.from | list | `[]` |  |
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
-| securityProfile | string | `"none"` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-32767a2b"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.13.8"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"142496269814.dkr.ecr.us-west-2.amazonaws.com/eostat-rstudio:0.1.0-20251205-32767a2b"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-tensorflow:py3.13.8"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| singleton.enabled | bool | `false` |  |
-| singleton.image | string | `"alpine/k8s:1.31.2"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
-| tier | string | `"medium"` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.aiAssistant.apiBase | string | `""` |  |
+| userPreferences.aiAssistant.apiKey | string | `""` |  |
+| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
+| userPreferences.aiAssistant.enabled | bool | `false` |  |
+| userPreferences.aiAssistant.modelProvider | string | `""` |  |
+| userPreferences.aiAssistant.secretName | string | `""` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
