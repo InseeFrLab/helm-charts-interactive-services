@@ -284,7 +284,7 @@
           "type": "boolean",
           "title": "Enable Singleton Mode",
           "description": "When enabled, deploying a new instance will suspend all other instances of the same chart type in the same namespace",
-          "default": true,
+          "default": false,
           "x-onyxia": {
             "hidden": true
           }
