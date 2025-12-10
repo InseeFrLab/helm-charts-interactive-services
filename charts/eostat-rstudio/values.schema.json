@@ -208,7 +208,7 @@
       "properties": {
         "enabled": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "x-onyxia": {
             "hidden": true
           }
