@@ -171,7 +171,7 @@ spec:
           {{- end }}
           command: ["/bin/sh","-c"]
           {{- if .Values.git.asCodeServerRoot }}
-          args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work/$(basename $GIT_REPOSITORY)"]
+          args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work/$(basename $GIT_REPOSITORY .git)"]
           {{- else }}
           args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
           {{- end }}
