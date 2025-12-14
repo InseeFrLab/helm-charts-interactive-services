@@ -12,7 +12,7 @@ jupyter-python:
   jupyter-r-python-julia:
     description: The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
     images:
-      - inseefrlab/onyxia-jupyter-r-python-julia:r4.5.2-py3.13.8
+      - inseefrlab/onyxia-jupyter-r-python-julia:r4.5.2-py3.13.11
 
 jupyter-pyspark: []
 
@@ -22,7 +22,7 @@ rstudio:
   rstudio-r-python-julia:
     description: The RStudio IDE with Python, R, Julia, and a collection of standard data science packages
     images:
-      - inseefrlab/onyxia-rstudio-r-python-julia:r4.5.2-py3.13.8
+      - inseefrlab/onyxia-rstudio-r-python-julia:r4.5.2-py3.13.11
 
 rstudio-sparkr: []
 
@@ -40,6 +40,6 @@ vscode-python:
   vscode-r-python-julia:
     description: The VSCode IDE with minimal installations of R, Python and Julia.
     images:
-      - inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.8
+      - inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.11
 
 vscode-pyspark: []
