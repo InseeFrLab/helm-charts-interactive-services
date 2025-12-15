@@ -1,6 +1,6 @@
 # vscode-tensorflow-gpu
 
-![Version: 2.4.3](https://img.shields.io/badge/Version-2.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.4](https://img.shields.io/badge/Version-2.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU support.
 
@@ -120,9 +120,9 @@ The VSCode IDE with Python and the deep-learning framework TensorFlow, with GPU 
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.8-gpu"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.11-gpu"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.8-gpu"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.11-gpu"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |

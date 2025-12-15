@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 2.3.28](https://img.shields.io/badge/Version-2.3.28-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.3.29](https://img.shields.io/badge/Version-2.3.29-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and a collection of standard data science packages.
 
