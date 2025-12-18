@@ -25,7 +25,9 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-rstudio-sparkr:r4.5.2-spark4.0.1",
-                "inseefrlab/onyxia-rstudio-sparkr:r4.4.3-spark4.0.1"
+                "inseefrlab/onyxia-rstudio-sparkr:r4.4.3-spark4.0.1",
+                "inseefrlab/onyxia-rstudio-sparkr:r4.5.2-spark3.5.7",
+                "inseefrlab/onyxia-rstudio-sparkr:r4.4.3-spark3.5.7"
               ],
               "render": "list",
               "hidden": {
