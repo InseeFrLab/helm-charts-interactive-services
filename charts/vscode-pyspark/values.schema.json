@@ -26,8 +26,8 @@
               "listEnum": [
                 "inseefrlab/onyxia-vscode-pyspark:py3.13.11-spark4.0.1",
                 "inseefrlab/onyxia-vscode-pyspark:py3.12.12-spark4.0.1",
-                 "inseefrlab/onyxia-jupyter-pyspark:py3.13.8-spark3.5.7",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.12-spark3.5.7"
+                 "inseefrlab/onyxia-vscode-pyspark:py3.13.8-spark3.5.7",
+                "inseefrlab/onyxia-vscode-pyspark:py3.12.12-spark3.5.7"
               ],
               "render": "list",
               "hidden": {
