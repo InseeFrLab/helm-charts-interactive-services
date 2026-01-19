@@ -1,8 +1,8 @@
-# vscode-pyspark
+# vscode-r-python-julia
 
-![Version: 3.0.6](https://img.shields.io/badge/Version-3.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.5](https://img.shields.io/badge/Version-2.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
+The VSCode IDE with minimal installations of R, Python and Julia.
 
 **Homepage:** <https://code.visualstudio.com/>
 
@@ -43,11 +43,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `false` |  |
+| git.enabled | bool | `true` |  |
 | git.name | string | `""` |  |
-| git.repository | string | `""` |  |
 | git.secretName | string | `""` |  |
-| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -66,8 +64,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
+| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `false` |  |
+| kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -77,7 +76,6 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
 | networking.service.port | int | `8080` |  |
-| networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -98,7 +96,6 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | replicaCount | int | `1` |  |
 | repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.mavenRepository | string | `""` |  |
 | repository.pipRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
@@ -123,36 +120,14 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.11-spark4.1.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.11"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.11-spark4.1.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-r-python-julia:r4.5.2-py3.13.11"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| spark.config."spark.driver.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.executor.extraJavaOptions" | string | `"{{ include \"library-chart.sparkExtraJavaOptions\" . }}"` |  |
-| spark.config."spark.kubernetes.authenticate.driver.serviceAccountName" | string | `"{{ include \"library-chart.fullname\" . }}"` |  |
-| spark.config."spark.kubernetes.container.image" | string | `"{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}"` |  |
-| spark.config."spark.kubernetes.driver.pod.name" | string | `"{{ include \"library-chart.fullname\" . }}-0"` |  |
-| spark.config."spark.kubernetes.namespace" | string | `"{{ .Release.Namespace }}"` |  |
-| spark.config."spark.master" | string | `"k8s://https://kubernetes.default.svc:443"` |  |
-| spark.default | bool | `true` |  |
-| spark.disabledCertChecking | bool | `false` |  |
-| spark.hostname | string | `"chart-example-spark.local"` |  |
-| spark.path | string | `"/"` |  |
-| spark.secretName | string | `""` |  |
-| spark.ui | bool | `false` |  |
-| spark.userConfig."spark.driver.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.dynamicAllocation.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.dynamicAllocation.executorAllocationRatio" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.initialExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.maxExecutors" | string | `"10"` |  |
-| spark.userConfig."spark.dynamicAllocation.minExecutors" | string | `"1"` |  |
-| spark.userConfig."spark.dynamicAllocation.shuffleTracking.enabled" | string | `"true"` |  |
-| spark.userConfig."spark.executor.memory" | string | `"2g"` |  |
-| spark.userConfig."spark.hadoop.fs.s3a.bucket.all.committer.magic.enabled" | string | `"true"` |  |
 | startupProbe.failureThreshold | int | `60` |  |
 | startupProbe.initialDelaySeconds | int | `10` |  |
 | startupProbe.periodSeconds | int | `10` |  |
