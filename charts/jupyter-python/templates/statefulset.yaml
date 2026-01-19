@@ -286,6 +286,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            - name: jupyter-local
+              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter
             {{ if (.Values.userPreferences.aiAssistant).enabled }}
             - mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai
               subPath: jupyter-ai
