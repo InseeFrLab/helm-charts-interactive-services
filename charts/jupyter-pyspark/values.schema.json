@@ -24,8 +24,8 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.0.1",
-                "inseefrlab/onyxia-jupyter-pyspark:py3.12.12-spark4.0.1",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.1.1",
+                "inseefrlab/onyxia-jupyter-pyspark:py3.12.12-spark4.1.1",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.13.8-spark3.5.7",
                 "inseefrlab/onyxia-jupyter-pyspark:py3.12.12-spark3.5.7"
               ],
@@ -34,7 +34,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.0.1"
+              "default": "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.1.1"
             },
             "custom": {
               "title": "Custom image",
@@ -51,7 +51,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.0.1",
+                  "default": "inseefrlab/onyxia-jupyter-pyspark:py3.13.11-spark4.1.1",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
