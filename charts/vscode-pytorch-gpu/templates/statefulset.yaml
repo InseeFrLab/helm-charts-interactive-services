@@ -59,6 +59,9 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.runtimeClassName -}}
+      runtimeClassName: {{ .Values.runtimeClassName }}
+      {{- end }}
       volumes:
         - name: config-files
           emptyDir: {}
