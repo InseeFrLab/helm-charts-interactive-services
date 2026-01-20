@@ -227,3 +227,5 @@ proxy:
 message:
   fr: ""
   en: ""
+
+runtimeClassName: ""

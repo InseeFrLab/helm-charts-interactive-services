@@ -292,3 +292,5 @@ certificates: {}
 message:
   fr: ""
   en: ""
+
+runtimeClassName: ""

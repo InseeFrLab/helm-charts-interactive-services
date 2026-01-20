@@ -68,6 +68,9 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.runtimeClassName -}}
+      runtimeClassName: {{ .Values.runtimeClassName }}
+      {{- end }}
       volumes:
         - name: home
         {{- if .Values.persistence.enabled }}

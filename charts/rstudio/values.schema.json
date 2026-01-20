@@ -970,6 +970,15 @@
           "default": ""
         }
       }
+    },
+    "runtimeClassName" : {
+      "type": "string",
+      "description": "Runtime Class Name",
+      "default": "",
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteSchemaWith": "ide/runtimeClassName.json"
+      }
     }
   }
 }
