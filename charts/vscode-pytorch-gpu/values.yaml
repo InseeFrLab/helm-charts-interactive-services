@@ -5,11 +5,11 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: inseefrlab/onyxia-vscode-pytorch:py3.13.11-gpu
+    version: inseefrlab/onyxia-vscode-pytorch:py3.13.12-gpu
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-pytorch:py3.13.11-gpu
+      version: inseefrlab/onyxia-vscode-pytorch:py3.13.12-gpu
 security:
   password: changeme
   networkPolicy:

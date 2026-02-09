@@ -24,7 +24,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-jupyter-tensorflow:py3.13.11-gpu",
+                "inseefrlab/onyxia-jupyter-tensorflow:py3.13.12-gpu",
                 "inseefrlab/onyxia-jupyter-tensorflow:py3.12.12-gpu"
               ],
               "render": "list",
@@ -32,7 +32,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.13.11-gpu"
+              "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.13.12-gpu"
             },
             "custom": {
               "title": "Custom image",
@@ -49,7 +49,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.13.11-gpu",
+                  "default": "inseefrlab/onyxia-jupyter-tensorflow:py3.13.12-gpu",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
