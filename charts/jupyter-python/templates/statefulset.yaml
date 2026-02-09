@@ -122,7 +122,7 @@ spec:
             - |
               echo 'initContainer make-secrets-writable is started';
               {{ if (.Values.userPreferences.aiAssistant).enabled }}
-              mkdir /dest/jupyter-ai
+              mkdir -p /dest/jupyter-ai
               cp /src/jupyter-ai/config.json /dest/jupyter-ai/config.json
               {{- end }}
               {{- if .Values.discovery.hive }}
@@ -289,12 +289,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: jupyter-local
-              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter
-            {{ if (.Values.userPreferences.aiAssistant).enabled }}
-            - mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai
-              subPath: jupyter-ai
-              name: config-files
+            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            - name: config-files
+              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai/config.json
+              subPath: jupyter-ai/config.json
             {{- end }}
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
