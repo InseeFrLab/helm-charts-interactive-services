@@ -3,11 +3,11 @@ global:
 
 service:
   image:
-    version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+    version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+      version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0"
 
 autoscaling:
   enabled: false
@@ -60,24 +60,23 @@ spark:
     spark.hadoop.fs.s3a.fast.upload.active.blocks: "32"
     spark.hadoop.fs.s3a.multipart.size: "268435456"
     spark.hadoop.fs.s3a.multipart.threshold: "104857600"
+    # Sedona geospatial extensions
+    spark.sql.extensions: org.apache.sedona.viz.sql.SedonaVizExtensions,org.apache.sedona.sql.SedonaSqlExtensions
+    spark.kryo.registrator: org.apache.sedona.core.serde.SedonaKryoRegistrator
     # Executor node selector
     spark.kubernetes.executor.node.selector.workload-type: spark
   userConfig:
     spark.dynamicAllocation.enabled: "true"
     spark.dynamicAllocation.initialExecutors: "1"
     spark.dynamicAllocation.minExecutors: "0"
-    spark.dynamicAllocation.maxExecutors: "10"
     spark.dynamicAllocation.executorIdleTimeout: 120s
     spark.dynamicAllocation.shuffleTracking.enabled: "true"
-    spark.executor.memory: 4g
-    spark.executor.memoryOverhead: 1g
-    spark.kubernetes.executor.request.cores: "2"
-    spark.kubernetes.executor.limit.cores: "2"
     spark.driver.memory: 10g
 
 sparkConnect:
   packages: "org.apache.spark:spark-connect_2.12:3.5.0"
   emrInternalId: "spark-connect-server"
+  instanceLifecycle: "spot"
   env:
     - name: AIS_S3PATH
       value: "s3a://ais-data-142496269814/exact-earth-data/transformed/prod/"
@@ -85,6 +84,12 @@ sparkConnect:
       value: "s3a://ais-data-142496269814/user_temp/"
     - name: SHIP_REGISTER_LATEST_S3PATH
       value: "s3a://ais-data-142496269814/register/"
+
+sparkExecutors:
+  maxExecutors: 3
+  memory: "4"
+  memoryOverhead: "1"
+  cores: 2
 
 security:
   networkPolicy:
@@ -134,8 +139,7 @@ resources:
     cpu: "2"
     memory: 12Gi
 
-nodeSelector:
-  workload-type: spark
+nodeSelector: {}
 
 tolerations: []
 affinity: {}

@@ -20,6 +20,7 @@
               "title": "EMR Spark image",
               "type": "string",
               "listEnum": [
+                "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0",
                 "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
               ],
               "render": "list",
@@ -27,7 +28,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0"
             },
             "custom": {
               "title": "Custom image",
@@ -41,7 +42,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0",
+                  "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
@@ -79,13 +80,8 @@
             "spark.dynamicAllocation.enabled": "true",
             "spark.dynamicAllocation.initialExecutors": "1",
             "spark.dynamicAllocation.minExecutors": "0",
-            "spark.dynamicAllocation.maxExecutors": "10",
             "spark.dynamicAllocation.executorIdleTimeout": "120s",
             "spark.dynamicAllocation.shuffleTracking.enabled": "true",
-            "spark.executor.memory": "4g",
-            "spark.executor.memoryOverhead": "1g",
-            "spark.kubernetes.executor.request.cores": "2",
-            "spark.kubernetes.executor.limit.cores": "2",
             "spark.driver.memory": "10g"
           },
           "hidden": {
@@ -113,7 +109,7 @@
               "default": "2",
               "render": "slider",
               "sliderMin": 500,
-              "sliderMax": 8000,
+              "sliderMax": 12000,
               "sliderStep": 500,
               "sliderUnit": "m",
               "sliderExtremity": "down",
@@ -127,7 +123,7 @@
               "default": "10Gi",
               "render": "slider",
               "sliderMin": 2,
-              "sliderMax": 64,
+              "sliderMax": 50,
               "sliderStep": 1,
               "sliderUnit": "Gi",
               "sliderExtremity": "down",
@@ -147,7 +143,7 @@
               "default": "2",
               "render": "slider",
               "sliderMin": 500,
-              "sliderMax": 8000,
+              "sliderMax": 12000,
               "sliderStep": 500,
               "sliderUnit": "m",
               "sliderExtremity": "up",
@@ -161,7 +157,7 @@
               "default": "12Gi",
               "render": "slider",
               "sliderMin": 2,
-              "sliderMax": 64,
+              "sliderMax": 50,
               "sliderStep": 1,
               "sliderUnit": "Gi",
               "sliderExtremity": "up",
@@ -169,6 +165,65 @@
               "sliderRangeId": "memory"
             }
           }
+        }
+      }
+    },
+    "sparkExecutors": {
+      "title": "Executor Resources",
+      "description": "Executors share your namespace quota (16 CPU / 64 GiB) with the driver pod",
+      "type": "object",
+      "properties": {
+        "maxExecutors": {
+          "title": "Max executors",
+          "type": "integer",
+          "default": 3,
+          "render": "slider",
+          "sliderMin": 0,
+          "sliderMax": 5,
+          "sliderStep": 1
+        },
+        "memory": {
+          "title": "Memory per executor",
+          "type": "string",
+          "default": "4",
+          "render": "slider",
+          "sliderMin": 1,
+          "sliderMax": 8,
+          "sliderStep": 1,
+          "sliderUnit": "Gi"
+        },
+        "memoryOverhead": {
+          "title": "Memory overhead per executor",
+          "type": "string",
+          "default": "1",
+          "render": "slider",
+          "sliderMin": 1,
+          "sliderMax": 4,
+          "sliderStep": 1,
+          "sliderUnit": "Gi"
+        },
+        "cores": {
+          "title": "CPU cores per executor",
+          "type": "integer",
+          "default": 2,
+          "render": "slider",
+          "sliderMin": 1,
+          "sliderMax": 4,
+          "sliderStep": 1
+        }
+      }
+    },
+    "sparkConnect": {
+      "title": "Spark Connect",
+      "type": "object",
+      "properties": {
+        "instanceLifecycle": {
+          "title": "Instance type",
+          "description": "On-demand instances prevent spot eviction (recommended for long sessions)",
+          "type": "string",
+          "default": "spot",
+          "listEnum": ["spot", "od"],
+          "render": "list"
         }
       }
     },
@@ -297,9 +352,7 @@
     "nodeSelector": {
       "title": "Node selector",
       "type": "object",
-      "default": {
-        "workload-type": "spark"
-      },
+      "default": {},
       "additionalProperties": {
         "type": "string"
       },

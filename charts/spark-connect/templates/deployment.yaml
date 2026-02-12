@@ -84,7 +84,12 @@ spec:
                 --properties-file /opt/spark-connect/spark-defaults.conf \
                 --conf spark.kubernetes.driver.pod.name=$HOSTNAME \
                 --conf spark.driver.host=$SPARK_DRIVER_POD_IP \
-                --conf spark.driver.bindAddress=0.0.0.0
+                --conf spark.driver.bindAddress=0.0.0.0 \
+                --conf spark.dynamicAllocation.maxExecutors={{ .Values.sparkExecutors.maxExecutors }} \
+                --conf spark.executor.memory={{ .Values.sparkExecutors.memory }}g \
+                --conf spark.executor.memoryOverhead={{ .Values.sparkExecutors.memoryOverhead }}g \
+                --conf spark.kubernetes.executor.request.cores={{ .Values.sparkExecutors.cores }} \
+                --conf spark.kubernetes.executor.limit.cores={{ .Values.sparkExecutors.cores }}
           env:
             - name: SPARK_DRIVER_POD_IP
               valueFrom:
@@ -126,8 +131,10 @@ spec:
             - name: spark-conf
               mountPath: /opt/spark-connect
               readOnly: true
-      {{- with .Values.nodeSelector }}
       nodeSelector:
+        workload-type: spark
+        spotinst.io/node-lifecycle: {{ .Values.sparkConnect.instanceLifecycle | default "spot" }}
+      {{- with .Values.nodeSelector }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.affinity }}
