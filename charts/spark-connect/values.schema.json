@@ -1,0 +1,379 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "service": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+        "image": {
+          "title": "Docker image",
+          "type": "object",
+          "properties": {
+            "pullPolicy": {
+              "title": "Pull image from registry",
+              "type": "string",
+              "default": "IfNotPresent",
+              "enum": ["IfNotPresent", "Always", "Never"]
+            },
+            "version": {
+              "title": "EMR Spark image",
+              "type": "string",
+              "listEnum": [
+                "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+              ],
+              "render": "list",
+              "hidden": {
+                "value": true,
+                "path": "service/image/custom/enabled"
+              },
+              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+            },
+            "custom": {
+              "title": "Custom image",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "Use a custom image instead",
+                  "type": "boolean",
+                  "default": false
+                },
+                "version": {
+                  "title": "Name of the custom image",
+                  "type": "string",
+                  "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0",
+                  "hidden": {
+                    "value": false,
+                    "path": "enabled",
+                    "isPathRelative": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "spark": {
+      "title": "Spark",
+      "type": "object",
+      "properties": {
+        "sparkui": {
+          "title": "Enable Spark UI monitoring interface",
+          "type": "boolean",
+          "default": true
+        },
+        "default": {
+          "title": "Create a Spark configuration",
+          "type": "boolean",
+          "default": true
+        },
+        "userConfig": {
+          "title": "Spark configuration (spark-defaults.conf)",
+          "description": "User-customizable Spark properties merged with system config",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {
+            "spark.dynamicAllocation.enabled": "true",
+            "spark.dynamicAllocation.initialExecutors": "1",
+            "spark.dynamicAllocation.minExecutors": "0",
+            "spark.dynamicAllocation.maxExecutors": "10",
+            "spark.dynamicAllocation.executorIdleTimeout": "120s",
+            "spark.dynamicAllocation.shuffleTracking.enabled": "true",
+            "spark.executor.memory": "4g",
+            "spark.executor.memoryOverhead": "1g",
+            "spark.kubernetes.executor.request.cores": "2",
+            "spark.kubernetes.executor.limit.cores": "2",
+            "spark.driver.memory": "10g"
+          },
+          "hidden": {
+            "value": false,
+            "path": "spark/default"
+          }
+        }
+      }
+    },
+    "resources": {
+      "title": "Resources (driver pod CPU/RAM)",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/resources.json"
+      },
+      "properties": {
+        "requests": {
+          "description": "Guaranteed resources",
+          "type": "object",
+          "properties": {
+            "cpu": {
+              "description": "Guaranteed CPU allocation",
+              "title": "CPU",
+              "type": "string",
+              "default": "2",
+              "render": "slider",
+              "sliderMin": 500,
+              "sliderMax": 8000,
+              "sliderStep": 500,
+              "sliderUnit": "m",
+              "sliderExtremity": "down",
+              "sliderExtremitySemantic": "guaranteed",
+              "sliderRangeId": "cpu"
+            },
+            "memory": {
+              "description": "Guaranteed memory allocation",
+              "title": "Memory",
+              "type": "string",
+              "default": "10Gi",
+              "render": "slider",
+              "sliderMin": 2,
+              "sliderMax": 64,
+              "sliderStep": 1,
+              "sliderUnit": "Gi",
+              "sliderExtremity": "down",
+              "sliderExtremitySemantic": "guaranteed",
+              "sliderRangeId": "memory"
+            }
+          }
+        },
+        "limits": {
+          "description": "Maximum resources",
+          "type": "object",
+          "properties": {
+            "cpu": {
+              "description": "Maximum CPU allocation",
+              "title": "CPU",
+              "type": "string",
+              "default": "2",
+              "render": "slider",
+              "sliderMin": 500,
+              "sliderMax": 8000,
+              "sliderStep": 500,
+              "sliderUnit": "m",
+              "sliderExtremity": "up",
+              "sliderExtremitySemantic": "Maximum",
+              "sliderRangeId": "cpu"
+            },
+            "memory": {
+              "description": "Maximum memory allocation",
+              "title": "Memory",
+              "type": "string",
+              "default": "12Gi",
+              "render": "slider",
+              "sliderMin": 2,
+              "sliderMax": 64,
+              "sliderStep": 1,
+              "sliderUnit": "Gi",
+              "sliderExtremity": "up",
+              "sliderExtremitySemantic": "Maximum",
+              "sliderRangeId": "memory"
+            }
+          }
+        }
+      }
+    },
+    "kubernetes": {
+      "title": "Kubernetes permissions",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "title": "Enable Kubernetes RBAC for executor management",
+          "type": "boolean",
+          "default": true
+        },
+        "role": {
+          "title": "Kubernetes role",
+          "description": "The 'edit' role is required for Spark to create/manage executor pods",
+          "type": "string",
+          "default": "edit",
+          "hidden": {
+            "value": false,
+            "path": "kubernetes/enabled"
+          },
+          "listEnum": ["view", "edit", "admin"],
+          "render": "list"
+        }
+      }
+    },
+    "ingress": {
+      "title": "Ingress (Spark UI)",
+      "type": "object",
+      "form": true,
+      "properties": {
+        "enabled": {
+          "description": "Enable Ingress for Spark UI",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.ingress"
+          }
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+          }
+        },
+        "sparkHostname": {
+          "type": "string",
+          "form": true,
+          "title": "Spark UI hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-spark.{{k8s.domain}}"
+          }
+        },
+        "ingressClassName": {
+          "type": "string",
+          "form": true,
+          "title": "ingressClassName",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{k8s.ingressClassName}}"
+          }
+        },
+        "useCertManager": {
+          "type": "boolean",
+          "description": "Whether CertManager should be used to generate a certificate",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.useCertManager"
+          }
+        },
+        "certManagerClusterIssuer": {
+          "type": "string",
+          "description": "certManager cluster issuer",
+          "title": "CertManager Cluster Issuer",
+          "default": "",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.certManagerClusterIssuer"
+          }
+        }
+      }
+    },
+    "security": {
+      "title": "Security",
+      "type": "object",
+      "properties": {
+        "networkPolicy": {
+          "title": "Network access policy",
+          "type": "object",
+          "x-onyxia": {
+            "overwriteSchemaWith": "network-policy.json"
+          },
+          "properties": {
+            "enabled": {
+              "title": "Only allow access from the same namespace",
+              "type": "boolean",
+              "default": false,
+              "x-onyxia": {
+                "overwriteDefaultWith": "region.defaultNetworkPolicy"
+              }
+            },
+            "from": {
+              "description": "Array of sources allowed to have network access to your service",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "default": [],
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "region.from"
+              }
+            }
+          }
+        }
+      }
+    },
+    "nodeSelector": {
+      "title": "Node selector",
+      "type": "object",
+      "default": {
+        "workload-type": "spark"
+      },
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-onyxia": {
+        "hidden": false,
+        "overwriteDefaultWith": "region.nodeSelector",
+        "overwriteSchemaWith": "nodeSelector.json"
+      }
+    },
+    "global": {
+      "description": "Suspend",
+      "type": "object",
+      "properties": {
+        "suspend": {
+          "type": "boolean",
+          "description": "Suspend this service",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true
+          }
+        }
+      }
+    },
+    "startupProbe": {
+      "description": "Startup probe",
+      "type": "object",
+      "properties": {
+        "failureThreshold": {
+          "type": "integer",
+          "default": 30
+        },
+        "initialDelaySeconds": {
+          "type": "integer",
+          "default": 10
+        },
+        "periodSeconds": {
+          "type": "integer",
+          "default": 10
+        },
+        "successThreshold": {
+          "type": "integer",
+          "default": 1
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "default": 5
+        }
+      },
+      "default": {
+        "failureThreshold": 30,
+        "initialDelaySeconds": 10,
+        "periodSeconds": 10,
+        "successThreshold": 1,
+        "timeoutSeconds": 5
+      },
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteDefaultWith": "region.startupProbe",
+        "overwriteSchemaWith": "ide/startupProbe.json"
+      }
+    },
+    "tolerations": {
+      "description": "Array of tolerations",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "default": [],
+      "x-onyxia": {
+        "hidden": true,
+        "overwriteDefaultWith": "region.tolerations",
+        "overwriteSchemaWith": "tolerations.json"
+      }
+    }
+  }
+}

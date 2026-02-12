@@ -1,0 +1,9 @@
+apiVersion: v2
+name: spark-connect
+description: Spark Connect server on EMR on EKS with dynamic K8s executor scaling
+type: application
+version: 1.0.0
+dependencies:
+  - name: library-chart
+    version: 1.7.14
+    repository: https://inseefrlab.github.io/helm-charts-interactive-services
