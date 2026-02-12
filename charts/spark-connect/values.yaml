@@ -1,0 +1,148 @@
+global:
+  suspend: false
+
+service:
+  image:
+    version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+    pullPolicy: IfNotPresent
+    custom:
+      enabled: false
+      version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+
+autoscaling:
+  enabled: false
+
+spark:
+  sparkui: true
+  hostname: ""
+  secretName: ""
+  default: true
+  config:
+    spark.master: k8s://https://kubernetes.default.svc
+    spark.kubernetes.authenticate.driver.serviceAccountName: '{{ include "library-chart.fullname" . }}'
+    spark.kubernetes.namespace: '{{ .Release.Namespace }}'
+    spark.kubernetes.container.image: '{{ ternary .Values.service.image.custom.version .Values.service.image.version .Values.service.image.custom.enabled }}'
+    # Connect server
+    spark.connect.grpc.binding.port: "15002"
+    spark.connect.grpc.maxInboundMessageSize: "134217728"
+    # Scheduler
+    spark.scheduler.mode: FAIR
+    # Serialization & performance
+    spark.serializer: org.apache.spark.serializer.KryoSerializer
+    spark.driver.maxResultSize: 5g
+    spark.network.timeout: 1000s
+    # S3 auth via IRSA
+    spark.hadoop.fs.s3a.impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+    spark.hadoop.fs.s3a.aws.credentials.provider: com.amazonaws.auth.WebIdentityTokenCredentialsProvider
+    spark.hadoop.fs.s3a.endpoint: s3.us-west-2.amazonaws.com
+    spark.hadoop.fs.s3a.endpoint.region: us-west-2
+    # S3 write: magic committer
+    spark.hadoop.fs.s3a.committer.name: magic
+    spark.hadoop.fs.s3a.committer.magic.enabled: "true"
+    spark.sql.sources.commitProtocolClass: org.apache.spark.internal.io.cloud.PathOutputCommitProtocol
+    spark.sql.parquet.output.committer.class: org.apache.spark.internal.io.cloud.BindingParquetOutputCommitter
+    spark.hadoop.mapreduce.outputcommitter.factory.scheme.s3a: org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory
+    # Parquet tuning
+    spark.sql.parquet.mergeSchema: "false"
+    spark.sql.parquet.filterPushdown: "true"
+    spark.sql.parquet.enableVectorizedReader: "false"
+    spark.hadoop.parquet.enable.summary-metadata: "false"
+    spark.sql.hive.metastorePartitionPruning: "true"
+    # Arrow
+    spark.sql.execution.arrow.pyspark.enabled: "false"
+    # AQE
+    spark.sql.adaptive.enabled: "true"
+    spark.sql.adaptive.coalescePartitions.enabled: "true"
+    # S3 transfer tuning
+    spark.hadoop.fs.s3a.block.size: 256m
+    spark.hadoop.fs.s3a.fast.upload: "true"
+    spark.hadoop.fs.s3a.fast.upload.default: "true"
+    spark.hadoop.fs.s3a.fast.upload.active.blocks: "32"
+    spark.hadoop.fs.s3a.multipart.size: "268435456"
+    spark.hadoop.fs.s3a.multipart.threshold: "104857600"
+    # Executor node selector
+    spark.kubernetes.executor.node.selector.workload-type: spark
+  userConfig:
+    spark.dynamicAllocation.enabled: "true"
+    spark.dynamicAllocation.initialExecutors: "1"
+    spark.dynamicAllocation.minExecutors: "0"
+    spark.dynamicAllocation.maxExecutors: "10"
+    spark.dynamicAllocation.executorIdleTimeout: 120s
+    spark.dynamicAllocation.shuffleTracking.enabled: "true"
+    spark.executor.memory: 4g
+    spark.executor.memoryOverhead: 1g
+    spark.kubernetes.executor.request.cores: "2"
+    spark.kubernetes.executor.limit.cores: "2"
+    spark.driver.memory: 10g
+
+sparkConnect:
+  packages: "org.apache.spark:spark-connect_2.12:3.5.0"
+  emrInternalId: "spark-connect-server"
+  env:
+    - name: AIS_S3PATH
+      value: "s3a://ais-data-142496269814/exact-earth-data/transformed/prod/"
+    - name: USER_TEMP_S3PATH
+      value: "s3a://ais-data-142496269814/user_temp/"
+    - name: SHIP_REGISTER_LATEST_S3PATH
+      value: "s3a://ais-data-142496269814/register/"
+
+security:
+  networkPolicy:
+    enabled: false
+    from: []
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::142496269814:role/emr-job-execution-role"
+  name: ""
+
+kubernetes:
+  enabled: true
+  role: "edit"
+
+imagePullSecrets: []
+
+networking:
+  type: ClusterIP
+  service:
+    port: 15002
+  sparkui:
+    port: 4040
+
+ingress:
+  enabled: false
+  tls: true
+  hostname: ""
+  sparkHostname: ""
+  ingressClassName: ""
+  useCertManager: false
+  certManagerClusterIssuer: ""
+  useTlsSecret: false
+  tlsSecretName: ""
+
+route:
+  enabled: false
+  hostname: ""
+  sparkHostname: ""
+
+resources:
+  requests:
+    cpu: "2"
+    memory: 10Gi
+  limits:
+    cpu: "2"
+    memory: 12Gi
+
+nodeSelector:
+  workload-type: spark
+
+tolerations: []
+affinity: {}
+
+startupProbe:
+  failureThreshold: 30
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5

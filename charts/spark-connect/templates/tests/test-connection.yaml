@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "library-chart.fullname" . }}-test-connection"
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: grpc-check
+      image: 142496269814.dkr.ecr.us-west-2.amazonaws.com/busybox:1.36
+      command: ['sh', '-c']
+      args:
+        - |
+          echo "Testing gRPC port connectivity..."
+          for i in $(seq 1 10); do
+            if nc -z {{ include "library-chart.fullname" . }} {{ .Values.networking.service.port }} 2>/dev/null; then
+              echo "SUCCESS: gRPC port {{ .Values.networking.service.port }} is reachable"
+              exit 0
+            fi
+            echo "Attempt $i: waiting for port {{ .Values.networking.service.port }}..."
+            sleep 5
+          done
+          echo "FAILED: gRPC port {{ .Values.networking.service.port }} not reachable after 50s"
+          exit 1
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
+  restartPolicy: Never

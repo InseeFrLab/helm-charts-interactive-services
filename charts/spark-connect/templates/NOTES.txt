@@ -1,0 +1,31 @@
+Spark Connect server is starting up.
+
+It may take ~60 seconds for the Connect JAR to download and the gRPC server to become ready.
+
+== Connect from within the cluster ==
+
+From any pod in namespace {{ .Release.Namespace }}:
+  sc://{{ include "library-chart.fullname" . }}:{{ .Values.networking.service.port }}
+
+From any pod in the cluster (cross-namespace):
+  sc://{{ include "library-chart.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.networking.service.port }}
+
+== Python example ==
+
+  from pyspark.sql import SparkSession
+  spark = SparkSession.builder \
+      .remote("sc://{{ include "library-chart.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.networking.service.port }}") \
+      .getOrCreate()
+  spark.sql("SELECT 1").show()
+
+== Spark UI ==
+{{- if .Values.spark.sparkui }}
+{{- if .Values.ingress.enabled }}
+  https://{{ .Values.ingress.sparkHostname }}
+{{- else }}
+  kubectl port-forward svc/{{ include "library-chart.fullname" . }} {{ .Values.networking.sparkui.port }}:{{ .Values.networking.sparkui.port }} -n {{ .Release.Namespace }}
+  Then open: http://localhost:{{ .Values.networking.sparkui.port }}
+{{- end }}
+{{- else }}
+  Spark UI is disabled. Set spark.sparkui=true to enable.
+{{- end }}

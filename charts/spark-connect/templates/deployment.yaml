@@ -1,0 +1,140 @@
+{{- $fullName := include "library-chart.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.global.suspend }}
+  replicas: 0
+  {{- else }}
+  replicas: 1
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "library-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if not (empty (trim (include "library-chart.secretSparkConf" .))) }}
+        checksum/sparkconf: {{ include (print $.Template.BasePath "/secret-sparkconf.yaml") . | sha256sum }}
+        {{- end }}
+      labels:
+        {{- include "library-chart.selectorLabels" . | nindent 8 }}
+        eks-subscription.amazonaws.com/emr.internal.id: {{ .Values.sparkConnect.emrInternalId | quote }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "library-chart.serviceAccountName" . }}
+      volumes:
+        - name: spark-conf
+          emptyDir: {}
+        {{- if .Values.spark.default }}
+        - name: secret-sparkconf
+          secret:
+            secretName: {{ include "library-chart.secretNameSparkConf" . }}
+        {{- end }}
+      initContainers:
+        - name: copy-spark-conf
+          {{- if .Values.service.image.custom.enabled }}
+          image: "{{ .Values.service.image.custom.version }}"
+          {{- else }}
+          image: "{{ .Values.service.image.version }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.service.image.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - |
+              {{- if .Values.spark.default }}
+              cp /src/spark-defaults.conf /dest/spark-defaults.conf
+              {{- else }}
+              touch /dest/spark-defaults.conf
+              {{- end }}
+          volumeMounts:
+            - name: spark-conf
+              mountPath: /dest
+            {{- if .Values.spark.default }}
+            - name: secret-sparkconf
+              mountPath: /src
+            {{- end }}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+      containers:
+        - name: spark-connect
+          {{- if .Values.service.image.custom.enabled }}
+          image: "{{ .Values.service.image.custom.version }}"
+          {{- else }}
+          image: "{{ .Values.service.image.version }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.service.image.pullPolicy }}
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              exec /usr/lib/spark/bin/spark-submit \
+                --class org.apache.spark.sql.connect.service.SparkConnectServer \
+                --deploy-mode client \
+                --master k8s://https://kubernetes.default.svc \
+                --packages {{ .Values.sparkConnect.packages }} \
+                --properties-file /opt/spark-connect/spark-defaults.conf \
+                --conf spark.kubernetes.driver.pod.name=$HOSTNAME \
+                --conf spark.driver.host=$SPARK_DRIVER_POD_IP \
+                --conf spark.driver.bindAddress=0.0.0.0
+          env:
+            - name: SPARK_DRIVER_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: AWS_REGION
+              value: "us-west-2"
+            {{- range .Values.sparkConnect.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+          ports:
+            - containerPort: {{ .Values.networking.service.port }}
+              name: grpc
+              protocol: TCP
+            - containerPort: {{ .Values.networking.sparkui.port }}
+              name: spark-ui
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if hasKey .Values "startupProbe" }}
+          startupProbe:
+            tcpSocket:
+              port: grpc
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          {{- end }}
+          livenessProbe:
+            tcpSocket:
+              port: grpc
+            periodSeconds: 30
+            failureThreshold: 6
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: grpc
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: spark-conf
+              mountPath: /opt/spark-connect
+              readOnly: true
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
