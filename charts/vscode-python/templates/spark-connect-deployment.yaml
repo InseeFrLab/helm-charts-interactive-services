@@ -1,0 +1,90 @@
+{{- if .Values.sparkConnect.enabled }}
+{{- $fullName := include "library-chart.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-spark-connect
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+    app.kubernetes.io/component: spark-connect
+spec:
+  {{- if .Values.global.suspend }}
+  replicas: 0
+  {{- else }}
+  replicas: 1
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: spark-connect
+  template:
+    metadata:
+      annotations:
+        checksum/sparkconf: {{ include (print $.Template.BasePath "/spark-connect-sparkconf.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: spark-connect
+        eks-subscription.amazonaws.com/emr.internal.id: {{ $fullName }}-spark-connect
+    spec:
+      serviceAccountName: {{ include "library-chart.serviceAccountName" . }}
+      volumes:
+        - name: spark-conf
+          secret:
+            secretName: {{ $fullName }}-spark-connect-conf
+      containers:
+        - name: spark-connect
+          image: {{ .Values.sparkConnect.image | quote }}
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              exec /usr/lib/spark/bin/spark-submit \
+                --class org.apache.spark.sql.connect.service.SparkConnectServer \
+                --deploy-mode client \
+                --master k8s://https://kubernetes.default.svc \
+                --properties-file /opt/spark-connect/spark-defaults.conf \
+                --conf spark.kubernetes.driver.pod.name=$HOSTNAME \
+                --conf spark.driver.host=$SPARK_DRIVER_POD_IP \
+                --conf spark.driver.bindAddress=0.0.0.0
+          env:
+            - name: SPARK_DRIVER_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: AWS_REGION
+              value: "us-west-2"
+          ports:
+            - containerPort: 15002
+              name: grpc
+              protocol: TCP
+            - containerPort: 4040
+              name: spark-ui
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.sparkConnect.server.resources | nindent 12 }}
+          startupProbe:
+            tcpSocket:
+              port: grpc
+            failureThreshold: 30
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: grpc
+            periodSeconds: 30
+            failureThreshold: 6
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: grpc
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: spark-conf
+              mountPath: /opt/spark-connect
+              readOnly: true
+      nodeSelector:
+        workload-type: spark
+{{- end }}
