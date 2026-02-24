@@ -117,8 +117,12 @@ spec:
           {{- else }}
           image: "{{ .Values.service.image.version }}"
           {{- end }}
+          {{- $sparkInit := "" -}}
+          {{- if .Values.sparkConnect.enabled -}}
+          {{- $sparkInit = printf "pip install --quiet 'pyspark==%s' grpcio grpcio-status protobuf && " .Values.sparkConnect.pysparkVersion -}}
+          {{- end }}
           command: ["/bin/sh","-c"]
-          args: ["{{ .Values.init.standardInitPath }} /init"]
+          args: ["{{ $sparkInit }}{{ .Values.init.standardInitPath }} /init"]
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
             - name: KUBERNETES_POD_NAME
@@ -155,6 +159,10 @@ spec:
             {{- end }}
             - name: UV_CACHE_DIR
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
+            {{- if .Values.sparkConnect.enabled }}
+            - name: SPARK_REMOTE
+              value: "sc://{{ include "library-chart.fullname" . }}-spark-connect:15002"
+            {{- end }}
           envFrom:
             {{- if (.Values.git).enabled }}
             - secretRef:

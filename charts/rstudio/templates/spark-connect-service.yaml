@@ -1,0 +1,24 @@
+{{- if .Values.sparkConnect.enabled }}
+{{- $fullName := include "library-chart.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-spark-connect
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+    app.kubernetes.io/component: spark-connect
+spec:
+  type: ClusterIP
+  ports:
+    - port: 15002
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    - port: 4040
+      targetPort: spark-ui
+      protocol: TCP
+      name: spark-ui
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: spark-connect
+{{- end }}
