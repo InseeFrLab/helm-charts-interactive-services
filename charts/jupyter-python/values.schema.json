@@ -999,6 +999,117 @@
         }
       }
     },
+    "sparkConnect": {
+      "title": "Spark Connect",
+      "description": "Auto-deploy a Spark Connect server in your namespace",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "title": "Enable Spark Connect",
+          "description": "Deploys a Spark Connect server alongside your IDE for distributed computing with PySpark",
+          "type": "boolean",
+          "default": false
+        },
+        "image": {
+          "title": "Spark Connect server image",
+          "type": "string",
+          "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "pysparkVersion": {
+          "title": "PySpark version",
+          "type": "string",
+          "default": "3.5.0",
+          "x-onyxia": {
+            "hidden": true
+          }
+        },
+        "keda": {
+          "title": "KEDA autoscaling",
+          "type": "object",
+          "x-onyxia": {
+            "hidden": true
+          },
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "server": {
+          "title": "Server resources",
+          "type": "object",
+          "x-onyxia": {
+            "hidden": true
+          },
+          "properties": {
+            "resources": {
+              "type": "object",
+              "properties": {
+                "requests": {
+                  "type": "object",
+                  "properties": {
+                    "cpu": { "type": "string", "default": "2" },
+                    "memory": { "type": "string", "default": "10Gi" }
+                  }
+                },
+                "limits": {
+                  "type": "object",
+                  "properties": {
+                    "cpu": { "type": "string", "default": "2" },
+                    "memory": { "type": "string", "default": "12Gi" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "executor": {
+          "title": "Executor configuration",
+          "type": "object",
+          "properties": {
+            "maxExecutors": {
+              "title": "Maximum number of executors",
+              "type": "string",
+              "default": "10",
+              "hidden": {
+                "value": false,
+                "path": "sparkConnect/enabled"
+              }
+            },
+            "cores": {
+              "title": "Cores per executor",
+              "type": "string",
+              "default": "2",
+              "hidden": {
+                "value": false,
+                "path": "sparkConnect/enabled"
+              }
+            },
+            "memory": {
+              "title": "Memory per executor",
+              "type": "string",
+              "default": "4g",
+              "hidden": {
+                "value": false,
+                "path": "sparkConnect/enabled"
+              }
+            },
+            "memoryOverhead": {
+              "title": "Memory overhead per executor",
+              "type": "string",
+              "default": "1g",
+              "x-onyxia": {
+                "hidden": true
+              }
+            }
+          }
+        }
+      }
+    },
     "global": {
       "description": "Suspend",
       "type": "object",

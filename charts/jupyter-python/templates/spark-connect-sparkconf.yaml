@@ -1,0 +1,62 @@
+{{- if .Values.sparkConnect.enabled }}
+{{- $fullName := include "library-chart.fullname" . -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $fullName }}-spark-connect-conf
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+    app.kubernetes.io/component: spark-connect
+type: Opaque
+stringData:
+  spark-defaults.conf: |
+    spark.master k8s://https://kubernetes.default.svc
+    spark.kubernetes.authenticate.driver.serviceAccountName {{ include "library-chart.serviceAccountName" . }}
+    spark.kubernetes.namespace {{ .Release.Namespace }}
+    spark.kubernetes.container.image {{ .Values.sparkConnect.image }}
+    spark.driver.extraClassPath /usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/aws-java-sdk-v2/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/goodies/lib/emr-spark-goodies.jar:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/usr/share/java/Hive-JSON-Serde/hive-openx-serde.jar:/usr/share/aws/sagemaker-spark-sdk/lib/sagemaker-spark-sdk.jar:/usr/share/aws/emr/s3select/lib/emr-s3-select-spark-connector.jar:/docker/usr/lib/hadoop-lzo/lib/*:/docker/usr/lib/hadoop/hadoop-aws.jar:/docker/usr/share/aws/aws-java-sdk/*:/docker/usr/share/aws/aws-java-sdk-v2/*:/docker/usr/share/aws/emr/emrfs/conf:/docker/usr/share/aws/emr/emrfs/lib/*:/docker/usr/share/aws/emr/emrfs/auxlib/*:/docker/usr/share/aws/emr/goodies/lib/emr-spark-goodies.jar:/docker/usr/share/aws/emr/security/conf:/docker/usr/share/aws/emr/security/lib/*:/docker/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/docker/usr/share/java/Hive-JSON-Serde/hive-openx-serde.jar:/docker/usr/share/aws/sagemaker-spark-sdk/lib/sagemaker-spark-sdk.jar:/docker/usr/share/aws/emr/s3select/lib/emr-s3-select-spark-connector.jar
+    spark.executor.extraClassPath /usr/lib/hadoop-lzo/lib/*:/usr/lib/hadoop/hadoop-aws.jar:/usr/share/aws/aws-java-sdk/*:/usr/share/aws/aws-java-sdk-v2/*:/usr/share/aws/emr/emrfs/conf:/usr/share/aws/emr/emrfs/lib/*:/usr/share/aws/emr/emrfs/auxlib/*:/usr/share/aws/emr/goodies/lib/emr-spark-goodies.jar:/usr/share/aws/emr/security/conf:/usr/share/aws/emr/security/lib/*:/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/usr/share/java/Hive-JSON-Serde/hive-openx-serde.jar:/usr/share/aws/sagemaker-spark-sdk/lib/sagemaker-spark-sdk.jar:/usr/share/aws/emr/s3select/lib/emr-s3-select-spark-connector.jar:/docker/usr/lib/hadoop-lzo/lib/*:/docker/usr/lib/hadoop/hadoop-aws.jar:/docker/usr/share/aws/aws-java-sdk/*:/docker/usr/share/aws/aws-java-sdk-v2/*:/docker/usr/share/aws/emr/emrfs/conf:/docker/usr/share/aws/emr/emrfs/lib/*:/docker/usr/share/aws/emr/emrfs/auxlib/*:/docker/usr/share/aws/emr/goodies/lib/emr-spark-goodies.jar:/docker/usr/share/aws/emr/security/conf:/docker/usr/share/aws/emr/security/lib/*:/docker/usr/share/aws/hmclient/lib/aws-glue-datacatalog-spark-client.jar:/docker/usr/share/java/Hive-JSON-Serde/hive-openx-serde.jar:/docker/usr/share/aws/sagemaker-spark-sdk/lib/sagemaker-spark-sdk.jar:/docker/usr/share/aws/emr/s3select/lib/emr-s3-select-spark-connector.jar
+    spark.driver.extraLibraryPath /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native:/docker/usr/lib/hadoop/lib/native:/docker/usr/lib/hadoop-lzo/lib/native
+    spark.executor.extraLibraryPath /usr/lib/hadoop/lib/native:/usr/lib/hadoop-lzo/lib/native:/docker/usr/lib/hadoop/lib/native:/docker/usr/lib/hadoop-lzo/lib/native
+    spark.connect.grpc.binding.port 15002
+    spark.connect.grpc.maxInboundMessageSize 134217728
+    spark.scheduler.mode FAIR
+    spark.serializer org.apache.spark.serializer.KryoSerializer
+    spark.driver.maxResultSize 5g
+    spark.driver.memory 10g
+    spark.network.timeout 1000s
+    spark.hadoop.fs.s3a.impl org.apache.hadoop.fs.s3a.S3AFileSystem
+    spark.hadoop.fs.s3a.aws.credentials.provider com.amazonaws.auth.WebIdentityTokenCredentialsProvider
+    spark.hadoop.fs.s3a.endpoint s3.us-west-2.amazonaws.com
+    spark.hadoop.fs.s3a.endpoint.region us-west-2
+    spark.hadoop.fs.s3a.committer.name magic
+    spark.hadoop.fs.s3a.committer.magic.enabled true
+    spark.sql.sources.commitProtocolClass org.apache.spark.internal.io.cloud.PathOutputCommitProtocol
+    spark.sql.parquet.output.committer.class org.apache.spark.internal.io.cloud.BindingParquetOutputCommitter
+    spark.hadoop.mapreduce.outputcommitter.factory.scheme.s3a org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory
+    spark.sql.parquet.mergeSchema false
+    spark.sql.parquet.filterPushdown true
+    spark.sql.parquet.enableVectorizedReader false
+    spark.hadoop.parquet.enable.summary-metadata false
+    spark.sql.hive.metastorePartitionPruning true
+    spark.sql.execution.arrow.pyspark.enabled false
+    spark.sql.adaptive.enabled true
+    spark.sql.adaptive.coalescePartitions.enabled true
+    spark.hadoop.fs.s3a.block.size 256m
+    spark.hadoop.fs.s3a.fast.upload true
+    spark.hadoop.fs.s3a.fast.upload.default true
+    spark.hadoop.fs.s3a.fast.upload.active.blocks 32
+    spark.hadoop.fs.s3a.multipart.size 268435456
+    spark.hadoop.fs.s3a.multipart.threshold 104857600
+    spark.kubernetes.executor.node.selector.workload-type spark
+    spark.dynamicAllocation.enabled true
+    spark.dynamicAllocation.initialExecutors 1
+    spark.dynamicAllocation.minExecutors 0
+    spark.dynamicAllocation.maxExecutors {{ .Values.sparkConnect.executor.maxExecutors }}
+    spark.dynamicAllocation.executorIdleTimeout 120s
+    spark.dynamicAllocation.shuffleTracking.enabled true
+    spark.executor.memory {{ .Values.sparkConnect.executor.memory }}
+    spark.executor.memoryOverhead {{ .Values.sparkConnect.executor.memoryOverhead }}
+    spark.kubernetes.executor.request.cores {{ .Values.sparkConnect.executor.cores }}
+    spark.kubernetes.executor.limit.cores {{ .Values.sparkConnect.executor.cores }}
+{{- end }}

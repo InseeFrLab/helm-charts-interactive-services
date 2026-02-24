@@ -248,6 +248,26 @@ userPreferences:
     apiKey: ""
     secretName: ""  # Generated based on the service's name if empty or not set
 
+sparkConnect:
+  enabled: false
+  image: "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated"
+  pysparkVersion: "3.5.0"
+  keda:
+    enabled: true
+  server:
+    resources:
+      requests:
+        cpu: "2"
+        memory: "10Gi"
+      limits:
+        cpu: "2"
+        memory: "12Gi"
+  executor:
+    maxExecutors: "10"
+    cores: "2"
+    memory: "4g"
+    memoryOverhead: "1g"
+
 openshiftSCC:
   enabled: false
   scc: ""

@@ -1,0 +1,21 @@
+{{- if and .Values.sparkConnect.enabled .Values.sparkConnect.keda.enabled }}
+{{- $fullName := include "library-chart.fullname" . -}}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ $fullName }}-spark-connect
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+    app.kubernetes.io/component: spark-connect
+spec:
+  scaleTargetRef:
+    name: {{ $fullName }}-spark-connect
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  cooldownPeriod: 300
+  triggers:
+    - type: kubernetes-workload
+      metadata:
+        podSelector: 'app.kubernetes.io/instance={{ .Release.Name }},app.kubernetes.io/name={{ .Chart.Name }}'
+        value: "1"
+{{- end }}
