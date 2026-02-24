@@ -80,7 +80,6 @@ spec:
                 --class org.apache.spark.sql.connect.service.SparkConnectServer \
                 --deploy-mode client \
                 --master k8s://https://kubernetes.default.svc \
-                --packages {{ .Values.sparkConnect.packages }} \
                 --properties-file /opt/spark-connect/spark-defaults.conf \
                 --conf spark.kubernetes.driver.pod.name=$HOSTNAME \
                 --conf spark.driver.host=$SPARK_DRIVER_POD_IP \

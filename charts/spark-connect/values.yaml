@@ -3,11 +3,11 @@ global:
 
 service:
   image:
-    version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0"
+    version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark-connect:1.1.0"
+      version: "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated"
 
 autoscaling:
   enabled: false
@@ -81,7 +81,6 @@ spark:
     spark.driver.memory: 10g
 
 sparkConnect:
-  packages: "org.apache.spark:spark-connect_2.12:3.5.0"
   emrInternalId: "spark-connect-server"
   env:
     - name: PYTHONPATH

@@ -20,14 +20,14 @@
               "title": "EMR Spark image",
               "type": "string",
               "listEnum": [
-                "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+                "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated"
               ],
               "render": "list",
               "hidden": {
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0"
+              "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated"
             },
             "custom": {
               "title": "Custom image",
@@ -41,7 +41,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/emr-on-eks/spark:emr-7.1.0",
+                  "default": "142496269814.dkr.ecr.us-west-2.amazonaws.com/ais/spark/un-ais-etl:v0.6.0-consolidated",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
