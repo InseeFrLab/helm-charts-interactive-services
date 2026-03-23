@@ -26,7 +26,7 @@
               "default": "inseefrlab/onyxia-vscode-pytorch:py3.13.12-gpu",
               "listEnum": [
                 "inseefrlab/onyxia-vscode-pytorch:py3.13.12-gpu",
-                "inseefrlab/onyxia-vscode-pytorch:py3.12.12-gpu"
+                "inseefrlab/onyxia-vscode-pytorch:py3.12.13-gpu"
               ],
               "render": "list",
               "hidden": {

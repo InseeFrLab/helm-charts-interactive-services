@@ -25,7 +25,7 @@
               "type": "string",
               "listEnum": [
                 "inseefrlab/onyxia-jupyter-python:py3.13.12-gpu",
-                "inseefrlab/onyxia-jupyter-python:py3.12.12-gpu"
+                "inseefrlab/onyxia-jupyter-python:py3.12.13-gpu"
               ],
               "render": "list",
               "hidden": {
