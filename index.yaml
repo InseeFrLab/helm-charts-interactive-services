@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   jupyter-pyspark:
   - apiVersion: v2
+    created: "2026-03-27T19:05:44.517007465Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with PySpark, an interface to use Apache Spark
+      from Python.
+    digest: 3ebeae9b5cf606fa8affffabbd4de69e5dc9c8974e09c85b2518d46bcc39e410
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    - Spark
+    - VTL
+    name: jupyter-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pyspark-3.1.4/jupyter-pyspark-3.1.4.tgz
+    version: 3.1.4
+  - apiVersion: v2
     created: "2026-03-23T07:36:59.646411042Z"
     dependencies:
     - name: library-chart
@@ -3387,6 +3411,28 @@ entries:
     version: 1.21.2
   jupyter-python:
   - apiVersion: v2
+    created: "2026-03-27T19:05:44.695394368Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python and a collection of standard data
+      science packages.
+    digest: 4249b21ff486dd8bca80e6f5ed797e4bb6b14072913156b2677b351e4a410ed8
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-2.4.6/jupyter-python-2.4.6.tgz
+    version: 2.4.6
+  - apiVersion: v2
     created: "2026-03-23T07:36:59.85853718Z"
     dependencies:
     - name: library-chart
@@ -6269,6 +6315,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-1.10.4/jupyter-python-1.10.4.tgz
     version: 1.10.4
   jupyter-python-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:44.855461551Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python, and a collection of standard data
+      science packages, with GPU support.
+    digest: eab0c3c03738af9ef7dabc5f6ba2d200b0577674af4c66f050c0af7087630b3e
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-python-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-python-gpu-2.4.6/jupyter-python-gpu-2.4.6.tgz
+    version: 2.4.6
   - apiVersion: v2
     created: "2026-03-23T07:37:00.077922471Z"
     dependencies:
@@ -9153,6 +9221,27 @@ entries:
     version: 1.10.4
   jupyter-pytorch:
   - apiVersion: v2
+    created: "2026-03-27T19:05:45.011038625Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch.
+    digest: 20d3eb7e09cab67c928f5f082c49b17c23999f83bbf4c6b4b1b670ec23c3978b
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-pytorch
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-2.4.6/jupyter-pytorch-2.4.6.tgz
+    version: 2.4.6
+  - apiVersion: v2
     created: "2026-03-23T07:37:00.285073453Z"
     dependencies:
     - name: library-chart
@@ -11904,6 +11993,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-1.10.4/jupyter-pytorch-1.10.4.tgz
     version: 1.10.4
   jupyter-pytorch-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:45.176678456Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python and the deep-learning framework PyTorch,
+      with GPU support.
+    digest: 27e6d56cce3f843be906842e517a9560bfd955e6125c3181aefbeaadcaa47a6d
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-pytorch-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-pytorch-gpu-2.4.6/jupyter-pytorch-gpu-2.4.6.tgz
+    version: 2.4.6
   - apiVersion: v2
     created: "2026-03-23T07:37:00.51978505Z"
     dependencies:
@@ -14788,6 +14899,28 @@ entries:
     version: 1.10.4
   jupyter-r-python-julia:
   - apiVersion: v2
+    created: "2026-03-27T19:05:45.350535363Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python, R, Julia, and a collection of standard
+      data science packages
+    digest: 5d5da076858c6c4376f523bf6f7d60b8a0e20d42af74e068c29ec0f8d36ead3d
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-r-python-julia
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-r-python-julia-2.4.6/jupyter-r-python-julia-2.4.6.tgz
+    version: 2.4.6
+  - apiVersion: v2
     created: "2026-03-23T07:37:00.726706812Z"
     dependencies:
     - name: library-chart
@@ -15668,6 +15801,27 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-r-python-julia-2.2.9/jupyter-r-python-julia-2.2.9.tgz
     version: 2.2.9
   jupyter-tensorflow:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:45.54555783Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow.
+    digest: e3477dd6410cc6655b7d372b38854bf2ffffb229488dde97b24cb5aea161928d
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-tensorflow
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-2.4.6/jupyter-tensorflow-2.4.6.tgz
+    version: 2.4.6
   - apiVersion: v2
     created: "2026-03-23T07:37:00.957407749Z"
     dependencies:
@@ -18420,6 +18574,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-1.10.4/jupyter-tensorflow-1.10.4.tgz
     version: 1.10.4
   jupyter-tensorflow-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:45.70840922Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The JupyterLab IDE with Python and the deep-learning framework TensorFlow,
+      with GPU support.
+    digest: 1a1e9fe9cc420bd0670213d88c4b452c5eac807d27094a95b29da6427792b5d1
+    home: https://jupyter.org/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/jupyter.png
+    keywords:
+    - Jupyter
+    - Python
+    name: jupyter-tensorflow-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/jupyter-tensorflow-gpu-2.4.6/jupyter-tensorflow-gpu-2.4.6.tgz
+    version: 2.4.6
   - apiVersion: v2
     created: "2026-03-23T07:37:01.191852919Z"
     dependencies:
@@ -22009,6 +22185,27 @@ entries:
     version: 1.3.11
   rstudio:
   - apiVersion: v2
+    created: "2026-03-27T19:05:45.879276662Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The RStudio IDE with a collection of standard data science packages.
+    digest: 422d05512a83db4d172b20e716d8b19c8b2be619809a6eed6abd3c24bcff31b9
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-2.4.3/rstudio-2.4.3.tgz
+    version: 2.4.3
+  - apiVersion: v2
     created: "2026-02-09T10:35:16.471168281Z"
     dependencies:
     - name: library-chart
@@ -24151,6 +24348,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-1.11.3/rstudio-1.11.3.tgz
     version: 1.11.3
   rstudio-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:46.101780022Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The RStudio IDE with a collection of standard data science packages,
+      with GPU support.
+    digest: 2fc6f733e095804a140aebb7181ba43053b59521309c59b8d7659582a9804a1d
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-gpu-2.4.3/rstudio-gpu-2.4.3.tgz
+    version: 2.4.3
   - apiVersion: v2
     created: "2026-02-09T10:35:16.699554089Z"
     dependencies:
@@ -26397,6 +26616,28 @@ entries:
     version: 1.11.3
   rstudio-r-python-julia:
   - apiVersion: v2
+    created: "2026-03-27T19:05:46.254079864Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The RStudio IDE with Python, R, Julia, and a collection of standard
+      data science packages
+    digest: 23fd69e8433fe5132dd3e50666581d12dac2a46b40f87cf4830f3a66785a4c47
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio-r-python-julia
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-r-python-julia-2.4.3/rstudio-r-python-julia-2.4.3.tgz
+    version: 2.4.3
+  - apiVersion: v2
     created: "2026-02-09T10:35:16.937942356Z"
     dependencies:
     - name: library-chart
@@ -26793,6 +27034,30 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-r-python-julia-2.3.8/rstudio-r-python-julia-2.3.8.tgz
     version: 2.3.8
   rstudio-sparkr:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:46.427357833Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The RStudio IDE with a collection of standard data science packages.
+      It includes SparkR, an R package that provides an interface to use Apache Spark
+      from R.
+    digest: f59f404e4296082abf26f62920dd8e826f7878c6016f96511ca622eb633c43d6
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    - Spark
+    name: rstudio-sparkr
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-sparkr-3.1.1/rstudio-sparkr-3.1.1.tgz
+    version: 3.1.1
   - apiVersion: v2
     created: "2026-01-20T14:24:47.939715876Z"
     dependencies:
@@ -29482,6 +29747,30 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-sparkr-1.9.3/rstudio-sparkr-1.9.3.tgz
     version: 1.9.3
   vscode-pyspark:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:46.58991628Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The Visual Studio Code IDE with PySpark, an interface to use Apache
+      Spark from Python.
+    digest: 4b28770557fee29011800e857df1ef9428f200a426bbb1da5cb4d93cde8f8ede
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    - Spark
+    - VTL
+    name: vscode-pyspark
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pyspark-3.1.3/vscode-pyspark-3.1.3.tgz
+    version: 3.1.3
   - apiVersion: v2
     created: "2026-03-23T07:37:01.419485487Z"
     dependencies:
@@ -32556,6 +32845,28 @@ entries:
     version: 1.0.0
   vscode-python:
   - apiVersion: v2
+    created: "2026-03-27T19:05:46.757599572Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The Visual Studio Code IDE with Python, Julia, and a collection of
+      standard data science packages.
+    digest: 91a2631ae74c8ae110ad89526c7b0980cbc36002ebf7d218a5780fd79cf80e07
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-python-2.5.4/vscode-python-2.5.4.tgz
+    version: 2.5.4
+  - apiVersion: v2
     created: "2026-03-23T07:37:01.648103143Z"
     dependencies:
     - name: library-chart
@@ -35416,6 +35727,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-python-1.8.6/vscode-python-1.8.6.tgz
     version: 1.8.6
   vscode-python-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:46.941417575Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCOde IDE with Python, Julia, and a collection of standard data
+      science packages, with GPU support.
+    digest: 6150ed59988da4d4957792f34840a63b432cf32aec209abe81662c5e0fb34a28
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-python-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-python-gpu-2.5.4/vscode-python-gpu-2.5.4.tgz
+    version: 2.5.4
   - apiVersion: v2
     created: "2026-03-23T07:37:01.851086385Z"
     dependencies:
@@ -38278,6 +38611,27 @@ entries:
     version: 1.8.6
   vscode-pytorch:
   - apiVersion: v2
+    created: "2026-03-27T19:05:47.10438128Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCode IDE with Python and the deep-learning framework PyTorch.
+    digest: f9076e056f50d06845f109438910cec5d4c7917a17b5d2ff637960494bc8cbf3
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-pytorch
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pytorch-2.5.4/vscode-pytorch-2.5.4.tgz
+    version: 2.5.4
+  - apiVersion: v2
     created: "2026-03-23T07:37:02.086129795Z"
     dependencies:
     - name: library-chart
@@ -41008,6 +41362,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pytorch-1.8.6/vscode-pytorch-1.8.6.tgz
     version: 1.8.6
   vscode-pytorch-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:47.247714123Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCode IDE with Python and the deep-learning framework PyTorch,
+      with GPU support.
+    digest: 52012fa548e9d4c32d931fcb6c0ae6a4ef23a3c934a7a6bdd69d811b63cd8e6e
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-pytorch-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-pytorch-gpu-2.5.4/vscode-pytorch-gpu-2.5.4.tgz
+    version: 2.5.4
   - apiVersion: v2
     created: "2026-03-23T07:37:02.285227766Z"
     dependencies:
@@ -43870,6 +44246,27 @@ entries:
     version: 1.8.6
   vscode-r-python-julia:
   - apiVersion: v2
+    created: "2026-03-27T19:05:47.407277965Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCode IDE with minimal installations of R, Python and Julia.
+    digest: 5b5bacb8160325eed6d6e53b88912744f8c99ba1d959136c1150c7df4782a269
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-r-python-julia
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-r-python-julia-2.5.4/vscode-r-python-julia-2.5.4.tgz
+    version: 2.5.4
+  - apiVersion: v2
     created: "2026-03-23T07:37:02.494083671Z"
     dependencies:
     - name: library-chart
@@ -46601,6 +46998,27 @@ entries:
     version: 1.8.6
   vscode-tensorflow:
   - apiVersion: v2
+    created: "2026-03-27T19:05:47.685772842Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCode IDE with Python and the deep-learning framework TensorFlow.
+    digest: 6523094f578540867f01ba09a4b86ed3b7d22373b8f3cbefb791555069d10368
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-tensorflow
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-2.5.4/vscode-tensorflow-2.5.4.tgz
+    version: 2.5.4
+  - apiVersion: v2
     created: "2026-03-23T07:37:02.78127955Z"
     dependencies:
     - name: library-chart
@@ -49331,6 +49749,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-1.8.6/vscode-tensorflow-1.8.6.tgz
     version: 1.8.6
   vscode-tensorflow-gpu:
+  - apiVersion: v2
+    created: "2026-03-27T19:05:47.860247359Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.4
+    description: The VSCode IDE with Python and the deep-learning framework TensorFlow,
+      with GPU support.
+    digest: fe5847819e93feeead6a641dc74a28722a9542e237726b0ae4e615baf6accfee
+    home: https://code.visualstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/vscode.png
+    keywords:
+    - VSCode
+    - Python
+    name: vscode-tensorflow-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-2.5.4/vscode-tensorflow-gpu-2.5.4.tgz
+    version: 2.5.4
   - apiVersion: v2
     created: "2026-03-23T07:37:02.980992691Z"
     dependencies:
@@ -52191,4 +52631,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2026-03-27T16:10:52.472991187Z"
+generated: "2026-03-27T19:05:47.86684321Z"
