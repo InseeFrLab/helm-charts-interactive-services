@@ -456,6 +456,8 @@ stringData:
         command: uvx
         args:
           - mcp-server-motherduck
+          - "--allow-switch-databases"
+          - "--read-write"
           - "--db-path"
           - ":memory:"
           - "--home-dir"
