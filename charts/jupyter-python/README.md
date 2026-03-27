@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 2.4.5](https://img.shields.io/badge/Version-2.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.6](https://img.shields.io/badge/Version-2.4.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and a collection of standard data science packages.
 
@@ -15,7 +15,7 @@ The JupyterLab IDE with Python and a collection of standard data science package
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.3 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.4 |
 
 ## Values
 
