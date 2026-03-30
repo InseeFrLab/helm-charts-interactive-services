@@ -11,6 +11,8 @@
 {{- define "library-chart.service-url" -}}
 {{- if (.Values.ingress).enabled -}}
 {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.hostname -}}
+{{- else if (.Values.httproute).enabled -}}
+{{- printf "https://%s" .Values.httproute.hostname -}}
 {{- else if (.Values.route).enabled -}}
 {{- printf "https://%s" .Values.route.hostname -}}
 {{- end -}}
@@ -23,6 +25,8 @@
   {{- if (.Values.spark).ui -}}
     {{- if (.Values.ingress).enabled -}}
       {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.spark.hostname -}}
+    {{- else if (.Values.httproute).enabled -}}
+      {{- printf "https://%s" .Values.spark.hostname -}}
     {{- else if (.Values.route).enabled -}}
       {{- printf "https://%s" .Values.spark.hostname -}}
     {{- end -}}
@@ -35,6 +39,8 @@
 {{- define "library-chart.user-url" -}}
   {{- if (.Values.ingress).enabled -}}
     {{- printf "%s://%s" (.Values.ingress.tls | ternary "https" "http") .Values.ingress.userHostname -}}
+  {{- else if (.Values.httproute).enabled -}}
+    {{- printf "https://%s" .Values.httproute.userHostname -}}
   {{- else if (.Values.route).enabled -}}
     {{- printf "https://%s" .Values.route.userHostname -}}
   {{- end -}}
