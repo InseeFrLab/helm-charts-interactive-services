@@ -59,9 +59,6 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.runtimeClassName -}}
-      runtimeClassName: {{ .Values.runtimeClassName }}
-      {{- end }}
       volumes:
         - name: config-files
           emptyDir: {}
@@ -101,6 +98,9 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameAssistant" . }}
         {{- end }}
+        - name: token
+          secret:
+            secretName: {{ include "library-chart.secretNameToken" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -174,9 +174,9 @@ spec:
           {{- end }}
           command: ["/bin/sh","-c"]
           {{- if .Values.git.asCodeServerRoot }}
-          args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work/$(basename $GIT_REPOSITORY .git)"]
+          args: ["{{ .Values.init.standardInitPath }} marimo edit --host 0.0.0.0 --token-password-file ~/.token/PASSWORD /home/{{ .Values.environment.user }}/work/$(basename $GIT_REPOSITORY) .git"]
           {{- else }}
-          args: ["{{ .Values.init.standardInitPath }} /usr/bin/code-server --host 0.0.0.0 /home/{{ .Values.environment.user }}/work"]
+          args: ["{{ .Values.init.standardInitPath }} marimo edit --host 0.0.0.0 --token-password-file ~/.token/PASSWORD /home/{{ .Values.environment.user }}/work"]
           {{- end }}
           imagePullPolicy: {{ .Values.service.image.pullPolicy }}
           env:
@@ -276,6 +276,9 @@ spec:
               name: home
             - mountPath: /dev/shm
               name: dshm
+            - name: token
+              mountPath: /home/{{ .Values.environment.user }}/.token
+              readOnly: true
             {{ if (.Values.userPreferences.aiAssistant).enabled }}
             - mountPath: /home/{{ .Values.environment.user }}/.continue
               subPath: continue

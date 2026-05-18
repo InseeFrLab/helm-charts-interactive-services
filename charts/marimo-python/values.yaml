@@ -1,4 +1,4 @@
-# Default values for vscode.
+# Default values for marimo.
 global:
   suspend: false
 
@@ -7,12 +7,11 @@ service:
     image: "inseefrlab/onyxia-base:latest"
     pullPolicy: IfNotPresent
   image:
-    version: "inseefrlab/onyxia-vscode-python:py3.13.13"
+    version: "pacordonnier/marimo-python:py3.13.12"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "inseefrlab/onyxia-vscode-python:py3.13.13"
-
+      version: "pacordonnier/marimo-python:py3.13.12"
 security:
   password: "changeme"
   networkPolicy:
@@ -150,7 +149,7 @@ networking:
   type: ClusterIP
   clusterIP: None
   service:
-    port: 8080
+    port: 2718
   # Custom user-specified extra ports exposition.
   # If ingress or route is enabled, the exposed ports are also made available at the
   # {ingress,route}.userHostname URL (or variations, in case several ports are provided).
@@ -269,5 +268,3 @@ certificates: {}
 message:
   fr: ""
   en: ""
-
-runtimeClassName: ""
