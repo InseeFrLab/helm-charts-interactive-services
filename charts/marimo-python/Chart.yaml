@@ -1,0 +1,17 @@
+apiVersion: v2
+name: marimo-python
+description: Marimo reactive Python notebook with Python, and a collection of standard data science packages
+icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/marimo.png
+keywords:
+  - Marimo
+  - Python
+home: https://marimo.io/
+sources:
+  - https://github.com/InseeFrLab/images-datascience
+  - https://github.com/InseeFrLab/helm-charts-interactive-services
+type: application
+version: 0.0.4
+dependencies:
+  - name: library-chart
+    version: 2.0.1
+    repository: https://inseefrlab.github.io/helm-charts-interactive-services
