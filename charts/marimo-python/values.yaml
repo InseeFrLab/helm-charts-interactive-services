@@ -1,0 +1,273 @@
+# Default values for vscode.
+global:
+  suspend: false
+
+service:
+  initContainer:
+    image: "inseefrlab/onyxia-base:latest"
+    pullPolicy: IfNotPresent
+  image:
+    version: "inseefrlab/onyxia-vscode-python:py3.13.13"
+    pullPolicy: IfNotPresent
+    custom:
+      enabled: false
+      version: "inseefrlab/onyxia-vscode-python:py3.13.13"
+
+security:
+  password: "changeme"
+  networkPolicy:
+    enabled: false
+    from: []
+  allowlist:
+    enabled: false
+    ip: "0.0.0.0/0"
+
+init:
+  standardInitPath: "/opt/onyxia-init.sh"
+  regionInit: ""
+  regionInitCheckSum: ""
+  personalInit: ""
+  personalInitArgs: ""
+
+# Array with (templated) extra environment variables to be made accessible within the service
+# e.g:
+# extraEnvVars:
+#   - name: FOO
+#     value: "bar"
+extraEnvVars: []
+
+s3:
+  # Specifies whether S3 credentials should be made available
+  enabled: false
+  # The name of the secret storing the S3 credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
+  accessKeyId: ""
+  endpoint: ""
+  defaultRegion: ""
+  secretAccessKey: ""
+  sessionToken: ""
+  pathStyleAccess: false
+  workingDirectoryPath: ""
+
+vault:
+  # Specifies whether Vault credentials should be made available
+  enabled: false
+  # The name of the secret storing the Vault credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
+  token: ""
+  url: ""
+  mount: ""
+  secret: ""
+  directory: ""
+
+git:
+  # Specifies whether git credentials should be made available
+  enabled: true
+  # The name of the secret storing the git credentials
+  secretName: ""  # Generated based on the service's name if empty or not set
+  name: ""
+  email: ""
+  cache: ""
+  branch: ""
+  asCodeServerRoot: false
+
+repository:
+  configMapName: ""
+  pipRepository: ""
+  condaRepository: ""
+
+# active ou non la recherche de secrets discovery dans le namespace
+# see secret-{service}.yaml
+discovery:
+  hive: true
+  mlflow: true
+  metaflow: true
+  chromadb: true
+  milvus: true
+  postgresql: true
+
+hive:
+  secretName: ""
+
+mlflow:
+  secretName: ""
+
+metaflow:
+  secretName: ""
+
+chromadb:
+  secretName: ""
+
+milvus:
+  secretName: ""
+
+coresite:
+  secretName: ""
+
+postgresql:
+  secretName: ""
+
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+environment:
+  user: onyxia
+  group: users
+
+kubernetes:
+  enabled: true
+  role: "view"
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 100
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+networking:
+  type: ClusterIP
+  clusterIP: None
+  service:
+    port: 8080
+  # Custom user-specified extra ports exposition.
+  # If ingress or route is enabled, the exposed ports are also made available at the
+  # {ingress,route}.userHostname URL (or variations, in case several ports are provided).
+  # Note: a non-empty networking.user.ports overrides networking.user.port
+  user:
+    enabled: false
+    port: 5000
+    ports: []
+
+ingress:
+  enabled: false
+  tls: true
+  ingressClassName: ""
+  annotations: []
+    # kubernetes.io/tls-acme: "true"
+  hostname: chart-example.local
+  userHostname: chart-example-user.local
+  path: /
+  userPath: /
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+  useCertManager: false
+  certManagerClusterIssuer: ""
+  useTlsSecret: false
+  tlsSecretName: ""
+
+
+route:
+  enabled: false
+  annotations: []
+    # route.openshift.io/termination: "reencrypt"
+  hostname: chart-example.local
+  userHostname: chart-example-user.local
+  tls:
+    termination: edge
+    # key:
+    # certificate:
+    # caCertificate:
+    # destinationCACertificate:
+  wildcardPolicy: None
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+persistence:
+  enabled: true
+  ## database data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessMode: ReadWriteOnce
+  size: 10Gi
+  # existingClaim: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+startupProbe:
+  failureThreshold: 60
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+
+userPreferences:
+  darkMode: false
+  language: "en"
+  aiAssistant:
+    enabled: false
+    model: ""
+    provider: ""
+    apiBase: ""
+    apiKey: ""
+    secretName: ""  # Generated based on the service's name if empty or not set
+    useLegacyCompletionsEndpoint: false
+
+openshiftSCC:
+  enabled: false
+  scc: ""
+
+proxy:
+  enabled: false
+  noProxy: ""
+  httpProxy: ""
+  httpsProxy: ""
+
+certificates: {}
+  # pathToCaBundle: /usr/local/share/ca-certificates/
+  # cacerts: ""
+
+message:
+  fr: ""
+  en: ""
+
+runtimeClassName: ""
