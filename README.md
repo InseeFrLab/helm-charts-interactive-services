@@ -36,7 +36,7 @@ Following, you will find a list of all the schemas used in this repository. You 
 |ide/startupProbe.json|Startup probe|
 |ide/vault.json|Configuration of vault client|
 |[ide/extraenv.json](#extraenvjson)|User-defined extra environment variables|
-|[aiAssistant.json](#aiassistant)|Configuration of an AI Assistant|
+|[aiAssistant.json](#aiassistantjson)|Configuration of an AI Assistant|
 |[certificates.json](#certificatesjson)|Certificates|
 |[network-policy.json](#networkpolicyjson)|Network Policy|
 |[nodeSelector-gpu.json](#nodeselector-gpujson)|Node Selector|
@@ -368,7 +368,7 @@ This schema is used to inject the configuration of an AI Assistant into your ser
     },
     "model": {
       "type": "string",
-      "default":"gpt-oss:20b",
+      "default":"",
       "hidden": {
         "value": false,
         "path": "enabled",
