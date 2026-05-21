@@ -36,6 +36,7 @@ Following, you will find a list of all the schemas used in this repository. You 
 |ide/startupProbe.json|Startup probe|
 |ide/vault.json|Configuration of vault client|
 |[ide/extraenv.json](#extraenvjson)|User-defined extra environment variables|
+|[aiAssistant.json](#aiassistant)|Configuration of an AI Assistant|
 |[certificates.json](#certificatesjson)|Certificates|
 |[network-policy.json](#networkpolicyjson)|Network Policy|
 |[nodeSelector-gpu.json](#nodeselector-gpujson)|Node Selector|
@@ -348,6 +349,87 @@ This feature is hidden by default and can be enabled using the following schema:
 }
 ```
 A `default` list of variables can be provided as an example for the user.
+
+### aiAssistant.json
+This schema is used to inject the configuration of an AI Assistant into your service. 
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI Assistant",
+  "type": "object",
+  "description": "Configure Continue, an extension to use custom AI code assistants",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
+      }
+    },
+    "model": {
+      "type": "string",
+      "default":"gpt-oss:20b",
+      "hidden": {
+        "value": false,
+        "path": "enabled",
+        "isPathRelative": true
+      },
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.model"
+      }
+    },
+    "provider": {
+      "type": "string",
+      "default": "openai",
+      "hidden": {
+        "value": false,
+        "path": "enabled",
+        "isPathRelative": true
+      },
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.provider"
+      }
+    },
+    "apiBase":{
+      "type": "string",
+      "default": "",
+      "hidden": {
+        "value": false,
+        "path": "enabled",
+        "isPathRelative": true
+      },
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
+      }
+    },
+    "apiKey":{
+      "type": "string",
+      "default": "",
+      "render": "password",
+      "hidden": {
+        "value": false,
+        "path": "enabled",
+        "isPathRelative": true
+      },
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
+      }
+    },
+    "useLegacyCompletionsEndpoint":{
+      "type": "boolean",
+      "default": false,
+      "hidden": {
+        "value": false,
+        "path": "enabled",
+        "isPathRelative": true
+      },
+      "x-onyxia": {
+        "overwriteDefaultWith": "user.profile.aiAssistant.useLegacyCompletionsEndpoint"
+      }
+    }
+  }
+}
+```json
 
 ### certificates.json
 
