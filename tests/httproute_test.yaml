@@ -1,0 +1,13 @@
+suite: httproute test
+templates:
+  - httproute.yaml
+tests:
+  - it: should render an httproute
+    set:
+      httproute.enabled: true
+      httproute.parentRefs:
+        - name: my-gateway
+          namespace: gateway-system
+    asserts:
+      - isKind:
+          of: HTTPRoute
