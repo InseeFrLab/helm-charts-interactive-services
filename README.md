@@ -351,7 +351,7 @@ This feature is hidden by default and can be enabled using the following schema:
 A `default` list of variables can be provided as an example for the user.
 
 ### aiAssistant.json
-This schema is used to inject the configuration of an AI Assistant into your service. 
+This schema is used to inject the configuration of an AI Assistant into your service.
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
