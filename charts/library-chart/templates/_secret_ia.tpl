@@ -4,7 +4,7 @@
 {{- define "library-chart.aiAssistant" -}}
 {{- $userPreferences := get .Values "userPreferences" | default dict -}}
 {{- $legacyAiAssistant := get $userPreferences "aiAssistant" | default dict -}}
-{{- $aiAssistant := get .Values "aiAssistant" | default dict -}}
+{{- $aiAssistant := get .Values "ai" | default dict -}}
 {{- mergeOverwrite (dict) $legacyAiAssistant $aiAssistant | toJson -}}
 {{- end }}
 
