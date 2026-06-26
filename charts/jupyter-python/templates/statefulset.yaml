@@ -1,4 +1,5 @@
 {{- $fullName := include "library-chart.fullname" . -}}
+{{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -98,7 +99,7 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
-        {{- if (.Values.userPreferences.aiAssistant).enabled }}
+        {{- if $aiAssistant.enabled }}
         - name: secret-assistant
           secret:
             secretName: {{ include "library-chart.secretNameAssistantJupyter" . }}
@@ -121,7 +122,7 @@ spec:
             - -c
             - |
               echo 'initContainer make-secrets-writable is started';
-              {{ if (.Values.userPreferences.aiAssistant).enabled }}
+              {{ if $aiAssistant.enabled }}
               mkdir -p /dest/jupyter-ai
               cp /src/jupyter-ai/config.json /dest/jupyter-ai/config.json
               {{- end }}
@@ -143,7 +144,7 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            {{- if $aiAssistant.enabled }}
             - name: secret-assistant
               mountPath: /src/jupyter-ai
             {{- end }}
@@ -218,13 +219,13 @@ spec:
             {{- end }}
             - name: UV_CACHE_DIR
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            {{- if $aiAssistant.enabled }}
             - name: OPENAI_API_KEY
-              value: {{ .Values.userPreferences.aiAssistant.apiKey }}
+              value: {{ $aiAssistant.apiKey }}
             - name: OPENAI_BASE_URL
-              value: {{ .Values.userPreferences.aiAssistant.apiBase }}
+              value: {{ $aiAssistant.apiBase }}
             - name: ENABLE_JUPYTER_AI_EXTENSION
-              value: "{{ .Values.userPreferences.aiAssistant.enabled }}"
+              value: "{{ $aiAssistant.enabled }}"
             {{- end }}
           envFrom:
             - secretRef:
@@ -289,7 +290,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            {{- if $aiAssistant.enabled }}
             - name: config-files
               mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai/config.json
               subPath: jupyter-ai/config.json

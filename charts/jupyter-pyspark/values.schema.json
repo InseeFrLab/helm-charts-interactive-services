@@ -596,6 +596,90 @@
         }
       }
     },
+    "ai": {
+      "title": "AI Assistant",
+      "type": "object",
+      "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
+      "x-onyxia": {
+        "overwriteSchemaWith": "aiAssistant-jupyter.json"
+      },
+      "properties": {
+        "enabled": {
+          "title": "Enable AI assistant tools",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.enabled}}"
+          }
+        },
+        "model": {
+          "title": "Model",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.model}}"
+          }
+        },
+        "modelProvider": {
+          "title": "Model provider",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.modelProvider}}"
+          }
+        },
+        "embeddingsProvider": {
+          "title": "Embeddings provider",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.embeddingsProvider}}"
+          }
+        },
+        "apiBase": {
+          "title": "API base URL",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.apiBase}}"
+          }
+        },
+        "apiKey": {
+          "title": "API key",
+          "type": "string",
+          "default": "",
+          "render": "password",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.apiKey}}"
+          }
+        }
+      }
+    },
     "networking": {
       "title": "Network access",
       "type": "object",
@@ -896,84 +980,6 @@
           "x-onyxia": {
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
-          }
-        },
-        "aiAssistant": {
-          "title": "AI Assistant",
-          "type": "object",
-          "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
-          "x-onyxia": {
-            "overwriteSchemaWith": "aiAssistant-jupyter.json"
-          },
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "default": false,
-              "hidden": true,
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
-              }
-            },
-            "model": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.model"
-              }
-            },
-            "modelProvider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.modelProvider"
-              }
-            },
-            "embeddingsProvider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.embeddingsProvider"
-              }
-            },
-            "apiBase": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
-              }
-            },
-            "apiKey": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
-              }
-            }
           }
         }
       }

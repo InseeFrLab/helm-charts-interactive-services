@@ -240,7 +240,7 @@ startupProbe:
   successThreshold: 1
   timeoutSeconds: 2
 
-aiAssistant:
+ai:
   enabled: false
   secretName: ""  # Generated based on the service's name if empty or not set
   provider: ""

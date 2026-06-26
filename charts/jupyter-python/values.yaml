@@ -237,16 +237,18 @@ startupProbe:
   successThreshold: 1
   timeoutSeconds: 2
 
+ai:
+  enabled: false
+  secretName: ""  # Generated based on the service's name if empty or not set
+  model: ""
+  modelProvider: ""
+  embeddingsProvider: ""
+  apiBase: ""
+  apiKey: ""
+
 userPreferences:
   darkMode: false
   language: "en"
-  aiAssistant:
-    enabled: false
-    modelProvider: ""
-    embeddingsProvider: ""
-    apiBase: ""
-    apiKey: ""
-    secretName: ""  # Generated based on the service's name if empty or not set
 
 openshiftSCC:
   enabled: false
