@@ -87,6 +87,7 @@ stringData:
     {{- if $aiAssistant.model }}
     - name: {{ $aiAssistant.model | quote }}
       model: {{ $aiAssistant.model | quote }}
+      provider: {{ $aiAssistant.provider | quote }}
       {{- if $aiAssistant.apiBase }}
       apiBase: {{ $aiAssistant.apiBase | quote }}
       {{- end }}
@@ -148,73 +149,6 @@ stringData:
 {{- default $name .Values.userPreferences.aiAssistant.secretName }}
 {{- else }}
 {{- default "default" .Values.userPreferences.aiAssistant.secretName }}
-{{- end }}
-{{- end }}
-
-{{/* Template to generate a secret for AI Assistant (VSCode / Continue) */}}
-{{- define "library-chart.secretAssistant" -}}
-{{- if (.Values.userPreferences.aiAssistant).enabled -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "library-chart.secretNameAssistant" . }}
-  labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
-stringData:
-  config.yaml: |
-    name: config
-    version: 0.0.1
-    models:
-    {{- if .Values.userPreferences.aiAssistant.model }}
-    - name: {{ .Values.userPreferences.aiAssistant.model | quote }}
-    {{- end }}
-    {{- if .Values.userPreferences.aiAssistant.provider }}
-      provider: {{ .Values.userPreferences.aiAssistant.provider | quote }}
-    {{- end }}
-    {{- if .Values.userPreferences.aiAssistant.model }}
-      model: {{ .Values.userPreferences.aiAssistant.model | quote }}
-    {{- end }}
-    {{- if .Values.userPreferences.aiAssistant.apiBase }}
-      apiBase: {{ .Values.userPreferences.aiAssistant.apiBase | quote }}
-    {{- end }}
-    {{- if .Values.userPreferences.aiAssistant.apiKey }}
-      apiKey: {{ .Values.userPreferences.aiAssistant.apiKey }}
-    {{- end }}
-      useLegacyCompletionsEndpoint: {{ .Values.userPreferences.aiAssistant.useLegacyCompletionsEndpoint | default false }}
-    context:
-      - provider: problems
-      - provider: debugger
-        params:
-          stackDepth: 3
-      - provider: tree
-      - provider: clipboard
-      - provider: url
-      - provider: search
-      - provider: folder
-      - provider: codebase
-      - provider: web
-        params:
-          n: 5
-      - provider: open
-        params:
-          onlyPinned: true
-      - provider: docs
-      - provider: terminal
-      - provider: currentFile
-      - provider: diff
-      - provider: code
-      - provider: file
-    mcpServers:
-      - name: DuckDB
-        command: uvx
-        args:
-          - mcp-server-motherduck
-          - "--allow-switch-databases"
-          - "--read-write"
-          - "--db-path"
-          - ":memory:"
-          - "--home-dir"
-          - "/home/{{ .Values.environment.user }}"
 {{- end }}
 {{- end }}
 
