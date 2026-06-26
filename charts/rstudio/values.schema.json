@@ -538,6 +538,89 @@
         }
       }
     },
+    "ai": {
+      "title": "AI Assistant",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ai.json"
+      },
+      "properties": {
+        "enabled": {
+          "title": "Enable AI assistant tools",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.enabled}}"
+          }
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.provider}}"
+          }
+        },
+        "model": {
+          "title": "Model",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.model}}"
+          }
+        },
+        "embeddingsModel": {
+          "title": "Embeddings model",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.embeddingsModel}}"
+          }
+        },
+        "apiBase": {
+          "title": "API base URL",
+          "type": "string",
+          "default": "",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.apiBase}}"
+          }
+        },
+        "apiKey": {
+          "title": "API key",
+          "type": "string",
+          "default": "",
+          "render": "password",
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.apiKey}}"
+          }
+        }
+      }
+    },
     "networking": {
       "title": "Network access",
       "type": "object",
