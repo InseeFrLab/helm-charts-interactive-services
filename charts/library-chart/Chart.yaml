@@ -1,4 +1,4 @@
 apiVersion: v2
 name: library-chart
-version: 2.0.8
+version: 2.0.9
 type: library

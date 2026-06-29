@@ -40,7 +40,8 @@ stringData:
 {{- define "library-chart.secretOpencode" -}}
 {{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 {{- if $aiAssistant.enabled -}}
-{{- $provider := $aiAssistant.provider | default "openai" -}}
+{{- $provider := $aiAssistant.id | default "onyxia" -}}
+{{- $name := $aiAssistant.name | default $provider -}}
 {{- $model := $aiAssistant.model | default "" -}}
 apiVersion: v1
 kind: Secret
@@ -55,6 +56,7 @@ stringData:
       "provider": {
         {{ $provider | quote }}: {
           "npm": "@ai-sdk/openai-compatible",
+          "name": {{ $name | quote }},
           "options": {
             "baseURL": "{env:OPENAI_BASE_URL}",
             "apiKey": "{env:OPENAI_API_KEY}"
@@ -88,16 +90,6 @@ stringData:
     - name: {{ $aiAssistant.model | quote }}
       model: {{ $aiAssistant.model | quote }}
       provider: {{ $aiAssistant.provider | quote }}
-      {{- if $aiAssistant.apiBase }}
-      apiBase: {{ $aiAssistant.apiBase | quote }}
-      {{- end }}
-      {{- if $aiAssistant.apiKey }}
-      apiKey: {{ $aiAssistant.apiKey }}
-      {{- end }}
-    {{- end }}
-    {{- if $aiAssistant.embeddingsModel }}
-    embeddingsProvider:
-      model: {{ $aiAssistant.embeddingsModel | quote }}
       {{- if $aiAssistant.apiBase }}
       apiBase: {{ $aiAssistant.apiBase | quote }}
       {{- end }}
