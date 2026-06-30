@@ -1,0 +1,3 @@
+for c in jupyter-pyspark jupyter-python vscode-pyspark vscode-python rstudio; do
+  cp -R "helm-charts-interactive-services/charts/$c/." "helm-charts-dev/charts/$c-ia/"
+done

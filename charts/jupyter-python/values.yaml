@@ -240,11 +240,8 @@ startupProbe:
 ai:
   enabled: false
   secretName: ""  # Generated based on the service's name if empty or not set
-  model: ""
-  modelProvider: ""
-  embeddingsProvider: ""
-  apiBase: ""
-  apiKey: ""
+  activeProvider: {}
+  providers: []
 
 userPreferences:
   darkMode: false

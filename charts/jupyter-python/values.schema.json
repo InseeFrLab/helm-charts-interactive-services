@@ -14,11 +14,7 @@
               "title": "Pull image from registry",
               "type": "string",
               "default": "IfNotPresent",
-              "enum": [
-                "IfNotPresent",
-                "Always",
-                "Never"
-              ]
+              "enum": ["IfNotPresent", "Always", "Never"]
             },
             "version": {
               "title": "Name of the service's Docker image",
@@ -261,11 +257,7 @@
             "value": false,
             "path": "kubernetes/enabled"
           },
-          "listEnum": [
-            "view",
-            "edit",
-            "admin"
-          ],
+          "listEnum": ["view", "edit", "admin"],
           "render": "list"
         }
       }
@@ -541,7 +533,6 @@
     "ai": {
       "title": "AI Assistant",
       "type": "object",
-      "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
       "x-onyxia": {
         "overwriteSchemaWith": "aiAssistant-jupyter.json"
       },
@@ -554,70 +545,49 @@
             "overwriteDefaultWith": "{{ai.enabled}}"
           }
         },
-        "model": {
-          "title": "Model",
-          "type": "string",
-          "default": "",
+        "activeProvider": {
+          "type": "object",
+          "default": {},
           "hidden": {
             "value": false,
             "path": "enabled",
             "isPathRelative": true
           },
+          "properties": {
+            "id": { "type": "string", "default": "" },
+            "name": { "type": "string", "default": "" },
+            "provider": { "type": "string", "default": "" },
+            "apiBase": { "type": "string", "default": "" },
+            "apiKey": { "type": "string", "default": "" },
+            "selectedModel": { "type": "string", "default": "" },
+            "models": { "type": "array", "default": [], "items": { "type": "string" } }
+          },
           "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.model}}"
+            "overwriteDefaultWith": "{{ai.activeProvider}}"
           }
         },
-        "modelProvider": {
-          "title": "Model provider",
-          "type": "string",
-          "default": "",
+        "providers": {
+          "type": "array",
+          "default": [],
           "hidden": {
             "value": false,
             "path": "enabled",
             "isPathRelative": true
           },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.modelProvider}}"
-          }
-        },
-        "embeddingsProvider": {
-          "title": "Embeddings provider",
-          "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "default": "" },
+              "name": { "type": "string", "default": "" },
+              "provider": { "type": "string", "default": "" },
+              "apiBase": { "type": "string", "default": "" },
+              "apiKey": { "type": "string", "default": "" },
+              "selectedModel": { "type": "string", "default": "" },
+              "models": { "type": "array", "default": [], "items": { "type": "string" } }
+            }
           },
           "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.embeddingsProvider}}"
-          }
-        },
-        "apiBase": {
-          "title": "API base URL",
-          "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.apiBase}}"
-          }
-        },
-        "apiKey": {
-          "title": "API key",
-          "type": "string",
-          "default": "",
-          "render": "password",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.apiKey}}"
+            "overwriteDefaultWith": "{{ai.providers}}"
           }
         }
       }
@@ -859,7 +829,7 @@
             "hidden": true
           }
         },
-        "tlsSecretName":{
+        "tlsSecretName": {
           "type": "string",
           "default": "",
           "x-onyxia": {
@@ -1106,7 +1076,7 @@
         }
       }
     },
-    "runtimeClassName" : {
+    "runtimeClassName": {
       "type": "string",
       "description": "Runtime Class Name",
       "default": "",
