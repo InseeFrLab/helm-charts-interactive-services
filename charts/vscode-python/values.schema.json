@@ -591,70 +591,49 @@
             "overwriteDefaultWith": "{{ai.enabled}}"
           }
         },
-        "provider": {
-          "title": "Provider",
-          "type": "string",
-          "default": "",
+        "activeProvider": {
+          "type": "object",
+          "default": {},
           "hidden": {
             "value": false,
             "path": "enabled",
             "isPathRelative": true
           },
+          "properties": {
+            "id": { "type": "string", "default": "" },
+            "name": { "type": "string", "default": "" },
+            "provider": { "type": "string", "default": "" },
+            "apiBase": { "type": "string", "default": "" },
+            "apiKey": { "type": "string", "default": "" },
+            "selectedModel": { "type": "string", "default": "" },
+            "models": { "type": "array", "default": [], "items": { "type": "string" } }
+          },
           "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.provider}}"
+            "overwriteDefaultWith": "{{ai.activeProvider}}"
           }
         },
-        "model": {
-          "title": "Model",
-          "type": "string",
-          "default": "",
+        "providers": {
+          "type": "array",
+          "default": [],
           "hidden": {
             "value": false,
             "path": "enabled",
             "isPathRelative": true
           },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.model}}"
-          }
-        },
-        "embeddingsModel": {
-          "title": "Embeddings model",
-          "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "default": "" },
+              "name": { "type": "string", "default": "" },
+              "provider": { "type": "string", "default": "" },
+              "apiBase": { "type": "string", "default": "" },
+              "apiKey": { "type": "string", "default": "" },
+              "selectedModel": { "type": "string", "default": "" },
+              "models": { "type": "array", "default": [], "items": { "type": "string" } }
+            }
           },
           "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.embeddingsModel}}"
-          }
-        },
-        "apiBase": {
-          "title": "API base URL",
-          "type": "string",
-          "default": "",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.apiBase}}"
-          }
-        },
-        "apiKey": {
-          "title": "API key",
-          "type": "string",
-          "default": "",
-          "render": "password",
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.apiKey}}"
+            "overwriteDefaultWith": "{{ai.providers}}"
           }
         }
       }
