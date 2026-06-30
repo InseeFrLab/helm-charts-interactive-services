@@ -210,6 +210,12 @@ startupProbe:
   successThreshold: 1
   timeoutSeconds: 2
 
+ai:
+  enabled: false
+  secretName: ""  # Generated based on the service's name if empty or not set
+  activeProvider: {}
+  providers: []
+
 userPreferences:
   darkMode: false
   language: "en"

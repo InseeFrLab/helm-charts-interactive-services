@@ -14,11 +14,7 @@
               "title": "Pull image from registry",
               "type": "string",
               "default": "IfNotPresent",
-              "enum": [
-                "IfNotPresent",
-                "Always",
-                "Never"
-              ]
+              "enum": ["IfNotPresent", "Always", "Never"]
             },
             "version": {
               "title": "Name of the service's Docker image",
@@ -261,11 +257,7 @@
             "value": false,
             "path": "kubernetes/enabled"
           },
-          "listEnum": [
-            "view",
-            "edit",
-            "admin"
-          ],
+          "listEnum": ["view", "edit", "admin"],
           "render": "list"
         }
       }
@@ -538,6 +530,68 @@
         }
       }
     },
+    "ai": {
+      "title": "AI Assistant",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "ai.json"
+      },
+      "properties": {
+        "enabled": {
+          "title": "Enable AI assistant tools",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.enabled}}"
+          }
+        },
+        "activeProvider": {
+          "type": "object",
+          "default": {},
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "properties": {
+            "id": { "type": "string", "default": "" },
+            "name": { "type": "string", "default": "" },
+            "provider": { "type": "string", "default": "" },
+            "apiBase": { "type": "string", "default": "" },
+            "apiKey": { "type": "string", "default": "" },
+            "selectedModel": { "type": "string", "default": "" },
+            "models": { "type": "array", "default": [], "items": { "type": "string" } }
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.activeProvider}}"
+          }
+        },
+        "providers": {
+          "type": "array",
+          "default": [],
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "default": "" },
+              "name": { "type": "string", "default": "" },
+              "provider": { "type": "string", "default": "" },
+              "apiBase": { "type": "string", "default": "" },
+              "apiKey": { "type": "string", "default": "" },
+              "selectedModel": { "type": "string", "default": "" },
+              "models": { "type": "array", "default": [], "items": { "type": "string" } }
+            }
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.providers}}"
+          }
+        }
+      }
+    },
     "networking": {
       "title": "Network access",
       "type": "object",
@@ -750,7 +804,7 @@
             "hidden": true
           }
         },
-        "tlsSecretName":{
+        "tlsSecretName": {
           "type": "string",
           "default": "",
           "x-onyxia": {
@@ -971,7 +1025,7 @@
         }
       }
     },
-    "runtimeClassName" : {
+    "runtimeClassName": {
       "type": "string",
       "description": "Runtime Class Name",
       "default": "",
