@@ -548,32 +548,70 @@
         "activeProvider": {
           "type": "object",
           "default": {},
+          "properties": {
+            "id": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.id}}"
+              }
+            },
+            "name": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.name}}"
+              }
+            },
+            "provider": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.provider}}"
+              }
+            },
+            "apiBase": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.apiBase}}"
+              }
+            },
+            "apiKey": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.apiKey}}"
+              }
+            },
+            "selectedModel": {
+              "type": "string",
+              "listEnum": [""],
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.selectedModel}}",
+                "overwriteListEnumWith": "{{ai.activeProvider.models}}"
+              }
+            },
+            "models": {
+              "type": "array",
+              "default": [],
+              "items": { "type": "string" },
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "{{ai.activeProvider.models}}"
+              }
+            }
+          },
           "hidden": {
             "value": false,
             "path": "enabled",
             "isPathRelative": true
-          },
-          "properties": {
-            "id": { "type": "string", "default": "" },
-            "name": { "type": "string", "default": "" },
-            "provider": { "type": "string", "default": "" },
-            "apiBase": { "type": "string", "default": "" },
-            "apiKey": { "type": "string", "default": "" },
-            "selectedModel": { "type": "string", "default": "" },
-            "models": { "type": "array", "default": [], "items": { "type": "string" } }
-          },
-          "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.activeProvider}}"
           }
         },
         "providers": {
           "type": "array",
           "default": [],
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
-          },
           "items": {
             "type": "object",
             "properties": {
@@ -583,11 +621,20 @@
               "apiBase": { "type": "string", "default": "" },
               "apiKey": { "type": "string", "default": "" },
               "selectedModel": { "type": "string", "default": "" },
-              "models": { "type": "array", "default": [], "items": { "type": "string" } }
+              "models": {
+                "type": "array",
+                "default": [],
+                "items": { "type": "string" }
+              }
             }
           },
           "x-onyxia": {
             "overwriteDefaultWith": "{{ai.providers}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
           }
         }
       }
