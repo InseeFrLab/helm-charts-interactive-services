@@ -4,6 +4,15 @@
 {{- define "library-chart.secretContinue" -}}
 {{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 {{- if $aiAssistant.enabled -}}
+{{- $active := $aiAssistant.activeProvider | default dict -}}
+{{- $providers := $aiAssistant.providers | default list -}}
+{{- if $active -}}
+{{- $models := $active.models | default list -}}
+{{- if and $active.selectedModel (has $active.selectedModel $models) -}}
+{{- $_ := set $active "models" (concat (list $active.selectedModel) (without $models $active.selectedModel)) -}}
+{{- end -}}
+{{- $providers = prepend $providers $active -}}
+{{- end -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -15,7 +24,7 @@ stringData:
     name: config
     version: 0.0.2
     models:
-    {{- range $p := ($aiAssistant.providers | default list) }}
+    {{- range $p := $providers }}
     {{- range $m := ($p.models | default list) }}
     - name: {{ printf "%s / %s" $p.name $m | quote }}
       model: {{ $m | quote }}
@@ -24,7 +33,7 @@ stringData:
       apiBase: {{ $p.apiBase | quote }}
       {{- end }}
       {{- if $p.apiKey }}
-      apiKey: {{ $p.apiKey }}
+      apiKey: {{ $p.apiKey | quote }}
       {{- end }}
     {{- end }}
     {{- end }}

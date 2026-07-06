@@ -26,8 +26,7 @@
 {{- $_ := set $providerMap $p.id (include "library-chart.opencodeProviderConfig" $p | fromJson) -}}
 {{- end }}
 {{- end }}
-{{/* Make sure the active provider is always part of the provider map */}}
-{{- if and $active.id (not (hasKey $providerMap $active.id)) }}
+{{- if $active.id }}
 {{- $_ := set $providerMap $active.id (include "library-chart.opencodeProviderConfig" $active | fromJson) -}}
 {{- end }}
 {{- $config := dict "$schema" "https://opencode.ai/config.json" "provider" $providerMap -}}
