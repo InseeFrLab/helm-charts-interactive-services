@@ -103,6 +103,9 @@ spec:
         - name: secret-opencode
           secret:
             secretName: {{ printf "%s-secretopencode" (include "library-chart.fullname" .) }}
+        - name: secret-assistant
+          secret:
+            secretName: {{ include "library-chart.secretNameAssistantJupyter" . }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -125,6 +128,8 @@ spec:
               {{ if $aiAssistant.enabled }}
               mkdir -p /dest/opencode
               cp /src/opencode/opencode.jsonc /dest/opencode/opencode.jsonc
+              mkdir -p /dest/jupyter-ai
+              cp /src/jupyter-ai/config.json /dest/jupyter-ai/config.json
               {{- end }}
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
@@ -147,6 +152,8 @@ spec:
             {{- if $aiAssistant.enabled }}
             - name: secret-opencode
               mountPath: /src/opencode
+            - name: secret-assistant
+              mountPath: /src/jupyter-ai
             {{- end }}
             - name: config-files
               mountPath: /dest
@@ -292,6 +299,9 @@ spec:
             - name: config-files
               mountPath: /home/{{ .Values.environment.user }}/.config/opencode
               subPath: opencode
+            - name: config-files
+              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai/config.json
+              subPath: jupyter-ai/config.json
             {{- end }}
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work
