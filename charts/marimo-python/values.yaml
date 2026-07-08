@@ -6,12 +6,16 @@ service:
   initContainer:
     image: "inseefrlab/onyxia-base:latest"
     pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 50m
+        memory: 50Mi
   image:
-    version: "pacordonnier/marimo-python:py3.13.12"
+    version: "inseefrlab/onyxia-marimo-python:py3.13.13"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: "pacordonnier/marimo-python:py3.13.12"
+      version: "inseefrlab/onyxia-marimo-python:py3.13.13"
 security:
   password: "changeme"
   networkPolicy:
@@ -242,14 +246,6 @@ startupProbe:
 userPreferences:
   darkMode: false
   language: "en"
-  aiAssistant:
-    enabled: false
-    model: ""
-    provider: ""
-    apiBase: ""
-    apiKey: ""
-    secretName: ""  # Generated based on the service's name if empty or not set
-    useLegacyCompletionsEndpoint: false
 
 openshiftSCC:
   enabled: false

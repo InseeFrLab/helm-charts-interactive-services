@@ -93,11 +93,6 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
-        {{- if (.Values.userPreferences.aiAssistant).enabled }}
-        - name: secret-assistant
-          secret:
-            secretName: {{ include "library-chart.secretNameAssistant" . }}
-        {{- end }}
         - name: token
           secret:
             secretName: {{ include "library-chart.secretNameToken" . }}
@@ -117,10 +112,6 @@ spec:
             - -c
             - |
               echo 'initContainer make-secrets-writable is started';
-              {{ if (.Values.userPreferences.aiAssistant).enabled }}
-              mkdir /dest/continue
-              cp /src/continue/config.yaml /dest/continue/config.yaml
-              {{- end }}
               {{- if .Values.discovery.hive }}
               mkdir /dest/hive;
               cp /src/hive/hive-site.xml /dest/hive/hive-site.xml;
@@ -139,10 +130,6 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
-            - name: secret-assistant
-              mountPath: /src/continue
-            {{- end }}
             - name: config-files
               mountPath: /dest
             {{- if and .Values.certificates .Values.certificates.cacerts }}
@@ -158,9 +145,7 @@ spec:
               mountPath: /src/metaflow
             {{- end }}
           resources:
-            limits:
-              cpu: 50m
-              memory: 50Mi
+            {{- toYaml .Values.service.initContainer.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
       containers:
@@ -202,10 +187,6 @@ spec:
               value: {{ .Values.environment.group }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
-            {{- if .Values.userPreferences.darkMode }}
-            - name: DARK_MODE
-              value: "true"
-            {{- end }}
             - name: UV_CACHE_DIR
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
           envFrom:
@@ -279,11 +260,6 @@ spec:
             - name: token
               mountPath: /home/{{ .Values.environment.user }}/.token
               readOnly: true
-            {{ if (.Values.userPreferences.aiAssistant).enabled }}
-            - mountPath: /home/{{ .Values.environment.user }}/.continue
-              subPath: continue
-              name: config-files
-            {{- end }}
             {{- if (.Values.discovery).hive }}
             - name: config-files
               mountPath: /usr/local/lib/hive/conf/hive-site.xml
