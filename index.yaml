@@ -22583,6 +22583,29 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/library-chart-1.3.11/library-chart-1.3.11.tgz
     version: 1.3.11
+  marimo-python:
+  - apiVersion: v2
+    created: "2026-07-08T14:15:12.936813664Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.0.1
+    description: Marimo reactive Python notebook with Python, and a collection of
+      standard data science packages
+    digest: aa5e2140f14ddfa9acee74329ea2a4a09cd0e85bdb2a7a5eb0666078e2dc0dc0
+    home: https://marimo.io/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/marimo.png
+    keywords:
+    - Marimo
+    - Python
+    name: marimo-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/marimo-python-0.1.0/marimo-python-0.1.0.tgz
+    version: 0.1.0
   rstudio:
   - apiVersion: v2
     created: "2026-06-16T14:55:20.010470009Z"
@@ -53751,4 +53774,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2026-07-06T14:19:49.748965462Z"
+generated: "2026-07-08T14:15:12.939871678Z"
