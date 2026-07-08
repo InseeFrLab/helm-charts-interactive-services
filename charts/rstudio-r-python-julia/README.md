@@ -1,10 +1,10 @@
-# marimo-python
+# rstudio-r-python-julia
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.7](https://img.shields.io/badge/Version-2.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Marimo reactive Python notebook with Python, and a collection of standard data science packages
+The RStudio IDE with Python, R, Julia, and a collection of standard data science packages
 
-**Homepage:** <https://marimo.io/>
+**Homepage:** <https://www.rstudio.com/>
 
 ## Source Code
 
@@ -15,7 +15,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.1 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.4 |
 
 ## Values
 
@@ -26,34 +26,25 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| certificates | object | `{}` |  |
-| chromadb.secretName | string | `""` |  |
-| coresite.secretName | string | `""` |  |
-| discovery.chromadb | bool | `true` |  |
-| discovery.hive | bool | `true` |  |
-| discovery.metaflow | bool | `true` |  |
-| discovery.milvus | bool | `true` |  |
-| discovery.mlflow | bool | `true` |  |
 | discovery.postgresql | bool | `true` |  |
 | environment.group | string | `"users"` |  |
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| git.asCodeServerRoot | bool | `false` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
+| git.repository | string | `""` |  |
 | git.secretName | string | `""` |  |
+| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
-| hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | list | `[]` |  |
 | ingress.certManagerClusterIssuer | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"chart-example.local"` |  |
-| ingress.ingressClassName | string | `""` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.tls | bool | `true` |  |
 | ingress.tlsSecretName | string | `""` |  |
@@ -64,18 +55,15 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
-| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
 | kubernetes.enabled | bool | `true` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
-| metaflow.secretName | string | `""` |  |
-| milvus.secretName | string | `""` |  |
-| mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `2718` |  |
+| networking.service.port | int | `8787` |  |
+| networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -94,9 +82,9 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | proxy.httpsProxy | string | `""` |  |
 | proxy.noProxy | string | `""` |  |
 | replicaCount | int | `1` |  |
-| repository.condaRepository | string | `""` |  |
 | repository.configMapName | string | `""` |  |
-| repository.pipRepository | string | `""` |  |
+| repository.packageManagerUrl | string | `""` |  |
+| repository.rRepository | string | `""` |  |
 | resources | object | `{}` |  |
 | route.annotations | list | `[]` |  |
 | route.enabled | bool | `false` |  |
@@ -104,6 +92,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | route.tls.termination | string | `"edge"` |  |
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
+| runtimeClassName | string | `""` |  |
 | s3.accessKeyId | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
@@ -120,13 +109,11 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-rstudio-r-python-julia:r4.6.0-py3.13.13"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-rstudio-r-python-julia:r4.6.0-py3.13.13"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
-| service.initContainer.resources.limits.cpu | string | `"50m"` |  |
-| service.initContainer.resources.limits.memory | string | `"50Mi"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |

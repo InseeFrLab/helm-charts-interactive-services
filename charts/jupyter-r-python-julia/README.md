@@ -1,10 +1,10 @@
-# marimo-python
+# jupyter-r-python-julia
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.4.9](https://img.shields.io/badge/Version-2.4.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Marimo reactive Python notebook with Python, and a collection of standard data science packages
+The JupyterLab IDE with Python, R, Julia, and a collection of standard data science packages
 
-**Homepage:** <https://marimo.io/>
+**Homepage:** <https://jupyter.org/>
 
 ## Source Code
 
@@ -15,7 +15,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.1 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.4 |
 
 ## Values
 
@@ -39,13 +39,14 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | environment.user | string | `"onyxia"` |  |
 | extraEnvVars | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
-| git.asCodeServerRoot | bool | `false` |  |
 | git.branch | string | `""` |  |
 | git.cache | string | `""` |  |
 | git.email | string | `""` |  |
-| git.enabled | bool | `true` |  |
+| git.enabled | bool | `false` |  |
 | git.name | string | `""` |  |
+| git.repository | string | `""` |  |
 | git.secretName | string | `""` |  |
+| git.token | string | `""` |  |
 | global.suspend | bool | `false` |  |
 | hive.secretName | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -64,9 +65,8 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | init.personalInit | string | `""` |  |
 | init.personalInitArgs | string | `""` |  |
 | init.regionInit | string | `""` |  |
-| init.regionInitCheckSum | string | `""` |  |
 | init.standardInitPath | string | `"/opt/onyxia-init.sh"` |  |
-| kubernetes.enabled | bool | `true` |  |
+| kubernetes.enabled | bool | `false` |  |
 | kubernetes.role | string | `"view"` |  |
 | message.en | string | `""` |  |
 | message.fr | string | `""` |  |
@@ -75,7 +75,8 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `2718` |  |
+| networking.service.port | int | `8888` |  |
+| networking.sparkui.port | int | `4040` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -84,7 +85,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | openshiftSCC.enabled | bool | `false` |  |
 | openshiftSCC.scc | string | `""` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.enabled | bool | `true` |  |
+| persistence.enabled | bool | `false` |  |
 | persistence.size | string | `"10Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `100` |  |
@@ -104,6 +105,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | route.tls.termination | string | `"edge"` |  |
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
+| runtimeClassName | string | `""` |  |
 | s3.accessKeyId | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
@@ -120,13 +122,11 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.6.0-py3.13.13"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-jupyter-r-python-julia:r4.6.0-py3.13.13"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
-| service.initContainer.resources.limits.cpu | string | `"50m"` |  |
-| service.initContainer.resources.limits.memory | string | `"50Mi"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
@@ -136,6 +136,12 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.aiAssistant.apiBase | string | `""` |  |
+| userPreferences.aiAssistant.apiKey | string | `""` |  |
+| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
+| userPreferences.aiAssistant.enabled | bool | `false` |  |
+| userPreferences.aiAssistant.modelProvider | string | `""` |  |
+| userPreferences.aiAssistant.secretName | string | `""` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |

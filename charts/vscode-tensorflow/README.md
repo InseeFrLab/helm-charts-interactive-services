@@ -1,10 +1,10 @@
-# marimo-python
+# vscode-tensorflow
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.5.7](https://img.shields.io/badge/Version-2.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Marimo reactive Python notebook with Python, and a collection of standard data science packages
+The VSCode IDE with Python and the deep-learning framework TensorFlow.
 
-**Homepage:** <https://marimo.io/>
+**Homepage:** <https://code.visualstudio.com/>
 
 ## Source Code
 
@@ -15,7 +15,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.1 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.4 |
 
 ## Values
 
@@ -75,7 +75,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | mlflow.secretName | string | `""` |  |
 | nameOverride | string | `""` |  |
 | networking.clusterIP | string | `"None"` |  |
-| networking.service.port | int | `2718` |  |
+| networking.service.port | int | `8080` |  |
 | networking.type | string | `"ClusterIP"` |  |
 | networking.user.enabled | bool | `false` |  |
 | networking.user.port | int | `5000` |  |
@@ -104,6 +104,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | route.tls.termination | string | `"edge"` |  |
 | route.userHostname | string | `"chart-example-user.local"` |  |
 | route.wildcardPolicy | string | `"None"` |  |
+| runtimeClassName | string | `""` |  |
 | s3.accessKeyId | string | `""` |  |
 | s3.defaultRegion | string | `""` |  |
 | s3.enabled | bool | `false` |  |
@@ -120,13 +121,11 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.13"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-tensorflow:py3.13.13"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
-| service.initContainer.resources.limits.cpu | string | `"50m"` |  |
-| service.initContainer.resources.limits.memory | string | `"50Mi"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
@@ -136,6 +135,13 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
+| userPreferences.aiAssistant.apiBase | string | `""` |  |
+| userPreferences.aiAssistant.apiKey | string | `""` |  |
+| userPreferences.aiAssistant.enabled | bool | `false` |  |
+| userPreferences.aiAssistant.model | string | `""` |  |
+| userPreferences.aiAssistant.provider | string | `""` |  |
+| userPreferences.aiAssistant.secretName | string | `""` |  |
+| userPreferences.aiAssistant.useLegacyCompletionsEndpoint | bool | `false` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
