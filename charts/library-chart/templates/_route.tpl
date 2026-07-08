@@ -34,7 +34,9 @@ metadata:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
   host: {{ .Values.route.hostname | quote }}
+  {{- if ne .Values.route.tls.termination "passthrough" }}
   path: {{ .Values.route.path | default "/" }}
+  {{- end }}
   to:
     kind: Service
     name: {{ $fullName }}
@@ -83,7 +85,9 @@ spec:
 {{- else }}
   host: {{ regexReplaceAll "([^\\.]+)\\.(.*)" .Values.route.userHostname (printf "${1}-%d.${2}" (int $userPort)) | quote }}
 {{- end }}
+  {{- if ne .Values.route.tls.termination "passthrough" }}
   path: {{ .Values.route.userPath | default "/" }}
+  {{- end }}
   to:
     kind: Service
     name: {{ $fullName }}
@@ -130,7 +134,9 @@ metadata:
     {{- include "library-chart.route.annotations" . | nindent 4 }}
 spec:
   host: {{ .Values.spark.hostname | quote }}
+  {{- if ne .Values.route.tls.termination "passthrough" }}
   path: {{ .Values.spark.path | default "/" }}
+  {{- end }}
   to:
     kind: Service
     name: {{ $fullName }}
