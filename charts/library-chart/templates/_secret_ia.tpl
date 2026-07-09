@@ -6,8 +6,11 @@
 {{- $legacyAiAssistant := get $userPreferences "aiAssistant" | default dict -}}
 {{- $aiAssistant := get .Values "ai" | default dict -}}
 {{- $merged := mergeOverwrite (dict) $legacyAiAssistant $aiAssistant -}}
+{{/* Onyxia may inject an activeProvider whose keys are all empty strings: treat it as absent */}}
+{{- $active := $merged.activeProvider | default dict -}}
+{{- $activeIsEmpty := not (or $active.id $active.name $active.provider $active.apiBase $active.apiKey $active.selectedModel $active.models) -}}
 {{/* Build an activeProvider from the legacy flat fields when the new format does not provide one */}}
-{{- if and (empty $merged.activeProvider) (or $legacyAiAssistant.provider $legacyAiAssistant.model $legacyAiAssistant.apiBase $legacyAiAssistant.apiKey) -}}
+{{- if and $activeIsEmpty (or $legacyAiAssistant.provider $legacyAiAssistant.model $legacyAiAssistant.apiBase $legacyAiAssistant.apiKey) -}}
 {{- $models := list -}}
 {{- if $legacyAiAssistant.model -}}
 {{- $models = list $legacyAiAssistant.model -}}
@@ -22,6 +25,8 @@
       "models" $models
 -}}
 {{- $_ := set $merged "activeProvider" $active -}}
+{{/* mergeOverwrite lets the new block's zero values (enabled: false) clobber the legacy flag */}}
+{{- $_ := set $merged "enabled" (or $aiAssistant.enabled $legacyAiAssistant.enabled false) -}}
 {{- end -}}
 {{- $merged | toJson -}}
 {{- end }}
