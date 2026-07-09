@@ -818,6 +818,85 @@
         }
       }
     },
+    "httproute": {
+      "title": "HTTPRoute Details",
+      "type": "object",
+      "form": true,
+      "x-onyxia": {
+        "overwriteSchemaWith": "ide/httproute.json"
+      },
+      "properties": {
+        "enabled": {
+          "description": "Enable HTTPRoute",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.httpRoute.enabled"
+          }
+        },
+        "hostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-0.{{k8s.domain}}"
+          }
+        },
+        "userHostname": {
+          "type": "string",
+          "form": true,
+          "title": "Hostname",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "{{project.id}}-{{k8s.randomSubdomain}}-user.{{k8s.domain}}"
+          }
+        },
+        "path": {
+          "type": "string",
+          "form": true,
+          "title": "Path",
+          "default": "/"
+        },
+        "userPath": {
+          "type": "string",
+          "form": true,
+          "title": "User Path",
+          "default": "/"
+        },
+        "parentRefs": {
+          "description": "Gateway parent references",
+          "type": "array",
+          "default": [],
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteDefaultWith": "k8s.httpRoute.parentRefs"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Gateway name"
+              },
+              "namespace": {
+                "type": "string",
+                "title": "Gateway namespace"
+              },
+              "sectionName": {
+                "type": "string",
+                "title": "Listener name"
+              },
+              "port": {
+                "type": "integer",
+                "title": "Listener port"
+              }
+            }
+          }
+        }
+      }
+    },
     "repository": {
       "description": "python repositories for pip and conda",
       "type": "object",
