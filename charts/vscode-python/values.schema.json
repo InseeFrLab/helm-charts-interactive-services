@@ -1070,6 +1070,73 @@
             "hidden": true,
             "overwriteDefaultWith": "user.lang"
           }
+        },
+        "aiAssistant": {
+          "title": "AI Assistant",
+          "type": "object",
+          "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
+          "x-onyxia": {
+            "hidden": true,
+            "overwriteSchemaWith": "aiAssistant.json"
+          },
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "hidden": true,
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.enabled"
+              }
+            },
+            "model": {
+              "type": "string",
+              "default": "",
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.model"
+              }
+            },
+            "provider": {
+              "type": "string",
+              "default": "",
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.provider"
+              }
+            },
+            "apiBase": {
+              "type": "string",
+              "default": "",
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
+              }
+            },
+            "apiKey": {
+              "type": "string",
+              "default": "",
+              "hidden": {
+                "value": false,
+                "path": "enabled",
+                "isPathRelative": true
+              },
+              "x-onyxia": {
+                "overwriteDefaultWith": "user.profile.aiAssistant.apiKey"
+              }
+            }
+          }
         }
       }
     },
