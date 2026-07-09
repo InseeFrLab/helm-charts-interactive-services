@@ -5,7 +5,25 @@
 {{- $userPreferences := get .Values "userPreferences" | default dict -}}
 {{- $legacyAiAssistant := get $userPreferences "aiAssistant" | default dict -}}
 {{- $aiAssistant := get .Values "ai" | default dict -}}
-{{- mergeOverwrite (dict) $legacyAiAssistant $aiAssistant | toJson -}}
+{{- $merged := mergeOverwrite (dict) $legacyAiAssistant $aiAssistant -}}
+{{/* Build an activeProvider from the legacy flat fields when the new format does not provide one */}}
+{{- if and (empty $merged.activeProvider) (or $legacyAiAssistant.provider $legacyAiAssistant.model $legacyAiAssistant.apiBase $legacyAiAssistant.apiKey) -}}
+{{- $models := list -}}
+{{- if $legacyAiAssistant.model -}}
+{{- $models = list $legacyAiAssistant.model -}}
+{{- end -}}
+{{- $active := dict
+      "id" ($legacyAiAssistant.provider | default "")
+      "name" ($legacyAiAssistant.provider | default "")
+      "provider" ($legacyAiAssistant.provider | default "")
+      "apiBase" ($legacyAiAssistant.apiBase | default "")
+      "apiKey" ($legacyAiAssistant.apiKey | default "")
+      "selectedModel" ($legacyAiAssistant.model | default "")
+      "models" $models
+-}}
+{{- $_ := set $merged "activeProvider" $active -}}
+{{- end -}}
+{{- $merged | toJson -}}
 {{- end }}
 
 {{/* Create the name of the generic IA secret to use */}}
