@@ -541,7 +541,7 @@
       "title": "AI Assistant",
       "type": "object",
       "x-onyxia": {
-        "overwriteSchemaWith": "aiAssistant-jupyter.json"
+        "overwriteSchemaWith": "ai.json"
       },
       "properties": {
         "enabled": {
@@ -593,9 +593,7 @@
             },
             "selectedModel": {
               "type": "string",
-              "listEnum": [
-                ""
-              ],
+              "listEnum": [],
               "default": "",
               "x-onyxia": {
                 "overwriteDefaultWith": "{{ai.activeProvider.selectedModel}}",

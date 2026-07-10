@@ -640,9 +640,7 @@
             },
             "selectedModel": {
               "type": "string",
-              "listEnum": [
-                ""
-              ],
+              "listEnum": [],
               "default": "",
               "x-onyxia": {
                 "overwriteDefaultWith": "{{ai.activeProvider.selectedModel}}",
