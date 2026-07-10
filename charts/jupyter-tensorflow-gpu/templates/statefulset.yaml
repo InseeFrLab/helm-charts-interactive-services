@@ -1,4 +1,5 @@
 {{- $fullName := include "library-chart.fullname" . -}}
+{{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -98,10 +99,10 @@ spec:
           secret:
             secretName: {{ include "library-chart.secretNameCacerts" . }}
         {{- end }}
-        {{- if (.Values.userPreferences.aiAssistant).enabled }}
-        - name: secret-assistant
+        {{- if $aiAssistant.enabled }}
+        - name: secret-opencode
           secret:
-            secretName: {{ include "library-chart.secretNameAssistantJupyter" . }}
+            secretName: {{ printf "%s-secretopencode" (include "library-chart.fullname" .) }}
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -121,7 +122,9 @@ spec:
             - -c
             - |
               echo 'initContainer make-secrets-writable is started';
-              {{ if (.Values.userPreferences.aiAssistant).enabled }}
+              {{ if $aiAssistant.enabled }}
+              mkdir -p /dest/opencode
+              cp /src/opencode/opencode.jsonc /dest/opencode/opencode.jsonc
               mkdir -p /dest/jupyter-ai
               cp /src/jupyter-ai/config.json /dest/jupyter-ai/config.json
               {{- end }}
@@ -143,9 +146,9 @@ spec:
               awk 'BEGIN {c=0;} /BEGIN CERT/{c++} { print > "/dest/cacerts/cert." c ".crt"}' < /tmp/ca.pem;
               {{- end }}
           volumeMounts:
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
-            - name: secret-assistant
-              mountPath: /src/jupyter-ai
+            {{- if $aiAssistant.enabled }}
+            - name: secret-opencode
+              mountPath: /src/opencode
             {{- end }}
             - name: config-files
               mountPath: /dest
@@ -218,13 +221,11 @@ spec:
             {{- end }}
             - name: UV_CACHE_DIR
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            {{- if $aiAssistant.enabled }}
             - name: OPENAI_API_KEY
-              value: {{ .Values.userPreferences.aiAssistant.apiKey }}
+              value: {{ get ($aiAssistant.activeProvider | default dict) "apiKey" | default "" | quote }}
             - name: OPENAI_BASE_URL
-              value: {{ .Values.userPreferences.aiAssistant.apiBase }}
-            - name: ENABLE_JUPYTER_AI_EXTENSION
-              value: "{{ .Values.userPreferences.aiAssistant.enabled }}"
+              value: {{ get ($aiAssistant.activeProvider | default dict) "apiBase" | default "" | quote }}
             {{- end }}
           envFrom:
             - secretRef:
@@ -289,10 +290,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            {{- if (.Values.userPreferences.aiAssistant).enabled }}
+            {{- if $aiAssistant.enabled }}
             - name: config-files
-              mountPath: /home/{{ .Values.environment.user }}/.local/share/jupyter/jupyter_ai/config.json
-              subPath: jupyter-ai/config.json
+              mountPath: /home/{{ .Values.environment.user }}/.config/opencode
+              subPath: opencode
             {{- end }}
             - mountPath: /home/{{ .Values.environment.user }}/work
               subPath: work

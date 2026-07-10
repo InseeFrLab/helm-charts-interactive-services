@@ -143,17 +143,14 @@ startupProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 2
+ai:
+  enabled: false
+  secretName: ''
+  activeProvider: {}
+  providers: []
 userPreferences:
   darkMode: false
   language: en
-  aiAssistant:
-    enabled: false
-    model: ''
-    provider: ''
-    apiBase: ''
-    apiKey: ''
-    secretName: ''
-    useLegacyCompletionsEndpoint: false
 openshiftSCC:
   enabled: false
   scc: ''
