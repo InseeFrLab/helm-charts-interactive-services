@@ -1,6 +1,6 @@
 # jupyter-python
 
-![Version: 2.4.9](https://img.shields.io/badge/Version-2.4.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.5.0](https://img.shields.io/badge/Version-2.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The JupyterLab IDE with Python and a collection of standard data science packages.
 
@@ -15,13 +15,17 @@ The JupyterLab IDE with Python and a collection of standard data science package
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.0.4 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.1.6 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| ai.activeProvider | object | `{}` |  |
+| ai.enabled | bool | `false` |  |
+| ai.providers | list | `[]` |  |
+| ai.secretName | string | `""` |  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
@@ -136,12 +140,6 @@ The JupyterLab IDE with Python and a collection of standard data science package
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `2` |  |
 | tolerations | list | `[]` |  |
-| userPreferences.aiAssistant.apiBase | string | `""` |  |
-| userPreferences.aiAssistant.apiKey | string | `""` |  |
-| userPreferences.aiAssistant.embeddingsProvider | string | `""` |  |
-| userPreferences.aiAssistant.enabled | bool | `false` |  |
-| userPreferences.aiAssistant.modelProvider | string | `""` |  |
-| userPreferences.aiAssistant.secretName | string | `""` |  |
 | userPreferences.darkMode | bool | `false` |  |
 | userPreferences.language | string | `"en"` |  |
 | vault.directory | string | `""` |  |
