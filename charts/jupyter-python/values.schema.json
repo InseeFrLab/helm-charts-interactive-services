@@ -14,11 +14,7 @@
               "title": "Pull image from registry",
               "type": "string",
               "default": "IfNotPresent",
-              "enum": [
-                "IfNotPresent",
-                "Always",
-                "Never"
-              ]
+              "enum": ["IfNotPresent", "Always", "Never"]
             },
             "version": {
               "title": "Name of the service's Docker image",
@@ -261,11 +257,7 @@
             "value": false,
             "path": "kubernetes/enabled"
           },
-          "listEnum": [
-            "view",
-            "edit",
-            "admin"
-          ],
+          "listEnum": ["view", "edit", "admin"],
           "render": "list"
         }
       }
@@ -538,6 +530,147 @@
         }
       }
     },
+    "ai": {
+      "title": "AI Assistant",
+      "type": "object",
+      "x-onyxia": {
+        "overwriteSchemaWith": "aiAssistant-jupyter.json"
+      },
+      "properties": {
+        "enabled": {
+          "title": "Enable AI assistant tools",
+          "type": "boolean",
+          "default": false,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.enabled}}"
+          }
+        },
+        "activeProvider": {
+          "type": "object",
+          "default": {},
+          "properties": {
+            "id": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.id}}"
+              }
+            },
+            "name": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.name}}"
+              }
+            },
+            "provider": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.provider}}"
+              }
+            },
+            "apiBase": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.apiBase}}"
+              }
+            },
+            "apiKey": {
+              "type": "string",
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.apiKey}}"
+              }
+            },
+            "selectedModel": {
+              "type": "string",
+              "listEnum": [""],
+              "default": "",
+              "x-onyxia": {
+                "overwriteDefaultWith": "{{ai.activeProvider.selectedModel}}",
+                "overwriteListEnumWith": "{{ai.activeProvider.models}}"
+              }
+            },
+            "models": {
+              "type": "array",
+              "default": [],
+              "items": { "type": "string" },
+              "x-onyxia": {
+                "hidden": true,
+                "overwriteDefaultWith": "{{ai.activeProvider.models}}"
+              }
+            }
+          },
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          }
+        },
+        "providers": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": { "overwriteDefaultWith": "{{id}}" }
+              },
+              "name": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": { "overwriteDefaultWith": "{{name}}" }
+              },
+              "provider": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": { "overwriteDefaultWith": "{{provider}}" }
+              },
+              "apiBase": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": { "overwriteDefaultWith": "{{apiBase}}" }
+              },
+              "apiKey": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": { "overwriteDefaultWith": "{{apiKey}}" }
+              },
+              "selectedModel": {
+                "type": "string",
+                "listEnum": [],
+                "default": "",
+                "x-onyxia": {
+                  "overwriteDefaultWith": "{{selectedModel}}",
+                  "overwriteListEnumWith": "{{models}}"
+                }
+              },
+              "models": {
+                "type": "array",
+                "default": [],
+                "items": { "type": "string" },
+                "x-onyxia": {
+                  "hidden": true,
+                  "overwriteDefaultWith": "{{models}}"
+                }
+              }
+            }
+          },
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.providers}}"
+          },
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          }
+        }
+      }
+    },
     "networking": {
       "title": "Network access",
       "type": "object",
@@ -775,7 +908,7 @@
             "hidden": true
           }
         },
-        "tlsSecretName":{
+        "tlsSecretName": {
           "type": "string",
           "default": "",
           "x-onyxia": {
@@ -919,12 +1052,13 @@
             "overwriteDefaultWith": "user.lang"
           }
         },
-        "aiAssistant":{
+        "aiAssistant": {
           "title": "AI Assistant",
           "type": "object",
           "description": "Configure Jupyter-ai, an extension to use custom AI code assistants",
           "x-onyxia": {
-            "overwriteSchemaWith": "aiAssistant-jupyter.json"
+            "hidden": true,
+            "overwriteSchemaWith": "aiAssistant.json"
           },
           "properties": {
             "enabled": {
@@ -937,7 +1071,7 @@
             },
             "model": {
               "type": "string",
-              "default":"",
+              "default": "",
               "hidden": {
                 "value": false,
                 "path": "enabled",
@@ -947,7 +1081,7 @@
                 "overwriteDefaultWith": "user.profile.aiAssistant.model"
               }
             },
-            "modelProvider": {
+            "provider": {
               "type": "string",
               "default": "",
               "hidden": {
@@ -956,22 +1090,10 @@
                 "isPathRelative": true
               },
               "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.modelProvider"
+                "overwriteDefaultWith": "user.profile.aiAssistant.provider"
               }
             },
-            "embeddingsProvider": {
-              "type": "string",
-              "default": "",
-              "hidden": {
-                "value": false,
-                "path": "enabled",
-                "isPathRelative": true
-              },
-              "x-onyxia": {
-                "overwriteDefaultWith": "user.profile.aiAssistant.embeddingsProvider"
-              }
-            },
-            "apiBase":{
+            "apiBase": {
               "type": "string",
               "default": "",
               "hidden": {
@@ -983,7 +1105,7 @@
                 "overwriteDefaultWith": "user.profile.aiAssistant.apiBase"
               }
             },
-            "apiKey":{
+            "apiKey": {
               "type": "string",
               "default": "",
               "hidden": {
@@ -1100,7 +1222,7 @@
         }
       }
     },
-    "runtimeClassName" : {
+    "runtimeClassName": {
       "type": "string",
       "description": "Runtime Class Name",
       "default": "",
