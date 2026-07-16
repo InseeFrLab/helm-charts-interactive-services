@@ -26,9 +26,13 @@ stringData:
     models:
     {{- range $p := $providers }}
     {{- range $m := ($p.models | default list) }}
+    {{- $provider := $p.provider | default "openai" }}
+    {{- if eq $provider "openai-compatible" }}
+    {{- $provider = "openai" }}
+    {{- end }}
     - name: {{ printf "%s / %s" $p.name $m | quote }}
       model: {{ $m | quote }}
-      provider: {{ $p.provider | quote }}
+      provider: {{ $provider | quote }}
       {{- if $p.apiBase }}
       apiBase: {{ $p.apiBase | quote }}
       {{- end }}

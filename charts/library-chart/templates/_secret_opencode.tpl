@@ -2,12 +2,19 @@
 
 {{/* Build an opencode ProviderConfig (https://opencode.ai/config.json) from an Onyxia provider */}}
 {{- define "library-chart.opencodeProviderConfig" -}}
+{{- $npmByProvider := dict
+      "anthropic" "@ai-sdk/anthropic"
+      "mistral" "@ai-sdk/mistral"
+      "openai" "@ai-sdk/openai"
+      "openai-compatible" "@ai-sdk/openai-compatible"
+-}}
+{{- $npm := get $npmByProvider (.provider | default "openai-compatible") | default "@ai-sdk/openai-compatible" -}}
 {{- $models := dict -}}
 {{- range $m := (.models | default list) }}
 {{- $_ := set $models $m (dict) -}}
 {{- end }}
 {{- dict
-      "npm" "@ai-sdk/openai-compatible"
+      "npm" $npm
       "name" (.name | default "")
       "options" (dict "baseURL" (.apiBase | default "") "apiKey" (.apiKey | default ""))
       "models" $models
