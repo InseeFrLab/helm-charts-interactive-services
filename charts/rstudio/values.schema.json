@@ -20,7 +20,7 @@
               "title": "Name of the service's Docker image",
               "type": "string",
               "listEnum": [
-                "inseefrlab/onyxia-rstudio:r4.6.0",
+                "inseefrlab/onyxia-rstudio:r4.6.1",
                 "inseefrlab/onyxia-rstudio:r4.5.3"
               ],
               "render": "list",
@@ -28,7 +28,7 @@
                 "value": true,
                 "path": "service/image/custom/enabled"
               },
-              "default": "inseefrlab/onyxia-rstudio:r4.6.0"
+              "default": "inseefrlab/onyxia-rstudio:r4.6.1"
             },
             "custom": {
               "title": "Custom image",
@@ -45,7 +45,7 @@
                 "version": {
                   "title": "Name of the custom image",
                   "type": "string",
-                  "default": "inseefrlab/onyxia-rstudio:r4.6.0",
+                  "default": "inseefrlab/onyxia-rstudio:r4.6.1",
                   "hidden": {
                     "value": false,
                     "path": "enabled",
