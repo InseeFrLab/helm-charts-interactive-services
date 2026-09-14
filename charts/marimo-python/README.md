@@ -1,6 +1,6 @@
 # marimo-python
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Marimo reactive Python notebook with Python, and a collection of standard data science packages
 
@@ -120,9 +120,9 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.15"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.13"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-marimo-python:py3.13.15"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | service.initContainer.resources.limits.cpu | string | `"50m"` |  |
