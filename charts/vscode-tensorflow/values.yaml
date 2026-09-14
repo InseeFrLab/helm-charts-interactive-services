@@ -5,11 +5,11 @@ service:
     image: inseefrlab/onyxia-base:latest
     pullPolicy: IfNotPresent
   image:
-    version: inseefrlab/onyxia-vscode-tensorflow:py3.13.13
+    version: inseefrlab/onyxia-vscode-tensorflow:py3.13.15
     pullPolicy: IfNotPresent
     custom:
       enabled: false
-      version: inseefrlab/onyxia-vscode-tensorflow:py3.13.13
+      version: inseefrlab/onyxia-vscode-tensorflow:py3.13.15
 security:
   password: changeme
   networkPolicy:
