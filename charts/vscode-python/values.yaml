@@ -40,7 +40,7 @@ s3:
   # Specifies whether S3 credentials should be made available
   enabled: false
   # The name of the secret storing the S3 credentials
-  secretName: ""  # Generated based on the service's name if empty or not set
+  secretName: "" # Generated based on the service's name if empty or not set
   accessKeyId: ""
   endpoint: ""
   defaultRegion: ""
@@ -53,7 +53,7 @@ vault:
   # Specifies whether Vault credentials should be made available
   enabled: false
   # The name of the secret storing the Vault credentials
-  secretName: ""  # Generated based on the service's name if empty or not set
+  secretName: "" # Generated based on the service's name if empty or not set
   token: ""
   url: ""
   mount: ""
@@ -64,7 +64,7 @@ git:
   # Specifies whether git credentials should be made available
   enabled: true
   # The name of the secret storing the git credentials
-  secretName: ""  # Generated based on the service's name if empty or not set
+  secretName: "" # Generated based on the service's name if empty or not set
   name: ""
   email: ""
   cache: ""
@@ -137,8 +137,7 @@ podAnnotations: {}
 podSecurityContext:
   fsGroup: 100
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -178,7 +177,6 @@ ingress:
   useTlsSecret: false
   tlsSecretName: ""
 
-
 route:
   enabled: false
   annotations: []
@@ -193,8 +191,7 @@ route:
     # destinationCACertificate:
   wildcardPolicy: None
 
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -242,8 +239,8 @@ startupProbe:
 
 ai:
   enabled: false
-  secretName: ""  # Generated based on the service's name if empty or not set
-  activeProvider: {}
+  secretName: "" # Generated based on the service's name if empty or not set
+  selectedModel: ""
   providers: []
 
 userPreferences:

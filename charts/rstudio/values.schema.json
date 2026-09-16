@@ -14,7 +14,11 @@
               "title": "Pull image from registry",
               "type": "string",
               "default": "IfNotPresent",
-              "enum": ["IfNotPresent", "Always", "Never"]
+              "enum": [
+                "IfNotPresent",
+                "Always",
+                "Never"
+              ]
             },
             "version": {
               "title": "Name of the service's Docker image",
@@ -257,7 +261,11 @@
             "value": false,
             "path": "kubernetes/enabled"
           },
-          "listEnum": ["view", "edit", "admin"],
+          "listEnum": [
+            "view",
+            "edit",
+            "admin"
+          ],
           "render": "list"
         }
       }
@@ -545,63 +553,15 @@
             "overwriteDefaultWith": "{{ai.enabled}}"
           }
         },
-        "activeProvider": {
-          "type": "object",
-          "default": {},
-          "properties": {
-            "id": {
-              "type": "string",
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.id}}"
-              }
-            },
-            "name": {
-              "type": "string",
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.name}}"
-              }
-            },
-            "provider": {
-              "type": "string",
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.provider}}"
-              }
-            },
-            "apiBase": {
-              "type": "string",
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.apiBase}}"
-              }
-            },
-            "apiKey": {
-              "type": "string",
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.apiKey}}"
-              }
-            },
-            "selectedModel": {
-              "type": "string",
-              "listEnum": [],
-              "default": "",
-              "x-onyxia": {
-                "overwriteDefaultWith": "{{ai.activeProvider.selectedModel}}",
-                "overwriteListEnumWith": "{{ai.activeProvider.models}}"
-              }
-            },
-            "models": {
-              "type": "array",
-              "default": [],
-              "items": { "type": "string" },
-              "x-onyxia": {
-                "hidden": true,
-                "overwriteDefaultWith": "{{ai.activeProvider.models}}"
-              }
-            }
+        "selectedModel": {
+          "title": "AI model",
+          "description": "Choose the model used by the AI assistant. Its provider is selected automatically.",
+          "type": "string",
+          "listEnum": [],
+          "default": "",
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{ai.defaultModel}}",
+            "overwriteListEnumWith": "{{ai.listModels}}"
           },
           "hidden": {
             "value": false,
@@ -615,58 +575,50 @@
           "items": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "default": "",
-                "x-onyxia": { "overwriteDefaultWith": "{{id}}" }
-              },
               "name": {
                 "type": "string",
                 "default": "",
-                "x-onyxia": { "overwriteDefaultWith": "{{name}}" }
-              },
-              "provider": {
-                "type": "string",
-                "default": "",
-                "x-onyxia": { "overwriteDefaultWith": "{{provider}}" }
+                "x-onyxia": {
+                  "overwriteDefaultWith": "{{name}}"
+                }
               },
               "apiBase": {
                 "type": "string",
                 "default": "",
-                "x-onyxia": { "overwriteDefaultWith": "{{apiBase}}" }
+                "x-onyxia": {
+                  "overwriteDefaultWith": "{{apiBase}}"
+                }
               },
               "apiKey": {
                 "type": "string",
                 "default": "",
-                "x-onyxia": { "overwriteDefaultWith": "{{apiKey}}" }
-              },
-              "selectedModel": {
-                "type": "string",
-                "listEnum": [],
-                "default": "",
                 "x-onyxia": {
-                  "overwriteDefaultWith": "{{selectedModel}}",
-                  "overwriteListEnumWith": "{{models}}"
+                  "overwriteDefaultWith": "{{apiKey}}"
                 }
               },
               "models": {
                 "type": "array",
                 "default": [],
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "x-onyxia": {
                   "hidden": true,
                   "overwriteDefaultWith": "{{models}}"
+                }
+              },
+              "type": {
+                "type": "string",
+                "default": "",
+                "x-onyxia": {
+                  "overwriteDefaultWith": "{{type}}"
                 }
               }
             }
           },
           "x-onyxia": {
-            "overwriteDefaultWith": "{{ai.providers}}"
-          },
-          "hidden": {
-            "value": false,
-            "path": "enabled",
-            "isPathRelative": true
+            "overwriteDefaultWith": "{{ai.providers}}",
+            "hidden": true
           }
         }
       }
