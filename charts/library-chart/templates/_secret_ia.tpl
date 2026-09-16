@@ -24,9 +24,10 @@
 {{- $selectedModelName := join "/" (rest $selectedParts) -}}
 {{- range $provider := $providers -}}
 {{- if eq ($provider.name | default "") $selectedProviderName -}}
-{{- $resolvedProvider = mergeOverwrite (dict) $provider -}}
+{{- $_ := set $merged "resolvedProvider" (mergeOverwrite (dict) $provider) -}}
 {{- end -}}
 {{- end -}}
+{{- $resolvedProvider = $merged.resolvedProvider | default dict -}}
 {{- if $resolvedProvider -}}
 {{- $_ := set $resolvedProvider "selectedModel" $selectedModelName -}}
 {{- end -}}
