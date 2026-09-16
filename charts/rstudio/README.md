@@ -1,6 +1,6 @@
 # rstudio
 
-![Version: 2.5.6](https://img.shields.io/badge/Version-2.5.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.5.7](https://img.shields.io/badge/Version-2.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The RStudio IDE with a collection of standard data science packages.
 
@@ -15,17 +15,17 @@ The RStudio IDE with a collection of standard data science packages.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.1.7 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.1.9 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| ai.activeProvider | object | `{}` |  |
 | ai.enabled | bool | `false` |  |
 | ai.providers | list | `[]` |  |
 | ai.secretName | string | `""` |  |
+| ai.selectedModel | string | `"\\\"\\\""` |  |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
