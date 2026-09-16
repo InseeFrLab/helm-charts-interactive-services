@@ -26,19 +26,19 @@
 {{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 {{- if $aiAssistant.enabled -}}
 {{- $providers := $aiAssistant.providers | default list -}}
-{{- $active := $aiAssistant.activeProvider | default dict -}}
+{{- $resolvedProvider := $aiAssistant.resolvedProvider | default dict -}}
 {{- $providerMap := dict -}}
 {{- range $p := $providers }}
 {{- if $p.id }}
 {{- $_ := set $providerMap $p.id (include "library-chart.opencodeProviderConfig" $p | fromJson) -}}
 {{- end }}
 {{- end }}
-{{- if $active.id }}
-{{- $_ := set $providerMap $active.id (include "library-chart.opencodeProviderConfig" $active | fromJson) -}}
+{{- if $resolvedProvider.id }}
+{{- $_ := set $providerMap $resolvedProvider.id (include "library-chart.opencodeProviderConfig" $resolvedProvider | fromJson) -}}
 {{- end }}
 {{- $config := dict "$schema" "https://opencode.ai/config.json" "provider" $providerMap -}}
-{{- if and $active.id $active.selectedModel }}
-{{- $_ := set $config "model" (printf "%s/%s" $active.id $active.selectedModel) -}}
+{{- if and $resolvedProvider.id $resolvedProvider.selectedModel }}
+{{- $_ := set $config "model" (printf "%s/%s" $resolvedProvider.id $resolvedProvider.selectedModel) -}}
 {{- end }}
 apiVersion: v1
 kind: Secret

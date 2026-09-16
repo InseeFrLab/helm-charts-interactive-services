@@ -4,14 +4,14 @@
 {{- define "library-chart.secretContinue" -}}
 {{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 {{- if $aiAssistant.enabled -}}
-{{- $active := $aiAssistant.activeProvider | default dict -}}
+{{- $resolvedProvider := $aiAssistant.resolvedProvider | default dict -}}
 {{- $providers := $aiAssistant.providers | default list -}}
-{{- if $active -}}
-{{- $models := $active.models | default list -}}
-{{- if and $active.selectedModel (has $active.selectedModel $models) -}}
-{{- $_ := set $active "models" (concat (list $active.selectedModel) (without $models $active.selectedModel)) -}}
+{{- if $resolvedProvider -}}
+{{- $models := $resolvedProvider.models | default list -}}
+{{- if and $resolvedProvider.selectedModel (has $resolvedProvider.selectedModel $models) -}}
+{{- $_ := set $resolvedProvider "models" (concat (list $resolvedProvider.selectedModel) (without $models $resolvedProvider.selectedModel)) -}}
 {{- end -}}
-{{- $providers = prepend $providers $active -}}
+{{- $providers = prepend $providers $resolvedProvider -}}
 {{- end -}}
 apiVersion: v1
 kind: Secret

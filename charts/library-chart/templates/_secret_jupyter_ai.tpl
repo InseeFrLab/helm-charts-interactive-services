@@ -15,10 +15,10 @@
 {{- define "library-chart.secretAssistantJupyter" -}}
 {{- $aiAssistant := include "library-chart.aiAssistant" . | fromJson -}}
 {{- if $aiAssistant.enabled -}}
-{{- $active := $aiAssistant.activeProvider | default dict -}}
+{{- $resolvedProvider := $aiAssistant.resolvedProvider | default dict -}}
 {{/* Fall back to the legacy flat structure (userPreferences.aiAssistant) */}}
-{{- $model := $active.selectedModel | default $aiAssistant.model | default "" -}}
-{{- $apiBase := $active.apiBase | default $aiAssistant.apiBase | default "" -}}
+{{- $model := $resolvedProvider.selectedModel | default $aiAssistant.model | default "" -}}
+{{- $apiBase := $resolvedProvider.apiBase | default $aiAssistant.apiBase | default "" -}}
 {{- $modelProvider := $aiAssistant.modelProvider | default "openai-chat" -}}
 {{- $embeddingsProvider := $aiAssistant.embeddingsProvider | default "" -}}
 {{- $fields := dict -}}
