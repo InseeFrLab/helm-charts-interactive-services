@@ -223,9 +223,9 @@ spec:
               value: /home/{{ .Values.environment.user }}/work/.cache/uv
             {{- if $aiAssistant.enabled }}
             - name: OPENAI_API_KEY
-              value: {{ get ($aiAssistant.activeProvider | default dict) "apiKey" | default "" | quote }}
+              value: {{ get ($aiAssistant.resolvedProvider | default dict) "apiKey" | default "" | quote }}
             - name: OPENAI_BASE_URL
-              value: {{ get ($aiAssistant.activeProvider | default dict) "apiBase" | default "" | quote }}
+              value: {{ get ($aiAssistant.resolvedProvider | default dict) "apiBase" | default "" | quote }}
             {{- end }}
           envFrom:
             - secretRef:

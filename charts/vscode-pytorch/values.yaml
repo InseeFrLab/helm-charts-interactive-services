@@ -146,7 +146,7 @@ startupProbe:
 ai:
   enabled: false
   secretName: ''
-  activeProvider: {}
+  selectedModel: ''
   providers: []
 userPreferences:
   darkMode: false
