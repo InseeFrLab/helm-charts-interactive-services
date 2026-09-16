@@ -24,6 +24,12 @@ security:
 
 init:
   standardInitPath: "/opt/onyxia-init.sh"
+  # Standard launch command (requires root)
+  extraArgs: "/init"
+  # Experimental rootless launch command
+  # Requires the "onyxia" user to be the owner of several RStudio related directories (which is not standard),
+  # as well as the "USER" environment variable to be set to "onyxia".
+  # extraArgs: "/usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --auth-none=0 --auth-timeout-minutes=720 --server-user=onyxia --auth-pam-helper-path=pam-helper"
   regionInit: ""
   personalInit: ""
   personalInitArgs: ""
