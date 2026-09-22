@@ -575,7 +575,7 @@
           "default": "",
           "x-onyxia": {
             "overwriteDefaultWith": "{{ai.defaultModel}}",
-            "overwriteListEnumWith": "{{ai.listModels}}"
+            "overwriteListEnumWith": "{{ai.models}}"
           },
           "hidden": {
             "value": false,
