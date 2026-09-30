@@ -710,9 +710,9 @@
             "ports": {
               "title": "Port numbers to expose",
               "type": "array",
+              "uniqueItems": true,
               "items": {
                 "type": "integer",
-                "uniqueItems": true,
                 "default": 5000
               },
               "default": [],
