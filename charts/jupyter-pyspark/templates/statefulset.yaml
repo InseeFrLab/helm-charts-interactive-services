@@ -69,8 +69,8 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.runtimeClassName -}}
-      runtimeClassName: {{ .Values.runtimeClassName }}
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ .Values.runtimeClassName | quote }}
       {{- end }}
       volumes:
         - name: config-files
@@ -140,7 +140,7 @@ spec:
       hostname: jupyter
       initContainers:
         - name: make-configmaps-writable
-          image: {{ .Values.service.initContainer.image }}
+          image: {{ .Values.service.initContainer.image | quote }}
           imagePullPolicy: {{ .Values.service.initContainer.pullPolicy }}
           command:
             - sh
@@ -222,9 +222,9 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           {{- if .Values.service.image.custom.enabled }}
-          image: "{{ .Values.service.image.custom.version }}"
+          image: {{ .Values.service.image.custom.version | quote }}
           {{- else }}
-          image: "{{ .Values.service.image.version }}"
+          image: {{ .Values.service.image.version | quote }}
           {{- end }}
           command: ["/bin/sh","-c"]
           args: ["{{ .Values.init.standardInitPath }} jupyter lab --no-browser --ip '0.0.0.0' --LabApp.token='$(PASSWORD)' --ContentsManager.allow_hidden=True"]
@@ -374,7 +374,7 @@ spec:
             {{- end }}
             {{- if (.Values.certificates).pathToCaBundle }}
             - name: config-files
-              mountPath: {{ .Values.certificates.pathToCaBundle }}
+              mountPath: {{ .Values.certificates.pathToCaBundle | quote }}
               subPath: cacerts
             {{- end }}
       {{- with .Values.nodeSelector }}
