@@ -19,11 +19,11 @@ Usage:
 {{- toYaml . }}
 {{- end }}
 {{- if ((.Values.security).allowlist).enabled }}
-nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlist.ip }}
+nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.security.allowlist.ip | quote }}
 {{- end }}
 {{- if (.Values.ingress).useCertManager }}
-cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer }}
-acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName }}
+cert-manager.io/cluster-issuer: {{ .Values.ingress.certManagerClusterIssuer | quote }}
+acme.cert-manager.io/http01-ingress-class: {{ .Values.ingress.ingressClassName | quote }}
 {{- end }}
 {{- end }}
 
@@ -59,7 +59,7 @@ spec:
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
     {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
+      secretName: {{ .Values.ingress.tlsSecretName | quote }}
     {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
@@ -68,13 +68,13 @@ spec:
     - host: {{ .Values.ingress.hostname | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.path | default "/" }}
+          - path: {{ .Values.ingress.path | default "/" | quote }}
             pathType: Prefix
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ $svcPort | int }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -113,7 +113,7 @@ spec:
         {{- end }}
       {{- end }}
       {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
+      secretName: {{ .Values.ingress.tlsSecretName | quote }}
       {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
       {{- end }}
@@ -128,13 +128,13 @@ spec:
     {{- end }}
       http:
         paths:
-          - path: {{ .Values.ingress.userPath | default "/" }}
+          - path: {{ .Values.ingress.userPath | default "/" | quote }}
             pathType: Prefix
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $userPort }}
+                  number: {{ $userPort | int }}
   {{- end }}
   {{- end }}
 {{- end }}
@@ -165,7 +165,7 @@ spec:
     - hosts:
         - {{ .Values.spark.hostname | quote }}
     {{ if and .Values.ingress.useTlsSecret (ne .Values.ingress.tlsSecretName "") }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
+      secretName: {{ .Values.ingress.tlsSecretName | quote }}
     {{ else if  or .Values.ingress.useCertManager .Values.ingress.useTlsSecret }}
       secretName: tls-cert-{{ include "library-chart.fullname" . }}
     {{- end }}
@@ -174,12 +174,12 @@ spec:
     - host: {{ .Values.spark.hostname | quote }}
       http:
         paths:
-          - path: {{ .Values.spark.path | default "/" }}
+          - path: {{ .Values.spark.path | default "/" | quote }}
             pathType: Prefix
             backend:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ $svcPort | int }}
 {{- end }}
 {{- end }}

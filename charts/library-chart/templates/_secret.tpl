@@ -28,8 +28,8 @@ stringData:
   AWS_DEFAULT_REGION: {{ .Values.s3.defaultRegion | quote }}
   AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretAccessKey | quote }}
   AWS_SESSION_TOKEN: {{ .Values.s3.sessionToken | quote }}
-  AWS_PATH_STYLE_ACCESS: "{{ .Values.s3.pathStyleAccess }}"
-  AWS_WORKING_DIRECTORY_PATH: "{{ .Values.s3.workingDirectoryPath }}"
+  AWS_PATH_STYLE_ACCESS: {{ .Values.s3.pathStyleAccess | quote }}
+  AWS_WORKING_DIRECTORY_PATH: {{ .Values.s3.workingDirectoryPath | quote }}
 {{- end }}
 {{- end }}
 
@@ -52,7 +52,7 @@ metadata:
 stringData:
   {{- if .Values.proxy.httpProxy }}
     http_proxy: {{ .Values.proxy.httpProxy | quote }}
-    HTTP_PROXY: {{ .Values.proxy.httpProxy }}
+    HTTP_PROXY: {{ .Values.proxy.httpProxy | quote }}
   {{- end }}
   {{- if .Values.proxy.httpsProxy }}
     https_proxy: {{ .Values.proxy.httpsProxy | quote }}
@@ -207,7 +207,7 @@ stringData:
     </property>
     <property>
         <name>fs.s3a.endpoint</name>
-        <value>{{ .Values.s3.endpoint }}</value>
+        <value>{{ include "library-chart.singleLine" .Values.s3.endpoint }}</value>
     </property>
     <property>
         <name>fs.s3a.path.style.access</name>
@@ -224,7 +224,7 @@ stringData:
     </property>
     <property>
         <name>fs.s3a.session.token</name>
-        <value>{{ .Values.s3.sessionToken }}</value>
+        <value>{{ include "library-chart.singleLine" .Values.s3.sessionToken }}</value>
     </property>
 {{- else }}
     <property>
@@ -238,11 +238,11 @@ stringData:
 {{- end }}
     <property>
         <name>fs.s3a.access.key</name>
-        <value>{{ .Values.s3.accessKeyId }}</value>
+        <value>{{ include "library-chart.singleLine" .Values.s3.accessKeyId }}</value>
     </property>
     <property>
         <name>fs.s3a.secret.key</name>
-        <value>{{ .Values.s3.secretAccessKey }}</value>
+        <value>{{ include "library-chart.singleLine" .Values.s3.secretAccessKey }}</value>
     </property>
     </configuration>
 {{- end }}
@@ -358,7 +358,7 @@ metadata:
 type: Opaque
 stringData:
   {{- if regexMatch "^https?://" .Values.certificates.cacerts }}
-  ca-certs.url: {{ .Values.certificates.cacerts }}
+  ca-certs.url: {{ .Values.certificates.cacerts | quote }}
   {{- else }}
   ca.pem: |
     {{- .Values.certificates.cacerts | nindent 4 }}
@@ -387,5 +387,14 @@ stringData:
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+  Collapse a value to a single line so it cannot break out of the YAML block
+  scalar it is embedded in (e.g. the core-site.xml document below). Used for
+  user-controlled values that are interpolated inside a multi-line string.
+*/}}
+{{- define "library-chart.singleLine" -}}
+{{- . | toString | replace "\n" "" | replace "\r" "" -}}
+{{- end -}}
 
 {{/* AI Assistant secret templates have moved to _secret_ia.tpl */}}

@@ -25,16 +25,16 @@ metadata:
     {{- include "library-chart.labels" . | nindent 4 }}
 data:
   {{- if .Values.repository.pipRepository }}
-  PIP_REPOSITORY: "{{ .Values.repository.pipRepository }}"
+  PIP_REPOSITORY: {{ .Values.repository.pipRepository | quote }}
   {{- end }}
   {{- if .Values.repository.condaRepository }}
-  CONDA_REPOSITORY: "{{ .Values.repository.condaRepository }}"
+  CONDA_REPOSITORY: {{ .Values.repository.condaRepository | quote }}
   {{- end }}
   {{- if .Values.repository.rRepository }}
-  R_REPOSITORY: "{{ .Values.repository.rRepository }}"
+  R_REPOSITORY: {{ .Values.repository.rRepository | quote }}
   {{- end }}
   {{- if .Values.repository.packageManagerUrl }}
-  PACKAGE_MANAGER_URL: "{{ .Values.repository.packageManagerUrl }}"
+  PACKAGE_MANAGER_URL: {{ .Values.repository.packageManagerUrl | quote }}
   {{- end }}
 {{- end }}
 {{- end -}}
