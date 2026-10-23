@@ -4,13 +4,13 @@ repos:
   hooks:
   # Validate schemas using the jsonschema.validators package
   - id: validate-json-schemas
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
     args:
     # Forbid legacy https://json-schema.org/draft/2020-12/schema schema validator and suggest Draft 7 instead
     - --forbid-legacy
   # Ensure technically facultative attribute (such as `type`) are systematically specified
   - id: missing-attributes-schemas
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
     args:
     # Also require `items` to be systematically specified for arrays
     - --check-items
@@ -19,22 +19,22 @@ repos:
     # Also require `properties` to be systematically specified for object
     - --check-defaults
   # Just fail if any modification occurs to files in the charts/ folder
-  # other than jupyter-py{spark,thon}, rstudio[-sparkr] or vscode-py{thon,spark}
+  # other than jupyter-py{spark,thon}, rstudio[-sparkr], vscode-py{thon,spark} or marimo-python
   - id: check-match
     args:
     - --regex
-    - "^charts/(?!(library-chart|jupyter-python|jupyter-pyspark|rstudio|rstudio-sparkr|vscode-python|vscode-pyspark)/).*$"
+    - "^charts/(?!(library-chart|jupyter-python|jupyter-pyspark|rstudio|rstudio-sparkr|vscode-python|vscode-pyspark|marimo-python)/).*$"
     pass_filenames: false
     always_run: true
   # Ensure that the Chart.yaml version is bumped in all charts with staged modifications *in the `main` branch only*
   - id: version-bump
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
     args:
     - --branch
     - main
   # Run `helm dependency update` then `helm lint` on all (modified) charts
   - id: helmlint
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
@@ -44,10 +44,10 @@ repos:
     exclude: "/templates/"
   # Check empty new line before EOF (ignore generated charts)
   - id: end-of-file-fixer
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
   # Check trailing whitespaces (ignore generated charts)
   - id: trailing-whitespace
-    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)))"
+    exclude: "charts/(?!(library-chart|(jupyter-py(spark|thon)/.*)|(rstudio(-sparkr)?/.*)|(vscode-py(thon|spark)/.*)|(marimo-python/.*)))"
 
 # Warn the user if `library-chart` is updated and its new version simulatenously reused in other charts
 - repo: local
