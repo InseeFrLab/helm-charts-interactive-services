@@ -1,0 +1,49 @@
+name: YAML injection test
+
+# Renders each chart with a `\n---` payload in every free-text value and fails
+# if a value can break out of its YAML scalar to inject a Kubernetes manifest.
+# See utils/test_yaml_injection.py.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  yaml-injection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: azure/setup-helm@v5
+        with:
+          version: v4.2.4
+
+      - name: Install Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run YAML injection regression test
+        run: |
+          case "${{ github.event_name }}" in
+            pull_request)
+              git fetch --no-tags origin "${{ github.base_ref }}"
+              python3 utils/test_yaml_injection.py --changed-base "origin/${{ github.base_ref }}"
+              ;;
+            push)
+              python3 utils/test_yaml_injection.py --changed-base "${{ github.event.before }}"
+              ;;
+            *)
+              python3 utils/test_yaml_injection.py
+              ;;
+          esac
