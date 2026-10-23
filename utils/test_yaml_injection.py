@@ -16,8 +16,14 @@ Fields constrained by `enum`, `const` or `pattern` are skipped: helm's schema
 validation rejects the payload for them. `format` is NOT skipped: helm does not
 assert formats (an `email`/`uri` field accepts any string), so it protects nothing.
 
-Only *source* charts are tested (the ones maintained by hand); the generated
-children are byte-for-byte copies produced by generate-children-charts.py.
+Each field is rendered with the `enabled` flags of its parent objects switched
+on, so values behind a disabled feature (e.g. `s3.*` while `s3.enabled` is false)
+are tested too. Only an actual YAML break or an injected document counts: a
+template error (e.g. a tag rejected by semverCompare) aborts the whole render, and
+a chart that fails with a benign value once a flag is enabled is not injectable.
+
+Only *source* charts are tested (the ones maintained by hand); children listed in
+utils/charts-inheritance.yaml, when the file exists, are generated copies.
 
 Usage:
     python3 utils/test_yaml_injection.py                # all source charts
@@ -57,8 +63,9 @@ PAYLOAD = (
 
 def source_charts() -> list[str]:
     """Charts maintained by hand = all charts with a schema minus generated children."""
-    inheritance = yaml.safe_load((PROJECT_PATH / "utils" / "charts-inheritance.yaml").read_text())
-    children = {child for parent in inheritance.values() for child in (parent or {})}
+    inheritance_file = PROJECT_PATH / "utils" / "charts-inheritance.yaml"
+    inheritance = yaml.safe_load(inheritance_file.read_text()) if inheritance_file.exists() else {}
+    children = {child for parent in (inheritance or {}).values() for child in (parent or {})}
     sources = []
     for chart in sorted(p.name for p in CHARTS_DIR.iterdir() if p.is_dir()):
         if chart in children:
@@ -82,12 +89,25 @@ def free_text_paths(schema: dict, prefix: tuple[str, ...] = ()):
             yield from free_text_paths(node, prefix + (key,))
 
 
-def nested(path: tuple[str, ...], value) -> dict:
-    out: dict = {}
+def nested(path: tuple[str, ...], value, out: dict | None = None) -> dict:
+    out = {} if out is None else out
     cur = out
     for key in path[:-1]:
         cur = cur.setdefault(key, {})
     cur[path[-1]] = value
+    return out
+
+
+def with_feature_flags(schema: dict, path: tuple[str, ...], value) -> dict:
+    """Values setting `path`, with every ancestor's boolean `enabled` switched on."""
+    out = nested(path, value)
+    node = schema
+    for i, key in enumerate(path):
+        props = (node or {}).get("properties") or {}
+        flag = props.get("enabled")
+        if isinstance(flag, dict) and flag.get("type") == "boolean" and key != "enabled":
+            nested(path[:i] + ("enabled",), True, out)
+        node = props.get(key)
     return out
 
 
@@ -106,6 +126,7 @@ def render(chart: str, values: dict) -> subprocess.CompletedProcess:
 
 
 def is_injected(stdout: str) -> bool:
+    """True if a rendered *document* is the probe (not just text inside a safe value)."""
     try:
         docs = list(yaml.safe_load_all(stdout))
     except yaml.YAMLError:
@@ -120,10 +141,14 @@ def test_chart(chart: str) -> list[tuple[str, str]]:
     schema = json.loads((CHARTS_DIR / chart / "values.schema.json").read_text())
     vulnerable: list[tuple[str, str]] = []
     for path in free_text_paths(schema):
-        result = render(chart, nested(path, PAYLOAD))
+        result = render(chart, with_feature_flags(schema, path, PAYLOAD))
         if result.returncode != 0:
-            if "don't meet the specifications of the schema" in result.stderr:
-                continue  # rejected by schema validation -> not injectable
+            # Only a YAML parse error proves the value escaped its scalar. Schema
+            # rejections and template errors abort the render, so nothing is applied.
+            if "YAML parse error" not in result.stderr:
+                continue
+            if render(chart, with_feature_flags(schema, path, "probe")).returncode != 0:
+                continue  # chart already broken with this feature on, benign value too
             vulnerable.append((".".join(path), "breaks rendered YAML"))
         elif is_injected(result.stdout):
             vulnerable.append((".".join(path), "injects a document"))
