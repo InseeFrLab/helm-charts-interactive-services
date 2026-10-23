@@ -14,26 +14,26 @@ metadata:
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.networking.type }}
+  type: {{ .Values.networking.type | quote }}
   {{- if .Values.networking.clusterIP }}
-  clusterIP: {{ .Values.networking.clusterIP }}
+  clusterIP: {{ .Values.networking.clusterIP | quote }}
   {{- end }}
   ports:
-    - port: {{ .Values.networking.service.port }}
-      targetPort: {{ default .Values.networking.service.port .Values.networking.service.targetPort }}
+    - port: {{ .Values.networking.service.port | int }}
+      targetPort: {{ default .Values.networking.service.port .Values.networking.service.targetPort | int }}
       protocol: TCP
       name: main
     {{- range $userPort := $userPorts }}
-    - port: {{ $userPort }}
-      targetPort: {{ $userPort }}
+    - port: {{ $userPort | int }}
+      targetPort: {{ $userPort | int }}
       protocol: TCP
       name: {{ printf "user-%d" (int $userPort) | quote }}
     {{- end }}
     {{ if .Values.spark }}
     {{ if .Values.spark.ui }}
     {{ if .Values.networking.sparkui }}
-    - port: {{ .Values.networking.sparkui.port }}
-      targetPort: {{ .Values.networking.sparkui.port }}
+    - port: {{ .Values.networking.sparkui.port | int }}
+      targetPort: {{ .Values.networking.sparkui.port | int }}
       protocol: TCP
       name: sparkui
     {{- end }}

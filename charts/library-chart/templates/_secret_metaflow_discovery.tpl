@@ -24,7 +24,7 @@ stringData:
     {
       "METAFLOW_DEFAULT_METADATA": "service",
       "METAFLOW_KUBERNETES_SERVICE_ACCOUNT": "default",
-      "METAFLOW_S3_ENDPOINT_URL": "https://{{ eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint }}",
+      "METAFLOW_S3_ENDPOINT_URL": "https://{{ include "library-chart.singleLine" (eq .Values.s3.endpoint "s3.amazonaws.com" | ternary (printf "s3.%s.amazonaws.com" .Values.s3.defaultRegion) .Values.s3.endpoint) }}",
 {{- with $secretData := first (include "library-chart.getOnyxiaDiscoverySecrets" (list $namespace "metaflow") | fromJsonArray) }}
 {{- $host     := $secretData.host     | default "" | b64dec }}
 {{- $s3Bucket := $secretData.s3Bucket | default "" | b64dec }}

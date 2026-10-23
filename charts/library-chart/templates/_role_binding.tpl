@@ -13,7 +13,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ .Values.kubernetes.role}}
+  name: {{ .Values.kubernetes.role | quote }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "library-chart.serviceAccountName" . }}
@@ -31,13 +31,13 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: '{{ include "library-chart.serviceAccountName" . }}-scc-{{ .Values.openshiftSCC.scc }}'
+  name: {{ printf "%s-scc-%s" (include "library-chart.serviceAccountName" .) .Values.openshiftSCC.scc | quote }}
   labels:
     {{- include "library-chart.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: system:openshift:scc:{{ .Values.openshiftSCC.scc }}
+  name: {{ printf "system:openshift:scc:%s" .Values.openshiftSCC.scc | quote }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "library-chart.serviceAccountName" . }}
