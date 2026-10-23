@@ -11,7 +11,7 @@ spec:
   {{- if .Values.global.suspend }}
   replicas: 0
   {{- else}}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount | int }}
   {{- end}}
 {{- end }}
   serviceName: {{ include "library-chart.fullname" . }}
@@ -45,8 +45,8 @@ spec:
       labels:
         {{- include "library-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.runtimeClassName -}}
-      runtimeClassName: {{ .Values.runtimeClassName }}
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ .Values.runtimeClassName | quote }}
       {{- end }}
       volumes:
         - name: config-files
@@ -88,7 +88,7 @@ spec:
       hostname: rstudio
       initContainers:
         - name: make-secrets-writable
-          image: {{ .Values.service.initContainer.image }}
+          image: {{ .Values.service.initContainer.image | quote }}
           imagePullPolicy: {{ .Values.service.initContainer.pullPolicy }}
           command:
             - sh
@@ -130,9 +130,9 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           {{- if .Values.service.image.custom.enabled }}
-          image: "{{ .Values.service.image.custom.version }}"
+          image: {{ .Values.service.image.custom.version | quote }}
           {{- else }}
-          image: "{{ .Values.service.image.version }}"
+          image: {{ .Values.service.image.version | quote }}
           {{- end }}
           command: ["/bin/sh","-c"]
           args: ["{{ .Values.init.standardInitPath }} /init"]
@@ -144,27 +144,27 @@ spec:
                   fieldPath: metadata.name
             - name: IMAGE_NAME
               {{- if .Values.service.image.custom.enabled }}
-              value: "{{ .Values.service.image.custom.version }}"
+              value: {{ .Values.service.image.custom.version | quote }}
               {{- else }}
-              value: "{{ .Values.service.image.version }}"
+              value: {{ .Values.service.image.version | quote }}
               {{- end }}
             - name: PROJECT_USER
-              value: {{ .Values.environment.user }}
+              value: {{ .Values.environment.user | quote }}
             - name: PROJECT_GROUP
-              value: {{ .Values.environment.group }}
+              value: {{ .Values.environment.group | quote }}
             - name: ROOT_PROJECT_DIRECTORY
               value: /home/{{ .Values.environment.user }}/work
             {{- if .Values.init.regionInit }}
             - name: REGION_INIT_SCRIPT
-              value: {{ .Values.init.regionInit }}
+              value: {{ .Values.init.regionInit | quote }}
             {{- end }}
             {{- if .Values.init.personalInit }}
             - name: PERSONAL_INIT_SCRIPT
-              value: {{ .Values.init.personalInit }}
+              value: {{ .Values.init.personalInit | quote }}
             {{- end }}
             {{- if .Values.init.personalInitArgs }}
             - name: PERSONAL_INIT_ARGS
-              value: {{ .Values.init.personalInitArgs }}
+              value: {{ .Values.init.personalInitArgs | quote }}
             {{- end }}
             {{- if .Values.userPreferences.darkMode }}
             - name: DARK_MODE
@@ -210,18 +210,18 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.networking.service.port }}
+              port: {{ .Values.networking.service.port | int }}
             timeoutSeconds: 2
             failureThreshold: 6
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.networking.service.port }}
+              port: {{ .Values.networking.service.port | int }}
           {{- if hasKey .Values "startupProbe" }}
           startupProbe:
             httpGet:
               path: /
-              port: {{ .Values.networking.service.port }}
+              port: {{ .Values.networking.service.port | int }}
             {{- toYaml .Values.startupProbe | nindent 12 }}
           {{- end }}
           resources:
@@ -239,7 +239,7 @@ spec:
             {{- end }}
             {{- if and .Values.certificates .Values.certificates.pathToCaBundle }}
             - name: config-files
-              mountPath: {{ .Values.certificates.pathToCaBundle }}
+              mountPath: {{ .Values.certificates.pathToCaBundle | quote }}
               subPath: cacerts
             {{- end }}
       {{- with .Values.nodeSelector }}
