@@ -12,8 +12,9 @@ values.schema.json to a payload containing newlines and an injected document,
 renders the chart with `helm template`, and fails if the payload produces an
 extra/injected document or breaks the rendered YAML.
 
-Fields constrained by `enum`, `const`, `pattern` or `format` are skipped: those
-are rejected by `helm`'s own schema validation, so they cannot carry a payload.
+Fields constrained by `enum`, `const` or `pattern` are skipped: helm's schema
+validation rejects the payload for them. `format` is NOT skipped: helm does not
+assert formats (an `email`/`uri` field accepts any string), so it protects nothing.
 
 Only *source* charts are tested (the ones maintained by hand); the generated
 children are byte-for-byte copies produced by generate-children-charts.py.
@@ -68,14 +69,14 @@ def source_charts() -> list[str]:
 
 
 def free_text_paths(schema: dict, prefix: tuple[str, ...] = ()):
-    """Yield the dotted path of every string leaf that helm will NOT schema-validate."""
+    """Yield the dotted path of every string leaf that helm's schema validation does not constrain."""
     if not isinstance(schema, dict):
         return
     for key, node in schema.get("properties", {}).items():
         if not isinstance(node, dict):
             continue
         if node.get("type") == "string" and "properties" not in node:
-            if not any(c in node for c in ("enum", "const", "pattern", "format")):
+            if not any(c in node for c in ("enum", "const", "pattern")):
                 yield prefix + (key,)
         else:
             yield from free_text_paths(node, prefix + (key,))
