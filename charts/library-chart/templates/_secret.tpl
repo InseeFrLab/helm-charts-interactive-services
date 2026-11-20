@@ -106,6 +106,22 @@ stringData:
 {{/* Template to generate a secret for git */}}
 {{- define "library-chart.secretGit" -}}
 {{- if (.Values.git).enabled -}}
+{{- /* The repositories without url (an item added but left empty) are dropped: the images
+       would otherwise skip GIT_REPOSITORY for an empty GIT_REPOSITORIES */ -}}
+{{- $repositories := list }}
+{{- range (default list .Values.git.repositories) }}
+{{- if (.).url }}
+{{- $repositories = append $repositories . }}
+{{- end }}
+{{- end }}
+{{- /* git.repositories takes over from git.repository/git.branch, which then hold the first
+       one: for the images that only read GIT_REPOSITORY, and for asCodeServerRoot */ -}}
+{{- $repository := .Values.git.repository }}
+{{- $branch := .Values.git.branch }}
+{{- with first $repositories }}
+{{- $repository = .url }}
+{{- $branch = .branch }}
+{{- end }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -117,8 +133,11 @@ stringData:
   GIT_USER_MAIL: {{ .Values.git.email | quote }}
   GIT_CREDENTIALS_CACHE_DURATION: {{ .Values.git.cache | quote }}
   GIT_PERSONAL_ACCESS_TOKEN: {{ .Values.git.token | quote }}
-  GIT_REPOSITORY: {{ .Values.git.repository | quote }}
-  GIT_BRANCH: {{ .Values.git.branch | quote }}
+  GIT_REPOSITORY: {{ $repository | quote }}
+  GIT_BRANCH: {{ $branch | quote }}
+  {{- /* git.providers of the Onyxia context and the repositories to clone, as JSON */}}
+  GIT_PROVIDERS: {{ default list .Values.git.providers | toJson | quote }}
+  GIT_REPOSITORIES: {{ $repositories | toJson | quote }}
 {{- end }}
 {{- end }}
 
