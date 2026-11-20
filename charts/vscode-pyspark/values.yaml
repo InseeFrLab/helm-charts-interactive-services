@@ -100,6 +100,8 @@ git:
   token: ""
   repository: ""
   branch: ""
+  providers: []
+  repositories: []
   asCodeServerRoot: false
 
 proxy:

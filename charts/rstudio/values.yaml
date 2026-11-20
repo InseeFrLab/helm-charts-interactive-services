@@ -74,6 +74,8 @@ git:
   token: ""
   repository: ""
   branch: ""
+  providers: []
+  repositories: []
 
 repository:
   configMapName: ""
