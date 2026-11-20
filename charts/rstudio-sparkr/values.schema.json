@@ -571,6 +571,83 @@
             "path": "enabled",
             "isPathRelative": true
           }
+        },
+        "providers": {
+          "description": "The connected Git providers (identity and credentials), filled by Onyxia",
+          "type": "array",
+          "default": [],
+          "hidden": true,
+          "x-onyxia": {
+            "overwriteDefaultWith": "{{git.providers}}"
+          },
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "id": {
+                "type": "string",
+                "default": ""
+              },
+              "url": {
+                "type": "string",
+                "default": ""
+              },
+              "user": {
+                "type": "object",
+                "default": {},
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              },
+              "credentials": {
+                "type": "object",
+                "default": {},
+                "additionalProperties": true,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "repositories": {
+          "title": "Repositories",
+          "description": "Cloned in the service, take over from the project repository",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "render": "gitRepository",
+            "properties": {
+              "providerId": {
+                "type": "string",
+                "default": ""
+              },
+              "url": {
+                "type": "string",
+                "default": ""
+              },
+              "branch": {
+                "type": "string",
+                "default": ""
+              }
+            }
+          },
+          "hidden": {
+            "value": false,
+            "path": "enabled",
+            "isPathRelative": true
+          }
         }
       }
     },

@@ -69,6 +69,8 @@ git:
   email: ""
   cache: ""
   branch: ""
+  providers: []
+  repositories: []
   asCodeServerRoot: false
 
 repository:
