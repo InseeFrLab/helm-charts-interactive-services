@@ -24233,6 +24233,28 @@ entries:
     version: 1.3.11
   marimo-python:
   - apiVersion: v2
+    created: "2026-11-22T14:53:32.371420044Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.1.10
+    description: Marimo reactive Python notebook with Python, and a collection of
+      standard data science packages
+    digest: 05f82d27ab4310d50b4ba3203fdf17125fe947edeefeee240b75730e27ee98c1
+    home: https://marimo.io/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/marimo.png
+    keywords:
+    - Marimo
+    - Python
+    name: marimo-python
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/marimo-python-0.1.4/marimo-python-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2026-10-23T07:02:31.51661307Z"
     dependencies:
     - name: library-chart
@@ -24321,6 +24343,27 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/marimo-python-0.1.0/marimo-python-0.1.0.tgz
     version: 0.1.0
   rstudio:
+  - apiVersion: v2
+    created: "2026-11-22T14:53:32.554560469Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.1.10
+    description: The RStudio IDE with a collection of standard data science packages.
+    digest: 6ec1b381f874aa27a698ae05a9ccb3a75c2a5c5969383337d5edc921cf15d4d0
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-2.5.11/rstudio-2.5.11.tgz
+    version: 2.5.11
   - apiVersion: v2
     created: "2026-10-23T07:02:31.664508051Z"
     dependencies:
@@ -26716,6 +26759,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-1.11.3/rstudio-1.11.3.tgz
     version: 1.11.3
   rstudio-gpu:
+  - apiVersion: v2
+    created: "2026-11-22T14:53:32.723494284Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.1.10
+    description: The RStudio IDE with a collection of standard data science packages,
+      with GPU support.
+    digest: ef2485b981c2c70c4cd80f838925f6d4fb60ef0157abdb91c9f2e7b98301010a
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio-gpu
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-gpu-2.5.11/rstudio-gpu-2.5.11.tgz
+    version: 2.5.11
   - apiVersion: v2
     created: "2026-10-23T07:02:31.779616077Z"
     dependencies:
@@ -29225,6 +29290,28 @@ entries:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-gpu-1.11.3/rstudio-gpu-1.11.3.tgz
     version: 1.11.3
   rstudio-r-python-julia:
+  - apiVersion: v2
+    created: "2026-11-22T14:53:32.886278133Z"
+    dependencies:
+    - name: library-chart
+      repository: https://inseefrlab.github.io/helm-charts-interactive-services
+      version: 2.1.10
+    description: The RStudio IDE with Python, R, Julia, and a collection of standard
+      data science packages
+    digest: 0eaa158b67c04c451268883d70538b722e8512810de7af51b6871c3cfc0bd4cc
+    home: https://www.rstudio.com/
+    icon: https://minio.lab.sspcloud.fr/projet-onyxia/assets/servicesImg/rstudio.png
+    keywords:
+    - RStudio
+    - R
+    name: rstudio-r-python-julia
+    sources:
+    - https://github.com/InseeFrLab/images-datascience
+    - https://github.com/InseeFrLab/helm-charts-interactive-services
+    type: application
+    urls:
+    - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/rstudio-r-python-julia-2.5.11/rstudio-r-python-julia-2.5.11.tgz
+    version: 2.5.11
   - apiVersion: v2
     created: "2026-10-23T07:02:31.911018715Z"
     dependencies:
@@ -57703,4 +57790,4 @@ entries:
     urls:
     - https://github.com/InseeFrLab/helm-charts-interactive-services/releases/download/vscode-tensorflow-gpu-1.8.6/vscode-tensorflow-gpu-1.8.6.tgz
     version: 1.8.6
-generated: "2026-11-22T14:48:21.720833045Z"
+generated: "2026-11-22T14:53:32.889615121Z"
