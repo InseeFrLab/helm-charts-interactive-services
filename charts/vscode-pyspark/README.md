@@ -1,6 +1,6 @@
 # vscode-pyspark
 
-![Version: 3.2.7](https://img.shields.io/badge/Version-3.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 3.2.8](https://img.shields.io/badge/Version-3.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from Python.
 
@@ -128,9 +128,9 @@ The Visual Studio Code IDE with PySpark, an interface to use Apache Spark from P
 | security.password | string | `"changeme"` |  |
 | securityContext | object | `{}` |  |
 | service.image.custom.enabled | bool | `false` |  |
-| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.15-spark4.1.1"` |  |
+| service.image.custom.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.14.7-spark4.3.0"` |  |
 | service.image.pullPolicy | string | `"IfNotPresent"` |  |
-| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.13.15-spark4.1.1"` |  |
+| service.image.version | string | `"inseefrlab/onyxia-vscode-pyspark:py3.14.7-spark4.3.0"` |  |
 | service.initContainer.image | string | `"inseefrlab/onyxia-base:latest"` |  |
 | service.initContainer.pullPolicy | string | `"IfNotPresent"` |  |
 | serviceAccount.annotations | object | `{}` |  |
