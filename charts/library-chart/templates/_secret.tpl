@@ -135,8 +135,9 @@ stringData:
   GIT_PERSONAL_ACCESS_TOKEN: {{ .Values.git.token | quote }}
   GIT_REPOSITORY: {{ $repository | quote }}
   GIT_BRANCH: {{ $branch | quote }}
-  {{- /* git.providers of the Onyxia context and the repositories to clone, as JSON */}}
-  GIT_PROVIDERS: {{ default list .Values.git.providers | toJson | quote }}
+  {{- /* git.forges of the Onyxia context and the repositories to clone, as JSON. The
+         variable keeps the name the images read: GIT_PROVIDERS */}}
+  GIT_PROVIDERS: {{ default list .Values.git.forges | toJson | quote }}
   GIT_REPOSITORIES: {{ $repositories | toJson | quote }}
 {{- end }}
 {{- end }}
