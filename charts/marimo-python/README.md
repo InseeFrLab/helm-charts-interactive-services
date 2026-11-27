@@ -1,6 +1,6 @@
 # marimo-python
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Marimo reactive Python notebook with Python, and a collection of standard data science packages
 
@@ -15,7 +15,7 @@ Marimo reactive Python notebook with Python, and a collection of standard data s
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.1.11 |
+| https://inseefrlab.github.io/helm-charts-interactive-services | library-chart | 2.1.12 |
 
 ## Values
 
